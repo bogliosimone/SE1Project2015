@@ -1,5 +1,10 @@
 package it.polimi.ingsw.bogliobresich;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -10,6 +15,7 @@ import junit.framework.TestSuite;
 public class AppTest 
     extends TestCase
 {
+	
     /**
      * Create the test case
      *
@@ -35,4 +41,26 @@ public class AppTest
     {
         assertTrue( true );
     }
+    
+    
+    
+	@BeforeClass
+	public static void begin(){
+		//System.out.println("Begin");
+	}
+	
+	@Before
+	public void prepare(){
+		//System.out.println("Prepare");
+	}
+	
+	@After
+	public void finalize(){
+		//System.out.println("Finalize");
+	}
+	
+	@AfterClass
+	public static void end(){
+		//System.out.println("End");
+	}
 }
