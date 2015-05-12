@@ -11,6 +11,7 @@ public class App
         System.out.println( "Hello" );
         System.out.println("Prova di update");
         ciao();
+        ciao();
     }
     public static void ciao(){
     	int a=0;
