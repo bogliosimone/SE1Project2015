@@ -10,6 +10,8 @@ public class App
     {
         System.out.println( "Hello" );
         System.out.println("Prova di update");
+        int a = 0;
+        ciao();
         ciao();
     }
     public static void ciao(){
