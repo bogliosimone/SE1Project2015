@@ -13,6 +13,7 @@ public class App
         int a = 0;
         ciao();
         ciao();
+        ciao();
     }
     public static void ciao(){
     	int a=0;
