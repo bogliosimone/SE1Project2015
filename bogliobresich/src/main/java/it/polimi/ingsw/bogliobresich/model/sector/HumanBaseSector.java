@@ -7,9 +7,6 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  * @author simoneboglio
  *
  */
-public class DisableSector extends Sector {
-	
-	public DisableSector(){
-		crossable=false;
-	}
+public class HumanBaseSector extends BaseSector {
+	protected boolean crossable = false;
 }

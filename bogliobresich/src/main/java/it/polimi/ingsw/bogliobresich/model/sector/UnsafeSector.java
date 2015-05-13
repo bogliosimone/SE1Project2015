@@ -8,5 +8,5 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class UnsafeSector extends Sector {
-
+	protected boolean crossable = true;
 }
