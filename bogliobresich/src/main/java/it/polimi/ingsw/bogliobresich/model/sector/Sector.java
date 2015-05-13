@@ -11,11 +11,11 @@ import it.polimi.ingsw.bogliobresich.model.Coordinate;
  */
 
 public abstract class Sector {
-	protected boolean crossable;
+	protected boolean crossable = false;
 	protected Coordinate coordinate;
 	
-	public Sector(){
-		this.crossable = false;
+	public Sector(char letter, int number){
+		this.coordinate = new Coordinate (letter,number);
 	}
 	
 	/**

@@ -8,7 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  */
 public class PortholeSector extends Sector {
 	
-	public PortholeSector(){
+	public PortholeSector(char letter, int number){
+		super(letter,number);
 		this.crossable=true;
 	}
 	/**

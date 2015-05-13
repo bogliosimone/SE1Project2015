@@ -8,7 +8,9 @@ public class AlienBaseSectorTest {
 
 	@Test
 	public void testIsCrossable() {
-		Sector sec = new AlienBaseSector();
+		int number=0;
+		char letter='b';
+		Sector sec = new AlienBaseSector(letter,number);
 		assertFalse(sec.isCrossable());
 	}
 

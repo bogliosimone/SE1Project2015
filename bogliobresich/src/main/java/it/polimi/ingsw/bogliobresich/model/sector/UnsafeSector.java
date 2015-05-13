@@ -8,7 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class UnsafeSector extends Sector {
-	public UnsafeSector(){
+	public UnsafeSector(char letter,int number){
+		super(letter,number);
 		this.crossable = true;
 	}
 }

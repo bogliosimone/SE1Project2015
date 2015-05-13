@@ -8,7 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class HumanBaseSector extends BaseSector {
-	public HumanBaseSector(){
+	public HumanBaseSector(char letter,int number){
+		super(letter,number);
 		this.crossable = false;
 	}
 }

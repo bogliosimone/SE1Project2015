@@ -8,7 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public abstract class BaseSector extends Sector {
-	public BaseSector(){
+	public BaseSector(char letter, int number){
+		super(letter,number);
 		this.crossable = false;
 	}
 }

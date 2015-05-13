@@ -9,7 +9,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class SafeSector extends Sector {
-	public SafeSector(){
+	public SafeSector(char letter, int number){
+		super(letter,number);
 		this.crossable = true;
 	}
 }

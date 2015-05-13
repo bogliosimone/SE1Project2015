@@ -9,7 +9,8 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  */
 public class DisableSector extends Sector {
 	
-	public DisableSector(){
+	public DisableSector(char letter, int number){
+		super(letter,number);
 		this.crossable = false;
 	}
 }
