@@ -40,7 +40,7 @@ public class Player {
 	}
 	
 	/**
-	 * Return if the player is alive
+	 * Return true if the player is alive
 	 * 
 	 */
 	public boolean isAlive() {
