@@ -8,5 +8,7 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class HumanBaseSector extends BaseSector {
-	protected boolean crossable = false;
+	public HumanBaseSector(){
+		this.crossable = false;
+	}
 }

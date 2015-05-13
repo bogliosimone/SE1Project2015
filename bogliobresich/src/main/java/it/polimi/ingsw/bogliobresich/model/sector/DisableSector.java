@@ -10,6 +10,6 @@ package it.polimi.ingsw.bogliobresich.model.sector;
 public class DisableSector extends Sector {
 	
 	public DisableSector(){
-		crossable=false;
+		this.crossable = false;
 	}
 }

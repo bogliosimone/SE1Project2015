@@ -8,6 +8,9 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  */
 public class PortholeSector extends Sector {
 	
+	public PortholeSector(){
+		this.crossable=true;
+	}
 	/**
 	 * @param crossable
 	 */

@@ -8,5 +8,7 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public abstract class BaseSector extends Sector {
-
+	public BaseSector(){
+		this.crossable = false;
+	}
 }
