@@ -5,14 +5,15 @@ package it.polimi.ingsw.bogliobresich.model.cards;
 
 /**
  * @author Matteo
+ * 
  *
  */
-public class ObjectCard extends Card {
+public class ItemCard extends Card {
 
 	/**
 	 * 
 	 */
-	public ObjectCard() {
+	public ItemCard() {
 		// TODO Auto-generated constructor stub
 	}
 
