@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model;
+package it.polimi.ingsw.bogliobresich.model.sector;
 
 /**
  * @author simoneboglio
