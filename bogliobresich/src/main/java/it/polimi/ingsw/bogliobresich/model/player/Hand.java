@@ -25,6 +25,11 @@ public class Hand {
         cards = new ArrayList<Card>();
     }
 
+    public Hand(int NumberOfCards) {
+        maximumNumberOfCards = NumberOfCards;
+        cards = new ArrayList<Card>();
+    }
+
     /**	
      * Return true if the hand is full
      */
@@ -33,41 +38,44 @@ public class Hand {
             return true;
         return false;
     }
-    
+
     /** 
      * Return true if the hand is empty
      */
     public boolean isEmpty() {
-        if(cards.size() == 0)
-            return true;
-        return false;
+        return cards.isEmpty();
     }
 
     /**
-     * Add a card in the hand. Return false if the hand is full.
+     * Add a card in the hand if is not full. Return false if the hand is full.
      */
     public boolean addCard(Card c) {
-        return cards.add(c);
+        if (!this.isFull())
+            return cards.add(c);
+        return false;
     }
 
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean removeCard(Card c) {
-        return cards.remove(c);//TODO controllare che la remove rimuova lo stesso tipo e non lo stesso oggetto
+        return cards.remove(c); //TODO ERRATO!
     }
 
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean searchCard(Card c) {
-        return cards.contains(c);//TODO controllare se cerca lo stesso tipo e non lo stesso oggetto
+        return cards.contains(c); //TODO ERRATO!
     }
 
     /**
-     * 
+     * Return all the cards in the hand
      */
-    //public Card[] list(Card c) {} TODO
-
-
+    public Card[] list() {
+        Card card[] = new Card[cards.size()];
+        for (int i = 0; i < cards.size(); i++)
+            card[i] = this.cards.get(i);
+        return card;
+    }
 }
