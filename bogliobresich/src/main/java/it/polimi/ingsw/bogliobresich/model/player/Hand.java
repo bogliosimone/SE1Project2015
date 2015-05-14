@@ -34,7 +34,7 @@ public class Hand {
      * Return true if the hand is full
      */
     public boolean isFull() {
-        if(cards.size() > this.maximumNumberOfCards)
+        if(cards.size() >= this.maximumNumberOfCards)
             return true;
         return false;
     }
@@ -59,14 +59,14 @@ public class Hand {
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean removeCard(Card c) {
-        return cards.remove(c); //TODO ERRATO!
+        return cards.remove(c);
     }
 
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean searchCard(Card c) {
-        return cards.contains(c); //TODO ERRATO!
+        return cards.contains(c); //TODO
     }
 
     /**
@@ -78,4 +78,11 @@ public class Hand {
             card[i] = this.cards.get(i);
         return card;
     }
+
+    @Override
+    public String toString() {
+        return "Hand [cards=" + cards + "]";
+    }
+    
+    
 }

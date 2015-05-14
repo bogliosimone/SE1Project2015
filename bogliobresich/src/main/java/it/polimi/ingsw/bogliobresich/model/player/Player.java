@@ -13,6 +13,21 @@ public class Player {
     private boolean connected;
     private boolean life;
     private boolean turnEnabled;
+    private String nickName;
+
+    /**
+     * @return the nickName
+     */
+    public String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * @param nickName the nickName to set
+     */
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     /**
      * Class constructor.
