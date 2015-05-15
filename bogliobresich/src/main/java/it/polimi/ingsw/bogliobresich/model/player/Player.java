@@ -14,6 +14,15 @@ public class Player {
     private boolean life;
     private boolean turnEnabled;
     private String nickName;
+    
+    /**
+     * Class constructor.
+     */
+    public Player() {
+        connected = false;
+        life = true;
+        turnEnabled = false;
+    }
 
     /**
      * @return the nickName
@@ -27,15 +36,6 @@ public class Player {
      */
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    /**
-     * Class constructor.
-     */
-    public Player() {
-        connected = false;
-        life = true;
-        turnEnabled = false;
     }
 
     /**
