@@ -1,7 +1,9 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.cards;
+package it.polimi.ingsw.bogliobresich.model.deck;
+
+import it.polimi.ingsw.bogliobresich.model.cards.Card;
 
 import java.util.ArrayList;
 
