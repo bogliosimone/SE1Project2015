@@ -3,21 +3,21 @@
  */
 package it.polimi.ingsw.bogliobresich.model.deck;
 
+
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 
 import java.util.ArrayList;
 
+
 /**
- * @author Matteo
+ * @author matteobresich
  *
  */
-public class Deck {
+public abstract class Deck {
     
     private ArrayList<Card> stackOfCards = new ArrayList<Card>();
     
-    public Deck() {
-        
-    }
+    public abstract void shuffle();
     
     /**
      * Add a card to the deck 
@@ -32,12 +32,4 @@ public class Deck {
     public Card drawCard() {
         return stackOfCards.remove(stackOfCards.size()-1);
     }
-    
-    /**
-     *
-     **/ 
-    public void shuffle() {
-        //TODO
-    }
-
 }
