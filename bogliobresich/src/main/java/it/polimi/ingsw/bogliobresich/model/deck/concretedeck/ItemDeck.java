@@ -10,6 +10,10 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class ItemDeck extends Deck {
+	
+	public ItemDeck() {
+		// TODO Auto-generated method stub
+	}
 
 	/* (non-Javadoc)
 	 * @see test.Deck#shuffle()

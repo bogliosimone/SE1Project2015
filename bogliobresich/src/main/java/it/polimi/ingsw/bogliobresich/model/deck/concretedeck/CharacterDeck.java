@@ -12,6 +12,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 public class CharacterDeck extends Deck {
 	
 	public CharacterDeck() {
+		// TODO Auto-generated method stub
 		System.out.println("Costruttore");
 	}
 

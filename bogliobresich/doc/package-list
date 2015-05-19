@@ -1,1 +1,7 @@
+it.polimi.ingsw.bogliobresich
+it.polimi.ingsw.bogliobresich.model
 it.polimi.ingsw.bogliobresich.model.cards
+it.polimi.ingsw.bogliobresich.model.deck
+it.polimi.ingsw.bogliobresich.model.deck.concretedeck
+it.polimi.ingsw.bogliobresich.model.player
+it.polimi.ingsw.bogliobresich.model.sector
