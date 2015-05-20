@@ -26,7 +26,6 @@ public abstract class Deck {
 		stackOfCards.add(c);
 	}
 
-
 	/**
 	 * 
 	 * @return Return true if the stack of cards is empty
@@ -41,4 +40,11 @@ public abstract class Deck {
 	public Card drawCard() {
 		return stackOfCards.remove(stackOfCards.size()-1);
 	}
+
+	@Override
+    public String toString() {
+	    return "Deck [stackOfCards=" + stackOfCards + "]";
+    }
+	
+	
 }
