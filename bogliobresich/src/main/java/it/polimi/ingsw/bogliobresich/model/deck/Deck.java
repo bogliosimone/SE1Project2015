@@ -50,10 +50,8 @@ public abstract class Deck {
 	}
 	
 	public void showCards() {
-		System.out.println("\n\n Showing Cards !!!");
-        int i=1;
         for(Card c:stackOfCards) {
-            System.out.println("Card "+c);
+            System.out.println("Card "+c.toString());
         }
 	}
 
