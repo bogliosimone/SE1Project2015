@@ -17,4 +17,8 @@ public class ItemCard extends Card {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+    public String toString() {
+	    return "ItemCard []";
+    }
 }
