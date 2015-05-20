@@ -8,8 +8,12 @@ package it.polimi.ingsw.bogliobresich.model.sector;
  *
  */
 public class AlienBaseSector extends BaseSector {
-	public AlienBaseSector (char letter, int number){
-		super(letter,number);
-	}
-	
+    public AlienBaseSector (char letter, int number){
+        super(letter,number);
+    }
+
+    public AlienBaseSector (int x, int y){
+        super(x,y);
+    }
+
 }

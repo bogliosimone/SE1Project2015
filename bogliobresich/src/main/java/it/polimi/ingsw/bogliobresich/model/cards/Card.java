@@ -8,5 +8,4 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public abstract class Card {
-
 }
