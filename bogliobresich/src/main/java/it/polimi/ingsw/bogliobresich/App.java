@@ -17,7 +17,11 @@ public class App
 		Deck characterDeck = factory.createCharacterDeck();
 		Deck itemDeck = factory.createItemDeck();
 		
-		itemDeck.shuffle();
+		characterDeck.showCards();
+			
+		//itemDeck.shuffle();
 		characterDeck.shuffle();
+		
+		characterDeck.showCards();
     }
 }

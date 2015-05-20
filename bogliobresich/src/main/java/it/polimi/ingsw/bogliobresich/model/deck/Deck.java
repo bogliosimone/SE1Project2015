@@ -17,7 +17,15 @@ public abstract class Deck {
 
 	private ArrayList<Card> stackOfCards = new ArrayList<Card>();
 
-	public abstract void shuffle();
+	public void shuffle() {
+		ArrayList<Card> temp = new ArrayList<Card>();
+		while(!isStackOfCardEmpty()) {
+			int loc=(int)(Math.random()*stackOfCards.size());
+			temp.add(stackOfCards.get(loc));
+			stackOfCards.remove(loc);
+		}
+		stackOfCards = temp;	
+	}
 
 	/**
 	 * Add a card to the deck 
@@ -39,6 +47,14 @@ public abstract class Deck {
 	 * @return Card drawn*/ 
 	public Card drawCard() {
 		return stackOfCards.remove(stackOfCards.size()-1);
+	}
+	
+	public void showCards() {
+		System.out.println("\n\n Showing Cards !!!");
+        int i=1;
+        for(Card c:stackOfCards) {
+            System.out.println("Card "+c);
+        }
 	}
 
 	@Override
