@@ -14,20 +14,13 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  */
 public class CharacterDeck extends Deck {
 	
-	public CharacterDeck() {
-		System.out.println("Costruttore");
-		for(Character characterCards : Character.values()) {
-			Card card = new CharacterCard();
-			super.addCard(card);
-		}
-			
-	}
-
-	/* (non-Javadoc)
-	 * @see model.deck.Deck#shuffle()
+	/**
+	 * Class constructor
 	 */
-	@Override
-	public void shuffle() {
-		super.shuffle();
+	public CharacterDeck() {
+		for(Character characterCards : Character.values()) {
+			Card card = new CharacterCard(characterCards);
+			super.addCard(card);
+		}		
 	}
 }

@@ -3,6 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
+import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 
 /**
@@ -10,18 +12,14 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class ItemDeck extends Deck {
-	
-	public ItemDeck() {
-		// TODO Auto-generated method stub
-	}
 
-	/* (non-Javadoc)
-	 * @see test.Deck#shuffle()
+	/**
+	 * Class contructor
 	 */
-	@Override
-	public void shuffle() {
-		// TODO Auto-generated method stub
-		System.out.println("Shuffle di Item");
+	public ItemDeck() {
+		for (int i = 0; i < 12; i++) {
+			Card card = new ItemCard();
+			super.addCard(card);
+		}
 	}
-
 }

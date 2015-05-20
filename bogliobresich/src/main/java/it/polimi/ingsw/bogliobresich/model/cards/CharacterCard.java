@@ -8,12 +8,18 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public class CharacterCard extends Card {
+	String name;
 
 	/**
-	 * 
+	 * Class constructor
+	 * @param character
 	 */
-	public CharacterCard() {
-		// TODO Auto-generated constructor stub
+	public CharacterCard(Character character) {
+        this.name = character.getCharacterName();
 	}
 
+	@Override
+	public String toString() {
+		return "CharacterCard [name=" + name + "]";
+	}
 }

@@ -35,8 +35,8 @@ public abstract class Deck {
 	}
 
 	/**
-	 * 
-	 * @return Return true if the stack of cards is empty
+	 * Return if the stack of cards is empty
+	 * @return Return true if the stack is empty
 	 */
 	public boolean isStackOfCardEmpty() {
 		return stackOfCards.isEmpty();
@@ -50,10 +50,9 @@ public abstract class Deck {
 	}
 	
 	public void showCards() {
-		System.out.println("\n\n Showing Cards !!!");
-        int i=1;
+		System.out.println("Show Cards:");
         for(Card c:stackOfCards) {
-            System.out.println("Card "+c);
+            System.out.println("Card "+c.toString());
         }
 	}
 

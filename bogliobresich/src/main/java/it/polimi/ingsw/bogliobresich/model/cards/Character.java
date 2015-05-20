@@ -19,8 +19,12 @@ public enum Character {
     
     private String name;
     
-    private Character(String name) {
+    Character(String name) {
         this.name = name;
+    }
+    
+    public String getCharacterName() {
+    	return this.name;	
     }
 
 }
