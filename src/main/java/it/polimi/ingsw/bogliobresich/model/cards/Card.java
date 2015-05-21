@@ -8,8 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public abstract class Card {
-	@Override
+    @Override
     public String toString() {
-	    return "Card";
+        return "Card";
     }
 }

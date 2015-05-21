@@ -24,7 +24,7 @@ public enum Character {
     }
     
     public String getCharacterName() {
-    	return this.name;	
+        return this.name;
     }
 
 }
