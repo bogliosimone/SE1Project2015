@@ -14,27 +14,27 @@ import it.polimi.ingsw.bogliobresich.model.deck.concretedeck.SectorDeck;
  */
 public class MyDeckFactory extends DeckFactory {
 
-	/* (non-Javadoc)
-	 * @see test.DeckFactory#createItemDeck()
-	 */
-	@Override
-	public Deck createItemDeck() {
-		return new ItemDeck();
-	}
+    /* (non-Javadoc)
+     * @see test.DeckFactory#createItemDeck()
+     */
+    @Override
+    public Deck createItemDeck() {
+        return new ItemDeck();
+    }
 
-	@Override
+    @Override
     public Deck createCharacterDeck() {
-	    return new CharacterDeck();
+        return new CharacterDeck();
     }
-	
-	@Override
+
+    @Override
     public Deck createPortholeDeck() {
-	    return new PortholeDeck();
+        return new PortholeDeck();
     }
-	
-	@Override
+    
+    @Override
     public Deck createSectorDeck() {
-	    return new SectorDeck();
+        return new SectorDeck();
     }
 
 }

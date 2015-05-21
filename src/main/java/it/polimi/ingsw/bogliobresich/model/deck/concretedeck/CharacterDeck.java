@@ -21,6 +21,6 @@ public class CharacterDeck extends Deck {
 		for(Character characterCards : Character.values()) {
 			Card card = new CharacterCard(characterCards);
 			super.addCard(card);
-		}		
+		}
 	}
 }
