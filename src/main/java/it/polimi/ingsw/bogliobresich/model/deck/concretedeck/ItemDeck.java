@@ -14,7 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 public class ItemDeck extends Deck {
 
 	/**
-	 * Class contructor
+	 * Class constructor
 	 */
 	public ItemDeck() {
 		for (int i = 0; i < 12; i++) {
