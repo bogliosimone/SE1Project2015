@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.PortholeCard;
+import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 
 /**
@@ -16,7 +17,7 @@ public class PortholeDeck extends Deck {
 	 * Class constructor
 	 */
 	public PortholeDeck() {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
 			Card card = new PortholeCard();
 			super.addCard(card);
 		}
