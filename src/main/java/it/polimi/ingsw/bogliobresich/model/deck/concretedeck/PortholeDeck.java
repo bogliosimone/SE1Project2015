@@ -17,8 +17,15 @@ public class PortholeDeck extends Deck {
      * Class constructor
      */
     public PortholeDeck() {
+        Card card;
         for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
-            Card card = new PortholeCard();
+            
+            if(i%2 == 0) {
+                card = new PortholeCard("works");
+            }
+            else {
+                card = new PortholeCard("broken");
+            }
             super.addCard(card);
         }
     }

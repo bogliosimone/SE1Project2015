@@ -4,8 +4,8 @@
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
-import it.polimi.ingsw.bogliobresich.model.cards.Character;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
+import it.polimi.ingsw.bogliobresich.model.cards.enums.Character;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 
 /**

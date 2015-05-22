@@ -8,8 +8,8 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public final class ConstantsCard {
-    static final String ALIEN = "Alien";
-    static final String HUMAN = "Human"; 
+    public static final String ALIEN = "Alien";
+    public static final String HUMAN = "Human"; 
     
     private ConstantsCard() {
         //not called

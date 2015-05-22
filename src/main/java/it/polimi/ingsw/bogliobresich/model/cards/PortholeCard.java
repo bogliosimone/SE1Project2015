@@ -8,17 +8,18 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public class PortholeCard extends Card {
+    final private String type;
 
     /**
      * Class constructor
      */
-    public PortholeCard() {
-        
+    public PortholeCard(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return "PortholeCard []";
+        return "PortholeCard [" + type +"]";
     }
     
 

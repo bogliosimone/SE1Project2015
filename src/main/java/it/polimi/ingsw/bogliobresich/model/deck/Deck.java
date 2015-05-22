@@ -30,7 +30,7 @@ public abstract class Deck {
     /**
      * Add a card to the deck 
      * @param c Card: Card to add in the deck*/
-    public void addCard(Card c) {
+    protected void addCard(Card c) {
         stackOfCards.add(c);
     }
 
