@@ -25,8 +25,8 @@ public class Hand {
         cards = new ArrayList<Card>();
     }
 
-    public Hand(int NumberOfCards) {
-        maximumNumberOfCards = NumberOfCards;
+    public Hand(int numberOfCards) {
+        maximumNumberOfCards = numberOfCards;
         cards = new ArrayList<Card>();
     }
 
@@ -34,8 +34,9 @@ public class Hand {
      * Return true if the hand is full
      */
     public boolean isFull() {
-        if(cards.size() >= this.maximumNumberOfCards)
+        if(cards.size() >= this.maximumNumberOfCards) {
             return true;
+        }
         return false;
     }
 
@@ -50,8 +51,9 @@ public class Hand {
      * Add a card in the hand if is not full. Return false if the hand is full.
      */
     public boolean addCard(Card c) {
-        if (!this.isFull())
+        if (!this.isFull()) {
             return cards.add(c);
+        }
         return false;
     }
 
@@ -73,9 +75,10 @@ public class Hand {
      * Return all the cards in the hand
      */
     public Card[] list() {
-        Card card[] = new Card[cards.size()];
-        for (int i = 0; i < cards.size(); i++)
+        Card [] card = new Card[cards.size()];
+        for (int i = 0; i < cards.size(); i++) {
             card[i] = this.cards.get(i);
+        }
         return card;
     }
 

@@ -14,13 +14,13 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  */
 public class ItemDeck extends Deck {
 
-	/**
-	 * Class constructor
-	 */
-	public ItemDeck() {
-		for (int i = 0; i < ConstantsDeck.NITEMCARD; i++) {
-			Card card = new ItemCard();
-			super.addCard(card);
-		}
-	}
+    /**
+     * Class constructor
+     */
+    public ItemDeck() {
+        for (int i = 0; i < ConstantsDeck.NITEMCARD; i++) {
+            Card card = new ItemCard();
+            super.addCard(card);
+        }
+    }
 }

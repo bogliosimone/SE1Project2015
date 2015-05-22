@@ -13,14 +13,14 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class PortholeDeck extends Deck {
-	/**
-	 * Class constructor
-	 */
-	public PortholeDeck() {
-		for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
-			Card card = new PortholeCard();
-			super.addCard(card);
-		}
-	}
+    /**
+     * Class constructor
+     */
+    public PortholeDeck() {
+        for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
+            Card card = new PortholeCard();
+            super.addCard(card);
+        }
+    }
 
 }

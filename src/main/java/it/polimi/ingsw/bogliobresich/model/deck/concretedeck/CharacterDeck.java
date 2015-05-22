@@ -13,14 +13,14 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class CharacterDeck extends Deck {
-	
-	/**
-	 * Class constructor
-	 */
-	public CharacterDeck() {
-		for(Character characterCards : Character.values()) {
-			Card card = new CharacterCard(characterCards);
-			super.addCard(card);
-		}
-	}
+
+    /**
+     * Class constructor
+     */
+    public CharacterDeck() {
+        for(Character characterCards : Character.values()) {
+            Card card = new CharacterCard(characterCards);
+            super.addCard(card);
+        }
+    }
 }
