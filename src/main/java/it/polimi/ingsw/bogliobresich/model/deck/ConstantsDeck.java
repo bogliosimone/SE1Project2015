@@ -9,9 +9,15 @@ import it.polimi.ingsw.bogliobresich.model.cards.Character;
  * @author matteobresich
  *
  */
-public class ConstantsDeck {
-	public final static int NCHARACTERCARD = Character.values().length; //Character contains all characters of the game
-	public final static int NPORTHOLECARD = 6;
-	public final static int NSECTORCARD = 25;
-	public final static int NITEMCARD = 12;
+public final class ConstantsDeck {
+    //Character contains all characters of the game
+    public static final int NCHARACTERCARD = Character.values().length;
+    public static final int NPORTHOLECARD = 6;
+    public static final int NSECTORCARD = 25;
+    public static final int NITEMCARD = 12;
+    
+    private ConstantsDeck() {
+        //not called
+    }
+    
 }
