@@ -23,7 +23,7 @@ public abstract class Deck {
             int loc=(int)(Math.random()*stackOfCards.size());
             temp.add(stackOfCards.get(loc));
             stackOfCards.remove(loc);
-            }
+        }
         stackOfCards = temp;
     }
 
@@ -59,5 +59,5 @@ public abstract class Deck {
     public String toString() {
         return "Deck [stackOfCards=" + stackOfCards + "]";
     }
-    
+
 }
