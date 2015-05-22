@@ -5,20 +5,20 @@ package it.polimi.ingsw.bogliobresich.model.cards;
 
 /**
  * @author Matteo
- * 
  *
  */
 public class ItemCard extends Card {
 
-	/**
-	 * 
-	 */
-	public ItemCard() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-    public String toString() {
-	    return "ItemCard []";
+    /**
+     * Class constructor
+     */
+    public ItemCard() {
+        
     }
+
+    @Override
+    public String toString() {
+        return "ItemCard []";
+    }
+    
 }

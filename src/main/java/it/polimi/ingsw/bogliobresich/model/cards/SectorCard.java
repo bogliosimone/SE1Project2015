@@ -9,11 +9,18 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  */
 public class SectorCard extends Card {
 
-	/**
-	 * 
-	 */
-	public SectorCard() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Class constructor
+     */
+    public SectorCard() {
+        
+    }
+
+    @Override
+    public String toString() {
+        return "SectorCard []";
+    }
+    
+    
 
 }

@@ -9,11 +9,17 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  */
 public class PortholeCard extends Card {
 
-	/**
-	 * 
-	 */
-	public PortholeCard() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Class constructor
+     */
+    public PortholeCard() {
+        
+    }
+
+    @Override
+    public String toString() {
+        return "PortholeCard []";
+    }
+    
 
 }
