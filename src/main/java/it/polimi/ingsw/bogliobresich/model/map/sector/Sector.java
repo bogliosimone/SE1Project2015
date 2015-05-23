@@ -13,8 +13,8 @@ import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 public abstract class Sector {
     protected boolean crossable = false;
     protected final Coordinate coordinate;
-    protected final int maxValue = Integer.MAX_VALUE;
-    protected int distance = maxValue;
+    protected static final int MAXVALUE = Integer.MAX_VALUE;
+    protected int distance = MAXVALUE;
 
     public Sector(char letter, int number){
         this.coordinate = new Coordinate (letter,number);
@@ -51,7 +51,7 @@ public abstract class Sector {
     }
 
     public void resetDistance(){
-        this.distance= maxValue;
+        this.distance= MAXVALUE;
     }
 
     public void setDistance(int distance){
@@ -64,7 +64,7 @@ public abstract class Sector {
     
     @Override
     public String toString(){
-        return new String (this.coordinate.toString()+" Crossable = "+this.crossable + " Distance = "+this.distance);
+        return new String (this.coordinate.toString()+" Crossable = "+this.crossable );
     }
 
 }

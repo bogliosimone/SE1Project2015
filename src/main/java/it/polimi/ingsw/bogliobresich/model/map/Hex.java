@@ -118,7 +118,7 @@ public class Hex
     
     @Override
     public String toString(){
-        return new String("X="+Integer.toString(this.q)+" Y="+Integer.toString(this.r)+" Z="+Integer.toString(this.s));
+        return new String("Cube coordinate: X="+Integer.toString(this.q)+" Y="+Integer.toString(this.r)+" Z="+Integer.toString(this.s));
     }
 
 }
