@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.sector;
+package it.polimi.ingsw.bogliobresich.model.map.sector;
 
 /**
  * @author Matteo

@@ -1,9 +1,9 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.sector;
+package it.polimi.ingsw.bogliobresich.model.map.sector;
 
-import it.polimi.ingsw.bogliobresich.model.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
 /**
  * @author simoneboglio

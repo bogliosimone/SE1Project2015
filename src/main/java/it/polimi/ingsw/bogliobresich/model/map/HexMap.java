@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import it.polimi.ingsw.bogliobresich.model.sector.*;
+import it.polimi.ingsw.bogliobresich.model.map.sector.*;
 
 /**
  * @author simoneboglio
