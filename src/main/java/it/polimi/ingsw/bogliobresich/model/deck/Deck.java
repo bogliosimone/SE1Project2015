@@ -7,6 +7,7 @@ package it.polimi.ingsw.bogliobresich.model.deck;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -15,8 +16,14 @@ import java.util.ArrayList;
  */
 public abstract class Deck {
 
-    private ArrayList<Card> stackOfCards = new ArrayList<Card>();
+    //Cards that are in the deck
+    private List<Card> stackOfCards = new ArrayList<Card>();
+    //Cards discarded belonging to the deck
+    private List<Card> discardedCards = new ArrayList<Card>();
+    //Cards drawn out the deck belonging to the deck
+    private List<Card> drawnOutCards = new ArrayList<Card>();
 
+    
     public void shuffle() {
         ArrayList<Card> temp = new ArrayList<Card>();
         while(!isStackOfCardEmpty()) {
@@ -46,8 +53,12 @@ public abstract class Deck {
      * Draw a card from the deck
      * @return Card drawn*/ 
     public Card drawCard() {
-        return stackOfCards.remove(stackOfCards.size()-1);
+        Card c = stackOfCards.remove(stackOfCards.size()-1);
+        drawnOutCards.add(c);
+        return c;
     }
+    
+    
     public void showCards() {
         System.out.println("Show Cards:");
         for(Card c:stackOfCards) {

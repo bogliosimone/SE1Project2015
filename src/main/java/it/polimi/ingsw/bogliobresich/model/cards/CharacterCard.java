@@ -11,6 +11,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.enums.Character;
  */
 public class CharacterCard extends Card {
     private String name;
+    private int id;
 
     /**
      * Class constructor
