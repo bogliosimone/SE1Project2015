@@ -25,6 +25,9 @@ public abstract class Deck {
     private List<Card> drawnOutCards = new ArrayList<Card>();
 
     
+    /**
+     * Shuffle all the cards in the deck. Usually used when the deck is created. 
+     * */
     public void shuffle() {
         ArrayList<Card> temp = new ArrayList<Card>();
         while(!isStackOfCardEmpty()) {
@@ -34,7 +37,9 @@ public abstract class Deck {
         }
         stackOfCards = temp;
     }
-    
+    /**
+     * Shuffle all the cards in the deck.
+     * */
     public void reShuffle() {
         shuffle();
     }
@@ -47,7 +52,7 @@ public abstract class Deck {
     }
 
     /**
-     * Return if the stack of cards is empty
+     * Return if the stack of cards is empty.
      * @return Return true if the stack is empty
      */
     public boolean isStackOfCardEmpty() {
