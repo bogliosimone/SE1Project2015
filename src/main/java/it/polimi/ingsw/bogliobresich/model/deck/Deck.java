@@ -8,6 +8,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -32,6 +33,10 @@ public abstract class Deck {
             stackOfCards.remove(loc);
         }
         stackOfCards = temp;
+    }
+    
+    public void reShuffle() {
+        shuffle();
     }
 
     /**
@@ -58,13 +63,37 @@ public abstract class Deck {
         return c;
     }
     
+    /**
+     * Discard a card to the deck
+     * */ 
+    public void discardCard(Card card) {
+        int index = drawnOutCards.indexOf(card);
+        if (index == -1) {
+            throw new NoSuchElementException();
+        }
+        else {
+            drawnOutCards.remove(card);
+            discardedCards.add(card);
+        }
+        
+    }
+    
     
     public void showCards() {
-        System.out.println("Show Cards:");
+        System.out.println("Show stackOfCards:");
         for(Card c:stackOfCards) {
-            System.out.println("Card "+c.toString());
+            System.out.println("Card " + c.toString());
+        }
+        System.out.println("Show drawnOutCards:");
+        for(Card c1:drawnOutCards) {
+            System.out.println("Card " + c1.toString());
+        }
+        System.out.println("Show discardedCards:");
+        for(Card c2:discardedCards) {
+            System.out.println("Card " + c2.toString());
         }
     }
+    
 
     @Override
     public String toString() {
