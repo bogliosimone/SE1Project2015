@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.cards.enums;
+package it.polimi.ingsw.bogliobresich.model;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 

@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.deck;
 
-import it.polimi.ingsw.bogliobresich.model.cards.enums.Character;
+import it.polimi.ingsw.bogliobresich.model.Character;
 
 /**
  * @author matteobresich

@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
-import it.polimi.ingsw.bogliobresich.model.cards.enums.Character;
+import it.polimi.ingsw.bogliobresich.model.Character;
 
 /**
  * @author Matteo
@@ -11,7 +11,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.enums.Character;
  */
 public class CharacterCard extends Card {
     private String name;
-    private int id;
+    
 
     /**
      * Class constructor
@@ -23,7 +23,7 @@ public class CharacterCard extends Card {
 
     @Override
     public String toString() {
-        return "CharacterCard [name=" + name + "]";
+        return "CharacterCard [name=" + name + " + hashCode=" + hashCode() +"]";
     }
 
     @Override

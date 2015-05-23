@@ -3,7 +3,9 @@
  */
 package it.polimi.ingsw.bogliobresich.controller;
 
+import it.polimi.ingsw.bogliobresich.model.Character;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
 import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
@@ -25,12 +27,14 @@ public class Match {
         characterDeck.shuffle();
         characterDeck.showCards();
         
+        Card captain = new CharacterCard(Character.CAPTAIN);
         List <Card> cards = new ArrayList();
         for (int i = 0; i < 8; i++)
         {
             Card c = characterDeck.drawCard();
             cards.add(c);
-            System.out.println("Pesco " + c);
+            System.out.print("Pesco " + c);
+            System.out.println("=?"+ captain.equals(c));
             
         }  
         characterDeck.showCards();
@@ -41,7 +45,7 @@ public class Match {
             
         }
         characterDeck.showCards();
-        
+                
     }
 
 }
