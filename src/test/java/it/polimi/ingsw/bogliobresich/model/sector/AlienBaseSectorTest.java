@@ -1,6 +1,8 @@
 package it.polimi.ingsw.bogliobresich.model.sector;
 
 import static org.junit.Assert.*;
+import it.polimi.ingsw.bogliobresich.model.map.sector.AlienBaseSector;
+import it.polimi.ingsw.bogliobresich.model.map.sector.Sector;
 
 import org.junit.Test;
 

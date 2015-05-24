@@ -9,8 +9,8 @@ package it.polimi.ingsw.bogliobresich.model.map;
  */
 public class OffsetCoord
 {
-    public final int col; //number column
-    public final int row; //number row
+    private final int col; //number column
+    private final int row; //number row
 
     public OffsetCoord(int col, int row)
     {
@@ -18,18 +18,19 @@ public class OffsetCoord
         this.row = row;
     }
 
-    static public Hex offsetToCube(OffsetCoord h){
+    public static Hex offsetToCube(OffsetCoord h){
         int x = h.col;
         int z = h.row - (h.col + (h.col&1)) / 2;
         int y = -x-z;
         return new Hex(x,y,z);
     }
-    static public OffsetCoord offsetCoordinatefromCube(Hex hex){
+    public static OffsetCoord offsetCoordinatefromCube(Hex hex){
         int col = hex.getX();
         int row = hex.getZ() + (hex.getX() + (hex.getX()&1)) / 2;
         return new  OffsetCoord(col,row);
     }
 
+    @Override
     public String toString(){
         return new String("Hex Offset X="+this.col+" Y="+this.row);
     }

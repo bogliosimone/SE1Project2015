@@ -27,6 +27,12 @@ public class Hex
         this.s = s; //z
     }
     
+    public Hex(Coordinate coord){
+        this.q = coord.getX();
+        this.s = coord.getY()- (coord.getX()+ (coord.getX()&1)) / 2;
+        this.r = -this.q-this.s;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -45,11 +51,7 @@ public class Hex
         if (getClass() != obj.getClass())
             return false;
         Hex other = (Hex) obj;
-        if (q != other.q)
-            return false;
-        if (r != other.r)
-            return false;
-        if (s != other.s)
+        if (q != other.q || r != other.r || s != other.s)
             return false;
         return true;
     }
@@ -116,7 +118,7 @@ public class Hex
     
     @Override
     public String toString(){
-        return new String("X="+Integer.toString(this.q)+" Y="+Integer.toString(this.r)+" Z="+Integer.toString(this.s));
+        return new String("Cube coordinate: X="+Integer.toString(this.q)+" Y="+Integer.toString(this.r)+" Z="+Integer.toString(this.s));
     }
 
 }

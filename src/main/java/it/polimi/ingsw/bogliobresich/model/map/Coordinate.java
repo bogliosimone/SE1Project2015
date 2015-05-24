@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model;
+package it.polimi.ingsw.bogliobresich.model.map;
 
 /**
  * @author simoneboglio
@@ -39,14 +39,32 @@ public class Coordinate {
         return this.number;
     }
 
-    public boolean equals(Coordinate cord){
-        if(this.letter == cord.letter && this.number == cord.number )
-            return true;
-        return false;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + letter;
+        result = prime * result + number;
+        return result;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Coordinate other = (Coordinate) obj;
+        if (letter != other.letter || number != other.number)
+            return false;
+        return true;
+    }
+
+    @Override
     public String toString(){
-        return new String( "Hex: "+Character.toString(this.letter) + Integer.toString(this.number));
+        return new String( "Coordinate: "+Character.toString(this.letter) + Integer.toString(this.number));
     }
 
 }
