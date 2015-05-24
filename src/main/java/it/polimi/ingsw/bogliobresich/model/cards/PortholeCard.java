@@ -13,8 +13,9 @@ public class PortholeCard extends Card {
     /**
      * Class constructor
      */
-    public PortholeCard(String type) {
-        this.state = type;
+    public PortholeCard(String state) {
+        //TODO controllare immissione stato con costante
+        this.state = state;
     }
     
     /**
