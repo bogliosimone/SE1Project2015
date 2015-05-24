@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.cards.PortholeCard;
 import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
@@ -22,10 +23,10 @@ public class PortholeDeck extends Deck {
             
             //One works, one not
             if(i%2 == 0) {
-                card = new PortholeCard("works");
+                card = new PortholeCard(ConstantsCard.PORTHOLE_WORKS);
             }
             else {
-                card = new PortholeCard("broken");
+                card = new PortholeCard(ConstantsCard.PORTHOLE_BROKEN);
             }
             super.addCard(card);
         }

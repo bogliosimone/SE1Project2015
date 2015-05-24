@@ -27,14 +27,12 @@ public class Match {
         characterDeck.shuffle();
         characterDeck.showCards();
         
-        Card captain = new CharacterCard(Character.CAPTAIN);
         List <Card> cards = new ArrayList();
         for (int i = 0; i < 8; i++)
         {
             Card c = characterDeck.drawCard();
             cards.add(c);
-            System.out.print("Pesco " + c);
-            System.out.println("=?"+ captain.equals(c));
+            System.out.println("Pesco " + c);
             
         }  
         characterDeck.showCards();

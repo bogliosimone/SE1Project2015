@@ -16,6 +16,10 @@ public class PortholeCard extends Card {
     public PortholeCard(String type) {
         this.type = type;
     }
+    
+    public boolean isPortholeWorking() {
+        return type;//TODO
+    }
 
     @Override
     public String toString() {
