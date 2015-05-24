@@ -5,7 +5,7 @@ package it.polimi.ingsw.bogliobresich.model.map;
 
 /**
  * @author simoneboglio
- *
+ * Axial coordinate for represent the hexagon position
  */
 public class AxialCoordinate {
     private int q;

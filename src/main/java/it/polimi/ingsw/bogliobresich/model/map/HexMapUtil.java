@@ -13,14 +13,28 @@ import java.util.Set;
 import it.polimi.ingsw.bogliobresich.model.map.sector.*;
 
 /**
+ * Util class for the HexMap class,it contains method for load the HashMap from file and some method for debugging 
  * @author simoneboglio
- *
  */
 public class HexMapUtil {
     
+    /**
+     * private constructor for util class
+     */
     private HexMapUtil(){
     }
     
+    /**
+     * create and return an HashMap with key->Hex, value->Sector from a filename
+     * @param fileName
+     * @return HashMap<Hex,Sector>  
+     * @throws IOException
+     */
+    /**
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
     public static Map<Hex,Sector> loadHashMapFromFile (String fileName) throws IOException {
         Map<Hex,Sector> mp= new HashMap<Hex,Sector>();
         int column=ConstantMap.COLUMNMAP;
@@ -48,22 +62,34 @@ public class HexMapUtil {
         return mp;
     }
     
-    public static Sector newSectorFromXYLetterType(int x, int y, char type){
-        if(type=='U')
+    /**
+     * Return a specific sector of subclass Sector based on charType with x y as coordinate
+     * 
+     * @param x
+     * @param y
+     * @param charType
+     * @return
+     */
+    public static Sector newSectorFromXYLetterType(int x, int y, char charType){
+        if(charType=='U')
             return new UnsafeSector (x,y);
-        if(type=='S')
+        if(charType=='S')
             return new SafeSector (x,y);
-        if(type=='P')
+        if(charType=='P')
             return new PortholeSector (x,y);
-        if(type=='H')
+        if(charType=='H')
             return new HumanBaseSector (x,y);
-        if(type=='A')
+        if(charType=='A')
             return new AlienBaseSector (x,y);
-        if(type=='D')
+        if(charType=='D')
             return new DisableSector (x, y);
         return new DisableSector (x,y);
     }
     
+    /**
+     * Print the HexMap
+     * @param hexMap
+     */
     public static void printMap(HexMap hexMap) {
         Map<Hex,Sector> mp= hexMap.getHexMap();
         Set<Hex> keys = mp.keySet();
@@ -73,6 +99,12 @@ public class HexMapUtil {
         }
     }
      
+    /**
+     * Print all the crossable neighbors of hexagon in a specific range with cube coordinate value
+     * @param hexMap
+     * @param hex
+     * @param maxDistance
+     */
     public static void printMapNeighborsByDistance(HexMap hexMap,Hex hex, int maxDistance){
         Set<Hex> set = hexMap.getNeighborsByDistance(hex, maxDistance);
         System.out.println("Vicini di "+hex.toString()+" a distanza: "+ maxDistance );
@@ -80,6 +112,12 @@ public class HexMapUtil {
             System.out.println("Vicino: "+temp);
     }
     
+    /**
+     * Print all the crossable neighbors of hexagon in a specific range with letter-number coordinate value
+     * @param hexMap
+     * @param coord
+     * @param maxDistance
+     */
     public static void printMapNeighborsByDistance(HexMap hexMap,Coordinate coord, int maxDistance){
         Set<Sector> set = hexMap.getNeighborsByDistance(coord, maxDistance);
         System.out.println("Vicini di "+ coord.toString() + " a distanza: " + maxDistance );
