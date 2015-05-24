@@ -35,7 +35,7 @@ public class HexMapUtil {
      * @return
      * @throws IOException
      */
-    public static Map<Hex,Sector> loadHashMapFromFile (String fileName) throws IOException {
+    public static Map<Hex,Sector> loadHashMapFromFile (String fileName) {
         Map<Hex,Sector> mp= new HashMap<Hex,Sector>();
         int column=ConstantMap.COLUMNMAP;
         int row=ConstantMap.ROWMAP;
@@ -43,25 +43,39 @@ public class HexMapUtil {
         Sector sect;
         OffsetCoord offsetCoord;
         Hex hexCoord;
-        FileReader file;
-        BufferedReader buffer;
+        FileReader reader = null;
+        BufferedReader buffer = null;
         String stringa;
-        file=new FileReader(fileName);
-        buffer=new BufferedReader(file);
-        for(int i=0;i<column;i++) {
-            stringa=buffer.readLine();
-            for(int j=0;j<row;j++){
-                letterType=stringa.charAt(j);
-                sect = newSectorFromXYLetterType(i+1,j+1,letterType);
-                offsetCoord = new OffsetCoord (sect.getCoordinateX(),sect.getCoordinateY());
-                hexCoord = OffsetCoord.offsetToCube(offsetCoord);
-                mp.put(hexCoord,sect);  
+        try{
+            reader=new FileReader(fileName);
+            buffer=new BufferedReader(reader);
+            for(int i=0;i<column;i++) {
+                stringa=buffer.readLine();
+                for(int j=0;j<row;j++){
+                    letterType=stringa.charAt(j);
+                    sect = newSectorFromXYLetterType(i+1,j+1,letterType);
+                    offsetCoord = new OffsetCoord (sect.getCoordinateX(),sect.getCoordinateY());
+                    hexCoord = OffsetCoord.offsetToCube(offsetCoord);
+                    mp.put(hexCoord,sect);  
+                }
             }
         }
-        buffer.close();
+        catch (IOException e){
+            System.out.println(e+" Errore apertura file");
+        }
+        finally{
+            if(reader != null){
+                try {
+                    reader.close();
+                    buffer.close();
+                } catch (IOException e) {
+                    System.out.println(e+" Errore chiusura file");
+                }
+            }
+        }
         return mp;
     }
-    
+
     /**
      * Return a specific sector of subclass Sector based on charType with x y as coordinate
      * 
@@ -91,7 +105,7 @@ public class HexMapUtil {
      * @param hexMap
      */
     public static void printMap(HexMap hexMap) {
-        Map<Hex,Sector> mp= hexMap.getHexMap();
+        Map<Hex,Sector> mp= hexMap.getHashMap();
         Set<Hex> keys = mp.keySet();
         for(Hex key : keys){
             Sector sec = mp.get(key);

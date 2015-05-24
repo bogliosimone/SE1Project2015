@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import java.io.IOException;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -17,6 +16,7 @@ import it.polimi.ingsw.bogliobresich.model.map.sector.*;
 import it.polimi.ingsw.bogliobresich.model.map.HexMapUtil;
 
 /**
+ * Manage a map of hexagon Sector
  * @author simoneboglio
  *
  */
@@ -24,13 +24,7 @@ public class HexMap {
     private Map<Hex,Sector> hashMap  = new HashMap<Hex,Sector>(); //HashMap key = cube_coordinate -> value = sector 
 
     public HexMap(){
-        try{
-            this.hashMap=HexMapUtil.loadHashMapFromFile(ConstantMap.NAMEFILEMAP);
-        }
-        catch(IOException e)
-        {
-            System.err.println(e.toString()+ " Errore apertura file mappa");
-        }
+        this.hashMap=HexMapUtil.loadHashMapFromFile(ConstantMap.NAMEFILEMAP);
     }
 
     public static void main( String[] args ){
@@ -89,7 +83,7 @@ public class HexMap {
         return set;
     }
     
-    protected Map<Hex,Sector> getHexMap(){
+    protected Map<Hex,Sector> getHashMap(){
         return this.hashMap;
     }
     
