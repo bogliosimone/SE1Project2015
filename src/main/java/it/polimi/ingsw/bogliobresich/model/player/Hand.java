@@ -6,6 +6,7 @@ package it.polimi.ingsw.bogliobresich.model.player;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Matteo
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Hand {
 
-    ArrayList<Card> cards;
+    List<Card> cards;
     private int maximumNumberOfCards;
 
     /**
@@ -86,6 +87,6 @@ public class Hand {
     public String toString() {
         return "Hand [cards=" + cards + "]";
     }
-    
-    
+
+
 }
