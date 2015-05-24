@@ -8,14 +8,15 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public class PortholeCard extends Card {
-    final private String state;
+    private String state;
 
     /**
      * Class constructor
      */
     public PortholeCard(String state) {
-        //TODO controllare immissione stato con costante
-        this.state = state;
+        if(isDataOk(state)) {
+            this.state = state;
+        }
     }
     
     /**
@@ -24,6 +25,17 @@ public class PortholeCard extends Card {
      */
     public boolean isPortholeStateWorking() {
         return state.equals(ConstantsCard.PORTHOLE_WORKS);
+    }
+    
+    /**
+     * Return if the data to be entered is correct
+     * @return true if the data to be entered are ok
+     */
+    private boolean isDataOk(String state) {
+        if(state.equals(ConstantsCard.PORTHOLE_BROKEN) || state.equals(ConstantsCard.PORTHOLE_WORKS)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
