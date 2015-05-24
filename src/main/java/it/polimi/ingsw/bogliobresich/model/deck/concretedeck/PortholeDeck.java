@@ -20,7 +20,7 @@ public class PortholeDeck extends Deck {
     public PortholeDeck() {
         Card card;
         for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
-            
+
             //One works, one not
             if(i%2 == 0) {
                 card = new PortholeCard(ConstantsCard.PORTHOLE_WORKS);
