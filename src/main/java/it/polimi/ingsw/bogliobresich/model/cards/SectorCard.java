@@ -21,12 +21,19 @@ public class SectorCard extends Card {
             this.noise = noise;
         }
     }
+    
+    /**
+     * Return if there is noise
+     * @return true if there is noise
+     */
+    public boolean isThereNoise() {
+        //If there isn't any type of noise in the sector card, the sector card is silence  
+        return !this.noise.equals(ConstantsCard.SILENCE);
+    }
 
     @Override
     public String toString() {
         return "SectorCard [drawAnItem =" + drawAnItem + "]";
     }
     
-    
-
 }
