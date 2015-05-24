@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
@@ -17,11 +18,57 @@ public class SectorDeck extends Deck {
      * Class constructor
      */
     public SectorDeck() {
-        for (int i = 0; i < ConstantsDeck.NSECTORCARD; i++) {
-            Card card = new SectorCard();
+
+        addSectorCardWithNoiseMySector(ConstantsDeck.N_SECTORCARD_NOISE_MY_W_ITEM,ConstantsDeck.N_SECTORCARD_NOISE_MY_NO_ITEM);
+        addSectorCardWithNoiseAnySector(ConstantsDeck.N_SECTORCARD_NOISE_ANY_W_ITEM,ConstantsDeck.N_SECTORCARD_NOISE_ANY_NO_ITEM);
+        addSectorCardWithNoNoise(ConstantsDeck.N_SECTORCARD_SILENCE_W_ITEM,ConstantsDeck.N_SECTORCARD_SILENCE_NO_ITEM);
+    
+    }
+    
+    //item e non item
+    private void addSectorCardWithNoiseAnySector(int wItem, int wNoItem) {
+        Card card;
+        int index;
+        for(index = 0; index < wItem; index++) {
+            //create a SectorCard with noise in any sector and with an item to draw
+            card = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,true);
             super.addCard(card);
         }
-        
+        for(index = 0; index < wNoItem; index++) {
+            //create a SectorCard with noise in any sector and without an item to draw
+            card = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false);
+            super.addCard(card);
+        }
+    }
+    
+    private void addSectorCardWithNoiseMySector(int wItem, int wNoItem) {
+        Card card;
+        int index;
+        for(index = 0; index < wItem; index++) {
+            //create a SectorCard with noise in my sector and with an item to draw
+            card = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,true);
+            super.addCard(card);
+        }
+        for(index = 0; index < wNoItem; index++) {
+            //create a SectorCard with noise in my sector and without an item to draw
+            card = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,false);
+            super.addCard(card);
+        }
+    }
+    
+    private void addSectorCardWithNoNoise(int wItem, int wNoItem) {
+        Card card;
+        int index;
+        for(index = 0; index < wItem; index++) {
+            //create a SectorCard without noise and with an item to draw
+            card = new SectorCard(ConstantsCard.SILENCE,true);
+            super.addCard(card);
+        }
+        for(index = 0; index < wNoItem; index++) {
+            //create a SectorCard without noise and without an item to draw
+            card = new SectorCard(ConstantsCard.SILENCE,false);
+            super.addCard(card);
+        }
     }
 
 }
