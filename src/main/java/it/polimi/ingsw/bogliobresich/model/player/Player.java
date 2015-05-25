@@ -39,7 +39,7 @@ public class Player {
     }
 
     /**
-     * Return the abilitation for a turn
+     * @return the abilitation for a turn
      *   
      */
     public boolean isYourTurn() {
@@ -47,7 +47,7 @@ public class Player {
     }
 
     /**
-     * Return the connection state
+     * @return the connection state
      * 
      */
     public boolean isConnected() {
@@ -55,7 +55,7 @@ public class Player {
     }
 
     /**
-     * Return true if the player is alive
+     * @return true if the player is alive
      * 
      */
     public boolean isAlive() {
