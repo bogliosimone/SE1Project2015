@@ -25,22 +25,22 @@ public class OffsetCoord
     }
 
     /**
-     * Create an Hex from offset coordinate 
+     * Create an CubeCoord from offset coordinate 
      * @param hc  OffsetCoord object
-     * @return new Hex object
+     * @return new CubeCoord object
      */
-    public static Hex offsetToCube(OffsetCoord hc){
+    public static CubeCoord offsetToCube(OffsetCoord hc){
         int x = hc.x;
         int z = hc.y - (hc.x + (hc.x&1)) / 2;
         int y = -x-z;
-        return new Hex(x,y,z);
+        return new CubeCoord(x,y,z);
     }
     /**
-     * Create an OffsetCoord from an Hex
-     * @param hex Hex object
+     * Create an OffsetCoord from an CubeCoord
+     * @param hex CubeCoord object
      * @return  new OffsetCoord
      */
-    public static OffsetCoord offsetCoordinatefromCube(Hex hex){
+    public static OffsetCoord offsetCoordinatefromCube(CubeCoord hex){
         int col = hex.getX();
         int row = hex.getZ() + (hex.getX() + (hex.getX()&1)) / 2;
         return new  OffsetCoord(col,row);
@@ -48,7 +48,7 @@ public class OffsetCoord
 
     @Override
     public String toString(){
-        return new String("Hex Offset X="+this.x+" Y="+this.y);
+        return new String("CubeCoord Offset X="+this.x+" Y="+this.y);
     }
 
 }
