@@ -7,19 +7,19 @@ package it.polimi.ingsw.bogliobresich.model.map;
  * Hexagon in cube coordinate X-Y-Z
  * @author simoneboglio
  */
-public class Hex
+public class CubeCoord
 {
     private final int x;
     private final int y;
     private final int z;
 
     /**
-     * Create Hex from X-Y-Z
+     * Create CubeCoord from X-Y-Z
      * @param x coordinate
      * @param y coordinate
      * @param z coordinate
      */
-    public Hex(int x, int y, int z)
+    public CubeCoord(int x, int y, int z)
     {
         this.x = x;
         this.y = y;
@@ -27,10 +27,10 @@ public class Hex
     }
 
     /**
-     * Create Hex from Coordinate
+     * Create CubeCoord from Coordinate
      * @param coord Coordinate
      */
-    public Hex(Coordinate coord){
+    public CubeCoord(Coordinate coord){
         this.x = coord.getX();
         this.z = coord.getY()- (coord.getX()+ (coord.getX()&1)) / 2;
         this.y = -this.x-this.z;
@@ -77,7 +77,7 @@ public class Hex
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Hex other = (Hex) obj;
+        CubeCoord other = (CubeCoord) obj;
         if (x != other.x || y != other.y || z != other.z)
             return false;
         return true;

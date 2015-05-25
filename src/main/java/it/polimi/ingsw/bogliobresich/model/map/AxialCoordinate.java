@@ -26,8 +26,8 @@ public class AxialCoordinate {
      *  Convert AxialCoordinate in CubeCoordinate
      * @return
      */
-    public Hex axialCoordinateToCube (){
-        return new Hex(this.q,-this.q-r,this.r);
+    public CubeCoord axialCoordinateToCube (){
+        return new CubeCoord(this.q,-this.q-r,this.r);
     }
 
     /**
@@ -35,7 +35,7 @@ public class AxialCoordinate {
      * @param hex
      * @return
      */
-    public static AxialCoordinate cubeToAxialCoordinate(Hex hex){
+    public static AxialCoordinate cubeToAxialCoordinate(CubeCoord hex){
         return new AxialCoordinate(hex.getX(),hex.getZ());
     }
 }

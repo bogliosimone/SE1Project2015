@@ -22,9 +22,9 @@ import it.polimi.ingsw.bogliobresich.model.map.HexMapUtil;
  */
 public class HexMap {
     /**
-     * HashMap key=Hex -> value=Sector
+     * HashMap key=CubeCoord -> value=Sector
      */
-    private Map<Hex,Sector> hashMap  = new HashMap<Hex,Sector>(); //HashMap key = cube_coordinate -> value = sector 
+    private Map<CubeCoord,Sector> hashMap  = new HashMap<CubeCoord,Sector>(); //HashMap key = cube_coordinate -> value = sector 
 
     /**
      * Create HexMap on default Galilei map
@@ -48,10 +48,10 @@ public class HexMap {
      */
     public Set<Sector> getNeighborsByDistance(Coordinate coord, int maxDistance){
         Set<Sector> sectorSet = new HashSet<Sector>();
-        Set<Hex> hexTempSet;
-        Hex hex = new Hex(coord);
+        Set<CubeCoord> hexTempSet;
+        CubeCoord hex = new CubeCoord(coord);
         hexTempSet=getNeighborsByDistance(hex,maxDistance);
-        for(Hex hexTemp: hexTempSet){
+        for(CubeCoord hexTemp: hexTempSet){
             sectorSet.add(this.hashMap.get(hexTemp));
         }   
         return sectorSet;
@@ -59,33 +59,33 @@ public class HexMap {
     
     
     /**
-     * Get neighbors by distance from a specific Hex
+     * Get neighbors by distance from a specific CubeCoord
      * @param hex that you want know its neighbors
      * @param maxDistance distance radius
-     * @return set of neighbors Hex
+     * @return set of neighbors CubeCoord
      */
-    public Set<Hex> getNeighborsByDistance (Hex hex, int maxDistance){
-        Map<Hex, Sector> mp = this.hashMap;
-        Hex hexTemp;
+    public Set<CubeCoord> getNeighborsByDistance (CubeCoord hex, int maxDistance){
+        Map<CubeCoord, Sector> mp = this.hashMap;
+        CubeCoord hexTemp;
         Sector secTemp;
-        Set<Hex> neighborsSetTemp;
+        Set<CubeCoord> neighborsSetTemp;
         Set<Sector> sectorsToClear = new HashSet<Sector>(); //sector to clear at end
-        Set<Hex> neighborsSet = new HashSet<Hex>(); //neighbors list to return
-        Queue<Hex> queue = new LinkedList<Hex>(); //queue for explore map
+        Set<CubeCoord> neighborsSet = new HashSet<CubeCoord>(); //neighbors list to return
+        Queue<CubeCoord> queue = new LinkedList<CubeCoord>(); //queue for explore map
         secTemp = mp.get(hex);
         if(secTemp==null)
             return neighborsSet;
         secTemp.setDistance(0); //hex where i start the search
         queue.add(hex);
         hexTemp=queue.poll();
-        while( hexTemp!=null){       
+        while( hexTemp!=null){
             secTemp = mp.get(hexTemp);
             sectorsToClear.add(secTemp);
             if(!hexTemp.equals(hex))
                 neighborsSet.add(hexTemp);
             if(secTemp.getDistance()<maxDistance){
                 neighborsSetTemp=neighbors(hexTemp);
-                for(Hex hexNeighbor : neighborsSetTemp){
+                for(CubeCoord hexNeighbor : neighborsSetTemp){
                     Sector secNeighborsTemp = mp.get(hexNeighbor);
                     if(secNeighborsTemp.getDistance()>secTemp.getDistance()){
                         secNeighborsTemp.setDistance(secTemp.getDistance()+1);
@@ -101,9 +101,9 @@ public class HexMap {
     
     /**
      * Get the HashMap of the map
-     * @return HashMap<Hex,Sector>
+     * @return HashMap<CubeCoord,Sector>
      */
-    protected Map<Hex,Sector> getHashMap(){
+    protected Map<CubeCoord,Sector> getHashMap(){
         return this.hashMap;
     }
     
@@ -120,18 +120,18 @@ public class HexMap {
     /**
      * Get the first level of hex neighbors
      * @param hex that you want know its neighbors
-     * @return set of neighbors Hex 
+     * @return set of neighbors CubeCoord 
      */
-    private Set<Hex> neighbors (Hex hex){
-        Hex hexTemp;
+    private Set<CubeCoord> neighbors (CubeCoord hex){
+        CubeCoord hexTemp;
         Sector secTemp;
         int distance=1;
-        Set<Hex> set = new HashSet<Hex>();
+        Set<CubeCoord> set = new HashSet<CubeCoord>();
         for (int x = -distance; x <= distance; x++) {
             for (int y = max(-distance, -x - distance); y <= min(distance, -x
                     + distance); y++) {
                 int z = -x - y;
-                hexTemp= new Hex(hex.getX()+x,hex.getY()+y,hex.getZ()+z);
+                hexTemp= new CubeCoord(hex.getX()+x,hex.getY()+y,hex.getZ()+z);
                 secTemp = hashMap.get(hexTemp);
                 if(secTemp!=null && secTemp.isCrossable() && hexTemp!=hex)
                     set.add(hexTemp);

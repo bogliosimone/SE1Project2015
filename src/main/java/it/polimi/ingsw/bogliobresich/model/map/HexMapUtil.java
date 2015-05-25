@@ -25,19 +25,19 @@ public class HexMapUtil {
     }
     
     /**
-     * create and return an HashMap with key->Hex, value->Sector from a filename
+     * create and return an HashMap with key->CubeCoord, value->Sector from a filename
      * @param fileName
-     * @return HashMap<Hex,Sector>  
+     * @return HashMap<CubeCoord,Sector>  
      * @throws IOException
      */
-    public static Map<Hex,Sector> loadHashMapFromFile (String fileName) {
-        Map<Hex,Sector> mp= new HashMap<Hex,Sector>();
+    public static Map<CubeCoord,Sector> loadHashMapFromFile (String fileName) {
+        Map<CubeCoord,Sector> mp= new HashMap<CubeCoord,Sector>();
         int column=ConstantMap.COLUMNMAP;
         int row=ConstantMap.ROWMAP;
         char letterType;
         Sector sect;
         OffsetCoord offsetCoord;
-        Hex hexCoord;
+        CubeCoord hexCoord;
         FileReader reader = null;
         BufferedReader buffer = null;
         String stringa;
@@ -100,9 +100,9 @@ public class HexMapUtil {
      * @param hexMap
      */
     public static void printMap(HexMap hexMap) {
-        Map<Hex,Sector> mp= hexMap.getHashMap();
-        Set<Hex> keys = mp.keySet();
-        for(Hex key : keys){
+        Map<CubeCoord,Sector> mp= hexMap.getHashMap();
+        Set<CubeCoord> keys = mp.keySet();
+        for(CubeCoord key : keys){
             Sector sec = mp.get(key);
             System.out.println(sec + " " + key);
         }
@@ -114,10 +114,10 @@ public class HexMapUtil {
      * @param hex
      * @param maxDistance
      */
-    public static void printMapNeighborsByDistance(HexMap hexMap,Hex hex, int maxDistance){
-        Set<Hex> set = hexMap.getNeighborsByDistance(hex, maxDistance);
+    public static void printMapNeighborsByDistance(HexMap hexMap,CubeCoord hex, int maxDistance){
+        Set<CubeCoord> set = hexMap.getNeighborsByDistance(hex, maxDistance);
         System.out.println("Vicini di "+hex.toString()+" a distanza: "+ maxDistance );
-        for (Hex temp: set)
+        for (CubeCoord temp: set)
             System.out.println("Vicino: "+temp);
     }
     
