@@ -24,9 +24,10 @@ public class Match {
 
         characterDeck.showCards();
 
+        System.out.println("MESCOLO:");
         characterDeck.shuffle();
         characterDeck.showCards();
-        
+        System.out.println("PESCO:");
         List <Card> cards = new ArrayList();
         for (int i = 0; i < 8; i++)
         {
@@ -37,13 +38,17 @@ public class Match {
         }  
         characterDeck.showCards();
         
+        System.out.println("SCARTO:");
         for (int i = 0; i < 8; i++)
         {
-            characterDeck.discardCard(cards.get(i));
+            Card c = cards.get(i);
+            characterDeck.discardCard(c);
+            System.out.println("Scarto " + c);
             
         }
         characterDeck.showCards();
                 
     }
+    
 
 }

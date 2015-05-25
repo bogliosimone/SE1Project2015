@@ -25,7 +25,7 @@ public class SectorDeck extends Deck {
     
     }
     
-    //item e non item
+    //item e no item
     private void addSectorCardWithNoiseAnySector(int wItem, int wNoItem) {
         Card card;
         int index;
