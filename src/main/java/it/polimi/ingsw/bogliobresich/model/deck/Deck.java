@@ -24,12 +24,12 @@ public abstract class Deck {
     //Cards drawn out the deck belonging to the deck
     private List<Card> drawnOutCards = new ArrayList<Card>();
 
-    
+
     /**
      * Shuffle all the cards in the deck. Usually used when the deck is created. 
      * */
     public void shuffle() {
-        ArrayList<Card> temp = new ArrayList<Card>();
+        List<Card> temp = new ArrayList<Card>();
         while(!isStackOfCardEmpty()) {
             int loc=(int)(Math.random()*stackOfCards.size());
             temp.add(stackOfCards.get(loc));
@@ -67,7 +67,7 @@ public abstract class Deck {
         drawnOutCards.add(c);
         return c;
     }
-    
+
     /**
      * Discard a card to the deck
      * */ 
@@ -80,10 +80,10 @@ public abstract class Deck {
             drawnOutCards.remove(card);
             discardedCards.add(card);
         }
-        
+
     }
-    
-    
+
+
     public void showCards() {
         System.out.println("Show stackOfCards:");
         for(Card c:stackOfCards) {
@@ -98,7 +98,7 @@ public abstract class Deck {
             System.out.println("Card " + c2.toString());
         }
     }
-    
+
 
     @Override
     public String toString() {
