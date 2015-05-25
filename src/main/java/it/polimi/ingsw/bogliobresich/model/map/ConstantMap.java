@@ -20,7 +20,7 @@ public class ConstantMap {
      * path of the standard map.txt file
      */
     static final String NAMEFILEMAP= new String ("src/main/resources/galilei.txt");
-    
+
     /**
      * private constructor for a class of constant
      */

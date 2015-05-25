@@ -30,11 +30,6 @@ public class HexMapUtil {
      * @return HashMap<Hex,Sector>  
      * @throws IOException
      */
-    /**
-     * @param fileName
-     * @return
-     * @throws IOException
-     */
     public static Map<Hex,Sector> loadHashMapFromFile (String fileName) {
         Map<Hex,Sector> mp= new HashMap<Hex,Sector>();
         int column=ConstantMap.COLUMNMAP;
