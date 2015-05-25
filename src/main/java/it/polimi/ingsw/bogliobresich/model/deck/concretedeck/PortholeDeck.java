@@ -17,15 +17,15 @@ public class PortholeDeck extends Deck {
     /**
      * Class constructor
      */
+    private static final int TWO = 2;
     public PortholeDeck() {
         Card card;
         for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
 
             //One works, one not
-            if(i%2 == 0) {
+            if(i%TWO == 0) {
                 card = new PortholeCard(ConstantsCard.PORTHOLE_WORKS);
-            }
-            else {
+            } else {
                 card = new PortholeCard(ConstantsCard.PORTHOLE_BROKEN);
             }
             super.addCard(card);

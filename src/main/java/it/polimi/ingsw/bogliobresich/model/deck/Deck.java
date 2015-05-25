@@ -75,8 +75,7 @@ public abstract class Deck {
         int index = drawnOutCards.indexOf(card);
         if (index == -1) {
             throw new NoSuchElementException();
-        }
-        else {
+        } else {
             drawnOutCards.remove(card);
             discardedCards.add(card);
         }

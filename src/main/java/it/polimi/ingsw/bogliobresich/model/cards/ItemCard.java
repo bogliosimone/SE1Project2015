@@ -26,12 +26,22 @@ public class ItemCard extends Card {
      * @return true if the data to be entered are ok
      */
     private boolean isDataOk(String type) {
-        if(type.equals(ConstantsCard.ATTACK)
-                || type.equals(ConstantsCard.DEFENCE)
-                || type.equals(ConstantsCard.TELEPORT)
-                || type.equals(ConstantsCard.SPOTLIGHT)
-                || type.equals(ConstantsCard.SEDATIVES)
-                || type.equals(ConstantsCard.ADRENALINE)) {
+        if(type.equals(ConstantsCard.ATTACK)) {
+            return true;
+        }
+        if(type.equals(ConstantsCard.DEFENCE)) {
+            return true;
+        }
+        if(type.equals(ConstantsCard.TELEPORT)) {
+            return true;
+        }
+        if(type.equals(ConstantsCard.SPOTLIGHT)) {
+            return true;
+        }
+        if(type.equals(ConstantsCard.SEDATIVES)) {
+            return true;
+        }
+        if(type.equals(ConstantsCard.ADRENALINE)) {
             return true;
         }
         return false;
