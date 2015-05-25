@@ -4,37 +4,64 @@
 package it.polimi.ingsw.bogliobresich.model.map;
 
 /**
+ * Coordinate with two dimensional in letter-number or x-y 
+ * letter-number <-> x-y = A-1 <-> 1-1
  * @author simoneboglio
- *
  */
 public class Coordinate {
     private static int offsetLetterA = 65;
     private char letter;
     private int number;
 
+    /**
+     * Create coordinate from letter and number
+     * @param letter    coordinate
+     * @param number    coordinate
+     */
     public Coordinate (char letter, int number){
         this.letter = letter;
         this.number = number;
     }
 
+    /**
+     * Create coordinate from X and Y
+     * @param x coordinate
+     * @param y coordinate
+     */
     public Coordinate (int x,int y){
         this.letter = (char) (x+offsetLetterA-1);
         this.number = y;
     }
 
+    /**
+     * Get letter of coordinate
+     * @return  letter coordinate
+     */
     public char getLetter(){
         return this.letter;
     }
 
+    /**
+     * Get number of coordinate
+     * @return  number coordinate
+     */
     public int getNumber(){
         return this.number;
     }
 
 
+    /**
+     * Get X of coordinate
+     * @return  X coordinate
+     */
     public int getX(){
         return this.letter - offsetLetterA + 1;
     }
 
+    /**
+     * Get Y of coordinate
+     * @return  Y coordinate
+     */
     public int getY(){
         return this.number;
     }

@@ -4,26 +4,42 @@
 package it.polimi.ingsw.bogliobresich.model.map;
 
 /**
+ * Offset Coordinate X-Y
  * @author simoneboglio
- * 
  */
 public class OffsetCoord
 {
-    private final int col; //number column
-    private final int row; //number row
+    private final int x;
+    private final int y; 
 
-    public OffsetCoord(int col, int row)
+
+    /**
+     * Create OffsetCoord from X-Y
+     * @param x coordinate
+     * @param y coordinate
+     */
+    public OffsetCoord(int x, int y)
     {
-        this.col = col;
-        this.row = row;
+        this.x = x;
+        this.y = y;
     }
 
-    public static Hex offsetToCube(OffsetCoord h){
-        int x = h.col;
-        int z = h.row - (h.col + (h.col&1)) / 2;
+    /**
+     * Create an Hex from offset coordinate 
+     * @param hc  OffsetCoord object
+     * @return new Hex object
+     */
+    public static Hex offsetToCube(OffsetCoord hc){
+        int x = hc.x;
+        int z = hc.y - (hc.x + (hc.x&1)) / 2;
         int y = -x-z;
         return new Hex(x,y,z);
     }
+    /**
+     * Create an OffsetCoord from an Hex
+     * @param hex Hex object
+     * @return  new OffsetCoord
+     */
     public static OffsetCoord offsetCoordinatefromCube(Hex hex){
         int col = hex.getX();
         int row = hex.getZ() + (hex.getX() + (hex.getX()&1)) / 2;
@@ -32,7 +48,7 @@ public class OffsetCoord
 
     @Override
     public String toString(){
-        return new String("Hex Offset X="+this.col+" Y="+this.row);
+        return new String("Hex Offset X="+this.x+" Y="+this.y);
     }
 
 }
