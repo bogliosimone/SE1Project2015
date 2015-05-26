@@ -9,7 +9,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
  * @author Matteo
  *
  */
-public enum Character {
+public enum Characters {
     CAPTAIN("Ennio Maria Dominoni",ConstantsCard.HUMAN),
     PILOT("Julia Niguloti",ConstantsCard.HUMAN),
     PSYCHOLOGIST("Silvano Porpora",ConstantsCard.HUMAN),
@@ -23,7 +23,7 @@ public enum Character {
     private String name;
     private String type;
     
-    Character(String name, String type) {
+    Characters(String name, String type) {
         this.name = name;
         this.type = type;
     }

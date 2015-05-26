@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.controller;
 
-import it.polimi.ingsw.bogliobresich.model.Character;
+import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;

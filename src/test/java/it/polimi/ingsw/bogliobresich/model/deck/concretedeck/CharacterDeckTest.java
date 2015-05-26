@@ -6,12 +6,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
+import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
 
 public class CharacterDeckTest extends Deck {
 
     @Before
     public void setUp() throws Exception {
+        DeckFactory factory = new MyDeckFactory();
+        Deck characterDeck = factory.createCharacterDeck();
     }
 
     @After
@@ -30,7 +35,7 @@ public class CharacterDeckTest extends Deck {
 
     @Test
     public void testAddCard() {
-        fail("Not yet implemented");
+        Card card = new CharacterCard(Characters);
     }
 
     @Test
