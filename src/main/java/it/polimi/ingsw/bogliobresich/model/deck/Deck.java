@@ -5,6 +5,8 @@ package it.polimi.ingsw.bogliobresich.model.deck;
 
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
+import it.polimi.ingsw.bogliobresich.model.deck.exception.NoReShuffleableException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,9 @@ public abstract class Deck {
     private List<Card> discardedCards = new ArrayList<Card>();
     //Cards drawn out the deck belonging to the deck
     private List<Card> drawnOutCards = new ArrayList<Card>();
-
+    //A deck by default is re-shuffleable
+    private boolean isReShuffleable = true;
+    
 
     /**
      * Shuffle all the cards in the deck. To use when the deck is created. 
@@ -40,17 +44,25 @@ public abstract class Deck {
         }
     }
     /**
-     * Shuffle all the cards in the deck. To use for reshuffle the deck.
+     * If the Deck is reshuffleable, shuffle all the cards that are in the discarded stack. To use for reshuffle the deck.
+     * @throws CardFinishedException 
+     * 
      * */
-    public void reShuffle() {
-        if(!isDiscardedCardsEmpty()) {
-            List<Card> temp = new ArrayList<Card>();
-            while(!isDiscardedCardsEmpty()) {
-                int loc=(int)(Math.random()*discardedCards.size());
-                temp.add(discardedCards.get(loc));
-                discardedCards.remove(loc);
+    public void reShuffle() throws CardFinishedException {
+        if(isReShuffleable) {
+            if(!isDiscardedCardsEmpty()) {
+                List<Card> temp = new ArrayList<Card>();
+                while(!isDiscardedCardsEmpty()) {
+                    int loc=(int)(Math.random()*discardedCards.size());
+                    temp.add(discardedCards.get(loc));
+                    discardedCards.remove(loc);
+                }
+                stackOfCards = temp;
+            } else {
+                throw new CardFinishedException();
             }
-            stackOfCards = temp;
+        } else {
+            throw new NoReShuffleableException();
         }
     }
 
@@ -79,11 +91,28 @@ public abstract class Deck {
 
     /**
      * Draw a card from the deck
-     * @return Card drawn*/ 
-    public Card drawCard() {
-        Card c = stackOfCards.remove(stackOfCards.size()-1);
-        drawnOutCards.add(c);
-        return c;
+     * @return Card drawn
+     * */ 
+    public Card drawCard() throws CardFinishedException {
+        //TODO controllare il vuoto
+        Card c;
+        if(!isEmpty()) {
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            drawnOutCards.add(c);
+            return c;
+        } else {
+            try {
+                reShuffle();
+            }
+            catch (NoReShuffleableException e)
+            {
+                
+            }
+            
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            drawnOutCards.add(c);
+            return c;
+        }
     }
 
     /**
