@@ -109,7 +109,8 @@ public abstract class Deck {
 
     /**
      * Discard a card to the deck
-     * */ 
+     * @param card the card that i want to discard
+     */
     public void discardCard(Card card) {
         int index = drawnOutCards.indexOf(card);
         if (index == -1) {
