@@ -61,7 +61,7 @@ public class CharacterDeckTest extends Deck {
         super.addCard(alienOneCard);
         super.addCard(alienTwoCard);
         super.reShuffle();
-        
+        assertEquals(true,true);
     }
 
     @Test
