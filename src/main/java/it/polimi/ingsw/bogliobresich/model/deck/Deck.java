@@ -26,7 +26,7 @@ public abstract class Deck {
 
 
     /**
-     * Shuffle all the cards in the deck. Usually used when the deck is created. 
+     * Shuffle all the cards in the deck. To use when the deck is created. 
      * */
     public void shuffle() {
         List<Card> temp = new ArrayList<Card>();
@@ -38,10 +38,16 @@ public abstract class Deck {
         stackOfCards = temp;
     }
     /**
-     * Shuffle all the cards in the deck.
+     * Shuffle all the cards in the deck. To use for reshuffle the deck.
      * */
     public void reShuffle() {
-        shuffle();
+        List<Card> temp = new ArrayList<Card>();
+        while(!isDiscardedCardsEmpty()) {
+            int loc=(int)(Math.random()*discardedCards.size());
+            temp.add(discardedCards.get(loc));
+            discardedCards.remove(loc);
+        }
+        stackOfCards = temp;
     }
 
     /**
@@ -57,6 +63,14 @@ public abstract class Deck {
      */
     public boolean isStackOfCardEmpty() {
         return stackOfCards.isEmpty();
+    }
+    
+    /**
+     * Return if the stack of discarded cards is empty.
+     * @return Return true if the stack is empty
+     */
+    public boolean isDiscardedCardsEmpty() {
+        return discardedCards.isEmpty();
     }
 
     /**
