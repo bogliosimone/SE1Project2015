@@ -72,6 +72,14 @@ public abstract class Deck {
     protected void addCard(Card c) {
         stackOfCards.add(c);
     }
+    
+    /**
+     * Return how many cards are in the stack.
+     * @return numbers of card
+     */
+    public int size() {
+        return stackOfCards.size();
+    }
 
     /**
      * Return if the stack of cards is empty.
