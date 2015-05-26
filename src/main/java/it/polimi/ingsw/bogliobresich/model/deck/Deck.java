@@ -29,25 +29,29 @@ public abstract class Deck {
      * Shuffle all the cards in the deck. To use when the deck is created. 
      * */
     public void shuffle() {
-        List<Card> temp = new ArrayList<Card>();
-        while(!isStackOfCardEmpty()) {
-            int loc=(int)(Math.random()*stackOfCards.size());
-            temp.add(stackOfCards.get(loc));
-            stackOfCards.remove(loc);
+        if(!isEmpty()) {
+            List<Card> temp = new ArrayList<Card>();
+            while(!isEmpty()) {
+                int loc=(int)(Math.random()*stackOfCards.size());
+                temp.add(stackOfCards.get(loc));
+                stackOfCards.remove(loc);
+            }
+            stackOfCards = temp;
         }
-        stackOfCards = temp;
     }
     /**
      * Shuffle all the cards in the deck. To use for reshuffle the deck.
      * */
     public void reShuffle() {
-        List<Card> temp = new ArrayList<Card>();
-        while(!isDiscardedCardsEmpty()) {
-            int loc=(int)(Math.random()*discardedCards.size());
-            temp.add(discardedCards.get(loc));
-            discardedCards.remove(loc);
+        if(!isDiscardedCardsEmpty()) {
+            List<Card> temp = new ArrayList<Card>();
+            while(!isDiscardedCardsEmpty()) {
+                int loc=(int)(Math.random()*discardedCards.size());
+                temp.add(discardedCards.get(loc));
+                discardedCards.remove(loc);
+            }
+            stackOfCards = temp;
         }
-        stackOfCards = temp;
     }
 
     /**
@@ -61,7 +65,7 @@ public abstract class Deck {
      * Return if the stack of cards is empty.
      * @return Return true if the stack is empty
      */
-    public boolean isStackOfCardEmpty() {
+    public boolean isEmpty() {
         return stackOfCards.isEmpty();
     }
     
