@@ -96,6 +96,14 @@ private Card pilotCard;
     public void testDiscardCard() {
         super.discardCard(null);
     }
+    
+    @Test
+    public void testSize() {
+        assertEquals(super.size(),0);
+        super.addCard(captainCard);
+        super.addCard(captainCard);
+        assertEquals(super.size(),2);
+    }
 
 
 }
