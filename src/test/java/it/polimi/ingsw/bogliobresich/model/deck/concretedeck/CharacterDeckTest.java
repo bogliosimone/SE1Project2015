@@ -18,17 +18,13 @@ import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.NoReShuffleableException;
 
 public class CharacterDeckTest extends Deck {
-private DeckFactory factory;
-private Deck characterDeck;
-private Card captainCard;
-private Card alienOneCard;
-private Card alienTwoCard;
-private Card pilotCard;
+    private Card captainCard;
+    private Card alienOneCard;
+    private Card alienTwoCard;
+    private Card pilotCard;
 
     @Before
     public void setUp() throws Exception {
-        factory = new MyDeckFactory();
-        characterDeck = factory.createCharacterDeck();
         captainCard = new CharacterCard(Characters.CAPTAIN);
         pilotCard = new CharacterCard(Characters.PILOT);
         alienOneCard = new CharacterCard(Characters.ALIENONE);
@@ -37,6 +33,13 @@ private Card pilotCard;
 
     @After
     public void tearDown() throws Exception {
+    }
+    
+    @Test
+    public void CharacterDeck() {
+        DeckFactory factory = new MyDeckFactory();
+        Deck characterDeck = factory.createCharacterDeck();
+        assertEquals(characterDeck instanceof CharacterDeck,true);
     }
 
     @Test
