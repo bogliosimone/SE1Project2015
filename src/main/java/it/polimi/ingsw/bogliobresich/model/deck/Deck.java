@@ -94,21 +94,13 @@ public abstract class Deck {
      * @return Card drawn
      * */ 
     public Card drawCard() throws CardFinishedException {
-        //TODO controllare il vuoto
         Card c;
         if(!isEmpty()) {
             c = stackOfCards.remove(stackOfCards.size()-1);
             drawnOutCards.add(c);
             return c;
         } else {
-            try {
-                reShuffle();
-            }
-            catch (NoReShuffleableException e)
-            {
-                
-            }
-            
+            reShuffle();
             c = stackOfCards.remove(stackOfCards.size()-1);
             drawnOutCards.add(c);
             return c;
@@ -128,7 +120,14 @@ public abstract class Deck {
         }
 
     }
-
+ 
+    /**
+     * Set if deck can be remixed
+     * @param reshuffleable true if the deck can be remixed
+     */
+    public void setReShuffle(boolean reshuffleable) {
+        this.isReShuffleable = reshuffleable;
+    }
 
     public void showCards() {
         System.out.println("Show stackOfCards:");
@@ -144,11 +143,9 @@ public abstract class Deck {
             System.out.println("Card " + c2.toString());
         }
     }
-
-
+    
     @Override
     public String toString() {
         return "Deck [stackOfCards=" + stackOfCards + "]";
     }
-
 }

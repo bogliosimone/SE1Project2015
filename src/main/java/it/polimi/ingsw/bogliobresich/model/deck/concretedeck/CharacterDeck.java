@@ -18,6 +18,7 @@ public class CharacterDeck extends Deck {
      * Class constructor
      */
     public CharacterDeck() {
+        super.setReShuffle(false);
         for(Character characterCards : Character.values()) {
             Card card = new CharacterCard(characterCards);
             super.addCard(card);
