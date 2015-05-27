@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
-import it.polimi.ingsw.bogliobresich.model.Character;
+import it.polimi.ingsw.bogliobresich.model.Characters;
 
 /**
  * @author Matteo
@@ -17,7 +17,7 @@ public class CharacterCard extends Card {
      * Class constructor
      * @param character
      */
-    public CharacterCard(Character character) {
+    public CharacterCard(Characters character) {
         this.name = character.getCharacterName();
     }
 

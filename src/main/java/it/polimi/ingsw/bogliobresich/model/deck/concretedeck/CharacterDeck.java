@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
-import it.polimi.ingsw.bogliobresich.model.Character;
+import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
@@ -18,7 +18,8 @@ public class CharacterDeck extends Deck {
      * Class constructor
      */
     public CharacterDeck() {
-        for(Character characterCards : Character.values()) {
+        super.setReShuffle(false);
+        for(Characters characterCards : Characters.values()) {
             Card card = new CharacterCard(characterCards);
             super.addCard(card);
         }

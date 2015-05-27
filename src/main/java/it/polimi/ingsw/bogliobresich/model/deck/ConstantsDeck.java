@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.deck;
 
-import it.polimi.ingsw.bogliobresich.model.Character;
+import it.polimi.ingsw.bogliobresich.model.Characters;
 
 /**
  * @author matteobresich
@@ -11,7 +11,7 @@ import it.polimi.ingsw.bogliobresich.model.Character;
  */
 public final class ConstantsDeck {
     //Character contains all characters of the game
-    public static final int NCHARACTERCARD = Character.values().length;
+    public static final int NCHARACTERCARD = Characters.values().length;
     public static final int NPORTHOLECARD = 6;
     
     //ITEM CARD

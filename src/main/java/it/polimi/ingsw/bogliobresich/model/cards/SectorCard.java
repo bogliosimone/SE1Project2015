@@ -46,5 +46,35 @@ public class SectorCard extends Card {
     public String toString() {
         return "SectorCard [drawAnItem =" + drawAnItem + "]";
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (drawAnItem ? 1231 : 1237);
+        result = prime * result + ((noise == null) ? 0 : noise.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SectorCard other = (SectorCard) obj;
+        if (drawAnItem != other.drawAnItem)
+            return false;
+        if (noise == null) {
+            if (other.noise != null)
+                return false;
+        } else if (!noise.equals(other.noise))
+            return false;
+        return true;
+    }
+    
+    
     
 }

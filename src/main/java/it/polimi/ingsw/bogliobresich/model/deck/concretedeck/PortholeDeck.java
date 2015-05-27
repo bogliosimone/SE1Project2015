@@ -19,6 +19,7 @@ public class PortholeDeck extends Deck {
      */
     private static final int TWO = 2;
     public PortholeDeck() {
+        super.setReShuffle(false);
         Card card;
         for (int i = 0; i < ConstantsDeck.NPORTHOLECARD; i++) {
 
