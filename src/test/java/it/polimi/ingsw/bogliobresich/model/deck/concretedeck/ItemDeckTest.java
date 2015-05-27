@@ -60,19 +60,18 @@ public class ItemDeckTest extends Deck {
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(true);
         super.addCard(itemcard1);
-        super.addCard(itemcard2);
-        super.addCard(itemcard3);
-        super.addCard(itemcard4);
+        Card c = super.drawCard();
+        super.discardCard(itemcard1);
         super.reShuffle();
+        c = super.drawCard();
         assertEquals(true,true);
+        assertEquals(itemcard1,c);
     }
 
     @Test
     public void testAddCard() {
         super.addCard(itemcard1);
         assertEquals(super.isEmpty(),false);
-        super.addCard(null);
-        //TODO
     }
 
     @Test
@@ -103,7 +102,7 @@ public class ItemDeckTest extends Deck {
     public void testDrawCard() throws CardFinishedException {
         super.addCard(itemcard1); 
         Card c = super.drawCard();
-        assertEquals(c, new ItemCard(ConstantsCard.ADRENALINE));
+        assertEquals(c, itemcard1);
         c = super.drawCard();
     }
 
@@ -121,7 +120,7 @@ public class ItemDeckTest extends Deck {
     
     @Test
     public void testEquals() {
-        fail("not implemented");
+        assertEquals(new ItemCard(ConstantsCard.ADRENALINE),itemcard1);
     }
 
 }

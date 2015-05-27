@@ -101,7 +101,7 @@ public class PortholeDeckTest extends Deck {
     public void testDrawCard() throws CardFinishedException {
         super.addCard(porthole1); 
         Card c = super.drawCard();
-        assertEquals(c, new PortholeCard(ConstantsCard.PORTHOLE_BROKEN));
+        assertEquals(c, porthole1);
         c = super.drawCard();
     }
 
@@ -118,7 +118,7 @@ public class PortholeDeckTest extends Deck {
     
     @Test
     public void testEquals() {
-        fail("not implemented");
+        assertEquals(new PortholeCard(ConstantsCard.PORTHOLE_BROKEN),porthole1);
     }
 
 }

@@ -62,11 +62,12 @@ public class SectorDeckTest extends Deck {
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(true);
         super.addCard(sectorcard1);
-        super.addCard(sectorcard2);
-        super.addCard(sectorcard3);
-        super.addCard(sectorcard4);
+        Card c = super.drawCard();
+        super.discardCard(sectorcard1);
         super.reShuffle();
+        c = super.drawCard();
         assertEquals(true,true);
+        assertEquals(sectorcard1,c);
     }
 
     @Test
@@ -103,7 +104,7 @@ public class SectorDeckTest extends Deck {
     public void testDrawCard() throws CardFinishedException {
         super.addCard(sectorcard1); 
         Card c = super.drawCard();
-        assertEquals(c, new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false));
+        assertEquals(c, sectorcard1);
         c = super.drawCard();
     }
 
@@ -121,7 +122,7 @@ public class SectorDeckTest extends Deck {
     
     @Test
     public void testEquals() {
-        fail("not implemented");
+        assertEquals(new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false),sectorcard1);
     }
 
 }

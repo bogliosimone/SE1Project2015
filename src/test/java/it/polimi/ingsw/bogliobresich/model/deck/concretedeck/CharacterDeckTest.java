@@ -11,6 +11,8 @@ import org.junit.Test;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
 import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
@@ -91,7 +93,7 @@ public class CharacterDeckTest extends Deck {
     public void testDrawCard() throws CardFinishedException {
         super.addCard(captainCard); 
         Card c = super.drawCard();
-        assertEquals(c, new CharacterCard(Characters.CAPTAIN));
+        assertEquals(c, captainCard);
         c = super.drawCard();
     }
 
@@ -110,7 +112,7 @@ public class CharacterDeckTest extends Deck {
     
     @Test
     public void testEquals() {
-        fail("not implemented");
+        assertEquals(new CharacterCard(Characters.CAPTAIN),captainCard);
     }
 
 
