@@ -46,8 +46,14 @@ public class PortholeDeckTest extends Deck {
     }
 
     @Test
-    public void testShuffle() {
-        fail("Not yet implemented");
+    public void testShuffle() throws CardFinishedException {
+        super.shuffle();
+        assertEquals(super.isEmpty(),true);
+        
+        super.addCard(porthole1);
+        super.shuffle();
+        assertEquals(super.isEmpty(),false);
+        assertEquals(super.drawCard(), new PortholeCard(ConstantsCard.PORTHOLE_BROKEN));
     }
 
     @Test(expected=NoReShuffleableException.class)
