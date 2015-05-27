@@ -70,6 +70,7 @@ public abstract class Deck {
      * Add a card to the deck 
      * @param c Card: Card to add in the deck*/
     protected void addCard(Card c) {
+        //TODO controllo c == null?
         stackOfCards.add(c);
     }
     
@@ -157,4 +158,5 @@ public abstract class Deck {
     public String toString() {
         return "Deck [stackOfCards=" + stackOfCards + "]";
     }
+    
 }
