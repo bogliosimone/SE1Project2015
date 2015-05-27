@@ -2,18 +2,38 @@ package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.PortholeCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
 import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 public class SectorDeckTest extends Deck {
 
+    private Card sectorcard1;
+    private Card sectorcard2;
+    private Card sectorcard3;
+    private Card sectorcard4;
+    private Card sectorcard5;
+    private Card sectorcard6;
     @Before
     public void setUp() throws Exception {
+        sectorcard1 = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false);
+        sectorcard2 = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,true);
+        sectorcard3 = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,false);
+        sectorcard4 = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,true);
+        sectorcard5 = new SectorCard(ConstantsCard.SILENCE,false);
+        sectorcard6 = new SectorCard(ConstantsCard.SILENCE,true);
     }
 
     @After
@@ -28,48 +48,80 @@ public class SectorDeckTest extends Deck {
     }
     
     @Test
-    public void testShuffle() {
-        fail("Not yet implemented");
+    public void testShuffle() throws CardFinishedException {
+        super.shuffle();
+        assertEquals(super.isEmpty(),true);
+        
+        super.addCard(sectorcard1);
+        super.shuffle();
+        assertEquals(super.isEmpty(),false);
+        assertEquals(super.drawCard(), new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false));
     }
 
     @Test
-    public void testReShuffle() {
-        fail("Not yet implemented");
+    public void testReShuffle() throws CardFinishedException {
+        super.setReShuffle(true);
+        super.addCard(sectorcard1);
+        super.addCard(sectorcard2);
+        super.addCard(sectorcard3);
+        super.addCard(sectorcard4);
+        super.reShuffle();
+        assertEquals(true,true);
     }
 
     @Test
     public void testAddCard() {
-        fail("Not yet implemented");
+        super.addCard(sectorcard1);
+        assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testSize() {
-        fail("Not yet implemented");
+        assertEquals(super.size(),0);
+        super.addCard(sectorcard1);
+        super.addCard(sectorcard1);
+        assertEquals(super.size(),2);
     }
 
     @Test
     public void testIsEmpty() {
-        fail("Not yet implemented");
+        assertEquals(super.isEmpty(),true);
+        super.addCard(sectorcard1);
+        assertEquals(super.isEmpty(),false);
     }
 
     @Test
-    public void testIsDiscardedCardsEmpty() {
-        fail("Not yet implemented");
+    public void testIsDiscardedCardsEmpty() throws CardFinishedException {
+        super.addCard(sectorcard1);
+        assertEquals(super.isDiscardedCardsEmpty(),true);
+        Card c = super.drawCard();
+        super.discardCard(c);
+        assertEquals(super.isDiscardedCardsEmpty(),false);
     }
 
-    @Test
-    public void testDrawCard() {
-        fail("Not yet implemented");
+    @Test(expected=CardFinishedException.class)
+    public void testDrawCard() throws CardFinishedException {
+        super.addCard(sectorcard1); 
+        Card c = super.drawCard();
+        assertEquals(c, new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false));
+        c = super.drawCard();
     }
 
-    @Test
+    @Test(expected=NoSuchElementException.class)
     public void testDiscardCard() {
-        fail("Not yet implemented");
+        super.discardCard(null);
     }
 
+    @Test(expected=CardFinishedException.class)
+    public void testSetReShuffle() throws CardFinishedException {
+        super.setReShuffle(true);
+        super.reShuffle();
+        assertEquals(true,true);
+    }
+    
     @Test
-    public void testSetReShuffle() {
-        fail("Not yet implemented");
+    public void testEquals() {
+        fail("not implemented");
     }
 
 }

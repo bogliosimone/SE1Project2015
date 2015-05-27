@@ -107,6 +107,11 @@ public class CharacterDeckTest extends Deck {
         super.addCard(captainCard);
         assertEquals(super.size(),2);
     }
+    
+    @Test
+    public void testEquals() {
+        fail("not implemented");
+    }
 
 
 }

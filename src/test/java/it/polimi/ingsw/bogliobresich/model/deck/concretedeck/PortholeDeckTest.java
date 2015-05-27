@@ -115,5 +115,10 @@ public class PortholeDeckTest extends Deck {
         super.setReShuffle(false);
         super.reShuffle();
     }
+    
+    @Test
+    public void testEquals() {
+        fail("not implemented");
+    }
 
 }
