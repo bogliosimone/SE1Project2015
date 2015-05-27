@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
+import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
 
 public class SectorDeckTest extends Deck {
 
@@ -18,6 +20,13 @@ public class SectorDeckTest extends Deck {
     public void tearDown() throws Exception {
     }
 
+    @Test
+    public void testSectorDeck() {
+        DeckFactory factory = new MyDeckFactory();
+        Deck sectorDeck = factory.createSectorDeck();
+        assertEquals(sectorDeck instanceof SectorDeck,true);
+    }
+    
     @Test
     public void testShuffle() {
         fail("Not yet implemented");

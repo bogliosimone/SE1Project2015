@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
+import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
 
 public class ItemDeckTest extends Deck {
 
@@ -16,6 +18,13 @@ public class ItemDeckTest extends Deck {
 
     @After
     public void tearDown() throws Exception {
+    }
+    
+    @Test
+    public void testItemDeck() {
+        DeckFactory factory = new MyDeckFactory();
+        Deck itemDeck = factory.createItemDeck();
+        assertEquals(itemDeck instanceof ItemDeck,true);
     }
 
     @Test
