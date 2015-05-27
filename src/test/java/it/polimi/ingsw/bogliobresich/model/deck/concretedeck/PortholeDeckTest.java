@@ -2,11 +2,15 @@ package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.cards.PortholeCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
@@ -46,39 +50,58 @@ public class PortholeDeckTest extends Deck {
         fail("Not yet implemented");
     }
 
-    @Test
-    public void testReShuffle() {
-        fail("Not yet implemented");
+    @Test(expected=NoReShuffleableException.class)
+    public void testReShuffle() throws CardFinishedException {
+        super.setReShuffle(false);
+        super.addCard(porthole1);
+        super.addCard(porthole2);
+        super.addCard(porthole3);
+        super.addCard(porthole4);
+        super.reShuffle();
+        assertEquals(true,true);
     }
 
     @Test
     public void testAddCard() {
-        fail("Not yet implemented");
+        super.addCard(porthole1);
+        assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testSize() {
-        fail("Not yet implemented");
+        assertEquals(super.size(),0);
+        super.addCard(porthole1);
+        super.addCard(porthole2);
+        assertEquals(super.size(),2);
     }
 
     @Test
     public void testIsEmpty() {
-        fail("Not yet implemented");
+        assertEquals(super.isEmpty(),true);
+        super.addCard(porthole1);
+        assertEquals(super.isEmpty(),false);
     }
 
     @Test
-    public void testIsDiscardedCardsEmpty() {
-        fail("Not yet implemented");
+    public void testIsDiscardedCardsEmpty() throws CardFinishedException {
+        super.addCard(porthole1);
+        assertEquals(super.isDiscardedCardsEmpty(),true);
+        Card c = super.drawCard();
+        super.discardCard(c);
+        assertEquals(super.isDiscardedCardsEmpty(),false);
     }
 
-    @Test
-    public void testDrawCard() {
-        fail("Not yet implemented");
+    @Test(expected=CardFinishedException.class)
+    public void testDrawCard() throws CardFinishedException {
+        super.addCard(porthole1); 
+        Card c = super.drawCard();
+        assertEquals(c, new PortholeCard(ConstantsCard.PORTHOLE_BROKEN));
+        c = super.drawCard();
     }
 
-    @Test
+    @Test(expected=NoSuchElementException.class)
     public void testDiscardCard() {
-        fail("Not yet implemented");
+        super.discardCard(null);
     }
 
     @Test(expected=NoReShuffleableException.class)
