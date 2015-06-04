@@ -7,9 +7,11 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  * @author Matteo
  *
  */
-public class SectorCard extends Card {
+public class SectorCard implements Card {
+    private int id;
     private boolean drawAnItem;
     private String noise;
+    
 
     /**
      * Class constructor
@@ -20,6 +22,11 @@ public class SectorCard extends Card {
             this.drawAnItem = d;
             this.noise = noise;
         }
+    }
+    
+    @Override
+    public void play() {
+        // TODO Auto-generated method stub
     }
     
     /**
@@ -41,21 +48,46 @@ public class SectorCard extends Card {
         }
         return false;
     }
+    
+    
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     @Override
     public String toString() {
         return "SectorCard [drawAnItem =" + drawAnItem + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + (drawAnItem ? 1231 : 1237);
+        result = prime * result + id;
         result = prime * result + ((noise == null) ? 0 : noise.hashCode());
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -67,6 +99,8 @@ public class SectorCard extends Card {
         SectorCard other = (SectorCard) obj;
         if (drawAnItem != other.drawAnItem)
             return false;
+        if (id != other.id)
+            return false;
         if (noise == null) {
             if (other.noise != null)
                 return false;
@@ -74,7 +108,7 @@ public class SectorCard extends Card {
             return false;
         return true;
     }
-    
+
     
     
 }

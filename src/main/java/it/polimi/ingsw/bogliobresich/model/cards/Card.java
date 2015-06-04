@@ -7,9 +7,8 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  * @author Matteo
  *
  */
-public abstract class Card {
-    @Override
-    public String toString() {
-        return "Card";
-    }
+public interface Card {
+    public abstract void play();
+    public abstract void setId(int index);
+    public abstract int getId();
 }

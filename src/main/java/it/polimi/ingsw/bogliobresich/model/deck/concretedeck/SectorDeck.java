@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class SectorDeck extends Deck {
+    int lastId = 0;
     /**
      * Class constructor
      */
@@ -25,6 +26,8 @@ public class SectorDeck extends Deck {
     
     }
     
+    private int generateId() { return lastId++; }
+    
     //item e no item
     private void addSectorCardWithNoiseAnySector(int wItem, int wNoItem) {
         Card card;
@@ -32,12 +35,12 @@ public class SectorDeck extends Deck {
         for(index = 0; index < wItem; index++) {
             //create a SectorCard with noise in any sector and with an item to draw
             card = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,true);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
         for(index = 0; index < wNoItem; index++) {
             //create a SectorCard with noise in any sector and without an item to draw
             card = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -47,12 +50,12 @@ public class SectorDeck extends Deck {
         for(index = 0; index < wItem; index++) {
             //create a SectorCard with noise in my sector and with an item to draw
             card = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,true);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
         for(index = 0; index < wNoItem; index++) {
             //create a SectorCard with noise in my sector and without an item to draw
             card = new SectorCard(ConstantsCard.NOISE_MY_SECTOR,false);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -62,12 +65,12 @@ public class SectorDeck extends Deck {
         for(index = 0; index < wItem; index++) {
             //create a SectorCard without noise and with an item to draw
             card = new SectorCard(ConstantsCard.SILENCE,true);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
         for(index = 0; index < wNoItem; index++) {
             //create a SectorCard without noise and without an item to draw
             card = new SectorCard(ConstantsCard.SILENCE,false);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
 

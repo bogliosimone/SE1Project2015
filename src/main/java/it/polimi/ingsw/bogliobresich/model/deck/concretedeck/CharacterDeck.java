@@ -13,7 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class CharacterDeck extends Deck {
-
+    int lastId = 0;
     /**
      * Class constructor
      */
@@ -21,7 +21,10 @@ public class CharacterDeck extends Deck {
         super.setReShuffle(false);
         for(Characters characterCards : Characters.values()) {
             Card card = new CharacterCard(characterCards);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
+    
+    private int generateId() { return lastId++; }
+    
 }

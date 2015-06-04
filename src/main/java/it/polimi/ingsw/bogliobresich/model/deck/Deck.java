@@ -69,8 +69,8 @@ public abstract class Deck {
     /**
      * Add a card to the deck 
      * @param c Card: Card to add in the deck*/
-    protected void addCard(Card c) {
-        //TODO controllo c == null?
+    protected void addCard(Card c,int id) {
+        c.setId(id);
         stackOfCards.add(c);
     }
     
