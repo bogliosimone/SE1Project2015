@@ -7,9 +7,10 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  * @author Matteo
  *
  */
-public class ItemCard extends Card {
-    
+public class ItemCard implements Card {
+    private int id;
     private String type;
+    
 
     /**
      * Class constructor
@@ -18,6 +19,11 @@ public class ItemCard extends Card {
         if(isDataOk(type)) {
             this.type = type;
         }
+    }
+    
+    @Override
+    public void play() {
+        // TODO Auto-generated method stub
     }
     
 
@@ -46,22 +52,40 @@ public class ItemCard extends Card {
         }
         return false;
     }
+    
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     @Override
     public String toString() {
         return "ItemCard [" + type +"]";
     }
 
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + id;
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
 
 
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -71,6 +95,8 @@ public class ItemCard extends Card {
         if (getClass() != obj.getClass())
             return false;
         ItemCard other = (ItemCard) obj;
+        if (id != other.id)
+            return false;
         if (type == null) {
             if (other.type != null)
                 return false;
