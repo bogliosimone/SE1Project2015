@@ -14,12 +14,15 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  * @author matteobresich
  *
  */
+
 public class ItemDeck extends Deck {
+    int lastId = 0;
 
     /**
      * Class constructor
      */
     public ItemDeck() {
+        
         addItemCardAttack(ConstantsDeck.N_ITEMCARD_ATTACK);
         addItemCardDefence(ConstantsDeck.N_ITEMCARD_DEFENCE);
         addItemCardTeleport(ConstantsDeck.N_ITEMCARD_TELEPORT);
@@ -29,12 +32,14 @@ public class ItemDeck extends Deck {
         
     }
     
+    private int generateId() { return lastId++; }
+    
     private void addItemCardAttack(int nItem) {
         Card card;
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.ATTACK);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -43,7 +48,7 @@ public class ItemDeck extends Deck {
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.DEFENCE);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -52,7 +57,7 @@ public class ItemDeck extends Deck {
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.TELEPORT);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -61,7 +66,7 @@ public class ItemDeck extends Deck {
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.SPOTLIGHT);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -70,7 +75,7 @@ public class ItemDeck extends Deck {
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.SEDATIVES);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
     
@@ -79,7 +84,7 @@ public class ItemDeck extends Deck {
         int index;
         for(index = 0; index < nItem; index++) {
             card = new ItemCard(ConstantsCard.ADRENALINE);
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
     }
 }

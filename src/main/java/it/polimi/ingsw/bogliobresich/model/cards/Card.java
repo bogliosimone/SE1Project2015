@@ -9,4 +9,6 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  */
 public interface Card {
     public abstract void play();
+    public abstract void setId(int index);
+    public abstract int getId();
 }
