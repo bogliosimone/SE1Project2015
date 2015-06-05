@@ -10,48 +10,59 @@ package it.polimi.ingsw.bogliobresich.model.player;
  */
 public class Player {
 
-    private boolean connected;
-    private boolean life;
-    private boolean turnEnabled;
+    protected boolean isConnected=true;
+    protected boolean isAlive=true;
+    protected boolean isYourTurn=false;
+    protected boolean canAttack=false;
+    protected boolean canPlayObject=true;
+    protected boolean canDrawSectorCard=true;
+    protected int movementStep=1;
     private String nickName;
+    private int idPlayer;
     
     /**
      * Class constructor.
+     * @param nickName TODO
      */
-    public Player() {
-        connected = false;
-        life = true;
-        turnEnabled = false;
+    public Player(int idPlayer,String nickName) {
+        this.nickName=nickName;
+        this.idPlayer=idPlayer;
+        this.isConnected=true;
+        this.isAlive=true;
+        this.isYourTurn=false;
+        this.canAttack=false;
+        this.canPlayObject=true;
+        this.canDrawSectorCard=true;
+        this.movementStep=1;
     }
 
     /**
      * @return the nickName
      */
     public String getNickName() {
-        return nickName;
+        return this.nickName;
     }
-
     /**
-     * @param nickName the nickName to set
+     * @return the id of the player
      */
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public int getIdPlayer() {
+        return this.idPlayer;
     }
-
+    
     /**
-     * @return the abilitation for a turn
+     * @return true if is the current turn of the player
      *   
      */
     public boolean isYourTurn() {
-        return turnEnabled;
+        return isYourTurn;
     }
 
     /**
-     * @return the connection state
+     * @return true if the player is connect
      * 
      */
     public boolean isConnected() {
-        return connected;
+        return isConnected;
     }
 
     /**
@@ -59,7 +70,26 @@ public class Player {
      * 
      */
     public boolean isAlive() {
-        return life;
+        return isAlive;
+    }
+    
+    /**
+     * @return integer number that is the current movement step of the player
+     */
+    public int getMovementStep() {
+        return movementStep;
+    }
+    
+    public boolean canPlayObject(){
+        return this.canPlayObject;
+    }
+    
+    public boolean canAttack(){
+        return this.canPlayObject;
+    }
+    
+    public boolean canDrawSectorCard(){
+        return this.canPlayObject;
     }
 
 }
