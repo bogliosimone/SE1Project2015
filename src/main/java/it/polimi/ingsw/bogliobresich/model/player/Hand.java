@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.player;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,13 @@ public class Hand {
      * Class constructor.
      */
     public Hand() {
-        maximumNumberOfCards = 0;
-        cards = new ArrayList<Card>();
+        this(5);
     }
 
+    /**
+     * Class constructor.
+     * @param numberOfCards is the maximum number of cards that a hand can hold
+     */
     public Hand(int numberOfCards) {
         maximumNumberOfCards = numberOfCards;
         cards = new ArrayList<Card>();
@@ -52,24 +56,44 @@ public class Hand {
      * Add a card in the hand if is not full. Return false if the hand is full.
      */
     public boolean addCard(Card c) {
-        if (!this.isFull()) {
-            return cards.add(c);
+        if(isItemCard(c)) {
+            if (!this.isFull()) {
+                return cards.add(c);
+            }
+            return false;
+        } else {
+            throw new IllegalArgumentException("Card is not valid!");
         }
-        return false;
     }
 
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean removeCard(Card c) {
-        return cards.remove(c);
+        if(isItemCard(c)) {
+            return cards.remove(c);
+        } else {
+            throw new IllegalArgumentException("Card is not valid!");
+        }
     }
 
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean searchCard(Card c) {
-        return cards.contains(c); //TODO
+        if(isItemCard(c)) {
+            //contains use equals
+            return cards.contains(c);
+        } else {
+            throw new IllegalArgumentException("Card is not valid!");
+        }
+    }
+    
+    private boolean isItemCard(Card c) {
+        if(c instanceof ItemCard) {
+            return true;
+        }
+        return false;
     }
 
     /**
