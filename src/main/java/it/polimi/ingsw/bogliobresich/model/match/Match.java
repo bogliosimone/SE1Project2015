@@ -17,20 +17,28 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class Match {
     private State myState;
     private int idMatch;
-    private boolean isActive;
+    private boolean isActive=true;
+    private int currentTurn=0;
     private List<Player> players = new ArrayList<Player>();
-    
+
+    public Match(List<User> users){
+        setState(new InitState());
+    }
 
     public int getIdMatch(){
         return this.idMatch;
     }
     
-    public boolean isActive(){
-        return this.isActive;
+    public int getCurrentTurn(){
+        return this.currentTurn;
     }
     
-    public Match(){
-        setState(new InitState());
+    public void setCurrentTurn(int turnNumber){
+        this.currentTurn=turnNumber;
+    }
+    
+    public boolean isActive(){
+        return this.isActive;
     }
 
     void setState(State newState){

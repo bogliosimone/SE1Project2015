@@ -12,7 +12,8 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class InitState implements State {
 
-public void doAction(Match match,Player player, Action action){
+    @Override
+    public void doAction(Match match,Player player, Action action){
         
     }
     

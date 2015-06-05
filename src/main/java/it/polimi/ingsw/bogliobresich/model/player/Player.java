@@ -22,7 +22,6 @@ public class Player {
     
     /**
      * Class constructor.
-     * @param nickName TODO
      */
     public Player(int idPlayer,String nickName) {
         this.nickName=nickName;
