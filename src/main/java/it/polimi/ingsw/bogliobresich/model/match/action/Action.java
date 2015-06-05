@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.match.action;
+package it.polimi.ingsw.bogliobresich.model.match.action;
 
 /**
  * @author simoneboglio

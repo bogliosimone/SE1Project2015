@@ -18,7 +18,7 @@ public class AlienPlayer extends Player {
         this.canAttack=true;
     }
     
-    void Feed(){
+    void feed(){
         this.movementStep=MOVEMENTSTEPALIENFEED;
     }
 }

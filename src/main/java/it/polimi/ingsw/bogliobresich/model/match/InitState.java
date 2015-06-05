@@ -1,9 +1,9 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.match;
+package it.polimi.ingsw.bogliobresich.model.match;
 
-import it.polimi.ingsw.bogliobresich.match.action.Action;
+import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
