@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.cards;
 
 import it.polimi.ingsw.bogliobresich.model.Characters;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * @author Matteo
@@ -22,7 +23,7 @@ public class CharacterCard implements Card {
     }
     
     @Override
-    public void play() {
+    public void play(Player p) {
         // TODO Auto-generated method stub
     }
 
