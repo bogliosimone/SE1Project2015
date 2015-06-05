@@ -26,6 +26,10 @@ public class Hand {
         this(5);
     }
 
+    /**
+     * Class constructor.
+     * @param numberOfCards is the maximum number of cards that a hand can hold
+     */
     public Hand(int numberOfCards) {
         maximumNumberOfCards = numberOfCards;
         cards = new ArrayList<Card>();
