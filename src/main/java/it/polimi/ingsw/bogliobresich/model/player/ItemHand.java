@@ -80,6 +80,4 @@ public class ItemHand {
     public String toString() {
         return "ItemHand [cards=" + cards + "]";
     }
-
-
 }

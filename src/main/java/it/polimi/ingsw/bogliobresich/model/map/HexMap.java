@@ -86,10 +86,7 @@ public class HexMap {
      * @return  true if is porthole sector, false instead
      */
     public boolean coordinateIsPortholeSector(Coordinate coord){
-        if(this.getSectorFromCoordinate(coord) instanceof PortholeSector)
-            return true;
-        else
-            return false;
+        return this.getSectorFromCoordinate(coord) instanceof PortholeSector;
     }
     
     /**
@@ -98,10 +95,7 @@ public class HexMap {
      * @return  true if is safe sector, false instead
      */
     public boolean coordinateIsSafeSector(Coordinate coord){
-        if(this.getSectorFromCoordinate(coord) instanceof SafeSector)
-            return true;
-        else
-            return false;
+        return this.getSectorFromCoordinate(coord) instanceof SafeSector;
     }
     
     /**
@@ -110,21 +104,18 @@ public class HexMap {
      * @return  true if is unsafe sector, false instead
      */
     public boolean coordinateIsUnsafeSector(Coordinate coord){
-        if(this.getSectorFromCoordinate(coord) instanceof UnsafeSector)
-            return true;
-        else
-            return false;
+        return this.getSectorFromCoordinate(coord) instanceof UnsafeSector;
     }
     
-    public Coordinate GetCoordinateHumanBase(){
+    public Coordinate getCoordinateHumanBase(){
         return humanBaseCoordinate;
     }
     
-    public Coordinate GetCoordinateAlienBase(){
+    public Coordinate getCoordinateAlienBase(){
         return alienBaseCoordinate;
     }
     
-    public boolean SetPortholeStatus(Coordinate coord,boolean status){
+    public boolean setPortholeStatus(Coordinate coord,boolean status){
         if(coordinateIsPortholeSector(coord)){
             PortholeSector ph= (PortholeSector) getSectorFromCoordinate(coord);
             ph.setCrossable(status);
@@ -133,12 +124,12 @@ public class HexMap {
         return false;
     }
     
-    protected void SetHumanBaseCoordinate(Coordinate coord){
+    private void setHumanBaseCoordinate(Coordinate coord){
         this.humanBaseCoordinate=coord;
     }
     
-    protected void SetAlienBaseCoordinate(Coordinate coord){
-        this.humanBaseCoordinate=coord;
+    private void setAlienBaseCoordinate(Coordinate coord){
+        this.alienBaseCoordinate=coord;
     }
     
     /**
@@ -380,11 +371,11 @@ public class HexMap {
         if(charType=='1'||charType=='2'||charType=='3'||charType=='4')
             return new PortholeSector (x,y,charType-'0');
         if(charType=='H'){
-            this.humanBaseCoordinate= new Coordinate(x,y);
+            setHumanBaseCoordinate(new Coordinate(x,y));
             return new HumanBaseSector (x,y);
             }
         if(charType=='A'){
-            this.alienBaseCoordinate= new Coordinate(x,y);
+            setAlienBaseCoordinate(new Coordinate(x,y));
             return new AlienBaseSector (x,y);
             }
         return new DisableSector (x,y);

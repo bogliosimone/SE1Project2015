@@ -3,10 +3,11 @@
  */
 package it.polimi.ingsw.bogliobresich.model.player;
 
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
 /**
- * @author Matteo
  * @author simoneboglio
  * 
  */
@@ -23,13 +24,16 @@ public class Player {
     protected int idPlayer;
     protected ItemHand hand;
     protected static final int MAXCARDSINHAND=5;
+    protected Coordinate coordinate;
+    protected CharacterCard characterCard;
     
     /**
      * Class constructor.
      */
-    public Player(int idPlayer,String nickName) {
+    public Player(int idPlayer,String nickName,Coordinate coordinate,CharacterCard characterCard) {
         this.nickName=nickName;
         this.idPlayer=idPlayer;
+        this.coordinate=coordinate;
         this.isConnected=true;
         this.isAlive=true;
         this.isYourTurn=false;
@@ -38,6 +42,7 @@ public class Player {
         this.canDrawSectorCard=true;
         this.movementStep=1;
         this.hand = new ItemHand(MAXCARDSINHAND);
+        this.characterCard=characterCard;
     }
 
     /**
@@ -111,4 +116,11 @@ public class Player {
     public boolean addCardInHand(ItemCard card){
         return this.hand.addCard(card);
     }   
+    
+    public void setCoordinate(Coordinate coord){
+        this.coordinate=coord;
+    }
+    public Coordinate getCoordinate(){
+        return this.coordinate;
+    }
 }

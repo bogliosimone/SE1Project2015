@@ -1,9 +1,12 @@
 package it.polimi.ingsw.bogliobresich.model.player;
 
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+
 public class HumanPlayer extends Player {
     
-    HumanPlayer(int idPlayer,String nickName){
-        super(idPlayer,nickName);
+    public HumanPlayer(int idPlayer,String nickName,Coordinate coordinate,CharacterCard characterCard){
+        super(idPlayer,nickName,coordinate,characterCard);
     }
     
     public void setMovementStep (int step){
