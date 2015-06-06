@@ -3,6 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.player;
 
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+
 /**
  * @author Matteo
  * @author simoneboglio
@@ -17,8 +19,10 @@ public class Player {
     protected boolean canPlayObject=true;
     protected boolean canDrawSectorCard=true;
     protected int movementStep=1;
-    private String nickName;
-    private int idPlayer;
+    protected String nickName;
+    protected int idPlayer;
+    protected ItemHand hand;
+    protected static final int MAXCARDSINHAND=5;
     
     /**
      * Class constructor.
@@ -33,6 +37,7 @@ public class Player {
         this.canPlayObject=true;
         this.canDrawSectorCard=true;
         this.movementStep=1;
+        this.hand = new ItemHand(MAXCARDSINHAND);
     }
 
     /**
@@ -90,5 +95,20 @@ public class Player {
     public boolean canDrawSectorCard(){
         return this.canPlayObject;
     }
-
+    
+    public boolean itemCardIsInHand(ItemCard card){
+        return this.hand.cardIsIn(card);
+    }
+    
+    public boolean handIsFull(){
+        return this.hand.isFull();
+    }
+    
+    public boolean removeCardInHand(ItemCard card){
+        return this.hand.removeCard(card);
+    }
+    
+    public boolean addCardInHand(ItemCard card){
+        return this.hand.addCard(card);
+    }   
 }
