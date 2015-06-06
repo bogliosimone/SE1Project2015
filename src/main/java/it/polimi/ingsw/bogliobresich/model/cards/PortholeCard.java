@@ -3,12 +3,16 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.player.Player;
+
 /**
  * @author Matteo
  *
  */
-public class PortholeCard extends Card {
+public class PortholeCard implements Card {
+    private int id;
     private String state;
+    
 
     /**
      * Class constructor
@@ -17,6 +21,11 @@ public class PortholeCard extends Card {
         if(isDataOk(state)) {
             this.state = state;
         }
+    }
+    
+    @Override
+    public void play(Player p) {
+        // TODO Auto-generated method stub
     }
     
     /**
@@ -38,6 +47,22 @@ public class PortholeCard extends Card {
         return false;
     }
 
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     @Override
     public String toString() {
         return "PortholeCard [" + state +"]";
@@ -47,6 +72,7 @@ public class PortholeCard extends Card {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + id;
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         return result;
     }
@@ -60,6 +86,8 @@ public class PortholeCard extends Card {
         if (getClass() != obj.getClass())
             return false;
         PortholeCard other = (PortholeCard) obj;
+        if (id != other.id)
+            return false;
         if (state == null) {
             if (other.state != null)
                 return false;

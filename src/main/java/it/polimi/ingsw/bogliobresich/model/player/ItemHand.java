@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.player;
 
-import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,22 +13,18 @@ import java.util.List;
  * @author simoneboglio
  *
  */
-public class Hand {
+public class ItemHand {
 
-    List<Card> cards;
+    List<ItemCard> cards;
     private int maximumNumberOfCards;
 
     /**
      * Class constructor.
+     * @param numberOfCards is the maximum number of cards that a hand can hold
      */
-    public Hand() {
-        maximumNumberOfCards = 0;
-        cards = new ArrayList<Card>();
-    }
-
-    public Hand(int numberOfCards) {
+    public ItemHand(int numberOfCards) {
         maximumNumberOfCards = numberOfCards;
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<ItemCard>();
     }
 
     /**	
@@ -51,7 +47,7 @@ public class Hand {
     /**
      * Add a card in the hand if is not full. Return false if the hand is full.
      */
-    public boolean addCard(Card c) {
+    public boolean addCard(ItemCard c) {
         if (!this.isFull()) {
             return cards.add(c);
         }
@@ -61,32 +57,27 @@ public class Hand {
     /**
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
-    public boolean removeCard(Card c) {
+    public boolean removeCard(ItemCard c) {
         return cards.remove(c);
     }
 
     /**
-     * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
+     * 
      */
-    public boolean searchCard(Card c) {
-        return cards.contains(c); //TODO
+
+    public boolean cardIsIn(ItemCard c) {
+        return cards.contains(c);
     }
 
     /**
      * Return all the cards in the hand
      */
-    public Card[] list() {
-        Card [] card = new Card[cards.size()];
-        for (int i = 0; i < cards.size(); i++) {
-            card[i] = this.cards.get(i);
-        }
-        return card;
+    public List<ItemCard> listOfCards() {
+        return this.cards;
     }
 
     @Override
     public String toString() {
-        return "Hand [cards=" + cards + "]";
+        return "ItemHand [cards=" + cards + "]";
     }
-
-
 }
