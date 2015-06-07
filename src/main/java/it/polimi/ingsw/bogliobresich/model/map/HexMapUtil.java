@@ -24,76 +24,7 @@ public class HexMapUtil {
     private HexMapUtil(){
     }
     
-    /**
-     * create and return an HashMap with key->CubeCoord, value->Sector from a filename
-     * @param fileName
-     * @return HashMap<CubeCoord,Sector>  
-     * @throws IOException
-     */
-    public static Map<CubeCoord,Sector> loadHashMapFromFile (String fileName) {
-        Map<CubeCoord,Sector> mp= new HashMap<CubeCoord,Sector>();
-        int column=ConstantMap.COLUMNMAP;
-        int row=ConstantMap.ROWMAP;
-        char letterType;
-        Sector sect;
-        OffsetCoord offsetCoord;
-        CubeCoord hexCoord;
-        FileReader reader = null;
-        BufferedReader buffer = null;
-        String stringa;
-        try{
-            reader=new FileReader(fileName);
-            buffer=new BufferedReader(reader);
-            for(int i=0;i<column;i++) {
-                stringa=buffer.readLine();
-                for(int j=0;j<row;j++){
-                    letterType=stringa.charAt(j);
-                    sect = newSectorFromXYLetterType(i+1,j+1,letterType);
-                    offsetCoord = new OffsetCoord (sect.getCoordinateX(),sect.getCoordinateY());
-                    hexCoord = OffsetCoord.offsetToCube(offsetCoord);
-                    mp.put(hexCoord,sect);  
-                }
-            }
-        }
-        catch (IOException e){
-            System.out.println(e+" Errore apertura file");
-        }
-        finally{
-            if(reader != null){
-                try {
-                    reader.close();
-                    buffer.close();
-                } catch (IOException e) {
-                    System.out.println(e+" Errore chiusura file");
-                }
-            }
-        }
-        return mp;
-    }
 
-    /**
-     * Return a specific sector of subclass Sector based on charType with x y as coordinate
-     * 
-     * @param x
-     * @param y
-     * @param charType
-     * @return
-     */
-    public static Sector newSectorFromXYLetterType(int x, int y, char charType){
-        if(charType=='U')
-            return new UnsafeSector (x,y);
-        if(charType=='S')
-            return new SafeSector (x,y);
-        if(charType=='P')
-            return new PortholeSector (x,y);
-        if(charType=='H')
-            return new HumanBaseSector (x,y);
-        if(charType=='A')
-            return new AlienBaseSector (x,y);
-        if(charType=='D')
-            return new DisableSector (x, y);
-        return new DisableSector (x,y);
-    }
     
     /**
      * Print the HexMap
@@ -128,9 +59,26 @@ public class HexMapUtil {
      * @param maxDistance
      */
     public static void printMapNeighborsByDistance(HexMap hexMap,Coordinate coord, int maxDistance){
-        Set<Sector> set = hexMap.getNeighborsByDistance(coord, maxDistance);
+        Set<Coordinate> set = hexMap.getNeighborsByDistance(coord, maxDistance);
         System.out.println("Vicini di "+ coord.toString() + " a distanza: " + maxDistance );
-        for (Sector temp: set)
-            System.out.println("Vicino: "+temp.getCoordianteLetter()+temp.getCoordinateNumber());
+        for (Coordinate temp: set)
+            System.out.println("Vicino: "+temp.getLetter()+temp.getNumber());
     }
+    
+    public static void printAllNeighbors(HexMap hexMap,Coordinate coord){
+        Set<Coordinate> set = hexMap.allNeighbors(coord);
+        System.out.println("TUTTI i vicini di "+ coord.toString());
+        for (Coordinate temp: set)
+            System.out.println("Vicino: "+temp.getLetter()+temp.getNumber());
+        
+    }
+    
+    public static void printIsValidMove(HexMap hexMap,Coordinate start,Coordinate end,int range){
+        boolean isValid=hexMap.isValidMove(start, end, range);
+        if (isValid)
+            System.out.println(start+" può raggiungere "+end);
+        else
+            System.out.println(start+" non può raggiungere "+end);
+    }
+    
 }

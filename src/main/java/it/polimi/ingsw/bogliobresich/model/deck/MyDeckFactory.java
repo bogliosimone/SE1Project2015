@@ -26,6 +26,10 @@ public class MyDeckFactory extends DeckFactory {
     public Deck createCharacterDeck() {
         return new CharacterDeck();
     }
+    
+    public Deck createCharacterDeck(int n) {
+        return new CharacterDeck(n);
+    }
 
     @Override
     public Deck createPortholeDeck() {
