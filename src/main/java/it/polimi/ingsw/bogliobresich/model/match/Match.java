@@ -3,7 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.match;
 
-import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
@@ -11,6 +12,8 @@ import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
+import it.polimi.ingsw.bogliobresich.model.match.state.InitState;
+import it.polimi.ingsw.bogliobresich.model.match.state.State;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -25,7 +28,7 @@ public class Match {
     private int idMatch;
     private boolean isActive=true;
     private int currentTurn=0;
-    private List<Player> players = new ArrayList<Player>();
+    private Deque<Player> players = new LinkedList<Player>();
     private HexMap gameMap=new HexMap();
     private int numberOfPlayers;
     private Deck itemDeck;
@@ -45,6 +48,10 @@ public class Match {
     
     public int getCurrentTurn(){
         return this.currentTurn;
+    }
+    
+    public int getNumberOfPlayers(){
+        return this.numberOfPlayers;
     }
     
     public void setCurrentTurn(int turnNumber){
@@ -98,6 +105,20 @@ public class Match {
         players.add(player);
     }
     
+    public Player getNextPlayer(Player currentPlayer){
+        if(currentPlayer==players.peekLast())
+            return players.peekFirst();
+        else
+            return players.peek();
+    }
+    
+    public boolean isLastPlayer(Player currentPlayer){
+        if(currentPlayer==players.peekLast())
+            return true;
+        else
+            return false;
+        }
+    
     public boolean isValidMoove(Player player, Coordinate start, Coordinate end){ //da spostare
         boolean validMove;
         validMove=gameMap.isValidMove(start, end, player.getMovementStep());
@@ -113,7 +134,7 @@ public class Match {
         return player instanceof HumanPlayer;
     }
     
-    void setState(State newState){
+    public void setState(State newState){
         this.myState = newState;
     }
     
@@ -125,8 +146,8 @@ public class Match {
         System.out.println("Broadcast message: "+notification);
     }
     
-    public void notifyPlayer(int idPlayer, String notification){
-        System.out.println("Player "+idPlayer+": "+notification);
+    public void notifyPlayer(Player player, String notification){
+        System.out.println("Player "+player.getIdPlayer()+": "+notification);
     }
     
     public void serviceMessage(String message ){
