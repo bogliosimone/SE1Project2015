@@ -14,7 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class PortholeDeck extends Deck {
-    int lastId = 0;
+    private int lastId = 0;
     /**
      * Class constructor
      */
