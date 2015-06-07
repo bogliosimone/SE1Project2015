@@ -13,7 +13,8 @@ public class StartTurnState implements State {
             int count=0;
             do{
                 currentPlayer=match.getNextPlayer(prevPlayer);
-            }while(currentPlayer.isAlive() || currentPlayer.isConnected() || count>=match.getNumberOfPlayers());
+                count++;
+            }while(!currentPlayer.isAlive() || !currentPlayer.isConnected() || count<match.getNumberOfPlayers());
             match.notifyPlayer(currentPlayer, "tocca a te  - turno: "+match.getCurrentTurn());
         }
         else

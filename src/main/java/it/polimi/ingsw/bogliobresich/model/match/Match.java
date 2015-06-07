@@ -106,10 +106,11 @@ public class Match {
     }
     
     public Player getNextPlayer(Player currentPlayer){
-        if(currentPlayer==players.peekLast())
+        if(currentPlayer==null || currentPlayer.equals(players.peekLast()))
             return players.peekFirst();
         else
             return players.peek();
+        
     }
     
     public boolean isLastPlayer(Player currentPlayer){
@@ -147,7 +148,7 @@ public class Match {
     }
     
     public void notifyPlayer(Player player, String notification){
-        System.out.println("Player "+player.getIdPlayer()+": "+notification);
+        System.out.println("Player "+player.getNickName()+": "+notification);
     }
     
     public void serviceMessage(String message ){
