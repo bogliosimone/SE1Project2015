@@ -14,7 +14,6 @@ public class SectorCard implements Card {
     private boolean drawAnItem;
     private String noise;
     
-
     /**
      * Class constructor
      * @param d indicates if you have to draw an item card  
@@ -42,6 +41,22 @@ public class SectorCard implements Card {
     }
     
     /**
+     * Return if there is noise in the sector in which the player is
+     * @return true if there is noise in player's sector
+     */
+    public boolean isThereNoiseInMySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_MY_SECTOR);
+    }
+    
+    /**
+     * 
+     * @return true if there is noise in any sector
+     */
+    public boolean isThereNoiseInAnySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_ANY_SECTOR);
+    }
+    
+    /**
      * Return if the data to be entered is correct
      * @return true if the data to be entered are ok
      */
@@ -52,7 +67,13 @@ public class SectorCard implements Card {
         return false;
     }
     
-    
+    /**
+     * Return if the player that draw the sector card must draw an item
+     * @return true if the player must draw an item card
+     */
+    public boolean isThereAnItemToDraw() {
+        return drawAnItem;
+    }
     
     /**
      * @return the id
