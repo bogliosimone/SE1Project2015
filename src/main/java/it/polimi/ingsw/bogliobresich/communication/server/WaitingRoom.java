@@ -57,7 +57,6 @@ public class WaitingRoom {
             }
         }
         else throw new WaitingRoomFullException();
-        
     }
     
     /**
@@ -104,7 +103,7 @@ public class WaitingRoom {
         waitingTimer.cancel();
         System.out.println("TimerTask cancelled");
         System.out.println("INIZZIALIZZO LA PARTITA con " + users.size() + " giocatori");
-        Match match = new Match(getPlayerList());
+        Matches.getInstance().addMatch(users);
     }
     
     public static void main(String args[]) {

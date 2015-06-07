@@ -17,8 +17,6 @@ import it.polimi.ingsw.bogliobresich.communication.server.rmi.RmiService;
 public class Server implements Runnable {
     
     private static Server instance;
-    private Registry rmiRegistry;
-    private RmiService rmiService;
     
     public static synchronized Server getInstance() {
         if (instance == null) {
@@ -27,17 +25,22 @@ public class Server implements Runnable {
         return instance;
     }
 
+    
+    private Registry rmiRegistry;
+    private RmiService rmiService;
+    
+    private Matches matches;
+    
     @Override
     public void run() {
         initGeneralServer();
         initRMIServer();
         initSocketServer();
+        matches = Matches.getInstance();
     }
     
     private void initGeneralServer() {
         System.out.println(CommunicationUtil.getLocalIp());
-        WaitingRoom room = new WaitingRoom();
-        System.out.println("ROOM CREATED");
     }
     
     private void initRMIServer() {
