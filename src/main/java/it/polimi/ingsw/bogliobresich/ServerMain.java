@@ -23,18 +23,15 @@ public class ServerMain {
             server = Server.getInstance();
             executor.submit(server);
         }
-        //TODO che eccezioni può verificare?
         catch (Exception e) {
             System.out.println(e);
+          //TODO 
         }
         finally {
             if(executor != null) {
                 executor.shutdownNow();
-            }
-            
-        }
-        
-        
+            }   
+        } 
     }
 
     /***/

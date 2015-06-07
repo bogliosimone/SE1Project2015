@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich;
+package it.polimi.ingsw.bogliobresich.communication.server;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,6 +20,12 @@ public class ServerUtil {
     private static String localIPAddress = null;
     
     
+    public static int N_MIN_PLAYERS_TO_START = 2;
+    
+    
+    public static int WAITING_TIMER_RESCHEDULE_EVERY_X_MILLISECONDS = 10*1000;
+    public static int WAITING_TIMER_START_SCHEDULE = 0;
+    
     
     public static String getLocalIp() {
         if(localIPAddress == null) {
@@ -31,5 +37,9 @@ public class ServerUtil {
             }
         }
         return localIPAddress;
+    }
+    
+    private ServerUtil (){
+        //not called
     }
 }
