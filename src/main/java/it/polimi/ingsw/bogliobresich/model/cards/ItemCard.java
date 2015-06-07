@@ -9,9 +9,9 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  * @author Matteo
  *
  */
-public abstract class ItemCard implements Card {
+public abstract class ItemCard implements Card, CardPlayableInPhase {
     private int id;
-    public abstract void play(Player p);
+    public abstract Card play(Player p);
     /**
      * @return the id
      */
