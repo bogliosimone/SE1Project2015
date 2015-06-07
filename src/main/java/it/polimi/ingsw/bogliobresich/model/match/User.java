@@ -9,7 +9,7 @@ package it.polimi.ingsw.bogliobresich.model.match;
  */
 public class User {
     private String nickname;
-    User(String nickname){
+    public User(String nickname){
         this.nickname=nickname;
     }
     

@@ -24,4 +24,9 @@ public class AlienPlayer extends Player {
     void feed(){
         this.movementStep=MOVEMENTSTEPALIENFEED;
     }
+    
+    @Override
+    public String toString(){
+        return new String("Alieno " +this.characterCard.toString()+" nickname: "+this.nickName+" coordinate: "+this.coordinate);
+    }
 }

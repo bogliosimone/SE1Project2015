@@ -91,7 +91,7 @@ public class Coordinate {
 
     @Override
     public String toString(){
-        return new String( "Coordinate: "+Character.toString(this.letter) + Integer.toString(this.number));
+        return new String( Character.toString(this.letter) + Integer.toString(this.number));
     }
 
 }
