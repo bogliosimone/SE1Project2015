@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
  * @author matteobresich
  *
  */
-public class ServerUtil {
+public class CommunicationUtil {
     
     
     public static final int SOCKET_REQUEST_SERVER_TCP_PORT = 4200;
@@ -39,7 +39,7 @@ public class ServerUtil {
         return localIPAddress;
     }
     
-    private ServerUtil (){
+    private CommunicationUtil (){
         //not called
     }
 }

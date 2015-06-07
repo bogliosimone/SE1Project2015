@@ -85,7 +85,7 @@ public class WaitingRoom {
     }
     
     private boolean isMatchStartable() {
-        if(users.size() >= ServerUtil.N_MIN_PLAYERS_TO_START) {
+        if(users.size() >= CommunicationUtil.N_MIN_PLAYERS_TO_START) {
             return true;
         }
       return false;
@@ -94,7 +94,7 @@ public class WaitingRoom {
     private void waitingTimerStart() {
         if (waitingTimer == null) {
             waitingTimer = new Timer(true);
-            waitingTimer.scheduleAtFixedRate(timerTask, ServerUtil.WAITING_TIMER_START_SCHEDULE, ServerUtil.WAITING_TIMER_RESCHEDULE_EVERY_X_MILLISECONDS);
+            waitingTimer.scheduleAtFixedRate(timerTask, CommunicationUtil.WAITING_TIMER_START_SCHEDULE, CommunicationUtil.WAITING_TIMER_RESCHEDULE_EVERY_X_MILLISECONDS);
             System.out.println("TimerTask started");
         }
     }

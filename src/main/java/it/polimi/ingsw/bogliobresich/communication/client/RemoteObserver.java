@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.communication.server.rmi;
+package it.polimi.ingsw.bogliobresich.communication.client;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

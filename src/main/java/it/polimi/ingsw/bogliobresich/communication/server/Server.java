@@ -35,7 +35,7 @@ public class Server implements Runnable {
     }
     
     private void initGeneralServer() {
-        System.out.println(ServerUtil.getLocalIp());
+        System.out.println(CommunicationUtil.getLocalIp());
         WaitingRoom room = new WaitingRoom();
         System.out.println("ROOM CREATED");
     }
@@ -43,8 +43,8 @@ public class Server implements Runnable {
     private void initRMIServer() {
         try {
             System.out.println("RMI START");
-            rmiRegistry = LocateRegistry.createRegistry(ServerUtil.RMI_REQUEST_SERVER_TCP_PORT);
-            rmiService = (RmiService) UnicastRemoteObject.exportObject(new RmiServer(), ServerUtil.RMI_REQUEST_SERVER_TCP_PORT);
+            rmiRegistry = LocateRegistry.createRegistry(CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
+            rmiService = (RmiService) UnicastRemoteObject.exportObject(new RmiServer(), CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
             rmiRegistry.bind("RmiService", rmiService);
             System.out.println("RMI SERVER STARTED");
         }
