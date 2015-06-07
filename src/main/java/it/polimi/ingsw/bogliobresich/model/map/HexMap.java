@@ -70,6 +70,13 @@ public class HexMap {
         return false;
     }
     
+    public boolean isValidCoordinate(Coordinate coord){
+        if(this.getSectorFromCoordinate(coord)==null){
+            return false;
+        }
+        return true;
+    }
+    
     /**
      * Find all crossable and not crossable neighbors of home
      * @param home where i start the search

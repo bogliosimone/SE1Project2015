@@ -35,9 +35,9 @@ public class SectorCard implements Card {
      * Return if there is noise
      * @return true if there is noise
      */
-    public boolean isThereNoise() {
+    public boolean isThereSilence() {
         //If there isn't any type of noise in the sector card, the sector card is silence  
-        return !this.noise.equals(ConstantsCard.SILENCE);
+        return this.noise.equals(ConstantsCard.SILENCE);
     }
     
     /**
@@ -93,7 +93,7 @@ public class SectorCard implements Card {
 
     @Override
     public String toString() {
-        return "SectorCard [drawAnItem =" + drawAnItem + "]";
+        return "SectorCard [type =" + noise + "] [drawAnItem =" + drawAnItem + "]";
     }
 
     /* (non-Javadoc)

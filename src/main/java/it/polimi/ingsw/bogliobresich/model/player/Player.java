@@ -97,11 +97,11 @@ public class Player {
     }
     
     public boolean canAttack(){
-        return this.canPlayObject;
+        return this.canAttack;
     }
     
     public boolean canDrawSectorCard(){
-        return this.canPlayObject;
+        return this.canDrawSectorCard;
     }
     
     public ItemHand getHand(){
