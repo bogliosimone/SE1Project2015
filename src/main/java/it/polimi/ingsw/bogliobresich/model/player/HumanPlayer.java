@@ -29,6 +29,6 @@ public class HumanPlayer extends Player {
     
     @Override
     public String toString(){
-        return new String("Umano " +this.characterCard.toString()+" nickname: "+this.nickName+" coordinate: "+this.coordinate);
+        return new String("Umano: "+this.nickName+" coordinate: "+this.coordinate);
     }
 }

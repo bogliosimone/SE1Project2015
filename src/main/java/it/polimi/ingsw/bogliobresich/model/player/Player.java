@@ -4,7 +4,6 @@
 package it.polimi.ingsw.bogliobresich.model.player;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
-import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
 /**
@@ -66,6 +65,10 @@ public class Player {
         return isYourTurn;
     }
 
+    public void setIsYourTurn(boolean isYourTurn) {
+        this.isYourTurn=isYourTurn;
+    }
+    
     /**
      * @return true if the player is connect
      * 
@@ -101,20 +104,8 @@ public class Player {
         return this.canPlayObject;
     }
     
-    public boolean itemCardIsInHand(ItemCard card){
-        return this.hand.cardIsIn(card);
-    }
-    
-    public boolean handIsFull(){
-        return this.hand.isFull();
-    }
-    
-    public boolean removeCardInHand(ItemCard card){
-        return this.hand.removeCard(card);
-    }
-    
-    public boolean addCardInHand(ItemCard card){
-        return this.hand.addCard(card);
+    public ItemHand getHand(){
+        return this.hand;
     }   
     
     public void setCoordinate(Coordinate coord){
