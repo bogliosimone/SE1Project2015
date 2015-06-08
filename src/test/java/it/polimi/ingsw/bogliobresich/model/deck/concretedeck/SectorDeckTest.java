@@ -26,6 +26,9 @@ public class SectorDeckTest extends Deck {
     private Card sectorcard4;
     private Card sectorcard5;
     private Card sectorcard6;
+    private int lastId;
+    
+    private int generateId() { return lastId++; }
     @Before
     public void setUp() throws Exception {
         sectorcard1 = new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false);
@@ -52,7 +55,7 @@ public class SectorDeckTest extends Deck {
         super.shuffle();
         assertEquals(super.isEmpty(),true);
         
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
         super.shuffle();
         assertEquals(super.isEmpty(),false);
         assertEquals(super.drawCard(), new SectorCard(ConstantsCard.NOISE_ANY_SECTOR,false));
@@ -61,7 +64,7 @@ public class SectorDeckTest extends Deck {
     @Test
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(true);
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
         Card c = super.drawCard();
         super.discardCard(sectorcard1);
         super.reShuffle();
@@ -72,28 +75,28 @@ public class SectorDeckTest extends Deck {
 
     @Test
     public void testAddCard() {
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testSize() {
         assertEquals(super.size(),0);
-        super.addCard(sectorcard1);
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
+        super.addCard(sectorcard1,generateId());
         assertEquals(super.size(),2);
     }
 
     @Test
     public void testIsEmpty() {
         assertEquals(super.isEmpty(),true);
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testIsDiscardedCardsEmpty() throws CardFinishedException {
-        super.addCard(sectorcard1);
+        super.addCard(sectorcard1,generateId());
         assertEquals(super.isDiscardedCardsEmpty(),true);
         Card c = super.drawCard();
         super.discardCard(c);
@@ -102,7 +105,7 @@ public class SectorDeckTest extends Deck {
 
     @Test(expected=CardFinishedException.class)
     public void testDrawCard() throws CardFinishedException {
-        super.addCard(sectorcard1); 
+        super.addCard(sectorcard1,generateId()); 
         Card c = super.drawCard();
         assertEquals(c, sectorcard1);
         c = super.drawCard();

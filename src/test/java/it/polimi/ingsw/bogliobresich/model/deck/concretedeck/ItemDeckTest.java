@@ -1,21 +1,24 @@
 package it.polimi.ingsw.bogliobresich.model.deck.concretedeck;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import it.polimi.ingsw.bogliobresich.model.cards.AdrenalineItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.AttackItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
+import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SedativesItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.TeleportItemCard;
+import it.polimi.ingsw.bogliobresich.model.deck.Deck;
+import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
+import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import it.polimi.ingsw.bogliobresich.model.cards.Card;
-import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
-import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
-import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
-import it.polimi.ingsw.bogliobresich.model.deck.Deck;
-import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
-import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
-import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 public class ItemDeckTest extends Deck {
 
@@ -24,13 +27,16 @@ public class ItemDeckTest extends Deck {
     private Card itemcard3;
     private Card itemcard4;
     private Card itemcard5;
+    private int lastId;
+    
+    private int generateId() { return lastId++; }
     @Before
     public void setUp() throws Exception {
-        itemcard1 = new ItemCard(ConstantsCard.ADRENALINE);
-        itemcard2 = new ItemCard(ConstantsCard.DEFENCE);
-        itemcard3 = new ItemCard(ConstantsCard.ATTACK);
-        itemcard4 = new ItemCard(ConstantsCard.SEDATIVES);
-        itemcard5 = new ItemCard(ConstantsCard.TELEPORT);
+        itemcard1 = new AdrenalineItemCard(generateId());
+        itemcard2 = new DefenceItemCard(generateId());
+        itemcard3 = new AttackItemCard(generateId());
+        itemcard4 = new SedativesItemCard(generateId());
+        itemcard5 = new TeleportItemCard(generateId());
         
     }
 
@@ -50,16 +56,16 @@ public class ItemDeckTest extends Deck {
         super.shuffle();
         assertEquals(super.isEmpty(),true);
         
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
         super.shuffle();
         assertEquals(super.isEmpty(),false);
-        assertEquals(super.drawCard(), new ItemCard(ConstantsCard.ADRENALINE));
+        assertEquals(super.drawCard(), new AdrenalineItemCard(generateId()));
     }
 
     @Test
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(true);
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
         Card c = super.drawCard();
         super.discardCard(itemcard1);
         super.reShuffle();
@@ -70,28 +76,28 @@ public class ItemDeckTest extends Deck {
 
     @Test
     public void testAddCard() {
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testSize() {
         assertEquals(super.size(),0);
-        super.addCard(itemcard1);
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
+        super.addCard(itemcard1,generateId());
         assertEquals(super.size(),2);
     }
 
     @Test
     public void testIsEmpty() {
         assertEquals(super.isEmpty(),true);
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testIsDiscardedCardsEmpty() throws CardFinishedException {
-        super.addCard(itemcard1);
+        super.addCard(itemcard1,generateId());
         assertEquals(super.isDiscardedCardsEmpty(),true);
         Card c = super.drawCard();
         super.discardCard(c);
@@ -100,7 +106,7 @@ public class ItemDeckTest extends Deck {
 
     @Test(expected=CardFinishedException.class)
     public void testDrawCard() throws CardFinishedException {
-        super.addCard(itemcard1); 
+        super.addCard(itemcard1,generateId()); 
         Card c = super.drawCard();
         assertEquals(c, itemcard1);
         c = super.drawCard();
@@ -120,7 +126,7 @@ public class ItemDeckTest extends Deck {
     
     @Test
     public void testEquals() {
-        assertEquals(new ItemCard(ConstantsCard.ADRENALINE),itemcard1);
+        assertEquals(new AdrenalineItemCard(generateId()),itemcard1);
     }
 
 }
