@@ -24,8 +24,9 @@ public class PortholeCard implements Card {
     }
     
     @Override
-    public void play(Player p) {
+    public Card play(Player p) {
         // TODO Auto-generated method stub
+        return this;
     }
     
     /**

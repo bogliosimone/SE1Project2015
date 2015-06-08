@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
-import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
@@ -28,6 +27,7 @@ public class Match {
     private int idMatch;
     private boolean isActive=true;
     private int currentTurn=0;
+    private Player currentPlayer;
     private Deque<Player> players = new LinkedList<Player>();
     private HexMap gameMap=new HexMap();
     private int numberOfPlayers;
@@ -66,6 +66,14 @@ public class Match {
         return this.isActive;
     }
     
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
     public HexMap getGameMap(){
         return this.gameMap;
     }
@@ -119,14 +127,6 @@ public class Match {
         else
             return false;
         }
-    
-    public boolean isValidMoove(Player player, Coordinate start, Coordinate end){ //da spostare
-        boolean validMove;
-        validMove=gameMap.isValidMove(start, end, player.getMovementStep());
-        if(validMove && playerIsAlien(player) && gameMap.coordinateIsPortholeSector(end))
-            validMove = false; //alien can't go in porthole sector
-        return validMove;
-    }
     
     public boolean playerIsAlien(Player player){
         return player instanceof AlienPlayer;

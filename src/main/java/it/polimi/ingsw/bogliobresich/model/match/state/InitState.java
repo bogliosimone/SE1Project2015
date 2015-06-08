@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.match.state;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +30,8 @@ public class InitState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
         if(action instanceof ActionListUser){
-            createDecks(match);
+            int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
+            createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
             setFirstTurn(match);
             match.setState(new StartTurnState());
@@ -47,6 +49,7 @@ public class InitState implements State {
         match.serviceMessage("Numero di gioactori: "+ users.size());
         Deck deckChar=match.getCharacterDeck();
         int id=1;
+        List<Player> tempList = new ArrayList<Player>();
         for(User user: users){
             Player newPlayer;
 
@@ -58,17 +61,20 @@ public class InitState implements State {
                 else
                     newPlayer=new HumanPlayer(id,user.getNickname(),map.getCoordinateHumanBase(),card);
                 id++;
-                match.addPlayer(newPlayer);
+                tempList.add(newPlayer);
                 match.serviceMessage("Creato player: "+newPlayer.toString());
             }
             catch (CardFinishedException e) { match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE");
             }
         }
+        Collections.shuffle(tempList);
+        for(Player newPlayer: tempList)
+            match.addPlayer(newPlayer);
     }
-    private void createDecks(Match match){
+    private void createDecks(Match match, int numbOfPlayers){
         DeckFactory factory = new MyDeckFactory();
         match.setItemDeck(factory.createItemDeck());
-        match.setCharacterDeck(factory.createCharacterDeck());
+        match.setCharacterDeck(factory.createCharacterDeck(numbOfPlayers));
         match.setSectorDeck(factory.createSectorDeck());
         match.setPortholeDeck(factory.createPortholeDeck());
         match.serviceMessage("Mazzi creati");

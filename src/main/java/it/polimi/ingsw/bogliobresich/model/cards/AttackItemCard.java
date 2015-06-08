@@ -11,14 +11,33 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class AttackItemCard extends ItemCard {
 
+    private boolean isPlayableInit = true;
+    private boolean isPlayableMove = true;
+    private boolean isPlayableEnd = false;
+    
     public AttackItemCard(int id) {
         super.setId(id);
     }
     
     @Override
-    public void play(Player p) {
+    public AttackItemCard play(Player p) {
         // TODO Auto-generated method stub
-        
+        return this;
+    }
+
+    @Override
+    public boolean isPlayableInitPhase() {
+        return isPlayableInit;
+    }
+
+    @Override
+    public boolean isPlayableMovePhase() {
+        return isPlayableMove;
+    }
+
+    @Override
+    public boolean isPlayableEndPhase() {
+        return isPlayableEnd;
     }
     
 }
