@@ -40,7 +40,6 @@ public class InitState implements State {
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
             match.serviceMessage("Numero di gioactori: "+ match.getNumberOfPlayers());
-            setFirstTurn(match);
             match.setState(new StartTurnState());
             match.doAction(null, new ActionStartTurn());
         }
@@ -85,11 +84,6 @@ public class InitState implements State {
         match.setSectorDeck(factory.createSectorDeck());
         match.setPortholeDeck(factory.createPortholeDeck());
         match.serviceMessage("Mazzi creati");
-    }
-
-    private void setFirstTurn(Match match){
-        match.setCurrentTurn(1);
-        match.serviceMessage("Primo turno");
     }
 
 

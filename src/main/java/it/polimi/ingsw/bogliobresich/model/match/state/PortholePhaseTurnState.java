@@ -26,6 +26,7 @@ public class PortholePhaseTurnState implements State {
         if(action instanceof PortholeAction){
             Deck deckPH= match.getPortholeDeck();
             Card tempCard;
+            boolean phValid=true;
             try {
                 tempCard = deckPH.drawCard();
                 if(!(tempCard instanceof PortholeCard)){
@@ -44,10 +45,15 @@ public class PortholePhaseTurnState implements State {
                 }
                 HexMap gameMap= match.getGameMap();
                 gameMap.setPortholeStatus(player.getCoordinate(), false);
-                match.notifyAllPlayer("Porthole in coordinate: "+player.getCoordinate()+" non è più utilizzabile");
-                if(player.isWinner()){
+                match.notifyAllPlayer("Porthole numero: "+gameMap.getNumberPorthole(player.getCoordinate())+" non è più utilizzabile");
+                if(!gameMap.thereArePortholeActive()){
+                    phValid=false;
+                    match.notifyAllPlayer("Non ci sono più scialuppe di salvataggio disponibili");
+                }
+                if(player.isWinner()||!phValid){
                     match.setState(new EndTurnState());
                     match.doAction(player, new EndTurnAction());
+                    return;
                 }
                 else{
                     match.setState(new EndPhaseTurnState());

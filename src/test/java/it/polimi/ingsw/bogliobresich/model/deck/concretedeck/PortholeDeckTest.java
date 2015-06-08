@@ -25,7 +25,9 @@ public class PortholeDeckTest extends Deck {
     private Card porthole2;
     private Card porthole3;
     private Card porthole4;
+    private int lastId;
     
+    private int generateId() { return lastId++; }
     @Before
     public void setUp() throws Exception {
         porthole1 = new PortholeCard(ConstantsCard.PORTHOLE_BROKEN);
@@ -50,7 +52,7 @@ public class PortholeDeckTest extends Deck {
         super.shuffle();
         assertEquals(super.isEmpty(),true);
         
-        super.addCard(porthole1);
+        super.addCard(porthole1,generateId());
         super.shuffle();
         assertEquals(super.isEmpty(),false);
         assertEquals(super.drawCard(), new PortholeCard(ConstantsCard.PORTHOLE_BROKEN));
@@ -59,38 +61,38 @@ public class PortholeDeckTest extends Deck {
     @Test(expected=NoReShuffleableException.class)
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(false);
-        super.addCard(porthole1);
-        super.addCard(porthole2);
-        super.addCard(porthole3);
-        super.addCard(porthole4);
+        super.addCard(porthole1,generateId());
+        super.addCard(porthole2,generateId());
+        super.addCard(porthole3,generateId());
+        super.addCard(porthole4,generateId());
         super.reShuffle();
         assertEquals(true,true);
     }
 
     @Test
     public void testAddCard() {
-        super.addCard(porthole1);
+        super.addCard(porthole1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testSize() {
         assertEquals(super.size(),0);
-        super.addCard(porthole1);
-        super.addCard(porthole2);
+        super.addCard(porthole1,generateId());
+        super.addCard(porthole2,generateId());
         assertEquals(super.size(),2);
     }
 
     @Test
     public void testIsEmpty() {
         assertEquals(super.isEmpty(),true);
-        super.addCard(porthole1);
+        super.addCard(porthole1,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testIsDiscardedCardsEmpty() throws CardFinishedException {
-        super.addCard(porthole1);
+        super.addCard(porthole1,generateId());
         assertEquals(super.isDiscardedCardsEmpty(),true);
         Card c = super.drawCard();
         super.discardCard(c);
@@ -99,7 +101,7 @@ public class PortholeDeckTest extends Deck {
 
     @Test(expected=CardFinishedException.class)
     public void testDrawCard() throws CardFinishedException {
-        super.addCard(porthole1); 
+        super.addCard(porthole1,generateId()); 
         Card c = super.drawCard();
         assertEquals(c, porthole1);
         c = super.drawCard();

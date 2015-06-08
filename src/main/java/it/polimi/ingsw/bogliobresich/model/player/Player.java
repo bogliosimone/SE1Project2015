@@ -91,6 +91,10 @@ public class Player {
     public boolean isConnected() {
         return isConnected;
     }
+    
+    public void setIsConnected(boolean connection) {
+        this.isConnected=connection;    
+    }
 
     /**
      * @return true if the player is alive
@@ -134,4 +138,5 @@ public class Player {
     public Coordinate getCoordinate(){
         return this.coordinate;
     }
+
 }

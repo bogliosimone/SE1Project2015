@@ -9,7 +9,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
-import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.ArrayList;
@@ -27,16 +26,12 @@ public class ProvaMatch {
         match.doAction(null, new AddPlayerAction(u2));
         match.doAction(null, new AddPlayerAction(u3));
         match.doAction(null, new AddPlayerAction(u4));
-        match.doAction(match.getCurrentPlayer(), new MovementAction(new Coordinate('L',5)));
-        //match.doAction(match.getCurrentPlayer(), new MovementAction(new Coordinate('K',8)));
-        match.doAction(match.getCurrentPlayer(), new AttackAction());
+        //match.doAction(match.getCurrentPlayer(), new MovementAction(new Coordinate('L',5)));
+        match.doAction(match.getCurrentPlayer(), new MovementAction(new Coordinate('K',8)));
+        //match.doAction(match.getCurrentPlayer(), new AttackAction());
         //match.doAction(match.getCurrentPlayer(), new DrawSectorAction());
         //match.doAction(match.getCurrentPlayer(), new RumorCoordinate(new Coordinate('C',4)));
         //match.doAction(match.getCurrentPlayer(), new PlayItemAction(new TeleportItemCard(1)));
-        List<Player> lista =match.getAllPlayer();
-        for(Player p:lista)
-            if(p instanceof HumanPlayer)
-                p.SetIsAlive(false);
         match.doAction(match.getCurrentPlayer(), new EndTurnAction());
     }
 }
