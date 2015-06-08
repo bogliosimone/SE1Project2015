@@ -10,7 +10,6 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  *
  */
 public interface Card {
-    public abstract Card play(Player p);
     public abstract void setId(int index);
     public abstract int getId();
 }
