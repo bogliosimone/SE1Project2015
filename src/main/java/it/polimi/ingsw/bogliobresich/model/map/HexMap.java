@@ -6,9 +6,11 @@ package it.polimi.ingsw.bogliobresich.model.map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -39,6 +41,8 @@ public class HexMap {
     /**
      * Create HexMap on default Galilei map
      */
+    private List<PortholeSector> listPorthole = new ArrayList<PortholeSector>();
+    
     public HexMap(){
         this.hashMap=loadHashMapFromFile(ConstantMap.NAMEFILEMAP);
     }
@@ -130,6 +134,22 @@ public class HexMap {
         }
         return false;
     }
+    
+    public boolean thereArePortholeActive(){
+        for(PortholeSector tmpPH: this.listPorthole){
+            if(tmpPH.isCrossable())
+                return true;
+        }
+        return false;
+    }
+    
+    public int getNumberPorthole(Coordinate coord){
+        Sector phSec= this.getSectorFromCoordinate(coord);
+        if(phSec instanceof PortholeSector)
+            return ((PortholeSector)phSec).getPortholeNumber();
+        return 0;
+    }
+    
     
     private void setHumanBaseCoordinate(Coordinate coord){
         this.humanBaseCoordinate=coord;
@@ -375,8 +395,11 @@ public class HexMap {
             return new SafeSector (x,y);
         if(charType=='D')
             return new DisableSector (x, y);
-        if(charType=='1'||charType=='2'||charType=='3'||charType=='4')
-            return new PortholeSector (x,y,charType-'0');
+        if(charType=='1'||charType=='2'||charType=='3'||charType=='4'){
+            PortholeSector ph=new PortholeSector (x,y,charType-'0');
+            listPorthole.add(ph);
+            return ph;
+        }
         if(charType=='H'){
             setHumanBaseCoordinate(new Coordinate(x,y));
             return new HumanBaseSector (x,y);

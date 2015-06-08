@@ -6,12 +6,14 @@ package it.polimi.ingsw.bogliobresich.model.match;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.state.State;
 import it.polimi.ingsw.bogliobresich.model.match.state.WaitRoomState;
+import it.polimi.ingsw.bogliobresich.model.match.timer.TimerWaitEndTurn;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -38,10 +40,23 @@ public class Match {
     private Deck characterDeck;
     private Deck portholeDeck;
     private Deck sectorDeck;
-
+    private Timer timerWaitRoom;
+    TimerWaitEndTurn timerClass;
+    
     public Match(){
         setState(new WaitRoomState());
     }
+    
+    public void startTimerTurn(){
+        timerWaitRoom = new Timer();
+        timerClass = new TimerWaitEndTurn(this);
+        this.timerWaitRoom.schedule(timerClass, ConstantMatch.TIMETURN);
+    }
+    
+    public void stopTimer(){
+        this.timerWaitRoom.cancel();
+    }
+    
 
     public int getIdMatch(){
         return this.idMatch;
@@ -143,6 +158,10 @@ public class Match {
         return this.arrayPlayers;
     }
     
+    public boolean atLeastOnePorthole(){
+        return this.gameMap.thereArePortholeActive();
+    }
+    
     public boolean isLastHumanKill(){
         if(this.IsLastPlayerKill&& !this.atLeastOneHumaAlive())
             return true;
@@ -183,18 +202,24 @@ public class Match {
     
     public boolean isLastTurn(){
         if(this.getCurrentTurn()==ConstantMatch.LASTNUMBERTURN){
+            boolean findPlayer=false;
             int start= arrayPlayers.indexOf(this.currentPlayer);
-            for(int i=start+1;i<this.numberOfPlayers;i++){
+            for(int i=start+1;i<this.numberOfPlayers&&!findPlayer;i++){
                 Player tmpPlayer=arrayPlayers.get(i);
                 if(tmpPlayer.canPlayTurn())
-                    return true;
+                    findPlayer= true;
             }
+            if(findPlayer)
+                return false;
+            else
+                return true;
         }
         return false;
     }
     
     public boolean thereIsAnotherTurn(){
-        if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.AtLeastOnePlayerCanPlay()){
+        this.serviceMessage(this.atLeastOneHumanCanPlay() + " " + !this.isLastTurn() + " " + this.AtLeastOnePlayerCanPlay() + " " + this.atLeastOnePorthole());
+        if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.AtLeastOnePlayerCanPlay() && this.atLeastOnePorthole()){
             return true;
         }
         return false;
@@ -202,10 +227,10 @@ public class Match {
     
     public Player getNextPlayer(Player currentPlayer){
         if(currentPlayer==null||this.indexCurrentPlayer>=(this.numberOfPlayers-1)){
+            this.currentTurn++;
             this.indexCurrentPlayer=0;
             return players.get(0);
         }
-        this.serviceMessage(players.get(indexCurrentPlayer).toString()+" "+this.indexCurrentPlayer);
         this.indexCurrentPlayer++;
         return players.get(indexCurrentPlayer);
     }

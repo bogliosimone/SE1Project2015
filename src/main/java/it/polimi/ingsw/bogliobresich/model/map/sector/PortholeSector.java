@@ -48,6 +48,10 @@ public class PortholeSector extends Sector {
         this.isCrossable= crossable;
     }
     
+    public int getPortholeNumber(){
+        return this.portholeNumber;
+    }
+    
     @Override
     public String toString(){
         return new String (this.coordinate.toString()+" phNumb: "+this.portholeNumber+" Crossable = "+this.isCrossable );
