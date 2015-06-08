@@ -6,9 +6,13 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RmiServer;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RmiService;
+import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author matteobresich
@@ -36,11 +40,13 @@ public class Server implements Runnable {
         initGeneralServer();
         initRMIServer();
         initSocketServer();
-        matches = Matches.getInstance();
+        
     }
     
     private void initGeneralServer() {
         System.out.println(CommunicationUtil.getLocalIp());
+        matches = Matches.getInstance();
+        matches.getInstance().addMatch();
     }
     
     private void initRMIServer() {
@@ -48,7 +54,7 @@ public class Server implements Runnable {
             System.out.println("RMI START");
             rmiRegistry = LocateRegistry.createRegistry(CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
             rmiService = (RmiService) UnicastRemoteObject.exportObject(new RmiServer(), CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
-            rmiRegistry.bind("RmiService", rmiService);
+            rmiRegistry.bind(CommunicationUtil.REMOTE_MATCH_OBJECT_NAME, rmiService);
             System.out.println("RMI SERVER STARTED");
         }
         catch (Exception ex) {

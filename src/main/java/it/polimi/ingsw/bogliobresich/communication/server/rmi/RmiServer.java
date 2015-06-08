@@ -36,8 +36,7 @@ public class RmiServer extends Observable implements RmiService, Serializable {
             try {
                 ro.update((Serializable) o, arg);
             } catch (RemoteException e) {
-                System.out
-                        .println("Remote exception removing observer:" + this);
+                System.out.println("Remote exception removing observer:" + this);
                 o.deleteObserver(this);
             }
         }
@@ -70,15 +69,7 @@ public class RmiServer extends Observable implements RmiService, Serializable {
         thread.start();
     }
 
-    public static void main(String[] args) {
-        try {
-            Registry rmiRegistry = LocateRegistry.createRegistry(4200);
-            RmiService rmiService = (RmiService) UnicastRemoteObject.exportObject(new RmiServer(), 4200);
-            rmiRegistry.bind("RmiService", rmiService);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
 
     @Override
     public void doAction(int playerId) throws RemoteException {
@@ -86,5 +77,4 @@ public class RmiServer extends Observable implements RmiService, Serializable {
         System.out.println("Hi i'm :" + playerId);
         
     }
-
 }
