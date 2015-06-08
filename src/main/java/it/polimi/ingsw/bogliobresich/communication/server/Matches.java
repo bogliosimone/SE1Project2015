@@ -30,14 +30,8 @@ public class Matches {
     }
     
     public synchronized void addMatch(Vector users) {
-        MatchHandler m = new MatchHandler(vectorToArrayList(users));
+        MatchHandler m = new MatchHandler();
         executor.submit(m);
     }
     
-    private static ArrayList vectorToArrayList(Vector vector){
-        if (vector == null) {
-            return null;
-        }
-        return new ArrayList<Object>(vector);
-    }
 }

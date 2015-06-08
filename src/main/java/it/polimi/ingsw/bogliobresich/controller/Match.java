@@ -50,6 +50,16 @@ public class Match {
             
         }
         characterDeck.showCards();
+        
+        factory = new MyDeckFactory();
+        Deck itemDeck = factory.createItemDeck();
+        try {
+        Card c = itemDeck.drawCard();
+        c.play();
+        }catch(Exception e) {
+            
+        }
+        
                 
     }
     

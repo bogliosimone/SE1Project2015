@@ -16,13 +16,13 @@ public class MatchHandler implements Runnable {
     private ArrayList users;
     private Match match;
     
-    public MatchHandler(ArrayList users) {
-        this.users = users;
+    public MatchHandler() {
+        
     }
 
     @Override
     public void run() {
-        match = new Match(users);
+        //match = new Match();
     }
 
 }
