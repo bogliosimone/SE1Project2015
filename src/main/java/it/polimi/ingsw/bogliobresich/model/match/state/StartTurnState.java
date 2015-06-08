@@ -13,11 +13,9 @@ public class StartTurnState implements State {
     public void doAction(Match match,Player player, Action action){
         if(action instanceof ActionStartTurn){
             Player currentPlayer;
-            int count=0;
             do{
                 currentPlayer=match.getNextPlayer(player);
-                count++;
-            }while(!currentPlayer.isAlive() || !currentPlayer.isConnected() || currentPlayer.isWinner() || count<match.getNumberOfPlayers());
+            }while(!currentPlayer.isAlive() || !currentPlayer.isConnected() || currentPlayer.isWinner());
             currentPlayer.setIsYourTurn(true);
             match.notifyPlayer(currentPlayer, "è il tuo turno  - turno: "+match.getCurrentTurn());
             match.setCurrentPlayer(currentPlayer);
@@ -36,7 +34,7 @@ public class StartTurnState implements State {
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
             if(card.isPlayableInitPhase()&&player.canPlayObject()){
-                card=card.play(player);
+                //card=card.play(player);
                 match.notifyAllPlayer("Carta giocata");
                 //controllare e rimuovere dalla mano e fare il play della carta
             }
