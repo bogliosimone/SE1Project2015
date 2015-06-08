@@ -33,7 +33,7 @@ public class Server implements Runnable {
     private Registry rmiRegistry;
     private RmiService rmiService;
     
-    private Matches matches;
+    private Matches matches = null;
     
     @Override
     public void run() {
@@ -66,5 +66,11 @@ public class Server implements Runnable {
     }
     private void initSocketServer() {
         //TODO
+    }
+    
+    public synchronized void shutdownNow() {
+        if(matches != null) {
+            matches.shutdownNow();
+        }
     }
 }

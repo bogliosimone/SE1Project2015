@@ -1,5 +1,6 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
+import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RmiService;
 
 import java.io.Serializable;
@@ -16,12 +17,14 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
 
     public static void main(String[] args) {
         try {
-            RmiService remoteService = (RmiService) Naming
-                    .lookup("//localhost:4201/RmiService");
+            
+            String url = "//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/"+ CommunicationUtil.REMOTE_MATCH_OBJECT_NAME;
+            RmiService remoteService = (RmiService) Naming.lookup(url);
 
             RmiClient client = new RmiClient();
-            remoteService.addObserver(client);
-            remoteService.doAction(123);
+            remoteService.connect("PIPPO é IL MIO NOME! :D");
+            //remoteService.addObserver(client);
+            //remoteService.doAction(123);
             
         } catch (Exception ex) {
             ex.printStackTrace();

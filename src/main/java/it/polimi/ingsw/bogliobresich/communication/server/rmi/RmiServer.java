@@ -1,6 +1,10 @@
 package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
+import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
+import it.polimi.ingsw.bogliobresich.communication.server.Matches;
+import it.polimi.ingsw.bogliobresich.model.match.action.Action;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -69,12 +73,16 @@ public class RmiServer extends Observable implements RmiService, Serializable {
         thread.start();
     }
 
-
+    @Override
+    public boolean connect(String nickname) throws RemoteException {
+        return Matches.getInstance().connectUser(nickname);
+    }
 
     @Override
-    public void doAction(int playerId) throws RemoteException {
-
-        System.out.println("Hi i'm :" + playerId);
+    public void doAction(Player p, Action action) throws RemoteException {
+        // TODO Auto-generated method stub
         
     }
+
+    
 }

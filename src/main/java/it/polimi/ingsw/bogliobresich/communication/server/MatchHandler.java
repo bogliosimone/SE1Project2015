@@ -7,9 +7,11 @@ import it.polimi.ingsw.bogliobresich.model.cards.TeleportItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.ArrayList;
 
@@ -30,13 +32,13 @@ public class MatchHandler implements Runnable {
         this.match = m;
     }
     
-    public void addUser(User usr) {
+    public MatchHandler addUser(User usr) {
         if(isMatchActive()) {
             Matches.getInstance().addNewMatch();
         } else {
             match.doAction(null, new AddPlayerAction(usr));
         }
-        
+        return this;
     }
     
     public boolean isMatchActive() {
@@ -45,14 +47,13 @@ public class MatchHandler implements Runnable {
         }
         return false;
     }
+    
+    public void doAction(Player p, Action action) {
+        match.doAction(p, action);
+    }
 
     @Override
     public void run() {
-        
-        addUser(new User("pippo"));
-        addUser(new User("pluto"));
-        addUser(new User("paperino"));
-        
         
         match.doAction(match.getCurrentPlayer(), new MovementAction(new Coordinate('L',5)));
         match.doAction(match.getCurrentPlayer(), new AttackAction());
