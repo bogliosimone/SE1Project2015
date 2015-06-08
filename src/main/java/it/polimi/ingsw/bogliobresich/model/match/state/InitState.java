@@ -34,6 +34,8 @@ public class InitState implements State {
             return;
         }
         if(action instanceof ActionListUser){
+            match.setIsActive(true);
+            match.serviceMessage("La partita è attiva");
             int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);

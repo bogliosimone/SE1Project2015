@@ -11,6 +11,8 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class StartTurnState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
+        
+        
         if(action instanceof ActionStartTurn){
             Player currentPlayer;
             do{
@@ -22,7 +24,7 @@ public class StartTurnState implements State {
             //fai partire timer
             return;
         }
-        if(!player.equals(match.getCurrentPlayer())){
+        if(player!=null &&!player.equals(match.getCurrentPlayer())){
             match.notifyPlayer(player, "Non è il tuo turno");
             return;
         }

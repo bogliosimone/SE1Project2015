@@ -10,9 +10,8 @@ import java.util.List;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
-import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
-import it.polimi.ingsw.bogliobresich.model.match.state.InitState;
 import it.polimi.ingsw.bogliobresich.model.match.state.State;
+import it.polimi.ingsw.bogliobresich.model.match.state.WaitRoomState;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -40,10 +39,8 @@ public class Match {
     private Deck portholeDeck;
     private Deck sectorDeck;
 
-    public Match(List<User> users){
-        setState(new InitState());
-        Action action = new ActionListUser(users);
-        myState.doAction(this, null , action);
+    public Match(){
+        setState(new WaitRoomState());
     }
 
     public int getIdMatch(){
@@ -68,6 +65,10 @@ public class Match {
     
     public boolean isActive(){
         return this.isActive;
+    }
+    
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
     
     public boolean isEnd() {
