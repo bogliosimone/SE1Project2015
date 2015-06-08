@@ -9,7 +9,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
-import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.ArrayList;
