@@ -21,7 +21,7 @@ public class HumanPlayer extends Player {
         this.canDrawSectorCard = canDraw;
     }
 
-    public void resetHumanPlayerEndTurn(){
+    public void resetHumanPlayerAbility(){
         this.canAttack=false;
         this.canDrawSectorCard=true;
         this.movementStep=1;

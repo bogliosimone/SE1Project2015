@@ -41,6 +41,8 @@ public class UnsafeSectorPhaseTurnState implements State {
                 match.doAction(player, new DrawSectorAction());
                 return;
              }
+            match.notifyPlayer(player, "Attacchi o peschi una carta settore?");
+            return;
         }
         if(action instanceof AttackAction){
             match.setState(new AttackPhaseTurnState()); 
@@ -58,17 +60,20 @@ public class UnsafeSectorPhaseTurnState implements State {
                 }
                 SectorCard card= (SectorCard) tempCard;
                 if(card.isThereSilence()){
+                    match.notifyPlayer(player, "Hai pescato: SILENZIO");
                     match.notifyAllPlayer("Player "+player.getNickName()+ " dichiara SILENZIO");
                     match.setState(new EndPhaseTurnState()); 
                     match.doAction(player, new EndPhaseAction());
                     return;
                 }
                 if(card.isThereNoiseInAnySector()){
+                    match.notifyPlayer(player, "Hai pescato: RUMORE IN QUALUNQUE SETTORE");
                     match.notifyPlayer(player, "In quale settore vuoi dichiarare rumore?");
                     cardDraw=card;
                     return;
                 }
                 if(card.isThereNoiseInMySector()){
+                    match.notifyPlayer(player, "Hai pescato: RUMORE NEL TUO SETTORE");
                     match.notifyAllPlayer("Player "+player.getNickName()+ " dichiara RUMORE in "+player.getCoordinate());
                     if(card.isThereAnItemToDraw()){
                         match.doAction(player, new DrawItemCardAction(card));
@@ -107,7 +112,7 @@ public class UnsafeSectorPhaseTurnState implements State {
         return;
     }
     if(action instanceof DrawItemCardAction){
-        match.notifyPlayer(player, "Devi pescare un oggetto");
+        match.notifyPlayer(player, "La tua carta settore contiene un oggetto, pesca un oggetto");
         //controllare se mano è piena e nel caso scegli cosa scartare
         return;
     }

@@ -19,9 +19,15 @@ public class AlienPlayer extends Player {
         this.movementStep=2;
         this.canPlayObject=false;
         this.canAttack=true;
+        this.isFeed=false;
     }
     
-    void feed(){
+    public boolean isFeed(){
+        return this.isFeed;
+    }
+    
+    public void feed(){
+        this.isFeed=true;
         this.movementStep=MOVEMENTSTEPALIENFEED;
     }
     

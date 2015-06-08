@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.match;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,9 +27,12 @@ public class Match {
     private State myState;
     private int idMatch;
     private boolean isActive=true;
+    private boolean isEnd=false;
+    private boolean IsLastPlayerKill=false; //true  when player kill, false when player escape
     private int currentTurn=0;
     private Player currentPlayer;
     private Deque<Player> players = new LinkedList<Player>();
+    private List<Player> arrayPlayers = new ArrayList<Player>();
     private HexMap gameMap=new HexMap();
     private int numberOfPlayers;
     private Deck itemDeck;
@@ -66,6 +70,22 @@ public class Match {
         return this.isActive;
     }
     
+    public boolean isEnd() {
+        return isEnd;
+    }
+
+    public void setIsEnd(boolean isEnd) {
+        this.isEnd = isEnd;
+    }
+
+    public boolean isLastPlayerKill() {
+        return IsLastPlayerKill;
+    }
+
+    public void setIsLastPlayerKill(boolean IsLastPlayerKill) {
+        this.IsLastPlayerKill = IsLastPlayerKill;
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -110,7 +130,69 @@ public class Match {
     }
     
     public void addPlayer(Player player){
-        players.add(player);
+        this.players.add(player);
+        this.arrayPlayers.add(player);
+    }
+    
+    public List<Player> getAllPlayer(){
+        return this.arrayPlayers;
+    }
+    
+    public boolean isLastHumanKill(){
+        if(this.IsLastPlayerKill&& !this.atLeastOneHumaAlive())
+            return true;
+        return false;
+    }
+    
+    public boolean atLeastOneHumaAliveNoWinner(){
+        for(Player tmpPlayer:arrayPlayers){
+            if((tmpPlayer instanceof HumanPlayer)&& tmpPlayer.isAlive() && !tmpPlayer.isWinner())
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean atLeastOneHumaAlive(){
+        for(Player tmpPlayer:arrayPlayers){
+            if((tmpPlayer instanceof HumanPlayer)&& tmpPlayer.isAlive())
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean atLeastOneHumanCanPlay(){
+        for(Player tmpPlayer:arrayPlayers){
+            if((tmpPlayer instanceof HumanPlayer)&& tmpPlayer.canPlayTurn())
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean AtLeastOnePlayerCanPlay(){
+        for(Player tmpPlayer:arrayPlayers){
+            if(tmpPlayer.canPlayTurn())
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean isLastTurn(){
+        if(this.getCurrentTurn()==ConstantMatch.LASTNUMBERTURN){
+            int start= arrayPlayers.indexOf(this.currentPlayer);
+            for(int i=start+1;i<this.numberOfPlayers;i++){
+                Player tmpPlayer=arrayPlayers.get(i);
+                if(tmpPlayer.canPlayTurn())
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean thereIsAnotherTurn(){
+        if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.AtLeastOnePlayerCanPlay()){
+            return true;
+        }
+        return false;
     }
     
     public Player getNextPlayer(Player currentPlayer){

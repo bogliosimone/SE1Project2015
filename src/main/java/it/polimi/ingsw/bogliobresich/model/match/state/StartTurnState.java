@@ -17,7 +17,7 @@ public class StartTurnState implements State {
             do{
                 currentPlayer=match.getNextPlayer(player);
                 count++;
-            }while(!currentPlayer.isAlive() || !currentPlayer.isConnected() || count<match.getNumberOfPlayers());
+            }while(!currentPlayer.isAlive() || !currentPlayer.isConnected() || currentPlayer.isWinner() || count<match.getNumberOfPlayers());
             currentPlayer.setIsYourTurn(true);
             match.notifyPlayer(currentPlayer, "è il tuo turno  - turno: "+match.getCurrentTurn());
             match.setCurrentPlayer(currentPlayer);
