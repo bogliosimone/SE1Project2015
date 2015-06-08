@@ -37,10 +37,12 @@ public class EndState implements State {
             match.notifyAllPlayer("Gli alieni hanno perso");
         List<Player> tmpPlayers = match.getAllPlayer();
         for(Player tmpPlayer:tmpPlayers){
-            if(tmpPlayer instanceof HumanPlayer&& tmpPlayer.isWinner())
-                match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha vinto");  
-            else
-                match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha perso"); 
+            if(tmpPlayer instanceof HumanPlayer){
+                if(tmpPlayer instanceof HumanPlayer&& tmpPlayer.isWinner())
+                    match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha vinto");  
+                else
+                    match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha perso");  
+            }
         }
         return;
     }

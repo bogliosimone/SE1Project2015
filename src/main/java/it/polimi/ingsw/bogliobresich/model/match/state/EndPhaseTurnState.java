@@ -33,7 +33,7 @@ public class EndPhaseTurnState implements State {
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
             if(card.isPlayableEndPhase()&&player.canPlayObject()){
-                card=card.play(player);
+                //card=card.play(player);
                 match.notifyAllPlayer("Carta giocata");
                 //controllare e rimuovere dalla mano e fare il play della carta
             }

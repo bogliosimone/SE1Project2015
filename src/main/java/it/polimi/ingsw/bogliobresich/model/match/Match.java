@@ -4,16 +4,14 @@
 package it.polimi.ingsw.bogliobresich.model.match;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
-import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
-import it.polimi.ingsw.bogliobresich.model.match.state.InitState;
 import it.polimi.ingsw.bogliobresich.model.match.state.State;
+import it.polimi.ingsw.bogliobresich.model.match.state.WaitRoomState;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -26,24 +24,23 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class Match {
     private State myState;
     private int idMatch;
-    private boolean isActive=true;
+    private boolean isActive=false;
     private boolean isEnd=false;
     private boolean IsLastPlayerKill=false; //true  when player kill, false when player escape
     private int currentTurn=0;
     private Player currentPlayer;
-    private Deque<Player> players = new LinkedList<Player>();
+    private int indexCurrentPlayer=0;
+    private List<Player> players = new LinkedList<Player>();
     private List<Player> arrayPlayers = new ArrayList<Player>();
     private HexMap gameMap=new HexMap();
-    private int numberOfPlayers;
+    private int numberOfPlayers=0;
     private Deck itemDeck;
     private Deck characterDeck;
     private Deck portholeDeck;
     private Deck sectorDeck;
 
-    public Match(List<User> users){
-        setState(new InitState());
-        Action action = new ActionListUser(users);
-        myState.doAction(this, null , action);
+    public Match(){
+        setState(new WaitRoomState());
     }
 
     public int getIdMatch(){
@@ -68,6 +65,10 @@ public class Match {
     
     public boolean isActive(){
         return this.isActive;
+    }
+    
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
     
     public boolean isEnd() {
@@ -130,8 +131,12 @@ public class Match {
     }
     
     public void addPlayer(Player player){
-        this.players.add(player);
-        this.arrayPlayers.add(player);
+        if(this.players.isEmpty()){
+            this.numberOfPlayers=0;
+        }
+        this.players.add(this.numberOfPlayers,player);
+        this.numberOfPlayers++;
+        this.arrayPlayers.add(player); //array for check score and other in game
     }
     
     public List<Player> getAllPlayer(){
@@ -196,15 +201,17 @@ public class Match {
     }
     
     public Player getNextPlayer(Player currentPlayer){
-        if(currentPlayer==null || currentPlayer.equals(players.peekLast()))
-            return players.peekFirst();
-        else
-            return players.peek();
-        
+        if(currentPlayer==null||this.indexCurrentPlayer>=(this.numberOfPlayers-1)){
+            this.indexCurrentPlayer=0;
+            return players.get(0);
+        }
+        this.serviceMessage(players.get(indexCurrentPlayer).toString()+" "+this.indexCurrentPlayer);
+        this.indexCurrentPlayer++;
+        return players.get(indexCurrentPlayer);
     }
     
     public boolean isLastPlayer(Player currentPlayer){
-        if(currentPlayer==players.peekLast())
+        if(currentPlayer.equals(players.get(this.numberOfPlayers-1)))
             return true;
         else
             return false;
