@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -20,7 +21,7 @@ public class AttackItemCard extends ItemCard {
     }
     
     @Override
-    public AttackItemCard play(Player p) {
+    public AttackItemCard play(Match m, Player p) {
         // TODO Auto-generated method stub
         return this;
     }

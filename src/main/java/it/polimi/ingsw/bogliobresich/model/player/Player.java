@@ -12,6 +12,7 @@ import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
  */
 public class Player {
 
+    protected boolean isWinner=false;
     protected boolean isConnected=true;
     protected boolean isAlive=true;
     protected boolean isYourTurn=false;
@@ -57,6 +58,20 @@ public class Player {
         return this.idPlayer;
     }
     
+    public boolean canPlayTurn(){
+        if(this.isAlive()&&this.isConnected()&&!this.isWinner())
+            return true;
+        return false;
+    }
+    
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setIsWinner(boolean isWinner) {
+        this.isWinner = isWinner;
+    }
+
     /**
      * @return true if is the current turn of the player
      *   
@@ -84,6 +99,11 @@ public class Player {
     public boolean isAlive() {
         return isAlive;
     }
+    
+    public void SetIsAlive(boolean isAlive) {
+        this.isAlive=isAlive;
+    }
+    
     
     /**
      * @return integer number that is the current movement step of the player

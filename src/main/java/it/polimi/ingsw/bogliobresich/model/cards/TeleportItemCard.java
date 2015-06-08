@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -20,7 +21,7 @@ public class TeleportItemCard extends ItemCard {
     }
 
     @Override
-    public TeleportItemCard play(Player p) {
+    public TeleportItemCard play(Match m, Player p) {
         // TODO Auto-generated method stub
         return this;
     }

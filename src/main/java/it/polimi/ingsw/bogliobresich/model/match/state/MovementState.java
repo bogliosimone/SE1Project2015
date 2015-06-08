@@ -9,11 +9,10 @@ import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.PortholeAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.DrawSectorAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.SafeSectorAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.UnsafeSectorAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -47,11 +46,12 @@ public class MovementState implements State {
                     if(gameMap.coordinateIsUnsafeSector(endCoord)){
                         match.notifyPlayer(player, "Il settore è non sicuro");
                         match.setState(new UnsafeSectorPhaseTurnState());
-                        match.doAction(player, new DrawSectorAction());
+                        match.doAction(player, new UnsafeSectorAction());
                         return;
                     }
                     else{//porthole sector
                         match.notifyPlayer(player, "Il settore è un porthole");
+                        match.notifyAllPlayer(player.getNickName()+" si trova nel PortHole in coordinate "+player.getCoordinate());
                         match.setState(new PortholePhaseTurnState());
                         match.doAction(player, new PortholeAction());
                         return;
@@ -80,7 +80,7 @@ public class MovementState implements State {
             return;
             
         }
-        match.serviceMessage("Mossa non disponibile durante la fase di movimento");
+        match.serviceMessage("Mossa non disponibile durante la MovementPhase");
         return;
     }
     

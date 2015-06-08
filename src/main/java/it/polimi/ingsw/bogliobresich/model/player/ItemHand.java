@@ -36,6 +36,11 @@ public class ItemHand {
         }
         return false;
     }
+    
+    public List<ItemCard> getAllCard(){
+        return this.cards;
+    }
+    
 
     /** 
      * Return true if the hand is empty
@@ -60,7 +65,7 @@ public class ItemHand {
     public boolean removeCard(ItemCard c) {
         return cards.remove(c);
     }
-
+    
     /**
      * 
      */

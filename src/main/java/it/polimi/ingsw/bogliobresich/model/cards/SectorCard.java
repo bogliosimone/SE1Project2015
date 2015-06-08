@@ -25,11 +25,6 @@ public class SectorCard implements Card {
         }
     }
     
-    @Override
-    public Card play(Player p) {
-        // TODO Auto-generated method stub
-        return this;
-    }
     
     /**
      * Return if there is noise
