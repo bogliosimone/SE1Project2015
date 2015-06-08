@@ -23,6 +23,7 @@ public class SectorDeck extends Deck {
         addSectorCardWithNoiseMySector(ConstantsDeck.N_SECTORCARD_NOISE_MY_W_ITEM,ConstantsDeck.N_SECTORCARD_NOISE_MY_NO_ITEM);
         addSectorCardWithNoiseAnySector(ConstantsDeck.N_SECTORCARD_NOISE_ANY_W_ITEM,ConstantsDeck.N_SECTORCARD_NOISE_ANY_NO_ITEM);
         addSectorCardWithNoNoise(ConstantsDeck.N_SECTORCARD_SILENCE_W_ITEM,ConstantsDeck.N_SECTORCARD_SILENCE_NO_ITEM);
+        super.shuffle();
     
     }
     

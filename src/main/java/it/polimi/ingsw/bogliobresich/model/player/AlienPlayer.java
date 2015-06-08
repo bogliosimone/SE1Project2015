@@ -19,14 +19,20 @@ public class AlienPlayer extends Player {
         this.movementStep=2;
         this.canPlayObject=false;
         this.canAttack=true;
+        this.isFeed=false;
     }
     
-    void feed(){
+    public boolean isFeed(){
+        return this.isFeed;
+    }
+    
+    public void feed(){
+        this.isFeed=true;
         this.movementStep=MOVEMENTSTEPALIENFEED;
     }
     
     @Override
     public String toString(){
-        return new String("Alieno " +this.characterCard.toString()+" nickname: "+this.nickName+" coordinate: "+this.coordinate);
+        return new String("Alieno: "+this.nickName+" coordinate: "+this.coordinate);
     }
 }
