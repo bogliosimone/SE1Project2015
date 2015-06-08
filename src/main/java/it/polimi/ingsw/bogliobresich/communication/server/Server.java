@@ -40,13 +40,12 @@ public class Server implements Runnable {
         initGeneralServer();
         initRMIServer();
         initSocketServer();
-        
     }
     
     private void initGeneralServer() {
         System.out.println(CommunicationUtil.getLocalIp());
         matches = Matches.getInstance();
-        matches.getInstance().addMatch();
+        Matches.getInstance().addNewMatch();
     }
     
     private void initRMIServer() {

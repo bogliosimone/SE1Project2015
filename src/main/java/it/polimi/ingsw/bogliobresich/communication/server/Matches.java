@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 
 /**
  * @author matteobresich
@@ -33,19 +34,19 @@ public class Matches {
         executor.shutdownNow();
     }
     
-    public synchronized void addMatch() {
-        User u1= new User("pippo");
-        User u2= new User("pluto");
-        User u3= new User("gatto");
-        User u4= new User("baubau");
-        List<User> users=new ArrayList<User>();
-        users.add(u1);
-        users.add(u2);
-        users.add(u3);
-        users.add(u4);
-        Match match = new Match(users);
-        executor.submit(new MatchHandler(match));
-        System.out.println("PARTITA " + match.toString() + " AVVIATA!");
+    public synchronized void addNewMatch() {
+        try {
+            MatchHandler m = new MatchHandler();
+            executor.submit(m);
+            System.out.println("PARTITA " + m.toString() + " AVVIATA!");
+        }
+        catch(RejectedExecutionException e) {
+            System.err.println("MatchHandler cannot be accepted for execution!");
+        }
+        catch(NullPointerException e) {
+            System.err.println("MatchHandler is null!");
+        }
+        
     }
     
 }

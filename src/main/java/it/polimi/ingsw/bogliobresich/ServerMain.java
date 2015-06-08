@@ -24,8 +24,8 @@ public class ServerMain {
             executor.submit(server);
         }
         catch (Exception e) {
-            System.out.println(e);
-          //TODO 
+            System.err.println("SERVER ERROR: ");
+            e.printStackTrace();
         }
         finally {
             if(executor != null) {
