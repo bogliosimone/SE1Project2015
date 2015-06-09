@@ -51,7 +51,7 @@ public class MovementState implements State {
                     }
                     else{//porthole sector
                         match.notifyPlayer(player, "Il settore è un porthole");
-                        match.notifyAllPlayer(player.getNickName()+" si trova nel PortHole in coordinate "+player.getCoordinate());
+                        match.notifyAllPlayer(player.getNickName()+" si trova nel PortHole numero " + gameMap.getNumberPorthole(player.getCoordinate()));
                         match.setState(new PortholePhaseTurnState());
                         match.doAction(player, new PortholeAction());
                         return;
@@ -70,28 +70,32 @@ public class MovementState implements State {
         }
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
-            if(card.isPlayableInitPhase()&&player.canPlayObject()){
-                //card=card.play(player);
-                match.notifyAllPlayer("Carta giocata");
-                //controllare e rimuovere dalla mano e fare il play della carta con return
+            if(card.isPlayableMovePhase()&&player.canPlayObject()){
+                card = card.play(match, player);
+                if(card!=null){
+                    match.notifyAllPlayer("ha giocato la carta: "+card.toString());
+                }
+                else
+                    match.notifyPlayer(player, "Non possiedi questa carta");
+                return;
             }
             else
                 match.notifyPlayer(player, "Non puoi giocare questa carta");
-            return;
-            
+            return; 
         }
+        
         match.serviceMessage("Mossa non disponibile durante la MovementPhase");
         return;
     }
     
     
     
-    public boolean isValidMoove(Match match,Player player, Coordinate start, Coordinate end){ //da spostare
+    public boolean isValidMoove(Match match,Player player, Coordinate start, Coordinate end){
         boolean validMove;
         HexMap gameMap= match.getGameMap();
         validMove=gameMap.isValidMove(start, end, player.getMovementStep());
         if(validMove && match.playerIsAlien(player) && gameMap.coordinateIsPortholeSector(end))
-            validMove = false; //alien can't go in porthole sector
+            validMove = false; //alien can't go in active porthole sector
         return validMove;
     }
 
