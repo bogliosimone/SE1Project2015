@@ -36,13 +36,20 @@ public class StartTurnState implements State {
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
             if(card.isPlayableInitPhase()&&player.canPlayObject()){
-                match.notifyAllPlayer("Carta giocata");
-                //controllare e rimuovere dalla mano e fare il play della carta
+                card = card.play(match, player);
+                if(card!=null){
+                    match.notifyAllPlayer("ha giocato la carta: "+card.toString());
+                }
+                else
+                    match.notifyPlayer(player, "Non possiedi questa carta");
+                return;
             }
             else
                 match.notifyPlayer(player, "Non puoi giocare questa carta");
-            return;
+            return; 
         }
+        
+        
         match.serviceMessage("Mossa non disponibile ad inizio turno");
         return;
     }

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
@@ -16,6 +17,7 @@ import it.polimi.ingsw.bogliobresich.model.match.state.WaitRoomState;
 import it.polimi.ingsw.bogliobresich.model.match.timer.TimerWaitEndTurn;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
+import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -24,11 +26,12 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 
 public class Match {
+    private boolean CLIenable=true;
     private State myState;
     private int idMatch;
     private boolean isActive=false;
     private boolean isEnd=false;
-    private boolean IsLastPlayerKill=false; //true  when player kill, false when player escape
+    private boolean IsLastPlayerKill=false; //true  when player kill, false when player escape, used for calculate victory of alien
     private int currentTurn=0;
     private Player currentPlayer;
     private int indexCurrentPlayer=0;
@@ -44,6 +47,11 @@ public class Match {
     TimerWaitEndTurn timerClass;
     
     public Match(){
+        setState(new WaitRoomState());
+    }
+    
+    public Match(int idMatch){
+        this.idMatch=idMatch;
         setState(new WaitRoomState());
     }
     
@@ -145,6 +153,14 @@ public class Match {
         this.itemDeck = itemDeck;
     }
     
+    public boolean isCLIenable() {
+        return CLIenable;
+    }
+
+    public void setIsCLIenable(boolean CLIenable) {
+        this.CLIenable = CLIenable;
+    }
+
     public void addPlayer(Player player){
         if(this.players.isEmpty()){
             this.numberOfPlayers=0;
@@ -218,8 +234,8 @@ public class Match {
     }
     
     public boolean thereIsAnotherTurn(){
-        this.serviceMessage(this.atLeastOneHumanCanPlay() + " " + !this.isLastTurn() + " " + this.AtLeastOnePlayerCanPlay() + " " + this.atLeastOnePorthole());
-        if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.AtLeastOnePlayerCanPlay() && this.atLeastOnePorthole()){
+        this.serviceMessage(this.atLeastOneHumanCanPlay() + " " + !this.isLastTurn() + " " + this.atLeastOnePorthole());
+        if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.atLeastOnePorthole()){
             return true;
         }
         return false;
@@ -258,16 +274,44 @@ public class Match {
     }
     
     public void notifyAllPlayer(String notification){
-        System.out.println("Broadcast message: "+notification);
+        if(this.CLIenable)
+            System.out.println("Broadcast message: "+notification);
     }
     
     public void notifyPlayer(Player player, String notification){
-        System.out.println("Player "+player.getNickName()+": "+notification);
+        if(this.CLIenable)
+            System.out.println("Player "+player.getNickName()+": "+notification);
     }
     
     public void serviceMessage(String message ){
-        System.out.println("Service Message: "+message);
+        if(this.CLIenable)
+            System.out.println("Service Message: "+message);
     }
+    
 
+    public ItemCard playItemCard(Player player,ItemCard card){
+        if(player.canPlayObject()){
+            ItemHand hand=player.getHand();
+            if(hand.cardIsIn(card)){
+                hand.removeCard(card);
+                card=card.play(this, player);
+                this.itemDeck.discardCard(card);
+                return card;
+            }
+        }
+        return null;
+    }
+    
+    public void discardItemHandInItemDeck(Player player){
+        ItemHand tmpHand = player.getHand();
+        List<ItemCard> cardList = tmpHand.getAllCard();
+        Deck tmpDeck= this.getItemDeck();
+        this.serviceMessage("Scartata mano di "+player.getNickName());
+        for(ItemCard tmpCard: cardList){
+            tmpHand.removeCard(tmpCard);
+            tmpDeck.discardCard(tmpCard);
+        }
+        return;
+    }
     
 }
