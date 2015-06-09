@@ -1,7 +1,8 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
 import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
-import it.polimi.ingsw.bogliobresich.communication.server.rmi.RmiService;
+import it.polimi.ingsw.bogliobresich.communication.server.Server;
+import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 
 import java.io.Serializable;
 import java.rmi.Naming;
@@ -18,14 +19,17 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
     public static void main(String[] args) {
         try {
             
-            String url = "//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/"+ CommunicationUtil.REMOTE_MATCH_OBJECT_NAME;
-            RmiService remoteService = (RmiService) Naming.lookup(url);
+            String url = "//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/"+ CommunicationUtil.REMOTE_CONNECTION_NAME;
+            System.out.println(url);
+            RMIConnectionService remoteService = (RMIConnectionService) Naming.lookup(url);
 
             RmiClient client = new RmiClient();
-            
-            remoteService.connectToMatch(" || PIPPO || ",client);
-            
-            //remoteService.doAction(123);
+            try {
+                System.out.println(remoteService.connectToMatch("NICKNAME"));
+            }
+            catch(RemoteException e) {
+                System.err.println("||Impossibile collegarsi al server: " + e);
+            }
             
         } catch (Exception ex) {
             ex.printStackTrace();

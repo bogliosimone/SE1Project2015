@@ -24,12 +24,7 @@ public class CommunicationUtil {
     
     public static int N_MIN_PLAYERS_TO_START = 2;
     
-    //TODO remove
-    public static int WAITING_TIMER_RESCHEDULE_EVERY_X_MILLISECONDS = 10*1000;
-    public static int WAITING_TIMER_START_SCHEDULE = 0;
-    
-    
-    public static String REMOTE_MATCH_OBJECT_NAME = "RemoteMatch";
+    public static String REMOTE_CONNECTION_NAME = "ConnectionService";
     
     public static String getLocalIp() {
         if(localIPAddress == null) {

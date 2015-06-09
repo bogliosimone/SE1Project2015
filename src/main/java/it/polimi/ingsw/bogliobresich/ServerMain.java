@@ -3,7 +3,6 @@
  */
 package it.polimi.ingsw.bogliobresich;
 
-import it.polimi.ingsw.bogliobresich.communication.server.Matches;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
 
 import java.util.concurrent.ExecutorService;
@@ -16,8 +15,7 @@ import java.util.concurrent.Executors;
 public class ServerMain {
     public static void main (String [] args) {
         Server server = null;
-        ExecutorService executor;
-        executor = null;
+        ExecutorService executor = null;
         
         try {
             executor = Executors.newSingleThreadExecutor();
@@ -25,10 +23,8 @@ public class ServerMain {
             executor.submit(server);
         }
         catch (Exception e) {
-            System.err.println("SERVER ERROR: ");
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if(server != null) {
                 server.shutdownNow();
             }
