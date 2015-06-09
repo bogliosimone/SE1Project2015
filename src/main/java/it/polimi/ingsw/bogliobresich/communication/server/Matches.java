@@ -3,8 +3,10 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
+import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 
+import java.rmi.RemoteException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -32,9 +34,8 @@ public class Matches {
         executor.shutdownNow();
     }
     
-    public synchronized boolean connectUser(String nickname) {
-        //TODO salvare corrispondenza matchhandler e user
-        MatchHandler m = lastMatchHandlerAdded.addUser(new User(nickname));
+    public synchronized boolean connectUser(String nickname,RemoteObserver o) throws RemoteException {
+        MatchHandler m = lastMatchHandlerAdded.addUser(new User(nickname),o);
         return true;
     }
     

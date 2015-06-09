@@ -22,8 +22,8 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             RmiService remoteService = (RmiService) Naming.lookup(url);
 
             RmiClient client = new RmiClient();
-            remoteService.addObserver(client);
-            remoteService.connect("PIPPO é IL MIO NOME! :D");
+            
+            remoteService.connectToMatch(" || PIPPO || ",client);
             
             //remoteService.doAction(123);
             

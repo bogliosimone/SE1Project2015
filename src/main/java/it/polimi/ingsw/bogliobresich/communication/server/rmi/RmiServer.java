@@ -20,15 +20,15 @@ public class RmiServer extends Observable implements RmiService, Serializable {
      * 
      */
     private static final long serialVersionUID = -1443539127775650583L;
-    RmiObservableObject test;
+    RmiObservableBroadcastMessageHandler test;
     
     public RmiServer() {
-        test = new RmiObservableObject();
+        test = new RmiObservableBroadcastMessageHandler();
     }
 
     @Override
-    public boolean connect(String nickname) throws RemoteException {
-        return Matches.getInstance().connectUser(nickname);
+    public boolean connectToMatch(String nickname,RemoteObserver o) throws RemoteException {
+        return Matches.getInstance().connectUser(nickname,o);
     }
 
     @Override
@@ -37,10 +37,10 @@ public class RmiServer extends Observable implements RmiService, Serializable {
         
     }
 
-    @Override
-    public void addObserver(RemoteObserver o) throws RemoteException {
-        test.addObserver(o);
-    }
+//    @Override
+//    public void addObserver(RemoteObserver o) throws RemoteException {
+//        test.addObserver(o);
+//    }
 
     
 }

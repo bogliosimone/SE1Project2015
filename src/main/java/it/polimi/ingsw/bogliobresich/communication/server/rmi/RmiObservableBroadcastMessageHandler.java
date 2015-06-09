@@ -15,7 +15,7 @@ import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
  * @author matteobresich
  *
  */
-public class RmiObservableObject extends Observable implements Serializable{
+public class RmiObservableBroadcastMessageHandler extends Observable implements Serializable{
 
     /**
      * 
@@ -52,7 +52,7 @@ public class RmiObservableObject extends Observable implements Serializable{
     }
         
         
-    public RmiObservableObject () {
+    public RmiObservableBroadcastMessageHandler () {
         thread.start();
     }
 
