@@ -241,8 +241,8 @@ public class Match {
         return false;
     }
     
-    public Player getNextPlayer(Player currentPlayer){
-        if(currentPlayer==null||this.indexCurrentPlayer>=(this.numberOfPlayers-1)){
+    public Player getNextPlayer(){
+        if(this.indexCurrentPlayer>=(this.numberOfPlayers-1)||(this.indexCurrentPlayer==0 && this.currentTurn==0)){
             this.currentTurn++;
             this.indexCurrentPlayer=0;
             return players.get(0);
@@ -267,6 +267,10 @@ public class Match {
     
     public void setState(State newState){
         this.myState = newState;
+    }
+    
+    public State getState(){
+        return this.myState;
     }
     
     public void doAction(Player player, Action action){
@@ -295,7 +299,7 @@ public class Match {
             if(hand.cardIsIn(card)){
                 hand.removeCard(card);
                 card=card.play(this, player);
-                this.itemDeck.discardCard(card);
+                //this.itemDeck.discardCard(card); //scarta nel mazzo
                 return card;
             }
         }
@@ -305,13 +309,22 @@ public class Match {
     public void discardItemHandInItemDeck(Player player){
         ItemHand tmpHand = player.getHand();
         List<ItemCard> cardList = tmpHand.getAllCard();
-        Deck tmpDeck= this.getItemDeck();
         this.serviceMessage("Scartata mano di "+player.getNickName());
         for(ItemCard tmpCard: cardList){
             tmpHand.removeCard(tmpCard);
-            tmpDeck.discardCard(tmpCard);
+            //this.itemDeck.discardCard(tmpCard); //scarta nel mazzo
         }
         return;
+    }
+    
+    public boolean discardItemCardInItemDeck(Player player,ItemCard cardToDiscard){
+        ItemHand tmpHand = player.getHand();
+        if(tmpHand.cardIsIn(cardToDiscard)){
+            tmpHand.removeCard(cardToDiscard);
+            //this.itemDeck.discardCard(cardToDiscard);
+            return true;
+        }
+        return false;
     }
     
 }

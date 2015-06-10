@@ -3,8 +3,6 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
-import it.polimi.ingsw.bogliobresich.model.player.Player;
-
 /**
  * @author Matteo
  *

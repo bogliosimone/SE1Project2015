@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.cards;
 
 import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -22,7 +23,10 @@ public class SedativesItemCard extends ItemCard {
 
     @Override
     public SedativesItemCard play(Match m, Player p) {
-        // TODO Auto-generated method stub
+        if(p instanceof HumanPlayer){
+            ((HumanPlayer) p).setCanDrawSectorCard(false);
+            this.isPlayed=true;
+        }
 
         return this;
     }
@@ -40,6 +44,11 @@ public class SedativesItemCard extends ItemCard {
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
+    }
+    
+    @Override
+    public  String toString(){
+        return new String("Sedatives Card id: "+this.getId());
     }
 
 }

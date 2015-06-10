@@ -68,6 +68,8 @@ public class MovementState implements State {
             
             return;
         }
+        
+        //codice quasi morto morto
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
             if(card.isPlayableMovePhase()&&player.canPlayObject()){

@@ -27,7 +27,7 @@ public class EndTurnState implements State {
                ((HumanPlayer) player).resetHumanPlayerAbility();
            if(match.thereIsAnotherTurn()){
                match.setState(new StartTurnState());
-               match.doAction(player, new ActionStartTurn());
+               match.doAction(null, new ActionStartTurn());
            }
            else{
                match.setState(new EndState());

@@ -5,6 +5,8 @@ package it.polimi.ingsw.bogliobresich.model.player;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author simoneboglio
@@ -20,19 +22,16 @@ public class Player {
     protected boolean canPlayObject=true;
     protected boolean canDrawSectorCard=true;
     protected int movementStep=1;
-    protected String nickName;
-    protected int idPlayer;
     protected ItemHand hand;
-    protected static final int MAXCARDSINHAND=5;
     protected Coordinate coordinate;
     protected CharacterCard characterCard;
+    protected User user;
     
     /**
      * Class constructor.
      */
-    public Player(int idPlayer,String nickName,Coordinate coordinate,CharacterCard characterCard) {
-        this.nickName=nickName;
-        this.idPlayer=idPlayer;
+    public Player(User user,Coordinate coordinate,CharacterCard characterCard) {
+        this.user = user;
         this.coordinate=coordinate;
         this.isConnected=true;
         this.isAlive=true;
@@ -41,7 +40,7 @@ public class Player {
         this.canPlayObject=true;
         this.canDrawSectorCard=true;
         this.movementStep=1;
-        this.hand = new ItemHand(MAXCARDSINHAND);
+        this.hand = new ItemHand(ConstantMatch.MAXCARDINHAND);
         this.characterCard=characterCard;
     }
 
@@ -49,13 +48,17 @@ public class Player {
      * @return the nickName
      */
     public String getNickName() {
-        return this.nickName;
+        return this.user.getNickname();
     }
     /**
      * @return the id of the player
      */
     public int getIdPlayer() {
-        return this.idPlayer;
+        return this.user.getId();
+    }
+    
+    public User getUser(){
+        return this.user;
     }
     
     public boolean canPlayTurn(){
@@ -127,7 +130,7 @@ public class Player {
     public boolean canDrawSectorCard(){
         return this.canDrawSectorCard;
     }
-    
+
     public ItemHand getHand(){
         return this.hand;
     }   
@@ -137,6 +140,31 @@ public class Player {
     }
     public Coordinate getCoordinate(){
         return this.coordinate;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Player other = (Player) obj;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        return true;
     }
 
 }

@@ -35,7 +35,7 @@ public class InitState implements State {
         }
         if(action instanceof ActionListUser){
             match.setIsActive(true);
-            match.serviceMessage("La partita è attiva");
+            match.notifyAllPlayer("La partita è attiva");
             int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
@@ -61,9 +61,9 @@ public class InitState implements State {
                 CharacterCard card = (CharacterCard)deckChar.drawCard();
 
                 if(id%2==1)
-                    newPlayer=new AlienPlayer(id,user.getNickname(),map.getCoordinateAlienBase(),card);
+                    newPlayer=new AlienPlayer(user,map.getCoordinateAlienBase(),card);
                 else
-                    newPlayer=new HumanPlayer(id,user.getNickname(),map.getCoordinateHumanBase(),card);
+                    newPlayer=new HumanPlayer(user,map.getCoordinateHumanBase(),card);
                 id++;
                 tempList.add(newPlayer);
             }
@@ -83,7 +83,6 @@ public class InitState implements State {
         match.setCharacterDeck(factory.createCharacterDeck(numbOfPlayers));
         match.setSectorDeck(factory.createSectorDeck());
         match.setPortholeDeck(factory.createPortholeDeck());
-        match.serviceMessage("Mazzi creati");
     }
 
 
