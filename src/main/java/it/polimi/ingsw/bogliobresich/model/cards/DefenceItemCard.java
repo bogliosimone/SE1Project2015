@@ -22,8 +22,8 @@ public class DefenceItemCard extends ItemCard {
 
     @Override
     public DefenceItemCard play(Match m, Player p) {
-        // TODO Auto-generated method stub
-        
+        p.SetIsAlive(true);
+        this.isPlayed=true;
         return this;
     }
 
@@ -42,4 +42,8 @@ public class DefenceItemCard extends ItemCard {
         return isPlayableEnd;
     }
 
+    @Override
+    public  String toString(){
+        return new String("Defence Card id: "+this.getId());
+    }
 }

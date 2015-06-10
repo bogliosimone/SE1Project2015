@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -22,7 +23,9 @@ public class TeleportItemCard extends ItemCard {
 
     @Override
     public TeleportItemCard play(Match m, Player p) {
-        // TODO Auto-generated method stub
+        HexMap gameMap = m.getGameMap();
+        p.setCoordinate(gameMap.getCoordinateHumanBase());
+        this.isPlayed=true;
         return this;
     }
 
@@ -41,4 +44,8 @@ public class TeleportItemCard extends ItemCard {
         return isPlayableEnd;
     }
     
+    @Override
+    public  String toString(){
+        return new String("Teleport Card id: "+this.getId());
+    }
 }

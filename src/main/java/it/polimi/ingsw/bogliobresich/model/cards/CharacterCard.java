@@ -39,7 +39,7 @@ public class CharacterCard implements Card {
     
     @Override
     public String toString() {
-        return "CharacterCard [name=" + name + "]";
+        return name;
     }
 
     @Override

@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.model.player;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author simoneboglio
@@ -14,8 +15,8 @@ public class AlienPlayer extends Player {
     protected boolean isFeed=false;
     static final int MOVEMENTSTEPALIENFEED=3;
     
-    public AlienPlayer(int idPlayer,String nickName,Coordinate coordinate,CharacterCard characterCard){
-        super(idPlayer,nickName,coordinate,characterCard);
+    public AlienPlayer(User user,Coordinate coordinate,CharacterCard characterCard){
+        super(user,coordinate,characterCard);
         this.movementStep=2;
         this.canPlayObject=false;
         this.canAttack=true;
@@ -33,6 +34,6 @@ public class AlienPlayer extends Player {
     
     @Override
     public String toString(){
-        return new String("Alieno: "+this.nickName+" coordinate: "+this.coordinate);
+        return new String("Alieno: "+this.user.getNickname()+" Personaggio: "+ this.characterCard.toString()  +" coordinate: "+this.coordinate);
     }
 }

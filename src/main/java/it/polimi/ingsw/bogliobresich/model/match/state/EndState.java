@@ -19,7 +19,6 @@ public class EndState implements State {
 
     @Override
     public void doAction(Match match, Player player, Action action) {
-        // TODO Auto-generated method stub
         if(action instanceof EndGameAction){
             match.notifyAllPlayer("La partita è finita");
             calculateWinners(match);
