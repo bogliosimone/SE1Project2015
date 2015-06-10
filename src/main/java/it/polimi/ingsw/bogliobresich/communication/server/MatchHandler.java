@@ -22,16 +22,18 @@ public class MatchHandler implements Runnable,Serializable {
      * 
      */
     private static final long serialVersionUID = -3783668816203597145L;
-    private Match match = null;
+    private transient Match match = null;
+    private transient  static int lastMatchHandlerIDAdded = 0;
     private int matchID = 0;
     
     /**
      * Class constructor
      *
      */
-    public MatchHandler(int matchID) {
-        this.matchID = matchID;
+    public MatchHandler() {
+        this.matchID = lastMatchHandlerIDAdded;
         this.match = new Match(matchID);
+        lastMatchHandlerIDAdded++;
     }
     
     public boolean isMatchStarded() {
@@ -39,7 +41,7 @@ public class MatchHandler implements Runnable,Serializable {
     }
     
     public MatchHandler addUser(User usr) throws RemoteException {
-            match.doAction(null, new AddPlayerAction(usr));
+            doAction(null, new AddPlayerAction(usr));
         return this;
     }
     
@@ -69,7 +71,7 @@ public class MatchHandler implements Runnable,Serializable {
             } 
         }
         
-        Server.serviceMessage("FINE PARTITA");
+        Server.serviceMessage(this.toString() + " ENDED");
     }
     
     @Override

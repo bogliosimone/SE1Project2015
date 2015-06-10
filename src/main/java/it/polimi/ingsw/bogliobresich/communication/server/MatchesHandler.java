@@ -20,7 +20,7 @@ public class MatchesHandler{
     private ExecutorService executor = Executors.newCachedThreadPool();
     
     private static MatchHandler lastMatchHandlerAdded = null;
-    private static int lastMatchHandlerIDAdded = 0;
+    
     
     public static synchronized MatchesHandler getInstance() {
         if(instance == null) {
@@ -49,10 +49,9 @@ public class MatchesHandler{
     public synchronized MatchHandler addNewMatch() {
         MatchHandler last = null;
         try {
-            last = new MatchHandler(lastMatchHandlerIDAdded);
-            lastMatchHandlerIDAdded++;
+            last = new MatchHandler();
             executor.submit(last);
-            Server.serviceMessage("MATCHHANDLER: " + last.toString() + " \t\t[ OK ]");
+            Server.serviceMessage("MATCHHANDLER: NEW " + last.toString() + " \t\t[ OK ]");
             
         }
         catch(RejectedExecutionException e) {
