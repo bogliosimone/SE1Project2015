@@ -2,11 +2,12 @@ package it.polimi.ingsw.bogliobresich.model.player;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 public class HumanPlayer extends Player {
     
-    public HumanPlayer(int idPlayer,String nickName,Coordinate coordinate,CharacterCard characterCard){
-        super(idPlayer,nickName,coordinate,characterCard);
+    public HumanPlayer(User user,Coordinate coordinate,CharacterCard characterCard){
+        super(user,coordinate,characterCard);
     }
     
     public void setMovementStep (int step){
@@ -29,6 +30,6 @@ public class HumanPlayer extends Player {
     
     @Override
     public String toString(){
-        return new String("Umano: "+this.nickName+" coordinate: "+this.coordinate);
+        return new String("Umano: "+this.user.getNickname()+" Personaggio; "+ this.characterCard.toString()  +" coordinate: "+this.coordinate);
     }
 }

@@ -58,6 +58,8 @@ public class HexMap {
         HexMapUtil.printIsValidMove(mp,coord,end1,2);
         HexMapUtil.printIsValidMove(mp,coord,end2,4);
         System.out.println("Base alieni: "+mp.alienBaseCoordinate+" Base umani: "+mp.humanBaseCoordinate);
+        System.out.println(mp.isValidCoordinate(new Coordinate('L',8)));
+        System.out.println(mp.isValidCoordinate(new Coordinate('L',9)));
     }
     
     /**
