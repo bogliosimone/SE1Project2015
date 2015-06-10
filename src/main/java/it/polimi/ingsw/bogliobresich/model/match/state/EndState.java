@@ -19,7 +19,6 @@ public class EndState implements State {
 
     @Override
     public void doAction(Match match, Player player, Action action) {
-        // TODO Auto-generated method stub
         if(action instanceof EndGameAction){
             match.notifyAllPlayer("La partita è finita");
             calculateWinners(match);
@@ -37,10 +36,12 @@ public class EndState implements State {
             match.notifyAllPlayer("Gli alieni hanno perso");
         List<Player> tmpPlayers = match.getAllPlayer();
         for(Player tmpPlayer:tmpPlayers){
-            if(tmpPlayer instanceof HumanPlayer&& tmpPlayer.isWinner())
-                match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha vinto");  
-            else
-                match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha perso"); 
+            if(tmpPlayer instanceof HumanPlayer){
+                if(tmpPlayer instanceof HumanPlayer&& tmpPlayer.isWinner())
+                    match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha vinto");  
+                else
+                    match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha perso");  
+            }
         }
         return;
     }

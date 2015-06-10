@@ -25,6 +25,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class UnsafeSectorPhaseTurnState implements State {
     SectorCard cardDraw;
+    boolean ThereIsItemCardToDraw=false;
     @Override
     public void doAction(Match match, Player player, Action action) {
         if(!player.equals(match.getCurrentPlayer())){
@@ -76,7 +77,8 @@ public class UnsafeSectorPhaseTurnState implements State {
                     match.notifyPlayer(player, "Hai pescato: RUMORE NEL TUO SETTORE");
                     match.notifyAllPlayer("Player "+player.getNickName()+ " dichiara RUMORE in "+player.getCoordinate());
                     if(card.isThereAnItemToDraw()){
-                        match.doAction(player, new DrawItemCardAction(card));
+                        ThereIsItemCardToDraw=true;
+                        match.doAction(player, new DrawItemCardAction());
                         return;
                     }
                     else{
@@ -97,7 +99,8 @@ public class UnsafeSectorPhaseTurnState implements State {
         if(gameMap.isValidCoordinate(coord)){
             match.notifyAllPlayer("Player "+player.getNickName()+ " dichiara RUMORE in "+coord);
             if(cardDraw.isThereAnItemToDraw()){
-                match.doAction(player, new DrawItemCardAction(cardDraw));
+                ThereIsItemCardToDraw=true;
+                match.doAction(player, new DrawItemCardAction());
                 return;
                 }
             else{
@@ -111,9 +114,10 @@ public class UnsafeSectorPhaseTurnState implements State {
         }
         return;
     }
-    if(action instanceof DrawItemCardAction){
-        match.notifyPlayer(player, "La tua carta settore contiene un oggetto, pesca un oggetto");
-        //controllare se mano è piena e nel caso scegli cosa scartare
+    if(action instanceof DrawItemCardAction && ThereIsItemCardToDraw){
+        match.notifyPlayer(player, "La tua carta settore contiene un oggetto");
+        match.setState(new DrawPhaseTurnState());
+        match.doAction(player, new DrawItemCardAction());
         return;
     }
         

@@ -3,6 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.player;
 
+import it.polimi.ingsw.bogliobresich.model.cards.Card;
+import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 
 import java.util.ArrayList;
@@ -63,15 +65,43 @@ public class ItemHand {
      * Remove a card if the card is in the hand. Return false if the card is not present in the hand.
      */
     public boolean removeCard(ItemCard c) {
-        return cards.remove(c);
+        int idCard= c.getId();
+        for(Card tmpCard: cards)
+            if(idCard==tmpCard.getId()){
+                cards.remove(tmpCard);
+                return true;
+            }
+        return false;
     }
+    
+    public boolean removeCard(int idCard) {
+        for(Card tmpCard: cards)
+            if(idCard==tmpCard.getId()){
+                cards.remove(tmpCard);
+                return true;
+            }
+        return false;
+    }
+    
     
     /**
      * 
      */
 
     public boolean cardIsIn(ItemCard c) {
-        return cards.contains(c);
+        int idCard= c.getId();
+        for(Card tmpCard: cards)
+            if(idCard==tmpCard.getId())
+                return true;
+        return false; 
+    }
+    
+    public ItemCard getDefenceCard(){
+        for(Card tmpCard: cards)
+            if(tmpCard instanceof DefenceItemCard){
+                return (ItemCard) tmpCard;
+            }
+        return null; 
     }
 
     /**

@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.cards;
 
 import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -22,8 +23,10 @@ public class AdrenalineItemCard extends ItemCard {
     
     @Override
     public AdrenalineItemCard play(Match m, Player p) {
-        // TODO Auto-generated method stub
-
+        if(p instanceof HumanPlayer){
+            ((HumanPlayer) p).setMovementStep(ConstantsCard.ADRENALINESTEP);
+            this.isPlayed=true;
+        }
         return this;
     }
 
@@ -40,6 +43,11 @@ public class AdrenalineItemCard extends ItemCard {
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
+    }
+    
+    @Override
+    public  String toString(){
+        return new String("Adrenalin Card id: "+this.getId());
     }
 
 }

@@ -29,11 +29,17 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class InitState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
+        if(player!=null){
+            match.notifyPlayer(player, "La partita è in fase di inizializzazione, attendi");
+            return;
+        }
         if(action instanceof ActionListUser){
+            match.setIsActive(true);
+            match.notifyAllPlayer("La partita è attiva");
             int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
-            setFirstTurn(match);
+            match.serviceMessage("Numero di gioactori: "+ match.getNumberOfPlayers());
             match.setState(new StartTurnState());
             match.doAction(null, new ActionStartTurn());
         }
@@ -45,8 +51,6 @@ public class InitState implements State {
         HexMap map=match.getGameMap();
         List<User> users=action.getListUser();
         Collections.shuffle(users);
-        match.setNumberOfPlayers(users.size()); //set number of players
-        match.serviceMessage("Numero di gioactori: "+ users.size());
         Deck deckChar=match.getCharacterDeck();
         int id=1;
         List<Player> tempList = new ArrayList<Player>();
@@ -57,19 +61,21 @@ public class InitState implements State {
                 CharacterCard card = (CharacterCard)deckChar.drawCard();
 
                 if(id%2==1)
-                    newPlayer=new AlienPlayer(id,user.getNickname(),map.getCoordinateAlienBase(),card);
+                    newPlayer=new AlienPlayer(user,map.getCoordinateAlienBase(),card);
                 else
-                    newPlayer=new HumanPlayer(id,user.getNickname(),map.getCoordinateHumanBase(),card);
+                    newPlayer=new HumanPlayer(user,map.getCoordinateHumanBase(),card);
                 id++;
                 tempList.add(newPlayer);
-                match.serviceMessage("Creato player: "+newPlayer.toString());
             }
             catch (CardFinishedException e) { match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE");
             }
         }
         Collections.shuffle(tempList);
-        for(Player newPlayer: tempList)
+        for(Player newPlayer: tempList){
             match.addPlayer(newPlayer);
+            match.serviceMessage("Creato e aggiunto player: "+newPlayer.toString());
+        }
+        return;
     }
     private void createDecks(Match match, int numbOfPlayers){
         DeckFactory factory = new MyDeckFactory();
@@ -77,12 +83,6 @@ public class InitState implements State {
         match.setCharacterDeck(factory.createCharacterDeck(numbOfPlayers));
         match.setSectorDeck(factory.createSectorDeck());
         match.setPortholeDeck(factory.createPortholeDeck());
-        match.serviceMessage("Mazzi creati");
-    }
-
-    private void setFirstTurn(Match match){
-        match.setCurrentTurn(1);
-        match.serviceMessage("Primo turno");
     }
 
 

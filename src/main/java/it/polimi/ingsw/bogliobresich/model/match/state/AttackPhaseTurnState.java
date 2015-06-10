@@ -6,7 +6,6 @@ package it.polimi.ingsw.bogliobresich.model.match.state;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
-import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
@@ -37,25 +36,30 @@ public class AttackPhaseTurnState implements State {
             for(Player tmpPlayer: tmpPlayers){
                 if(tmpPlayer.getCoordinate().equals(attackCoord)&&tmpPlayer.isAlive()&& !(tmpPlayer.equals(player))){
                     eat=true;
-                    tmpPlayer.SetIsAlive(false);
                     if(tmpPlayer instanceof HumanPlayer){
-                        match.notifyAllPlayer(tmpPlayer.getNickName()+" è morto, era un UMANO");
-                        match.setIsLastPlayerKill(true);
-                        if(player instanceof AlienPlayer && !((AlienPlayer) player).isFeed()){
-                            ((AlienPlayer) player).feed();
-                            match.notifyPlayer(player, "Ti sei nutrito di un umano, ora puoi muoverti di tre caselle");
+                        ItemHand tmpHand=tmpPlayer.getHand();
+                        ItemCard tmpCard=tmpHand.getDefenceCard();
+                        if(tmpCard!=null){
+                            match.playItemCard(tmpPlayer, tmpCard);
+                            match.notifyPlayer(tmpPlayer,"ha giocato la carta: "+tmpCard.toString());
+                        }
+                        else{
+                            tmpPlayer.SetIsAlive(false);
+                            match.notifyAllPlayer(tmpPlayer.getNickName()+" è morto, era un UMANO");
+                            match.setIsLastPlayerKill(true);
+                            if(player instanceof AlienPlayer && !((AlienPlayer) player).isFeed()){
+                                ((AlienPlayer) player).feed();
+                                match.notifyPlayer(player, "Ti sei nutrito di un umano, ora puoi muoverti di tre caselle");
+                            }
                         }
                     }
                     if(tmpPlayer instanceof AlienPlayer){
+                        tmpPlayer.SetIsAlive(false);
                         match.notifyAllPlayer(tmpPlayer.getNickName()+" è morto, era un ALIENO");
                     }
-                    ItemHand tmpHand = player.getHand();
-                    List<ItemCard> cardList = tmpHand.getAllCard();
-                    Deck tmpDeck= match.getItemDeck();
-                    match.serviceMessage("Scartata mano di "+player.getNickName());
-                    for(ItemCard tmpCard: cardList){
-                        tmpHand.removeCard(tmpCard);
-                        tmpDeck.discardCard(tmpCard);
+                    if(!tmpPlayer.isAlive()){
+                        match.discardItemHandInItemDeck(tmpPlayer);
+                        match.serviceMessage("Mano scartata");
                     }
                 }
             }

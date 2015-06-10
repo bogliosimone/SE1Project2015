@@ -33,13 +33,17 @@ public class EndPhaseTurnState implements State {
         if(action instanceof PlayItemAction){
             ItemCard card=((PlayItemAction) action).getItemCard();
             if(card.isPlayableEndPhase()&&player.canPlayObject()){
-                card=card.play(player);
-                match.notifyAllPlayer("Carta giocata");
-                //controllare e rimuovere dalla mano e fare il play della carta
+                card = card.play(match, player);
+                if(card!=null){
+                    match.notifyAllPlayer("ha giocato la carta: "+card.toString());
+                }
+                else
+                    match.notifyPlayer(player, "Non possiedi questa carta");
+                return;
             }
             else
                 match.notifyPlayer(player, "Non puoi giocare questa carta");
-            return;
+            return; 
         }
         match.serviceMessage("Mossa non disponibile nella end phase del turno");
         return;
