@@ -53,6 +53,21 @@ public class CharacterDeck extends Deck {
         }
         super.shuffle();
     }
+    
+    @Override
+    public Card drawCard() throws CardFinishedException {
+        Card c;
+        if(!isEmpty()) {
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            discardedCards.add(c);
+            return c;
+        } else {
+            reShuffle();
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            discardedCards.add(c);
+            return c;
+        }
+    }
 
     public CharacterDeck() { this(8); }
     

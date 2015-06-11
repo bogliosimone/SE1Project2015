@@ -41,15 +41,15 @@ public class Match {
         }  
         characterDeck.showCards();
         
-        System.out.println("SCARTO:");
-        for (int i = 0; i < 8; i++)
-        {
-            Card c = cards.get(i);
-            characterDeck.discardCard(c);
-            System.out.println("Scarto " + c);
-            
-        }
-        characterDeck.showCards();
+//        System.out.println("SCARTO:");
+//        for (int i = 0; i < 8; i++)
+//        {
+//            Card c = cards.get(i);
+//            characterDeck.discardCard(c);
+//            System.out.println("Scarto " + c);
+//            
+//        }
+//        characterDeck.showCards();
                 
     }
     
