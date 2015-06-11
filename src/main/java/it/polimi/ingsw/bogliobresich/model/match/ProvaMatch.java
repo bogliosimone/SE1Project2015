@@ -13,7 +13,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
-import it.polimi.ingsw.bogliobresich.model.match.action.SpotlightCoordinateAction;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -37,6 +36,8 @@ public class ProvaMatch {
         match.doAction(null, new AddPlayerAction(u4));
         List<Player> lp=match.getAllPlayer();
         
+        
+        
         Player p1=lp.get(0);
         //p2.setCoordinate(new Coordinate('L',5));
         //p2.getHand().addCard(card);
@@ -48,7 +49,7 @@ public class ProvaMatch {
         //match.doAction(match.getCurrentPlayer(), new AttackAction());
         match.doAction(match.getCurrentPlayer(), new DrawSectorAction());
         match.doAction(match.getCurrentPlayer(), new RumorCoordinate(new Coordinate('C',4)));
-        match.doAction(match.getCurrentPlayer(), new DiscardAction(card));
+        //match.doAction(match.getCurrentPlayer(), new DiscardAction(card));
         //match.doAction(match.getCurrentPlayer(), new PlayItemAction(card));
         match.doAction(match.getCurrentPlayer(), new EndTurnAction());
     }

@@ -14,7 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class TeleportItemCard extends ItemCard {
 
     private boolean isPlayableInit = true;
-    private boolean isPlayableMove = true;
+    private boolean isPlayableMove = false;
     private boolean isPlayableEnd = true;
     
     public TeleportItemCard(int id) {

@@ -34,6 +34,6 @@ public class AlienPlayer extends Player {
     
     @Override
     public String toString(){
-        return new String("Alieno: "+this.user.getNickname()+" Personaggio: "+ this.characterCard.toString()  +" coordinate: "+this.coordinate);
+        return new String("Alieno ; Personaggio: "+ this.characterCard.toString()  +" ; Coordinate: "+this.coordinate);
     }
 }

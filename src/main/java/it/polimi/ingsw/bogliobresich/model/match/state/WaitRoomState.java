@@ -55,7 +55,7 @@ public class WaitRoomState implements State {
         }
         
         
-        match.notifyAllPlayer("Azione non disponibile nella sala d'attesa, attendi che si aggiungano altri giocatori");
+        match.serviceMessage("Azione non disponibile nella sala d'attesa");
     }
 
 }

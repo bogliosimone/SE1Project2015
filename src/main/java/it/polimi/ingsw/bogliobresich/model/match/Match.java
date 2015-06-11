@@ -234,7 +234,6 @@ public class Match {
     }
     
     public boolean thereIsAnotherTurn(){
-        this.serviceMessage(this.atLeastOneHumanCanPlay() + " " + !this.isLastTurn() + " " + this.atLeastOnePorthole());
         if(this.atLeastOneHumanCanPlay() && !this.isLastTurn() && this.atLeastOnePorthole()){
             return true;
         }
@@ -274,7 +273,10 @@ public class Match {
     }
     
     public void doAction(Player player, Action action){
-        myState.doAction(this,player,action);
+        if(player==null || player.equals(this.currentPlayer))
+            myState.doAction(this,player,action);
+        else
+            this.notifyPlayer(player, "Non è il tuo turno");
     }
     
     public void notifyAllPlayer(String notification){

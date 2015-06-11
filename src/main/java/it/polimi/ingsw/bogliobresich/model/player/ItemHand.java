@@ -96,6 +96,13 @@ public class ItemHand {
         return false; 
     }
     
+    public ItemCard getCard(int idCard) {
+        for(ItemCard tmpCard: cards)
+            if(idCard==tmpCard.getId())
+                return  tmpCard;
+        return null; 
+    }
+    
     public ItemCard getDefenceCard(){
         for(Card tmpCard: cards)
             if(tmpCard instanceof DefenceItemCard){
