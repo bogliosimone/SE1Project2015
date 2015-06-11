@@ -26,21 +26,31 @@ import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
  */
 public class CLIdebugMatch {
 private boolean end=false;
+private boolean start=false;
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-Match match = new Match();
+Match match = null;
     
     public static void main(String[] args) throws IOException {
         CLIdebugMatch cli=new CLIdebugMatch();
         cli.match.setIsCLIenable(true);
+        System.out.println("Inserisci comando: ");
         while(!cli.end){
+            cli.action(cli.br.readLine());
             System.out.println("Inserisci comando: ");
-            cli.action(cli.br.readLine()); 
         }
         
     }
 
     
     private void action (String command) throws IOException{
+        if(command.equals("start")){
+            this.match = new Match();
+            return;
+        }
+        if(start==false){
+            System.out.println("Devi far iniziare la partita");
+            return;
+        }
         if(command.equals("ap")){
             System.out.println("Inserisci id: ");
             int id=Integer.parseInt(this.br.readLine());
@@ -104,6 +114,7 @@ Match match = new Match();
         }
         if(command.equals("exit")){
             this.end=true;
+            System.out.println("Fine del gioco");
             return;
         }
         
