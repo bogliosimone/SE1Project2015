@@ -20,11 +20,11 @@ import java.util.NoSuchElementException;
 public abstract class Deck {
 
     //Cards that are in the deck
-    private List<Card> stackOfCards = new ArrayList<Card>();
+    protected List<Card> stackOfCards = new ArrayList<Card>();
     //Cards discarded belonging to the deck
-    private List<Card> discardedCards = new ArrayList<Card>();
+    protected List<Card> discardedCards = new ArrayList<Card>();
     //Cards drawn out the deck belonging to the deck
-    private List<Card> drawnOutCards = new ArrayList<Card>();
+    protected List<Card> drawnOutCards = new ArrayList<Card>();
     //A deck by default is re-shuffleable
     private boolean isReShuffleable = true;
     

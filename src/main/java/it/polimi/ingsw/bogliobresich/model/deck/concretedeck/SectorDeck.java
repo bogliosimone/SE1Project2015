@@ -8,6 +8,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
+import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 /**
  * @author matteobresich
@@ -27,6 +28,25 @@ public class SectorDeck extends Deck {
     
     }
     
+    
+    
+    @Override
+    public Card drawCard() throws CardFinishedException {
+        Card c;
+        if(!isEmpty()) {
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            discardedCards.add(c);
+            return c;
+        } else {
+            reShuffle();
+            c = stackOfCards.remove(stackOfCards.size()-1);
+            discardedCards.add(c);
+            return c;
+        }
+    }
+
+
+
     private int generateId() { return lastId++; }
     
     //item e no item
