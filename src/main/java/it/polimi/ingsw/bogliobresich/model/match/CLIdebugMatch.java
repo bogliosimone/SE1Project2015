@@ -106,6 +106,7 @@ Match match = new Match();
             this.end=true;
             return;
         }
+        
         System.out.println("Comando non valido");
         return;
     }
