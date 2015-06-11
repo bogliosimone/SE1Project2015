@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionServer;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
+import it.polimi.ingsw.bogliobresich.communication.server.socket.SocketConnectionServer;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -42,24 +43,10 @@ public class Server implements Runnable {
     }
     
     private void initRMIServer() {
-        try {
-            Server.serviceMessage("SERVER > RMI CONNECTION SERVER START");
-            rmiRegistry = LocateRegistry.createRegistry(CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
-            rmiConnectionService = (RMIConnectionService) UnicastRemoteObject.exportObject(new RMIConnectionServer(), CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
-            rmiRegistry.bind(CommunicationUtil.REMOTE_CONNECTION_NAME, rmiConnectionService);
-            Server.serviceMessage("SERVER > RMI SERVER STARTED");
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        finally {
-            rmiRegistry = null;
-        }
+        RMIConnectionServer s1 = new RMIConnectionServer(CommunicationUtil.REMOTE_CONNECTION_NAME, CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
     }
     private void initSocketServer() {
-        //TODO
-        Server.serviceMessage("SOCKET CONNECTION SERVER START");
-        Server.serviceMessage("SOCKET SERVER FAIL");
+        SocketConnectionServer s2 = new SocketConnectionServer(CommunicationUtil.SOCKET_REQUEST_SERVER_TCP_PORT);
     }
     
     public static void serviceMessage(Object msg) {

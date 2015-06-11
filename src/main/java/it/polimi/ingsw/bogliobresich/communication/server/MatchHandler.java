@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
+import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
@@ -11,18 +12,18 @@ import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
-import java.rmi.AlreadyBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author matteobresich
  *
  */
-public class MatchHandler implements Runnable,Serializable {
+public class MatchHandler extends Observable implements Runnable, RMIMatchHandlerService, Serializable {
 
     /**
      * 
@@ -65,10 +66,6 @@ public class MatchHandler implements Runnable,Serializable {
         }
         return false;
     }
-    
-    public void doAction(Player p, Action action) {
-        match.doAction(p, action);
-    }
 
     @Override
     public void run() {
@@ -88,4 +85,42 @@ public class MatchHandler implements Runnable,Serializable {
     public String toString() {
         return "MATCH [ID=" + matchID + "]";
     }
+
+    private class WrappedObserver implements Observer, Serializable {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 2747416104063483478L;
+        private RemoteObserver ro = null;
+
+        public WrappedObserver(RemoteObserver ro) {
+            this.ro = ro;
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            try {
+                ro.update(o.toString(), arg);
+            } catch (RemoteException e) {
+                System.out.println("Remote exception removing observer:" + this);
+                o.deleteObserver(this);
+            }
+        }
+
+    }
+
+    @Override
+    public void addObserver(RemoteObserver o) throws RemoteException {
+        WrappedObserver mo = new WrappedObserver(o);
+        addObserver(mo);
+        Server.serviceMessage("Added observer:" + mo);
+    }
+
+    @Override
+    public void doAction(Player p, Action action) throws RemoteException {
+        match.doAction(p, action);
+    }
+
+   
 }
