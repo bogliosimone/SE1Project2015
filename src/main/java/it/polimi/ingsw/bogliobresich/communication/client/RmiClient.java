@@ -1,7 +1,6 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
 import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
-import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
 
