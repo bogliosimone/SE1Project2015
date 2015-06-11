@@ -29,10 +29,6 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 public class InitState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
-        if(player!=null){
-            match.notifyPlayer(player, "La partita è in fase di inizializzazione, attendi");
-            return;
-        }
         if(action instanceof ActionListUser){
             match.setIsActive(true);
             match.notifyAllPlayer("La partita è attiva");
@@ -47,6 +43,8 @@ public class InitState implements State {
             match.serviceMessage("Azione non disponibile in fase di inizializzazione del gioco");
     }
 
+    
+    
     private void createPlayers(Match match,ActionListUser action){
         HexMap map=match.getGameMap();
         List<User> users=action.getListUser();
@@ -67,16 +65,19 @@ public class InitState implements State {
                 id++;
                 tempList.add(newPlayer);
             }
-            catch (CardFinishedException e) { match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE");
+            catch (CardFinishedException e) { match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE, FATAL ERROR");
             }
         }
         Collections.shuffle(tempList);
         for(Player newPlayer: tempList){
             match.addPlayer(newPlayer);
-            match.serviceMessage("Creato e aggiunto player: "+newPlayer.toString());
+            match.notifyPlayer(newPlayer,newPlayer.toString()); 
         }
         return;
     }
+    
+    
+    
     private void createDecks(Match match, int numbOfPlayers){
         DeckFactory factory = new MyDeckFactory();
         match.setItemDeck(factory.createItemDeck());

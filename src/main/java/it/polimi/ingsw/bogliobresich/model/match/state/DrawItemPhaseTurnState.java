@@ -6,24 +6,22 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
-import it.polimi.ingsw.bogliobresich.model.match.action.DiscardAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.DrawItemCardAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
-public class DrawPhaseTurnState implements State {
-    boolean handIsFull=false;
+public class DrawItemPhaseTurnState implements State {
 
     @Override
     public void doAction(Match match, Player player, Action action) {
-        if(!player.equals(match.getCurrentPlayer())){
-            match.notifyPlayer(player, "Non è il tuo turno");
+        if(player == null){
+            match.serviceMessage("Comando non valido");
             return;
-        }  
+        }
         
         if(action instanceof DrawItemCardAction){
+             match.notifyPlayer(player, "La tua carta settore contiene un oggetto");
              Deck deckItem= match.getItemDeck();
              Card tempCard;
              try {
@@ -37,8 +35,8 @@ public class DrawPhaseTurnState implements State {
                  hand.addCard(newCard);
                  match.notifyPlayer(player, " hai pescato la carta oggetto "+newCard.toString());
                  if(hand.isFull()){
-                     handIsFull=true;
                      match.notifyPlayer(player, "hai la mano piena, devi scartare una carta");
+                     match.setState(new HandFullState());
                  }
                  else{
                      match.setState(new EndPhaseTurnState());
@@ -51,38 +49,9 @@ public class DrawPhaseTurnState implements State {
              } 
              return;
          }
-         if(action instanceof DiscardAction && handIsFull){
-             ItemCard cardToDiscard = ((DiscardAction)action).getCardToDiscard();
-             if(match.discardItemCardInItemDeck(player, cardToDiscard)){
-                 match.notifyAllPlayer(player.getNickName()+" ha scartato una carta oggetto");
-                 match.setState(new EndPhaseTurnState());
-                 match.doAction(player, new EndPhaseAction());
-             }
-             else 
-                 match.notifyPlayer(player, "non possiedi questa carta");
-             return;
-         }
+
          
-         if(action instanceof PlayItemAction && handIsFull){
-             ItemCard card=((PlayItemAction) action).getItemCard();
-             if(card.isPlayableEndPhase()&&player.canPlayObject()){
-                 card = card.play(match, player);
-                 if(card!=null){
-                     match.notifyAllPlayer("ha giocato la carta: "+card.toString());
-                     match.setState(new EndPhaseTurnState());
-                     match.doAction(player, new EndPhaseAction());
-                 }
-                 else
-                     match.notifyPlayer(player, "Non possiedi questa carta");
-                 return;
-             }
-             else
-                 match.notifyPlayer(player, "Non puoi giocare questa carta");
-             return; 
-         }
-         
-         
-         match.serviceMessage("Mossa non disponibile durante la drawPhase");
+         match.notifyPlayer(player, "Mossa non disponibile durante la drawPhase");
          return;
     }
 

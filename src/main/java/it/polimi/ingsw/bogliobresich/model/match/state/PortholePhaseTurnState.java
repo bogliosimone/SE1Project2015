@@ -23,6 +23,11 @@ public class PortholePhaseTurnState implements State {
 
     @Override
     public void doAction(Match match, Player player, Action action) {
+        if(player==null){
+            match.serviceMessage("Comando non valido");
+            return;
+        }
+        
         if(action instanceof PortholeAction){
             Deck deckPH= match.getPortholeDeck();
             Card tempCard;
