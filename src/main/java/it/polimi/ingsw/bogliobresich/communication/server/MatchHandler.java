@@ -13,9 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -47,6 +45,11 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         return "MatchHandlerID:" + matchID;
     }
     
+    @Override
+    public String getMatchHandlerID() throws RemoteException {
+        return this.getID();
+    }
+    
     public boolean isMatchStarded() {
         return isMatchActive();
     }
@@ -76,6 +79,8 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
+            setChanged();
+            notifyObservers(new Date());
         }
         
         Server.serviceMessage(this.toString() + " ENDED");
@@ -101,7 +106,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         @Override
         public void update(Observable o, Object arg) {
             try {
-                ro.update(o.toString(), arg);
+                ro.update((Serializable) o, arg);
             } catch (RemoteException e) {
                 System.out.println("Remote exception removing observer:" + this);
                 o.deleteObserver(this);

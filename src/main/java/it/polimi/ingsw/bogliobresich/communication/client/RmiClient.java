@@ -3,11 +3,13 @@ package it.polimi.ingsw.bogliobresich.communication.client;
 import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
+import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
 
 import java.io.Serializable;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 
 public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
@@ -24,15 +26,19 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             System.out.println(url);
             RMIConnectionService remoteService = (RMIConnectionService) Naming.lookup(url);
             
+            System.out.print("Presentati: ");
+            String nickname;
+            Scanner bis = new Scanner(System.in);
+            nickname = bis.next();
+            bis.close();
             
             RmiClient client = new RmiClient();
             try {
-                MatchHandler m;
-//                m = remoteService.connectToMatch("SIMONE");
-                  remoteService.connectToMatch("MATTEO");
-//                System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getID());
-//                RMIMatchHandlerService matchHandler = (RMIMatchHandlerService)  Naming.lookup("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getID());
-//                matchHandler.addObserver(client);
+                RMIMatchHandlerService m;
+                  m =  remoteService.connectToMatch(nickname);
+                  System.out.println(m);
+                  System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
+                  m.addObserver(client);
                 
             }
             catch(RemoteException e) {

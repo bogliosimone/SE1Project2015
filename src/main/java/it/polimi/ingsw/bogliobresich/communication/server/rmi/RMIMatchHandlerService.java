@@ -19,4 +19,5 @@ public interface RMIMatchHandlerService extends Remote {
 
     void doAction(Player p, Action action) throws RemoteException;
     void addObserver(RemoteObserver o) throws RemoteException;
+    String getMatchHandlerID() throws RemoteException;
 }

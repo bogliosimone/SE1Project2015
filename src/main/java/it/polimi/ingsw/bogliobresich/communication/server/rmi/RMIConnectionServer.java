@@ -38,7 +38,7 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
     }
 
     @Override
-    public MatchHandler connectToMatch(String nickname) throws RemoteException {
+    public RMIMatchHandlerService connectToMatch(String nickname) throws RemoteException {
         return matchesHandler.connectUser(nickname);
     }
 }
