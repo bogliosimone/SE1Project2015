@@ -41,21 +41,22 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         lastMatchHandlerIDAdded++;
     }
     
+    /**
+     * @return the match handler id
+     */
     public String getID() {
         return "MatchHandlerID:" + matchID;
     }
     
-    @Override
-    public String getMatchHandlerID() throws RemoteException {
-        return this.getID();
-    }
     
-    public boolean isMatchStarded() {
-        return isMatchActive();
-    }
-    
-    public MatchHandler addUser(User usr) throws RemoteException {
-            doAction(null, new AddPlayerAction(usr));
+    /**
+     * Adds a user into a match
+     * @param user is the user that will be added into the match
+     * @return MatchHandler the handler of the match where the user is added
+     * @throws RemoteException
+     */
+    public MatchHandler addUser(User user) throws RemoteException {
+            doAction(null, new AddPlayerAction(user));
         return this;
     }
     
@@ -63,7 +64,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     /**
      * @return true if the match is in play state
      */
-    public boolean isMatchActive() {
+    public boolean isMatchStarted() {
         if(match.isActive()){
             return true;
         }
@@ -91,6 +92,8 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         return "MATCH [ID=" + matchID + "]";
     }
 
+    
+    
     private class WrappedObserver implements Observer, Serializable {
 
         /**
@@ -108,23 +111,30 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
             try {
                 ro.update((Serializable) o, arg);
             } catch (RemoteException e) {
-                System.out.println("Remote exception removing observer:" + this);
+                Server.serviceMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + this);
                 o.deleteObserver(this);
             }
         }
 
     }
 
+    
+    
     @Override
     public void addObserver(RemoteObserver o) throws RemoteException {
         WrappedObserver mo = new WrappedObserver(o);
         addObserver(mo);
-        Server.serviceMessage("Added observer:" + mo);
+        Server.serviceMessage("ADDED OBSERVER:" + mo);
     }
 
     @Override
     public void doAction(Player p, Action action) throws RemoteException {
         match.doAction(p, action);
+    }
+    
+    @Override
+    public String getMatchHandlerID() throws RemoteException {
+        return this.getID();
     }
 
    

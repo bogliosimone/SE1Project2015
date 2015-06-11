@@ -41,7 +41,7 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
                 
             }
             catch(RemoteException e) {
-                System.err.println("||Impossibile collegarsi al server: " + e);
+                System.err.println("Impossibile collegarsi al server: " + e);
             }
             
         } catch (Exception ex) {

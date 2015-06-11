@@ -18,6 +18,10 @@ import java.util.concurrent.RejectedExecutionException;
 /**
  * @author matteobresich
  *
+ * This class manages MatchHandlers.
+ * When a request to play arrives, this handler check if there is any match not yet started that can welcome that user.
+ * If there isn't free match this handler allocates new match.
+ *  
  */
 public class MatchesHandler{
     
@@ -48,7 +52,7 @@ public class MatchesHandler{
         if(lastMatchHandlerAdded == null) {
             lastMatchHandlerAdded = addNewMatch();
         }
-        if(lastMatchHandlerAdded.isMatchStarded()) {
+        if(lastMatchHandlerAdded.isMatchStarted()) {
             lastMatchHandlerAdded = addNewMatch();
         }
         if(lastMatchHandlerAdded == null) {
