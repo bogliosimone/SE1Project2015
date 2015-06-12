@@ -29,7 +29,7 @@ public class MatchesHandler{
     private ExecutorService executor = Executors.newCachedThreadPool();
     
     private static MatchHandler lastMatchHandlerAdded = null;
-    private static int lastUserAdded = 0;
+    
     
     
     public static synchronized MatchesHandler getInstance() {
@@ -44,11 +44,9 @@ public class MatchesHandler{
         executor.shutdownNow();
     }
     
-    public static synchronized int getUserID() {
-        return lastUserAdded++;
-    }
     
-    public synchronized MatchHandler connectUser(String nickname) throws RemoteException {
+    
+    public synchronized MatchHandler connectUser(User user) throws RemoteException {
         if(lastMatchHandlerAdded == null) {
             lastMatchHandlerAdded = addNewMatch();
         }
@@ -58,7 +56,7 @@ public class MatchesHandler{
         if(lastMatchHandlerAdded == null) {
             throw new RuntimeException();
         }
-        lastMatchHandlerAdded.addUser(new User(getUserID(),nickname));
+        lastMatchHandlerAdded.addUser(user);
         return lastMatchHandlerAdded;
     }
 

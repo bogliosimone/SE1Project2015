@@ -7,9 +7,7 @@ import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionServe
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 import it.polimi.ingsw.bogliobresich.communication.server.socket.SocketConnectionServer;
 
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author matteobresich
@@ -18,9 +16,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server implements Runnable {
     
     private static Server instance;
-    private Registry rmiRegistry;
-    private RMIConnectionService rmiConnectionService;
     private MatchesHandler matchesHandler = null;
+    private static int lastUserAdded = 0;
     
     public static synchronized Server getInstance() {
         if (instance == null) {
@@ -51,6 +48,13 @@ public class Server implements Runnable {
     
     public static void serviceMessage(Object msg) {
         System.out.println("| SERVER > " + msg);
+    }
+    public static void connectionMessage(Object msg) {
+        System.out.println("| LOGIN  > " + msg);
+    }
+    
+    public static synchronized int getUserID() {
+        return lastUserAdded++;
     }
     
     public synchronized void shutdownNow() {

@@ -2,6 +2,7 @@ package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
 import it.polimi.ingsw.bogliobresich.communication.server.MatchesHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
@@ -37,7 +38,14 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
     }
 
     @Override
-    public RMIMatchHandlerService connectToMatch(String nickname) throws RemoteException {
-        return matchesHandler.connectUser(nickname);
+    public User login(String nickname, String password) throws RemoteException {
+        Server.connectionMessage("CONNECTION REQUEST BY: " + nickname);
+        return new User(Server.getUserID(),nickname, password);
+    }
+    
+    @Override
+    public RMIMatchHandlerService connectToMatch(User user) throws RemoteException {
+        Server.connectionMessage("MATCH REQUEST BY: " + user);
+        return matchesHandler.connectUser(user);
     }
 }

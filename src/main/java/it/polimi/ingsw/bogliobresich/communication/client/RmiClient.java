@@ -3,6 +3,7 @@ package it.polimi.ingsw.bogliobresich.communication.client;
 import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 import java.io.Serializable;
 import java.rmi.Naming;
@@ -33,8 +34,9 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             
             RmiClient client = new RmiClient();
             try {
-                RMIMatchHandlerService m;
-                  m =  remoteService.connectToMatch(nickname);
+                  User user = remoteService.login(nickname, nickname);
+                  RMIMatchHandlerService m;
+                  m =  remoteService.connectToMatch(user);
                   System.out.println(m);
                   System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
                   m.addObserver(client);
