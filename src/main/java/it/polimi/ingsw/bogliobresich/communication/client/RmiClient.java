@@ -1,9 +1,12 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
 import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
+import it.polimi.ingsw.bogliobresich.communication.server.GameProtocol;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 
 import java.io.Serializable;
 import java.rmi.Naming;
@@ -30,7 +33,7 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             String nickname;
             Scanner bis = new Scanner(System.in);
             nickname = bis.next();
-            bis.close();
+            
             
             RmiClient client = new RmiClient();
             try {
@@ -40,11 +43,16 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
                   System.out.println(m);
                   System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
                   m.addObserver(client);
+                  
+                  String cmd = bis.next();
+                  m.doAction(user, GameProtocol.DO_MOVE_REQUEST);
                 
             }
             catch(RemoteException e) {
                 System.err.println("Impossibile collegarsi al server: " + e);
             }
+            
+            bis.close();
             
         } catch (Exception ex) {
             ex.printStackTrace();

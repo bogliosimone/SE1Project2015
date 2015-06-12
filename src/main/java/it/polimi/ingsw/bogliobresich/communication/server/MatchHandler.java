@@ -5,10 +5,12 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
@@ -48,16 +50,36 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         return "MatchHandlerID:" + matchID;
     }
     
+    /**
+     * @param p is the player that want to do an action
+     * @param action is what the player would do
+     */
+    private void doMatchAction(Player p, Action action) {
+        match.doAction(p, action);
+    }
     
     /**
-     * Adds a user into a match
-     * @param user is the user that will be added into the match
-     * @return MatchHandler the handler of the match where the user is added
+     * Adds a user into a match.
+     * @param user is the entity that will be added into the match
+     * @return MatchHandler the handler of the match in which the user is added
      * @throws RemoteException
      */
     public MatchHandler addUser(User user) throws RemoteException {
-            doAction(null, new AddPlayerAction(user));
+            doMatchAction(null, new AddPlayerAction(user));
         return this;
+    }
+    
+    /**
+     * @param user that is a player in the match
+     * @return player if the user is in the match null otherwise.
+     */
+    public Player getPlayerByUser(User user) {
+        for(Player p : match.getAllPlayer()) {
+            if(p.getUser().equals(user)) {
+                return p;
+            }
+        }
+        return null; 
     }
     
     
@@ -70,6 +92,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
         }
         return false;
     }
+    
 
     @Override
     public void run() {
@@ -80,8 +103,8 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
-            setChanged();
-            notifyObservers(new Date());
+//            setChanged();
+//            notifyObservers(new Date());
         }
         
         Server.serviceMessage(this.toString() + " ENDED");
@@ -128,14 +151,20 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     }
 
     @Override
-    public void doAction(Player p, Action action) throws RemoteException {
-        match.doAction(p, action);
+    public void doAction(User user, GameProtocol command) throws RemoteException {
+        Player p = this.getPlayerByUser(user);
+        if (p != null) {
+            switch(command) {
+                case DO_MOVE_REQUEST: 
+                doMatchAction(p, new MovementAction(new Coordinate('K',8)));
+            break;
+            }
+            
+        }
     }
     
     @Override
     public String getMatchHandlerID() throws RemoteException {
         return this.getID();
     }
-
-   
 }
