@@ -10,6 +10,7 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -30,6 +31,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
      */
     private static final long serialVersionUID = -3783668816203597145L;
     private transient Match match = null;
+    private transient CommandHandler commandHandler = null;
     private transient  static int lastMatchHandlerIDAdded = 0;
     private int matchID = 0;
     
@@ -40,6 +42,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     public MatchHandler() {
         this.matchID = lastMatchHandlerIDAdded;
         this.match = new Match(matchID);
+        this.commandHandler = new CommandHandler(this);
         lastMatchHandlerIDAdded++;
     }
     
@@ -54,7 +57,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
      * @param p is the player that want to do an action
      * @param action is what the player would do
      */
-    private void doMatchAction(Player p, Action action) {
+    void executeAction(Player p, Action action) {
         match.doAction(p, action);
     }
     
@@ -65,7 +68,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
      * @throws RemoteException
      */
     public MatchHandler addUser(User user) throws RemoteException {
-            doMatchAction(null, new AddPlayerAction(user));
+            executeAction(null, new AddPlayerAction(user));
         return this;
     }
     
@@ -151,15 +154,10 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     }
 
     @Override
-    public void doAction(User user, GameProtocol command) throws RemoteException {
-        Player p = this.getPlayerByUser(user);
-        if (p != null) {
-            switch(command) {
-                case DO_MOVE_REQUEST: 
-                doMatchAction(p, new MovementAction(new Coordinate('K',8)));
-            break;
-            }
-            
+    public void doAction(User user, GameProtocol command, Coordinate c) throws RemoteException {
+        Player player = this.getPlayerByUser(user);
+        if (player != null) {
+            commandHandler.executeCommand(player,command,c);
         }
     }
     

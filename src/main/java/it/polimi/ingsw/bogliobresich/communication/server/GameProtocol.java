@@ -11,5 +11,12 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 
 public enum GameProtocol {
     DO_MOVE_REQUEST,
-    DO_MOVE_RESPONSE;
+    DO_ATTACK_REQUEST,
+    DO_PLAY_ITEM_REQUEST,
+    DO_END_MOVEMENT_PHASE_REQUEST,
+    DO_RUMOR_IN_COORDINATE_REQUEST,
+    DO_DRAW_SECTOR_REQUEST,    
+    DO_DISCARD_ITEM_REQUEST,
+    DO_END_TURN_REQUEST;
+    
 }

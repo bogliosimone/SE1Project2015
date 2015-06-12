@@ -44,8 +44,11 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
                   System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
                   m.addObserver(client);
                   
-                  String cmd = bis.next();
-                  m.doAction(user, GameProtocol.DO_MOVE_REQUEST);
+                  String coordinate = bis.next();
+                  char ch = coordinate.charAt(0);
+                  int num = Integer.parseInt(coordinate.substring(1));
+                  
+                  m.doAction(user, GameProtocol.DO_MOVE_REQUEST, new Coordinate(ch, num));
                 
             }
             catch(RemoteException e) {
