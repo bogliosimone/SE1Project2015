@@ -3,12 +3,18 @@
  */
 package it.polimi.ingsw.bogliobresich.model.map;
 
+import java.io.Serializable;
+
 /**
  * Coordinate with two dimensional in letter-number or x-y 
  * letter-number <-> x-y = A-1 <-> 1-1
  * @author simoneboglio
  */
-public class Coordinate {
+public class Coordinate implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7110811920228326544L;
     private static int offsetLetterA = 65;
     private char letter;
     private int number;
