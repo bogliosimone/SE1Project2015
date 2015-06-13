@@ -3,65 +3,42 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
+
 /**
  * @author Matteo
  *
  */
-public class ItemCard extends Card {
+public abstract class ItemCard implements Card, CardPlayableInPhase {
+    private int id;
+    protected boolean isPlayed;
     
-    private String type;
+    public abstract ItemCard play(Match m, Player p);
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
-     * Class constructor
+     * @param id the id to set
      */
-    public ItemCard(String type) {
-        if(isDataOk(type)) {
-            this.type = type;
-        }
+    public void setId(int id) {
+        this.id = id;
     }
     
-
-    /**
-     * Return if the data to be entered is correct
-     * @return true if the data to be entered are ok
-     */
-    private boolean isDataOk(String type) {
-        if(type.equals(ConstantsCard.ATTACK)) {
-            return true;
-        }
-        if(type.equals(ConstantsCard.DEFENCE)) {
-            return true;
-        }
-        if(type.equals(ConstantsCard.TELEPORT)) {
-            return true;
-        }
-        if(type.equals(ConstantsCard.SPOTLIGHT)) {
-            return true;
-        }
-        if(type.equals(ConstantsCard.SEDATIVES)) {
-            return true;
-        }
-        if(type.equals(ConstantsCard.ADRENALINE)) {
-            return true;
-        }
-        return false;
+    public boolean isPlayed() {
+        return this.isPlayed;
     }
-
-    @Override
-    public String toString() {
-        return "ItemCard [" + type +"]";
-    }
-
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        result = prime * result + id;
         return result;
     }
-
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -71,12 +48,8 @@ public class ItemCard extends Card {
         if (getClass() != obj.getClass())
             return false;
         ItemCard other = (ItemCard) obj;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
+        if (id != other.id)
             return false;
         return true;
     }
-    
 }

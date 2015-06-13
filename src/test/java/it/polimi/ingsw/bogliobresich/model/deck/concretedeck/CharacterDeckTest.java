@@ -24,6 +24,9 @@ public class CharacterDeckTest extends Deck {
     private Card alienOneCard;
     private Card alienTwoCard;
     private Card pilotCard;
+    private int lastId;
+    
+    private int generateId() { return lastId++; }
 
     @Before
     public void setUp() throws Exception {
@@ -49,7 +52,7 @@ public class CharacterDeckTest extends Deck {
         super.shuffle();
         assertEquals(super.isEmpty(),true);
         
-        super.addCard(captainCard);
+        super.addCard(captainCard,1);
         super.shuffle();
         assertEquals(super.isEmpty(),false);
         assertEquals(super.drawCard(), new CharacterCard(Characters.CAPTAIN));
@@ -58,10 +61,10 @@ public class CharacterDeckTest extends Deck {
     @Test(expected=NoReShuffleableException.class)
     public void testReShuffle() throws CardFinishedException {
         super.setReShuffle(false);
-        super.addCard(captainCard);
-        super.addCard(pilotCard);
-        super.addCard(alienOneCard);
-        super.addCard(alienTwoCard);
+        super.addCard(captainCard,generateId());
+        super.addCard(pilotCard,generateId());
+        super.addCard(alienOneCard,generateId());
+        super.addCard(alienTwoCard,generateId());
         super.reShuffle();
         assertEquals(true,true);
     }
@@ -69,20 +72,20 @@ public class CharacterDeckTest extends Deck {
     @Test
     public void testAddCard() {
         
-        super.addCard(captainCard);
+        super.addCard(captainCard,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testIsEmpty() {
         assertEquals(super.isEmpty(),true);
-        super.addCard(captainCard);
+        super.addCard(captainCard,generateId());
         assertEquals(super.isEmpty(),false);
     }
 
     @Test
     public void testIsDiscardedCardsEmpty() throws CardFinishedException {
-        super.addCard(captainCard);
+        super.addCard(captainCard,generateId());
         assertEquals(super.isDiscardedCardsEmpty(),true);
         Card c = super.drawCard();
         super.discardCard(c);
@@ -91,7 +94,7 @@ public class CharacterDeckTest extends Deck {
 
     @Test(expected=CardFinishedException.class)
     public void testDrawCard() throws CardFinishedException {
-        super.addCard(captainCard); 
+        super.addCard(captainCard,generateId()); 
         Card c = super.drawCard();
         assertEquals(c, captainCard);
         c = super.drawCard();
@@ -105,8 +108,8 @@ public class CharacterDeckTest extends Deck {
     @Test
     public void testSize() {
         assertEquals(super.size(),0);
-        super.addCard(captainCard);
-        super.addCard(captainCard);
+        super.addCard(captainCard,generateId());
+        super.addCard(captainCard,generateId());
         assertEquals(super.size(),2);
     }
     

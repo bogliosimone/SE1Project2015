@@ -3,14 +3,17 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.player.Player;
+
 /**
  * @author Matteo
  *
  */
-public class SectorCard extends Card {
+public class SectorCard implements Card {
+    private int id;
     private boolean drawAnItem;
     private String noise;
-
+    
     /**
      * Class constructor
      * @param d indicates if you have to draw an item card  
@@ -22,13 +25,30 @@ public class SectorCard extends Card {
         }
     }
     
+    
     /**
      * Return if there is noise
      * @return true if there is noise
      */
-    public boolean isThereNoise() {
+    public boolean isThereSilence() {
         //If there isn't any type of noise in the sector card, the sector card is silence  
-        return !this.noise.equals(ConstantsCard.SILENCE);
+        return this.noise.equals(ConstantsCard.SILENCE);
+    }
+    
+    /**
+     * Return if there is noise in the sector in which the player is
+     * @return true if there is noise in player's sector
+     */
+    public boolean isThereNoiseInMySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_MY_SECTOR);
+    }
+    
+    /**
+     * 
+     * @return true if there is noise in any sector
+     */
+    public boolean isThereNoiseInAnySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_ANY_SECTOR);
     }
     
     /**
@@ -41,21 +61,52 @@ public class SectorCard extends Card {
         }
         return false;
     }
+    
+    /**
+     * Return if the player that draw the sector card must draw an item
+     * @return true if the player must draw an item card
+     */
+    public boolean isThereAnItemToDraw() {
+        return drawAnItem;
+    }
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     @Override
     public String toString() {
-        return "SectorCard [drawAnItem =" + drawAnItem + "]";
+        return "SectorCard [type =" + noise + "] [drawAnItem =" + drawAnItem + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + (drawAnItem ? 1231 : 1237);
+        result = prime * result + id;
         result = prime * result + ((noise == null) ? 0 : noise.hashCode());
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -67,6 +118,8 @@ public class SectorCard extends Card {
         SectorCard other = (SectorCard) obj;
         if (drawAnItem != other.drawAnItem)
             return false;
+        if (id != other.id)
+            return false;
         if (noise == null) {
             if (other.noise != null)
                 return false;
@@ -74,7 +127,7 @@ public class SectorCard extends Card {
             return false;
         return true;
     }
-    
+
     
     
 }

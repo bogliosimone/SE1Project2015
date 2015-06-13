@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
  *
  */
 public class PortholeDeck extends Deck {
+    private int lastId = 0;
     /**
      * Class constructor
      */
@@ -29,8 +30,11 @@ public class PortholeDeck extends Deck {
             } else {
                 card = new PortholeCard(ConstantsCard.PORTHOLE_BROKEN);
             }
-            super.addCard(card);
+            super.addCard(card,generateId());
         }
+        super.shuffle();
     }
+    
+    private int generateId() { return lastId++; }
 
 }
