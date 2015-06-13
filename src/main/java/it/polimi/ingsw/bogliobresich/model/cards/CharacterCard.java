@@ -22,12 +22,6 @@ public class CharacterCard implements Card {
         this.name = character.getCharacterName();
     }
     
-    @Override
-    public void play(Player p) {
-        // TODO Auto-generated method stub
-    }
-
-    
     /**
      * @return the id
      */
@@ -45,7 +39,7 @@ public class CharacterCard implements Card {
     
     @Override
     public String toString() {
-        return "CharacterCard [name=" + name + "]";
+        return name;
     }
 
     @Override

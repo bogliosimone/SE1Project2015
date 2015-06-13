@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -21,11 +22,6 @@ public class PortholeCard implements Card {
         if(isDataOk(state)) {
             this.state = state;
         }
-    }
-    
-    @Override
-    public void play(Player p) {
-        // TODO Auto-generated method stub
     }
     
     /**

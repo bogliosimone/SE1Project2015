@@ -14,7 +14,6 @@ public class SectorCard implements Card {
     private boolean drawAnItem;
     private String noise;
     
-
     /**
      * Class constructor
      * @param d indicates if you have to draw an item card  
@@ -26,18 +25,30 @@ public class SectorCard implements Card {
         }
     }
     
-    @Override
-    public void play(Player p) {
-        // TODO Auto-generated method stub
-    }
     
     /**
      * Return if there is noise
      * @return true if there is noise
      */
-    public boolean isThereNoise() {
+    public boolean isThereSilence() {
         //If there isn't any type of noise in the sector card, the sector card is silence  
-        return !this.noise.equals(ConstantsCard.SILENCE);
+        return this.noise.equals(ConstantsCard.SILENCE);
+    }
+    
+    /**
+     * Return if there is noise in the sector in which the player is
+     * @return true if there is noise in player's sector
+     */
+    public boolean isThereNoiseInMySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_MY_SECTOR);
+    }
+    
+    /**
+     * 
+     * @return true if there is noise in any sector
+     */
+    public boolean isThereNoiseInAnySector() {  
+        return this.noise.equals(ConstantsCard.NOISE_ANY_SECTOR);
     }
     
     /**
@@ -51,7 +62,13 @@ public class SectorCard implements Card {
         return false;
     }
     
-    
+    /**
+     * Return if the player that draw the sector card must draw an item
+     * @return true if the player must draw an item card
+     */
+    public boolean isThereAnItemToDraw() {
+        return drawAnItem;
+    }
     
     /**
      * @return the id
@@ -71,7 +88,7 @@ public class SectorCard implements Card {
 
     @Override
     public String toString() {
-        return "SectorCard [drawAnItem =" + drawAnItem + "]";
+        return "SectorCard [type =" + noise + "] [drawAnItem =" + drawAnItem + "]";
     }
 
     /* (non-Javadoc)

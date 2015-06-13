@@ -26,14 +26,13 @@ public class ItemDeck extends Deck {
      * Class constructor
      */
     public ItemDeck() {
-        
         addItemCard(ConstantsCard.ATTACK,ConstantsDeck.N_ITEMCARD_ATTACK);
         addItemCard(ConstantsCard.DEFENCE,ConstantsDeck.N_ITEMCARD_DEFENCE);
         addItemCard(ConstantsCard.TELEPORT,ConstantsDeck.N_ITEMCARD_TELEPORT);
         addItemCard(ConstantsCard.SPOTLIGHT,ConstantsDeck.N_ITEMCARD_SPOTLIGHT);
         addItemCard(ConstantsCard.SEDATIVES,ConstantsDeck.N_ITEMCARD_SEDATIVES);
         addItemCard(ConstantsCard.ADRENALINE,ConstantsDeck.N_ITEMCARD_ADRENALINE);
-        
+        super.shuffle();
     }
     
     private int generateId() { return lastId++; }
