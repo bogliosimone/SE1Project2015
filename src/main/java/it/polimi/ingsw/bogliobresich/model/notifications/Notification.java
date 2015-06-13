@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
-import it.polimi.ingsw.bogliobresich.model.player.Player;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author matteobresich
@@ -29,6 +29,6 @@ public interface Notification <Argument> {
      * It indicates who is the addressee.
      * @return the addressee of the notification.
      */
-    public Player getNotificationReciver();
+    public User getNotificationReciver();
 
 }

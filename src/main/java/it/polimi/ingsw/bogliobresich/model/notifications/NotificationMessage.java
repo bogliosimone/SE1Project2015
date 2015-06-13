@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
-import it.polimi.ingsw.bogliobresich.model.player.Player;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author matteobresich
@@ -14,16 +14,16 @@ public class NotificationMessage implements Notification<Object> {
     private Commands command = null;
     private Object argument = null;
     private boolean isBroadcast = false;
-    private Player addressee = null;
+    private User addressee = null;
     
     /**
      * Class constructor. The constructor create a notification message.
      * @param type indicates the type of notification
      * @param argument is the argument to send.
      * @param isBroadcast indicates if the notification is broadcast.
-     * @param addressee is who will recive the notification.
+     * @param addressee is who will receive the notification.
      */
-    public NotificationMessage(Commands type, Object argument, boolean isBroadcast, Player addressee) {
+    public NotificationMessage(Commands type, Object argument, boolean isBroadcast, User addressee) {
         this.command = type;
         this.argument = argument;
         this.isBroadcast = isBroadcast;
@@ -55,7 +55,7 @@ public class NotificationMessage implements Notification<Object> {
     }
 
     @Override
-    public Player getNotificationReciver() {
+    public User getNotificationReciver() {
         return addressee;
     }
 
