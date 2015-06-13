@@ -56,7 +56,9 @@ Match match = null;
             int id=Integer.parseInt(this.br.readLine());
             System.out.println("Inserisci nickname: ");
             String nickname = this.br.readLine();
-            match.doAction(this.match.getCurrentPlayer(), new AddPlayerAction(new User(id,nickname)));
+            System.out.println("Inserisci password: ");
+            String password = this.br.readLine();
+            match.doAction(this.match.getCurrentPlayer(), new AddPlayerAction(new User(id,nickname,password)));
             return;
         }
         if(command.equals("m")){

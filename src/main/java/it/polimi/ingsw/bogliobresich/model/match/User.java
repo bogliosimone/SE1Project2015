@@ -35,6 +35,11 @@ public class User implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "User [nickname=" + nickname + ", id=" + id + "]";
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

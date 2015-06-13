@@ -22,10 +22,10 @@ import java.util.List;
 public class ProvaMatch {
 
     public static void main(String[] args) {
-        User u1= new User(1,"Pippo");
-        User u2= new User(2,"Pluto");
-        User u3= new User(3,"Paperino");
-        User u4= new User(4,"Topolino");
+        User u1= new User(1,"Pippo","");
+        User u2= new User(2,"Pluto","");
+        User u3= new User(3,"Paperino","");
+        User u4= new User(4,"Topolino","");
         ItemCard card=new SpotlightItemCard(1);
         ((SpotlightItemCard)card).setCoordToLight(new Coordinate ('L',8));
         Match match = new Match();
