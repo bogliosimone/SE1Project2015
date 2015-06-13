@@ -30,6 +30,6 @@ public class HumanPlayer extends Player {
     
     @Override
     public String toString(){
-        return new String("Umano: "+this.user.getNickname()+" Personaggio; "+ this.characterCard.toString()  +" coordinate: "+this.coordinate);
+        return new String("Umano ; Personaggio; "+ this.characterCard.toString()  +"; Coordinate: "+this.coordinate);
     }
 }

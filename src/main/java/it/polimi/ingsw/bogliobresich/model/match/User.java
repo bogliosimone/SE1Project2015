@@ -3,23 +3,40 @@
  */
 package it.polimi.ingsw.bogliobresich.model.match;
 
+import java.io.Serializable;
+
 /**
  * @author simoneboglio
  *
  */
-public class User {
+public class User implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2007938065543320937L;
     private String nickname;
+    private String password;
     private int id;
-    public User(int id,String nickname){
+    public User(int id,String nickname,String password){
         this.nickname=nickname;
+        this.password=password;
     }
     
     public String getNickname(){
         return this.nickname;
     }
+    
+    public String getPassword(){
+        return this.password;
+    }
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "User [nickname=" + nickname + ", id=" + id + "]";
     }
 
     @Override
@@ -29,6 +46,8 @@ public class User {
         result = prime * result + id;
         result = prime * result
                 + ((nickname == null) ? 0 : nickname.hashCode());
+        result = prime * result
+                + ((password == null) ? 0 : password.hashCode());
         return result;
     }
 
@@ -47,6 +66,11 @@ public class User {
             if (other.nickname != null)
                 return false;
         } else if (!nickname.equals(other.nickname))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
             return false;
         return true;
     }

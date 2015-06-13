@@ -20,7 +20,13 @@ public class EndTurnState implements State {
 
     @Override
     public void doAction(Match match, Player player, Action action) {
+        if(player == null){
+            match.serviceMessage("Comando non valido");
+            return;
+        }
+        
         if(action instanceof EndTurnAction){
+           player.setIsYourTurn(false);
            match.notifyPlayer(player, "è finito il tuo turno");
            match.stopTimer();
            if(player instanceof HumanPlayer)
@@ -31,7 +37,7 @@ public class EndTurnState implements State {
            }
            else{
                match.setState(new EndState());
-               match.doAction(player, new EndGameAction());
+               match.doAction(null, new EndGameAction());
            }
            return;
         }
@@ -39,11 +45,13 @@ public class EndTurnState implements State {
             Player dcPlayer=match.getCurrentPlayer();
             dcPlayer.setIsConnected(false);
             match.notifyAllPlayer(dcPlayer.getNickName()+" si è disconnesso dal gioco");
+            match.notifyPlayer(dcPlayer, "Ti sei disconnesso");
             match.setState(new EndTurnState()); 
             match.doAction(match.getCurrentPlayer(), new EndTurnAction());
             return;
         }
-        match.serviceMessage("Mossa non disponibile nella fase finale del turno");
+        
+        match.serviceMessage("Azione non disponibile nella fase finale del turno");
         return;
 
     }

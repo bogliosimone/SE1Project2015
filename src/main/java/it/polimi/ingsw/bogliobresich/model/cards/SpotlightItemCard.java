@@ -10,10 +10,6 @@ import java.util.Set;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
-import it.polimi.ingsw.bogliobresich.model.match.action.SpotlightCoordinateAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.SpotlightItemAction;
-import it.polimi.ingsw.bogliobresich.model.match.state.GetCoordinateSpotlightItem;
-import it.polimi.ingsw.bogliobresich.model.match.state.State;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -25,7 +21,8 @@ public class SpotlightItemCard extends ItemCard {
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = true;
     private boolean isPlayableEnd = true;
-    private Coordinate coordToLight;
+    private Coordinate coordToLight =null;
+    private String stringEnlightened=null;
     
     public SpotlightItemCard(int id) {
         super.setId(id);
@@ -51,7 +48,7 @@ public class SpotlightItemCard extends ItemCard {
                 tmp=new String("nessuno");
             for(Player tmpPlayer:listPlayerEnlightened)
                 tmp=new String(tmp+" "+tmpPlayer.getNickName()+" in coordinate "+ tmpPlayer.getCoordinate());
-            match.notifyAllPlayer("Giocatori illuminati:"+tmp);
+            this.stringEnlightened = new String("Giocatori illuminati:"+tmp);
             this.isPlayed=false;
             return this;
         }
@@ -83,7 +80,10 @@ public class SpotlightItemCard extends ItemCard {
 
     @Override
     public  String toString(){
-        return new String("Spotlight Card id: "+this.getId());
+        if(this.coordToLight==null)
+            return new String("Spotlight Card id: "+this.getId());
+        else
+            return new String("Spotlight Card id: "+this.getId()+"\n"+this.stringEnlightened);
     }
 
 }
