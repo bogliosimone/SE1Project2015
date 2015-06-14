@@ -8,6 +8,7 @@ import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Stack;
 
 /**
@@ -16,10 +17,16 @@ import java.util.Stack;
  */
 public class NotificationStackHandler extends Observable implements NotificationStack {
     Stack <NotificationMessage> notificationStack = new Stack <NotificationMessage>();
-
+    
+    @Override
+    public void addObserver(Object o) {
+        addObserver((Observer)o);
+    }
+    
     @Override
     public void pushNotification(NotificationMessage n) {
         notificationStack.push(n);
+        setChanged();
         notifyObservers();
     }
 
@@ -82,6 +89,6 @@ public class NotificationStackHandler extends Observable implements Notification
 
     @Override
     public NotificationMessage popNotification() {
-        return notificationStack.pop();
+        return notificationStack.pop();   
     }
 }

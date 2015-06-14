@@ -13,6 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public interface NotificationStack {
     
+    public void addObserver(Object o);
     //Enter a notification
     public void pushNotification(NotificationMessage n);
     public NotificationMessage popNotification();
