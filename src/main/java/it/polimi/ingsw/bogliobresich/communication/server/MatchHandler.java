@@ -10,13 +10,10 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
