@@ -7,18 +7,20 @@ import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.util.Observable;
 import java.util.Stack;
 
 /**
  * @author matteobresich
  *
  */
-public class NotificationStackHandler implements NotificationStack {
+public class NotificationStackHandler extends Observable implements NotificationStack {
     Stack <NotificationMessage> notificationStack = new Stack <NotificationMessage>();
 
     @Override
     public void pushNotification(NotificationMessage n) {
         notificationStack.push(n);
+        notifyObservers();
     }
 
     @Override
