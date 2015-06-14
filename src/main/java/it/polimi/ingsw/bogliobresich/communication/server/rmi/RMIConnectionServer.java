@@ -17,24 +17,31 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
      * 
      */
     private static final long serialVersionUID = -1443539127775650583L;
+    private boolean isInitialized = false;
     private Registry rmiRegistry;
     private RMIConnectionService rmiConnectionService;
     MatchesHandler matchesHandler = MatchesHandler.getInstance();
     
     public RMIConnectionServer(String name,int port) {
         Server.serviceMessage("RMI CONNECTION SERVER START");
+        Server.serviceMessage("RMI CONNECTION SERVER PORT: " + port);
         try {
             rmiRegistry = LocateRegistry.createRegistry(port);
             rmiConnectionService = (RMIConnectionService) UnicastRemoteObject.exportObject(this, port);
             try {
                 rmiRegistry.bind(name, rmiConnectionService);
+                isInitialized = true;
                 Server.serviceMessage("RMI CONNECTION SERVER STARTED\t\t[ OK ]");
             } catch (RemoteException | AlreadyBoundException e) {
                 e.printStackTrace();
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Server.errorMessage("RMI CONNECTION ERROR!\t\t[Fail]");
         }
+    }
+    
+    public boolean isInitialized() {
+        return isInitialized;
     }
 
     @Override

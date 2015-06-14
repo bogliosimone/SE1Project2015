@@ -32,7 +32,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     private static final long serialVersionUID = -3783668816203597145L;
     private transient Match match = null;
     private transient CommandHandler commandHandler = null;
-    private transient  static int lastMatchHandlerIDAdded = 0;
+    private static transient int lastMatchHandlerIDAdded = 0;
     private int matchID = 0;
     
     /**
