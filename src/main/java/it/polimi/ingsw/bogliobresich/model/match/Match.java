@@ -15,6 +15,9 @@ import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.state.State;
 import it.polimi.ingsw.bogliobresich.model.match.state.WaitRoomState;
 import it.polimi.ingsw.bogliobresich.model.match.timer.TimerWaitEndTurn;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
@@ -45,8 +48,10 @@ public class Match {
     private Deck sectorDeck;
     private Timer timerWaitRoom;
     TimerWaitEndTurn timerClass;
+    NotificationQueue notificationQueue;
     
-    public Match(){
+    public Match(NotificationQueue queue){
+        this.notificationQueue=queue;
         setState(new WaitRoomState());
     }
     
@@ -301,7 +306,7 @@ public class Match {
             if(hand.cardIsIn(card)){
                 hand.removeCard(card);
                 card=card.play(this, player);
-                //this.itemDeck.discardCard(card); //scarta nel mazzo
+                this.itemDeck.discardCard(card); //scarta nel mazzo
                 return card;
             }
         }
@@ -314,7 +319,7 @@ public class Match {
         this.serviceMessage("Scartata mano di "+player.getNickName());
         for(ItemCard tmpCard: cardList){
             tmpHand.removeCard(tmpCard);
-            //this.itemDeck.discardCard(tmpCard); //scarta nel mazzo
+            this.itemDeck.discardCard(tmpCard); //scarta nel mazzo
         }
         return;
     }
@@ -323,10 +328,28 @@ public class Match {
         ItemHand tmpHand = player.getHand();
         if(tmpHand.cardIsIn(cardToDiscard)){
             tmpHand.removeCard(cardToDiscard);
-            //this.itemDeck.discardCard(cardToDiscard);
+            this.itemDeck.discardCard(cardToDiscard);
             return true;
         }
         return false;
     }
     
+    public void notifyAllPlayer(Commands command, Object argument){
+        notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
+    }
+    
+    public void serviceMessage(Commands command, Object argument){
+        notificationQueue.addNotification(new NotificationMessage(command,argument));
+    }
+    
+    public void notifyPlayer(Commands command, Object argument, Player player){
+        notificationQueue.addNotification(new NotificationMessage(command,argument, false, player.getUser()));
+    }
+    
+    public void notifyUser(Commands command, Object argument, User user){
+        notificationQueue.addNotification(new NotificationMessage(command,argument, false, user));
+    }
+    public void notifyAllUser(Commands command, Object argument){
+        notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
+    }
 }

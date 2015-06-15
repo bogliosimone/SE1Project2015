@@ -44,7 +44,7 @@ Match match = null;
     
     private void action (String command) throws IOException{
         if(command.equals("start")){
-            this.match = new Match();
+            this.match = new Match(null);
             return;
         }
         if(start==false){

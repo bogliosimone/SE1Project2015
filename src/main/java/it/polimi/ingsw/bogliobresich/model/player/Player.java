@@ -142,6 +142,10 @@ public class Player {
         return this.coordinate;
     }
     
+    public CharacterCard getCharacterCard() {
+        return characterCard;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -66,7 +66,7 @@ public class AttackPhaseTurnState implements State {
                 }
             }
             if(!eat)
-                match.notifyPlayer(player, "Non c'è nessun player in questo settore");
+                match.notifyAllPlayer( "Non c'è nessun player nel settore "+attackCoord);
             if(!match.atLeastOneHumaAlive()){
                 match.setState(new EndTurnState()); 
                 match.doAction(player, new EndTurnAction());

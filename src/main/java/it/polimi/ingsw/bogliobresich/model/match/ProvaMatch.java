@@ -28,7 +28,7 @@ public class ProvaMatch {
         User u4= new User(4,"Topolino","");
         ItemCard card=new SpotlightItemCard(1);
         ((SpotlightItemCard)card).setCoordToLight(new Coordinate ('L',8));
-        Match match = new Match();
+        Match match = new Match(null);
         match.setIsCLIenable(true);
         match.doAction(null, new AddPlayerAction(u1));
         match.doAction(null, new AddPlayerAction(u2));
