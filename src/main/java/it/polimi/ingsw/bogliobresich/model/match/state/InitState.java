@@ -18,6 +18,7 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionStartTurn;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -30,17 +31,19 @@ public class InitState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
         if(action instanceof ActionListUser){
-            match.setIsActive(true);
-            match.notifyAllPlayer("La partita è attiva");
             int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
-            match.serviceMessage("Numero di gioactori: "+ match.getNumberOfPlayers());
             match.setState(new StartTurnState());
             match.doAction(null, new ActionStartTurn());
+            match.setIsActive(true);
+            match.notifyAllPlayer("La partita è attiva");
+            match.notifyAllUser(Commands.GAME_START, null);
+            return;
         }
-        else
-            match.serviceMessage("Azione non disponibile in fase di inizializzazione del gioco");
+        match.serviceMessage("Azione non disponibile in fase di inizializzazione del gioco");
+        match.serviceMessage(Commands.GENERIC_ERROR,"Azione non disponibile in fase di inizializzazione del gioco");
+        return;
     }
 
     
@@ -65,14 +68,20 @@ public class InitState implements State {
                 id++;
                 tempList.add(newPlayer);
             }
-            catch (CardFinishedException e) { match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE, FATAL ERROR");
+            catch (CardFinishedException e) { 
+                match.serviceMessage("CARTA PERSONAGGIO NON ESISTENTE, FATAL ERROR");
+                match.serviceMessage(Commands.FATAL_ERROR,"CARTA PERSONAGGIO NON ESISTENTE, FATAL ERROR");
             }
         }
         Collections.shuffle(tempList);
+        List<User> listUser=new ArrayList<User>();
         for(Player newPlayer: tempList){
             match.addPlayer(newPlayer);
+            listUser.add(newPlayer.getUser());
             match.notifyPlayer(newPlayer,newPlayer.toString()); 
+            match.notifyPlayer(Commands.WHO_ARE_YOU, new Player(newPlayer.getUser(),newPlayer.getCoordinate(),newPlayer.getCharacterCard()),newPlayer);
         }
+        match.notifyAllPlayer(Commands.LIST_USERS, listUser);
         return;
     }
     
