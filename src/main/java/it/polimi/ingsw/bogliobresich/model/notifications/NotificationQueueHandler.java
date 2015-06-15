@@ -9,14 +9,15 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @author matteobresich
  *
  */
-public class NotificationStackHandler extends Observable implements NotificationStack {
-    Stack <NotificationMessage> notificationStack = new Stack <NotificationMessage>();
+public class NotificationQueueHandler extends Observable implements NotificationQueue {
+    Queue <NotificationMessage> notificationQueue = new ConcurrentLinkedQueue <NotificationMessage>();
     
     @Override
     public void addObserver(Object o) {
@@ -24,29 +25,29 @@ public class NotificationStackHandler extends Observable implements Notification
     }
     
     @Override
-    public void pushNotification(NotificationMessage n) {
-        notificationStack.push(n);
+    public void addNotification(NotificationMessage n) {
+        notificationQueue.add(n);
         setChanged();
         notifyObservers();
     }
 
     @Override
     public boolean isEmpty() {
-        return notificationStack.empty();
+        return notificationQueue.isEmpty();
     }
 
     @Override
     public Commands getNotificationCommand() {
-        if(!notificationStack.empty()) {
-            return notificationStack.peek().getCommand();
+        if(!notificationQueue.isEmpty()) {
+            return notificationQueue.peek().getCommand();
         }
         return null;
     }
 
     @Override
     public Player getPlayerArgument() {
-        if(!notificationStack.empty()) {
-            Object arg = notificationStack.peek().getArgument();
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Player) {
                 return (Player) arg;
             }
@@ -56,8 +57,8 @@ public class NotificationStackHandler extends Observable implements Notification
 
     @Override
     public Coordinate getCoordinateArgument() {
-        if(!notificationStack.empty()) {
-            Object arg = notificationStack.peek().getArgument();
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Coordinate) {
                 return (Coordinate) arg;
             }
@@ -67,8 +68,8 @@ public class NotificationStackHandler extends Observable implements Notification
 
     @Override
     public ItemCard getItemCardArgument() {
-        if(!notificationStack.empty()) {
-            Object arg = notificationStack.peek().getArgument();
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof ItemCard) {
                 return (ItemCard) arg;
             }
@@ -78,8 +79,8 @@ public class NotificationStackHandler extends Observable implements Notification
 
     @Override
     public String getGenericMessage() {
-        if(!notificationStack.empty()) {
-            Object arg = notificationStack.peek().getArgument();
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof String) {
                 return (String) arg;
             }
@@ -88,7 +89,7 @@ public class NotificationStackHandler extends Observable implements Notification
     }
 
     @Override
-    public NotificationMessage popNotification() {
-        return notificationStack.pop();   
+    public NotificationMessage pollNotification() {
+        return notificationQueue.poll();
     }
 }

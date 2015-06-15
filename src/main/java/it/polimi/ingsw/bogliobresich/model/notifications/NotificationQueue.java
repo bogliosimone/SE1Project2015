@@ -11,16 +11,16 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  * @author matteobresich
  *
  */
-public interface NotificationStack {
+public interface NotificationQueue {
     
     public void addObserver(Object o);
     //Enter a notification
-    public void pushNotification(NotificationMessage n);
-    public NotificationMessage popNotification();
+    public void addNotification(NotificationMessage n);
+    public NotificationMessage pollNotification();
     
     //Get the notification command
     /**
-     * Looks at the notification at the top of the stack without removing it from the stack.
+     * Looks at the notification at the top of the queue without removing it from the queue.
      * @return the command that indicates what to do with the notification.
      */
     public Commands getNotificationCommand();

@@ -5,7 +5,7 @@ import java.util.Observer;
 
 
 public class TestObserver {
-    public NotificationStack stack = new NotificationStackHandler();
+    public NotificationQueue queue = new NotificationQueueHandler();
     public TestServer t = new TestServer();
     
     public static void main (String args[]) {
@@ -13,11 +13,16 @@ public class TestObserver {
     }
     
     public TestObserver () {
-        stack.addObserver(new TestServer());
+        queue.addObserver(new TestServer());
         NotificationMessage notification = new NotificationMessage(Commands.GENERIC_MESSAGE, "Messaggio per il server");
         NotificationMessage nall = new NotificationMessage(Commands.ALL_PLAYERS_MESSAGE, "Messaggio per tutti!",true,null);
-        stack.pushNotification(notification);
-        stack.pushNotification(nall);
+        queue.addNotification(notification);
+        queue.addNotification(nall);
+        queue.addNotification(nall);
+        queue.addNotification(nall);
+        queue.addNotification(nall);
+        queue.addNotification(notification);
+        queue.addNotification(notification);
     }
     
     
@@ -29,12 +34,14 @@ public class TestObserver {
         
         @Override
         public void update(Observable o, Object arg) {
-            NotificationStack stack = (NotificationStack)o;
-            if(stack.getNotificationCommand() == Commands.ALL_PLAYERS_MESSAGE) {
-                System.out.println("Messagge for players: " + stack.getGenericMessage());
+            NotificationQueue queue = (NotificationQueue)o;
+            if(queue.getNotificationCommand() == Commands.ALL_PLAYERS_MESSAGE) {
+                System.out.println("Messagge for players: " + queue.getGenericMessage());
+                queue.pollNotification();
             }
-            if(stack.getNotificationCommand() == Commands.GENERIC_MESSAGE) {
-                System.out.println("Server: " + stack.getGenericMessage());
+            if(queue.getNotificationCommand() == Commands.GENERIC_MESSAGE) {
+                System.out.println("Server: " + queue.getGenericMessage());
+                queue.pollNotification();
             }
         }
         

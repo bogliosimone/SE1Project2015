@@ -20,6 +20,9 @@ public class Server implements Runnable {
     private MatchesHandler matchesHandler = null;
     private static int lastUserAdded = 0;
     
+    private RMIConnectionServer rmiConnectionServer;
+    private SocketConnectionServer socketConnectionServer;
+    
     public static synchronized Server getInstance() {
         if (instance == null) {
             instance = new Server();
@@ -41,10 +44,10 @@ public class Server implements Runnable {
     }
     
     private void initRMIServer() {
-        RMIConnectionServer rmiConnectionServer = new RMIConnectionServer(CommunicationUtil.REMOTE_CONNECTION_NAME, CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
+        rmiConnectionServer = new RMIConnectionServer(CommunicationUtil.REMOTE_CONNECTION_NAME, CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
     }
     private void initSocketServer() {
-        SocketConnectionServer socketConnectionServer = new SocketConnectionServer(CommunicationUtil.SOCKET_REQUEST_SERVER_TCP_PORT);
+        socketConnectionServer = new SocketConnectionServer(CommunicationUtil.getLocalIp(),CommunicationUtil.SOCKET_REQUEST_SERVER_TCP_PORT);
     }
     
     public static void serviceMessage(Object msg) {
