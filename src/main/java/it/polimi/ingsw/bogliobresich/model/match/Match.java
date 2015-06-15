@@ -55,8 +55,9 @@ public class Match {
         setState(new WaitRoomState());
     }
     
-    public Match(int idMatch){
+    public Match(int idMatch,NotificationQueue queue){
         this.idMatch=idMatch;
+        this.notificationQueue=queue;
         setState(new WaitRoomState());
     }
     
