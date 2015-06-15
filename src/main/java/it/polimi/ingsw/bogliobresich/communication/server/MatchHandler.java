@@ -10,13 +10,10 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,7 +29,7 @@ public class MatchHandler extends Observable implements Runnable, RMIMatchHandle
     private static final long serialVersionUID = -3783668816203597145L;
     private transient Match match = null;
     private transient CommandHandler commandHandler = null;
-    private transient  static int lastMatchHandlerIDAdded = 0;
+    private static transient int lastMatchHandlerIDAdded = 0;
     private int matchID = 0;
     
     /**
