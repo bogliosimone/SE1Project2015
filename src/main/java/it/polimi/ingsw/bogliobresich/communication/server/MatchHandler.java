@@ -13,9 +13,10 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
-import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 /**
  * @author matteobresich
@@ -29,7 +30,7 @@ public class MatchHandler implements Runnable, Observer {
     private NotificationQueue notificationQueue = null;
     private ServerCommunication RMI;
     
-    
+    private List<User> users = new Vector<User>();
     
     /**
      * Class constructor
@@ -45,13 +46,6 @@ public class MatchHandler implements Runnable, Observer {
     }
     
     /**
-     * @return the match handler id
-     */
-    public String getID() {
-        return "MatchHandlerID:" + matchID;
-    }
-    
-    /**
      * @param p is the player that want to do an action
      * @param action is what the player would do
      */
@@ -60,15 +54,20 @@ public class MatchHandler implements Runnable, Observer {
     }
     
     /**
-     * Adds a user into a match.
-     * @param user is the entity that will be added into the match
-     * @return MatchHandler the handler of the match in which the user is added
-     * @throws RemoteException
+     * @param user
      */
-    public MatchHandler addUser(User user) throws RemoteException {
-            executeAction(null, new AddPlayerAction(user));
-        return this;
+    public void addUser(User user) {
+        users.add(user);
+        executeAction(null, new AddPlayerAction(user));
     }
+    
+    /**
+     * @return the match handler id
+     */
+    public String getID() {
+        return "MatchHandlerID:" + matchID;
+    }
+    
     
     /**
      * @param user that is a player in the match
@@ -127,7 +126,7 @@ public class MatchHandler implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof NotificationQueue) {
-            
+            NotificationQueue queue = (NotificationQueue)o;
         }
     }
 }

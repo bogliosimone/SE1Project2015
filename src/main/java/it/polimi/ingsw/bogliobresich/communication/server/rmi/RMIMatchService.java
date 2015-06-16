@@ -7,8 +7,6 @@ import it.polimi.ingsw.bogliobresich.communication.ClientCommands;
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.match.action.Action;
-import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -19,8 +17,9 @@ import java.rmi.RemoteException;
  *
  */
 public interface RMIMatchService extends Remote {
-
-    void addObserver(RemoteObserver o) throws RemoteException;
+    
+    void addObserver(User user, RemoteObserver o) throws RemoteException;
     String getMatchHandlerID() throws RemoteException;
     void doAction(User user, ClientCommands doRequest, Coordinate coordinate) throws RemoteException;
+    
 }

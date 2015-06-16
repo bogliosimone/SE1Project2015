@@ -47,7 +47,7 @@ public class MatchesHandler{
     
     
     
-    public synchronized RMIMatchService connectUser(User user) throws RemoteException {
+    public synchronized MatchHandler addNewUser(User user) {
         if(lastMatchHandlerAdded == null) {
             lastMatchHandlerAdded = addNewMatch();
         }
@@ -57,8 +57,7 @@ public class MatchesHandler{
         if(lastMatchHandlerAdded == null) {
             throw new RuntimeException();
         }
-        lastMatchHandlerAdded.addUser(user);
-        return lastMatchHandlerAdded.getRMIMatchServiceHandler();
+        return lastMatchHandlerAdded;
     }
 
     public synchronized MatchHandler addNewMatch() {

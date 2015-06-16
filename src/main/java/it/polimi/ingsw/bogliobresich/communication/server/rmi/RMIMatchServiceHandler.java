@@ -42,8 +42,10 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
          */
         private static final long serialVersionUID = 2747416104063483478L;
         private RemoteObserver ro = null;
+        private User user = null;
 
-        public WrappedObserver(RemoteObserver ro) {
+        public WrappedObserver(User user, RemoteObserver ro) {
+            this.user = user;
             this.ro = ro;
         }
 
@@ -52,26 +54,21 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
             try {
                 ro.update((Serializable) o, arg);
             } catch (RemoteException e) {
-                Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + this);
+                Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
                 o.deleteObserver(this);
             }
-        }
-
-        @Override
-        public String toString() {
-            return "WrappedObserver";
         }
     }
 
     
     //--- RMI REQUESTS ---
-   
-    //TODO PASSARE USER
+    
     @Override
-    public void addObserver(RemoteObserver o) throws RemoteException {
-        WrappedObserver mo = new WrappedObserver(o);
+    public void addObserver(User user, RemoteObserver o) throws RemoteException {
+        WrappedObserver mo = new WrappedObserver(user,o);
         addObserver(mo);
-        Server.serviceMessage("ADDED RMI CLIENT:" + mo);
+        matchHandler.addUser(user);
+        Server.serviceMessage("ADDED RMI CLIENT:" + user);
     }
 
     @Override
@@ -86,5 +83,4 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
     public String getMatchHandlerID() throws RemoteException {
         return matchHandler.getID();
     }
-
 }

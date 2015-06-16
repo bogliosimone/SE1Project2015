@@ -38,10 +38,9 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             try {
                   User user = remoteService.login(nickname, nickname);
                   RMIMatchService m;
-                  m =  remoteService.connectToMatch(user);
-                  System.out.println(m);
+                  m =  remoteService.getMatch(user);
                   System.out.println("//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
-                  m.addObserver(client);
+                  m.addObserver(user, client);
                   
                   String coordinate = bis.next();
                   char ch = coordinate.charAt(0);

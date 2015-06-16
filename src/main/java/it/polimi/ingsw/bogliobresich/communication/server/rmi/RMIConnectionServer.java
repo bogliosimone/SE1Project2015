@@ -1,5 +1,6 @@
 package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
+import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchesHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
 import it.polimi.ingsw.bogliobresich.model.match.User;
@@ -56,9 +57,10 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
     }
     
     @Override
-    public RMIMatchService connectToMatch(User user) throws RemoteException {
+    public RMIMatchService getMatch(User user) throws RemoteException {
         Server.connectionMessage("MATCH REQUEST BY: " + user);
-        return matchesHandler.connectUser(user);
+        MatchHandler matchHandler = matchesHandler.addNewUser(user);
+        return matchHandler.getRMIMatchServiceHandler();
     }
     
     /**
