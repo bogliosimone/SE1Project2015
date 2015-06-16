@@ -8,9 +8,10 @@ import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.communication.server.CommandHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
-import it.polimi.ingsw.bogliobresich.communication.server.ServerCommunication;
+import it.polimi.ingsw.bogliobresich.communication.server.ServerCommunicationStrategy;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;
@@ -22,7 +23,7 @@ import java.util.Observer;
  * @author matteobresich
  *
  */
-public class RMIMatchServiceHandler extends Observable implements RMIMatchService, Serializable, ServerCommunication {
+public class RMIMatchServiceHandler extends Observable implements RMIMatchService, Serializable, ServerCommunicationStrategy {
     
     
     /**
@@ -82,5 +83,11 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
     @Override
     public String getMatchHandlerID() throws RemoteException {
         return matchHandler.getID();
+    }
+
+    @Override
+    public void sendNotification(Notification n) {
+        // TODO Auto-generated method stub
+        
     }
 }

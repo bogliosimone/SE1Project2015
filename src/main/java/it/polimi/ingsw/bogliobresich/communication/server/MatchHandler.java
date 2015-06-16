@@ -9,6 +9,8 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
+import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -28,7 +30,7 @@ public class MatchHandler implements Runnable, Observer {
     private static int lastMatchHandlerIDAdded = 0;
     private int matchID = 0;
     private NotificationQueue notificationQueue = null;
-    private ServerCommunication RMI;
+    private ServerCommunicationStrategy RMI;
     
     private List<User> users = new Vector<User>();
     
@@ -93,6 +95,16 @@ public class MatchHandler implements Runnable, Observer {
         return false;
     }
     
+    public void sendNotification(Notification n) {
+        for(User user : users) {
+            Server.serviceMessage("Messaggio BROADCAST per " + user);
+        }
+    }
+    
+    public void sendNotification(Notification n, User user) {
+        
+    }
+    
 
     @Override
     public void run() {
@@ -100,7 +112,7 @@ public class MatchHandler implements Runnable, Observer {
         while(!match.isEnd()) {
             try {
                 Server.serviceMessage(this.toString() + " IS ALIVE");
-                Thread.sleep(15 * 1000);
+                Thread.sleep(20 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
@@ -127,6 +139,14 @@ public class MatchHandler implements Runnable, Observer {
     public void update(Observable o, Object arg) {
         if(o instanceof NotificationQueue) {
             NotificationQueue queue = (NotificationQueue)o;
+            while (!queue.isEmpty()) {
+                Notification notification = queue.pollNotification();
+                if(notification.isBroadcast()) {
+                    sendNotification(notification);
+                } else {
+                    sendNotification(notification,notification.getNotificationReciver());
+                }
+            }
         }
     }
 }
