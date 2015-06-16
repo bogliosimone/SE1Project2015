@@ -28,10 +28,10 @@ public class SocketConnectionServer implements Runnable {
         try {
         serverSocket = new ServerSocket(port);
         isInitialized = true;
-        Server.serviceMessage("SOCKET CONNECTION SERVER STARTED\t\t[ OK ]");
+        Server.serviceMessage("SOCKET CONNECTION SERVER STARTED\t\t\t[ OK ]");
         }
         catch (IOException e) {
-            Server.errorMessage("SOCKET CONNECTION SERVER ERROR!\t[Fail]");
+            Server.errorMessage("SOCKET CONNECTION SERVER ERROR!\t\t[Fail]");
             return;
         }
     }

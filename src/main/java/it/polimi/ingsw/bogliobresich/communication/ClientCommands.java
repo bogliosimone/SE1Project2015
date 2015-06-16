@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.communication.server;
+package it.polimi.ingsw.bogliobresich.communication;
 
 /**
  * @author matteobresich
@@ -9,7 +9,7 @@ package it.polimi.ingsw.bogliobresich.communication.server;
  * This Enums contains all the possible net operations supported by the game. 
  */
 
-public enum GameProtocol {
+public enum ClientCommands {
     DO_MOVE_REQUEST,
     DO_ATTACK_REQUEST,
     DO_PLAY_ITEM_REQUEST,

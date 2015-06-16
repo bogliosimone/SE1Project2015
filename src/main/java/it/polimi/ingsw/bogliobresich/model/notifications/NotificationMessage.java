@@ -3,14 +3,20 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
  * @author matteobresich
  *
  */
-public class NotificationMessage implements Notification<Object> {
+public class NotificationMessage implements Notification<Object>, Serializable {
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1316223433698919241L;
     private Commands command = null;
     private Object argument = null;
     private boolean isBroadcast = false;

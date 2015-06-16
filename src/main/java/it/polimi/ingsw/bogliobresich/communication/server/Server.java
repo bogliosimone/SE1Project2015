@@ -39,15 +39,15 @@ public class Server implements Runnable {
     
     private void initGeneralServer() {
         Server.serviceMessage("---SERVER START ---");
-        Server.serviceMessage("IP:" + CommunicationUtil.getLocalIp());
+        Server.serviceMessage("IP:" + ServerUtils.getLocalIp());
         matchesHandler = MatchesHandler.getInstance();
     }
     
     private void initRMIServer() {
-        rmiConnectionServer = new RMIConnectionServer(CommunicationUtil.REMOTE_CONNECTION_NAME, CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
+        rmiConnectionServer = new RMIConnectionServer(ServerUtils.REMOTE_CONNECTION_NAME, ServerUtils.RMI_REQUEST_SERVER_TCP_PORT);
     }
     private void initSocketServer() {
-        socketConnectionServer = new SocketConnectionServer(CommunicationUtil.getLocalIp(),CommunicationUtil.SOCKET_REQUEST_SERVER_TCP_PORT);
+        socketConnectionServer = new SocketConnectionServer(ServerUtils.getLocalIp(),ServerUtils.SOCKET_REQUEST_SERVER_TCP_PORT);
     }
     
     public static void serviceMessage(Object msg) {

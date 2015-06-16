@@ -8,6 +8,6 @@ import java.rmi.RemoteException;
 public interface RMIConnectionService extends Remote {
 
     User login(String nickname,String password) throws RemoteException;
-    RMIMatchHandlerService connectToMatch(User user) throws RemoteException;
+    RMIMatchService connectToMatch(User user) throws RemoteException;
 
 }

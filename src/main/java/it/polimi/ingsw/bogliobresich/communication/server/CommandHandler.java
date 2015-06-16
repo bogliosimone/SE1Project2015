@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
+import it.polimi.ingsw.bogliobresich.communication.ClientCommands;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
@@ -14,12 +15,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class CommandHandler {
     
-    MatchHandler matchHandler = null;
-    public CommandHandler(MatchHandler matchHandler) {
-        this.matchHandler = matchHandler;
-    }
-    
-    public void executeCommand(Player player, GameProtocol command, Coordinate coordinate) {
+    public static void executeClientCommand(MatchHandler matchHandler, Player player, ClientCommands command, Coordinate coordinate) {
         switch(command) {
         case DO_MOVE_REQUEST: 
             matchHandler.executeAction(player, new MovementAction(coordinate));
@@ -44,5 +40,4 @@ public class CommandHandler {
         }
         
     }
-
 }

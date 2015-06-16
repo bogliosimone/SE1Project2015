@@ -34,14 +34,14 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
             try {
                 rmiRegistry.bind(this.name, rmiConnectionService);
                 isInitialized = true;
-                Server.serviceMessage("RMI CONNECTION SERVER STARTED\t\t[ OK ]");
+                Server.serviceMessage("RMI CONNECTION SERVER STARTED\t\t\t[ OK ]");
             } catch (RemoteException | AlreadyBoundException e) {
                 close();
                 e.printStackTrace();
             }
         } catch (RemoteException e) {
             close();
-            Server.errorMessage("RMI CONNECTION ERROR!\t\t[Fail]");
+            Server.errorMessage("RMI CONNECTION ERROR!\t\t\t[Fail]");
         }
     }
     
@@ -56,7 +56,7 @@ public class RMIConnectionServer extends Observable implements RMIConnectionServ
     }
     
     @Override
-    public RMIMatchHandlerService connectToMatch(User user) throws RemoteException {
+    public RMIMatchService connectToMatch(User user) throws RemoteException {
         Server.connectionMessage("MATCH REQUEST BY: " + user);
         return matchesHandler.connectUser(user);
     }

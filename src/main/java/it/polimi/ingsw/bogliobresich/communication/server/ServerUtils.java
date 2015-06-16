@@ -12,7 +12,7 @@ import java.util.Vector;
  * @author matteobresich
  *
  */
-public class CommunicationUtil {
+public class ServerUtils {
     
     
     public static final int SOCKET_REQUEST_SERVER_TCP_PORT = 4200;
@@ -38,7 +38,7 @@ public class CommunicationUtil {
         return localIPAddress;
     }
     
-    private CommunicationUtil (){
+    private ServerUtils (){
         //not called
     }
 }

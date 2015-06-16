@@ -1,12 +1,11 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
-import it.polimi.ingsw.bogliobresich.communication.server.CommunicationUtil;
-import it.polimi.ingsw.bogliobresich.communication.server.GameProtocol;
+import it.polimi.ingsw.bogliobresich.communication.ClientCommands;
+import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
-import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
+import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 
 import java.io.Serializable;
 import java.rmi.Naming;
@@ -25,7 +24,7 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
     public static void main(String[] args) {
         try {
             
-            String url = "//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/"+ CommunicationUtil.REMOTE_CONNECTION_NAME;
+            String url = "//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/"+ ServerUtils.REMOTE_CONNECTION_NAME;
             System.out.println(url);
             RMIConnectionService remoteService = (RMIConnectionService) Naming.lookup(url);
             
@@ -38,17 +37,17 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             RmiClient client = new RmiClient();
             try {
                   User user = remoteService.login(nickname, nickname);
-                  RMIMatchHandlerService m;
+                  RMIMatchService m;
                   m =  remoteService.connectToMatch(user);
                   System.out.println(m);
-                  System.out.println("//localhost:"+ CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
+                  System.out.println("//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/" + m.getMatchHandlerID());
                   m.addObserver(client);
                   
                   String coordinate = bis.next();
                   char ch = coordinate.charAt(0);
                   int num = Integer.parseInt(coordinate.substring(1));
                   
-                  m.doAction(user, GameProtocol.DO_MOVE_REQUEST, new Coordinate(ch, num));
+                  m.doAction(user, ClientCommands.DO_MOVE_REQUEST, new Coordinate(ch, num));
                 
             }
             catch(RemoteException e) {
