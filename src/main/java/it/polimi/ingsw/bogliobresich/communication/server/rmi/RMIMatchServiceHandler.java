@@ -53,9 +53,17 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         @Override
         public void update(Observable o, Object arg) {
             try {
-                ro.update((Serializable) o, arg);
+                if(arg instanceof Notification){
+                    if(((Notification) arg).isBroadcast()) {
+                        ro.update((Serializable) o, arg);
+                    } else if (((Notification) arg).getNotificationReciver().equals(user)) {
+                        ro.update((Serializable) o, arg);
+                    }
+                    
+                }
             } catch (RemoteException e) {
                 Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
+                e.printStackTrace();
                 o.deleteObserver(this);
             }
         }
@@ -84,10 +92,12 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
     public String getMatchHandlerID() throws RemoteException {
         return matchHandler.getID();
     }
+    
+    // --- SEND TO OBSERVERS ---
 
     @Override
     public void sendNotification(Notification n) {
-        // TODO Auto-generated method stub
-        
+        setChanged();
+        notifyObservers(n);
     }
 }

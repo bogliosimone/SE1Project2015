@@ -10,7 +10,6 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -96,13 +95,7 @@ public class MatchHandler implements Runnable, Observer {
     }
     
     public void sendNotification(Notification n) {
-        for(User user : users) {
-            Server.serviceMessage("Messaggio BROADCAST per " + user);
-        }
-    }
-    
-    public void sendNotification(Notification n, User user) {
-        
+        RMI.sendNotification(n);
     }
     
 
@@ -112,7 +105,7 @@ public class MatchHandler implements Runnable, Observer {
         while(!match.isEnd()) {
             try {
                 Server.serviceMessage(this.toString() + " IS ALIVE");
-                Thread.sleep(20 * 1000);
+                Thread.sleep(30 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
@@ -141,11 +134,7 @@ public class MatchHandler implements Runnable, Observer {
             NotificationQueue queue = (NotificationQueue)o;
             while (!queue.isEmpty()) {
                 Notification notification = queue.pollNotification();
-                if(notification.isBroadcast()) {
-                    sendNotification(notification);
-                } else {
-                    sendNotification(notification,notification.getNotificationReciver());
-                }
+                sendNotification(notification);
             }
         }
     }
