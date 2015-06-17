@@ -40,7 +40,6 @@ public class RmiClient extends UnicastRemoteObject implements RemoteObserver {
             
             RmiClient client = new RmiClient();
             try {
-                  
                   User user = remoteService.login(nickname, password);
                   RMIMatchService m;
                   m =  remoteService.getMatch(user);

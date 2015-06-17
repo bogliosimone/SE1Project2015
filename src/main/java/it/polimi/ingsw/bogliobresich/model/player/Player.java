@@ -3,6 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.player;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
@@ -12,8 +14,12 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
  * @author simoneboglio
  * 
  */
-public class Player {
+public class Player implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8383698783989595474L;
     protected boolean isWinner=false;
     protected boolean isConnected=true;
     protected boolean isAlive=true;
@@ -22,9 +28,9 @@ public class Player {
     protected boolean canPlayObject=true;
     protected boolean canDrawSectorCard=true;
     protected int movementStep=1;
-    protected ItemHand hand;
-    protected Coordinate coordinate;
-    protected CharacterCard characterCard;
+    protected transient ItemHand hand;
+    protected transient Coordinate coordinate;
+    protected transient CharacterCard characterCard;
     protected User user;
     
     /**
