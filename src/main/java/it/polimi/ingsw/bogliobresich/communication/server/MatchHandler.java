@@ -30,6 +30,7 @@ public class MatchHandler implements Runnable, Observer {
     private int matchID = 0;
     private NotificationQueue notificationQueue = null;
     private ServerCommunicationStrategy RMI;
+    private ServerCommunicationStrategy Socket;
     
     private List<User> users = new Vector<User>();
     
