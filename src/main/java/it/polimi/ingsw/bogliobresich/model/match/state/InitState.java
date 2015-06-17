@@ -35,10 +35,10 @@ public class InitState implements State {
             createDecks(match,numbOfPlayers);
             createPlayers(match,(ActionListUser)action);
             match.setState(new StartTurnState());
-            match.doAction(null, new ActionStartTurn());
-            match.setIsActive(true);
             match.notifyAllPlayer("La partita è attiva");
             match.notifyAllUser(Commands.GAME_START, null);
+            match.doAction(null, new ActionStartTurn());
+            match.setIsActive(true);
             return;
         }
         match.serviceMessage("Azione non disponibile in fase di inizializzazione del gioco");

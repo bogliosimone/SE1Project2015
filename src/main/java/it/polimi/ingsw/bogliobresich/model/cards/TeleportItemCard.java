@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.model.cards;
 
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -25,6 +26,7 @@ public class TeleportItemCard extends ItemCard {
     public TeleportItemCard play(Match m, Player p) {
         HexMap gameMap = m.getGameMap();
         p.setCoordinate(gameMap.getCoordinateHumanBase());
+        m.notifyPlayer(Commands.SET_YOUR_COORDINATE, gameMap.getCoordinateHumanBase(), p);
         this.isPlayed=true;
         return this;
     }

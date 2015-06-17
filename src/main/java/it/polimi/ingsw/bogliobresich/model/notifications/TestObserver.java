@@ -9,7 +9,7 @@ public class TestObserver {
     public TestServer t = new TestServer();
     
     public static void main (String args[]) {
-        TestObserver t = new TestObserver();
+        new TestObserver();
     }
     
     public TestObserver () {
