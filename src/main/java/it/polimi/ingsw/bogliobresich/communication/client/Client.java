@@ -40,8 +40,8 @@ public class Client implements Observer{
             communication.addMeMatch();
             
             } catch (LoginException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                System.out.println("Errore! impossibile effettuare il login!");
+                //e.printStackTrace();
             } catch (AddToMatchException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
