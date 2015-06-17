@@ -9,7 +9,7 @@ package it.polimi.ingsw.bogliobresich.communication;
  * This Enums contains all the possible net operations supported by the game. 
  */
 
-public enum ClientCommands {
+public enum CommandType {
     
     DO_MOVE_REQUEST                 (1,"move",""),
     DO_ATTACK_REQUEST               (2,"attack",""),
@@ -24,7 +24,7 @@ public enum ClientCommands {
     private String cmdDescription;
     int num;
     
-    ClientCommands(int n, String name, String description) {
+    CommandType(int n, String name, String description) {
         this.num = n;
         this.cmdName = name;
         this.cmdDescription = description;

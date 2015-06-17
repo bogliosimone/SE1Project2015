@@ -3,9 +3,13 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.client;
 
+import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
+import it.polimi.ingsw.bogliobresich.communication.CommandType;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.AddToMatchException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginException;
+import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
@@ -15,9 +19,11 @@ import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Scanner;
 
 /**
  * @author matteobresich
@@ -47,7 +53,7 @@ public class Client implements Observer{
             
         try {
             String url = "//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/"+ ServerUtils.REMOTE_CONNECTION_NAME;
-            communication.doLogin(url, "utente", "password");
+            communication.doLogin(url, "utente" + new Date(), "password");
             communication.addMeMatch();
             
             } catch (LoginException e) {
@@ -57,6 +63,22 @@ public class Client implements Observer{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        
+        
+        //TEST
+        Scanner scan = new Scanner(System.in);
+        String coordinate = scan.next();
+        char ch = coordinate.charAt(0);
+        int num = Integer.parseInt(coordinate.substring(1));
+        ClientCommand test = new ClientCommand(CommandType.DO_MOVE_REQUEST, new Coordinate(ch,num));
+        try {
+            communication.sendCommand(test);
+        } catch (SendCommandException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
     }
     
 
