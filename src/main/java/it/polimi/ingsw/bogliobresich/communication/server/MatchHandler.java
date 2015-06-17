@@ -38,7 +38,7 @@ public class MatchHandler implements Runnable, Observer {
      *
      */
     public MatchHandler() {
-        notificationQueue = new NotificationQueueHandler();
+        notificationQueue = new NotificationQueueHandler(false);
         notificationQueue.addObserver(this);
         RMI = new RMIMatchServiceHandler(this);
         this.matchID = lastMatchHandlerIDAdded;
@@ -131,11 +131,17 @@ public class MatchHandler implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof NotificationQueue) {
-            NotificationQueue queue = (NotificationQueue)o;
-            while (!queue.isEmpty()) {
-                Notification notification = queue.pollNotification();
-                sendNotification(notification);
-            }
+            final NotificationQueue queue = (NotificationQueue)o;
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run() {
+                    while (!queue.isEmpty()) {
+                        Notification notification = queue.pollNotification();
+                        sendNotification(notification);
+                    }
+                }
+            }).start();
         }
     }
 }
