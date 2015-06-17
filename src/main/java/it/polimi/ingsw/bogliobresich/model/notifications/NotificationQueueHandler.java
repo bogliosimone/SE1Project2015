@@ -5,8 +5,10 @@ package it.polimi.ingsw.bogliobresich.model.notifications;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
@@ -109,7 +111,19 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
+    public List<User> getListOfUsers() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof List) {
+                return (List<User>) arg;
+            }
+        }
+        return null;
+    }
+    
+    @Override
     public synchronized NotificationMessage pollNotification() {
         return notificationQueue.poll();
     }
+
 }

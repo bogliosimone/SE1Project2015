@@ -9,6 +9,7 @@ import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 
 import java.io.Console;
@@ -110,9 +111,8 @@ public class RMIClient extends UnicastRemoteObject implements RemoteObserver, Cl
     }
 
     @Override
-    public void update(Serializable observable, Object msg)
-            throws RemoteException {
-        System.out.println(((Notification)msg).getCommand() + " got message:" + ((Notification)msg).getArgument());
+    public void update(Serializable observable, Object msg) throws RemoteException {
+        notificationQueue.addNotification((NotificationMessage)msg);
     }
 
 }
