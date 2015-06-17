@@ -281,8 +281,10 @@ public class Match {
     public void doAction(Player player, Action action){
         if(player==null || player.equals(this.currentPlayer))
             myState.doAction(this,player,action);
-        else
+        else{
             this.notifyPlayer(player, "Non è il tuo turno");
+            this.notifyPlayer(Commands.IS_NOT_YOUR_TURN, null, player);
+        }
     }
     
     public void notifyAllPlayer(String notification){
@@ -336,21 +338,26 @@ public class Match {
     }
     
     public void notifyAllPlayer(Commands command, Object argument){
-        notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
+        if(this.notificationQueue!=null)
+            notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
     }
     
     public void serviceMessage(Commands command, Object argument){
-        notificationQueue.addNotification(new NotificationMessage(command,argument));
+        if(this.notificationQueue!=null)
+            notificationQueue.addNotification(new NotificationMessage(command,argument));
     }
     
     public void notifyPlayer(Commands command, Object argument, Player player){
-        notificationQueue.addNotification(new NotificationMessage(command,argument, false, player.getUser()));
+        if(this.notificationQueue!=null)
+            notificationQueue.addNotification(new NotificationMessage(command,argument, false, player.getUser()));
     }
     
     public void notifyUser(Commands command, Object argument, User user){
-        notificationQueue.addNotification(new NotificationMessage(command,argument, false, user));
+        if(this.notificationQueue!=null)
+            notificationQueue.addNotification(new NotificationMessage(command,argument, false, user));
     }
     public void notifyAllUser(Commands command, Object argument){
-        notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
+        if(this.notificationQueue!=null)
+            notificationQueue.addNotification(new NotificationMessage(command,argument, true, null));
     }
 }

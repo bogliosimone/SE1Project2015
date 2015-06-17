@@ -5,7 +5,6 @@ package it.polimi.ingsw.bogliobresich.model.notifications;
 
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * @author matteobresich

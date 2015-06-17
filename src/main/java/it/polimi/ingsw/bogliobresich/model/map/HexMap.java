@@ -167,7 +167,7 @@ public class HexMap {
      * @param maxDistance distance radius
      * @return  set of neighbors Coordinate
      */
-    protected Set<Coordinate> getNeighborsByDistance(Coordinate coord, int maxDistance){
+    public Set<Coordinate> getNeighborsByDistance(Coordinate coord, int maxDistance){
         Set<Sector> sectorSet = new HashSet<Sector>();
         Set<CubeCoord> hexTempSet;
         CubeCoord hex = new CubeCoord(coord);

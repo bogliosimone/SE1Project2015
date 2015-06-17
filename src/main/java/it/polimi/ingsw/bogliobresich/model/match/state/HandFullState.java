@@ -9,6 +9,8 @@ import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.DiscardAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
+import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -21,6 +23,7 @@ public class HandFullState implements State {
     @Override
     public void doAction(Match match, Player player, Action action) {
         if(player == null){
+            match.serviceMessage(Commands.GENERIC_ERROR,"Azione non disponibile in fase di handFull");
             match.serviceMessage("Comando non valido");
         }
         
@@ -28,13 +31,16 @@ public class HandFullState implements State {
             ItemCard cardToDiscard = ((DiscardAction)action).getCardToDiscard();
             if(match.discardItemCardInItemDeck(player, cardToDiscard)){
                 match.notifyAllPlayer(player.getNickName()+" ha scartato una carta oggetto");
+                match.notifyAllPlayer(Commands.GENERIC_MESSAGE, player.getNickName()+" ha scartato una carta oggetto");
                 if(!player.getHand().isFull()){
                     match.setState(new EndPhaseTurnState());
                     match.doAction(player, new EndPhaseAction());
                 }
             }
-            else 
+            else{
                 match.notifyPlayer(player, "non possiedi questa carta");
+                match.notifyPlayer(Commands.CANT_DISCARD_CARD, null, player);
+            }
             return;
         }
         
@@ -44,6 +50,8 @@ public class HandFullState implements State {
                 card = match.playItemCard(player, card);
                 if(card!=null){
                     match.notifyAllPlayer("ha giocato la carta: "+card.toString());
+                    match.notifyAllPlayer(Commands.ITEM_PLAYED, player+" ha giocato la carta: "+card.toString());
+                    match.notifyPlayer(Commands.DISCARD_CARD, card, player);
                     if(!player.getHand().isFull()){
                         match.setState(new EndPhaseTurnState());
                         match.doAction(player, new EndPhaseAction());
@@ -52,10 +60,20 @@ public class HandFullState implements State {
                 }
             }
             match.notifyPlayer(player, "Non puoi giocare questa carta");
-            return; 
+            match.notifyPlayer(Commands.CANT_PLAY_CARD, null, player);
+            return;
         }
         match.notifyPlayer(player, "Mossa non disponibile durante la HandFullPhase");
+        match.notifyPlayer(Commands.MOVE_NO_AVAIABLE, null, player);
+        match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,player),player);
         return;
     }
 
+    private MovesAvaiable currentMoves(Match match,Player player){
+        MovesAvaiable move=new MovesAvaiable();
+        if(player.canPlayObject())
+            move.setCanPlayItem(true);
+        move.setCanDiscardItemCard(true);
+        return move;
+    }
 }
