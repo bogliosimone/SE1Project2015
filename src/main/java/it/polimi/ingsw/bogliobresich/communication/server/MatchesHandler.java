@@ -3,7 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
-import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchHandlerService;
+import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
+import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchServiceHandler;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 
 import java.rmi.AlreadyBoundException;
@@ -46,7 +47,7 @@ public class MatchesHandler{
     
     
     
-    public synchronized MatchHandler connectUser(User user) throws RemoteException {
+    public synchronized MatchHandler addNewUser(User user) {
         if(lastMatchHandlerAdded == null) {
             lastMatchHandlerAdded = addNewMatch();
         }
@@ -56,7 +57,6 @@ public class MatchesHandler{
         if(lastMatchHandlerAdded == null) {
             throw new RuntimeException();
         }
-        lastMatchHandlerAdded.addUser(user);
         return lastMatchHandlerAdded;
     }
 
@@ -68,11 +68,11 @@ public class MatchesHandler{
             
             Registry rmiRegistry;
             try {
-                rmiRegistry = LocateRegistry.getRegistry(CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
-                RMIMatchHandlerService rmiService = (RMIMatchHandlerService) UnicastRemoteObject.exportObject(last, CommunicationUtil.RMI_REQUEST_SERVER_TCP_PORT);
+                rmiRegistry = LocateRegistry.getRegistry(ServerUtils.RMI_REQUEST_SERVER_TCP_PORT);
+                RMIMatchService rmiService = (RMIMatchService) UnicastRemoteObject.exportObject(last.getRMIMatchServiceHandler(), ServerUtils.RMI_REQUEST_SERVER_TCP_PORT);
                 try {
                     rmiRegistry.bind(last.getID(), rmiService);
-                    Server.serviceMessage("MATCHHANDLER: RMI MATCH SERVER\t\t[ OK ]");
+                    Server.serviceMessage("MATCHHANDLER: RMI MATCH SERVER\t\t\t[ OK ]");
                 } catch (AlreadyBoundException e) {
                     e.printStackTrace();
                 }
@@ -81,7 +81,7 @@ public class MatchesHandler{
             }
                             
             executor.submit(last);
-            Server.serviceMessage("MATCHESHANDLER: NEW " + last.toString() + "\t\t[ OK ]");
+            Server.serviceMessage("MATCHESHANDLER: NEW " + last.toString() + "\t\t\t[ OK ]");
         }
         catch(RejectedExecutionException e) {
             e.printStackTrace();
