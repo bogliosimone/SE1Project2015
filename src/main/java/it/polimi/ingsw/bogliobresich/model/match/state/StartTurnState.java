@@ -29,7 +29,7 @@ public class StartTurnState implements State {
             }while(!currentPlayer.canPlayTurn());
             currentPlayer.setIsYourTurn(true);
             match.notifyAllPlayer(Commands.USER_START_TURN, currentPlayer.getUser());
-            match.notifyPlayer(Commands.START_TURN, match.getCurrentTurn(), currentPlayer);
+            match.notifyPlayer(Commands.START_TURN, new Integer(match.getCurrentTurn()), currentPlayer);
             match.notifyPlayer(Commands.SET_YOUR_COORDINATE, currentPlayer.getCoordinate(), currentPlayer);
             match.notifyPlayer(currentPlayer, "è il tuo turno  - turno: "+match.getCurrentTurn());
             match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,currentPlayer) , currentPlayer);

@@ -8,6 +8,7 @@ package it.polimi.ingsw.bogliobresich.model.notifications;
  */
 public enum Commands {
     
+    //generic commands
     GENERIC_MESSAGE, //(String) generic string notification for all player
     PLAYER_MESSAGE, //(String) info for a single player
     GAME_INFO_MESSAGE, //(String) info of game for all player
@@ -39,7 +40,7 @@ public enum Commands {
     GAME_START, // the game begin
     //start turn
     USER_START_TURN, //(User) user that actually play (broadcast)
-    START_TURN, //(int) advise the player is his turn, start phase turn
+    START_TURN, //(Integer) advise the player is his turn, start phase turn
     SET_YOUR_COORDINATE, //(Coordinate) set the current player position (used in teleport card too)
     START_TIMER, //when begin player turn, timer start 120sec
     SECTOR_TYPE_MESSAGE, //(String) type of sector where the player moved

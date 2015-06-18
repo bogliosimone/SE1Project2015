@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -67,7 +68,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public synchronized Player getPlayerArgument() {
+    public synchronized Player getPlayer() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Player) {
@@ -78,7 +79,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public synchronized Coordinate getCoordinateArgument() {
+    public synchronized Coordinate getCoordinate() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Coordinate) {
@@ -89,7 +90,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public synchronized ItemCard getItemCardArgument() {
+    public synchronized ItemCard getItemCard() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof ItemCard) {
@@ -100,7 +101,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public synchronized String getGenericMessage() {
+    public synchronized String getString() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof String) {
@@ -114,8 +115,51 @@ public class NotificationQueueHandler extends Observable implements Notification
     public List<User> getListOfUsers() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
-            if(arg instanceof List) {
+            if(arg instanceof List<?>) {
                 return (List<User>) arg;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public synchronized User getUser() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof User) {
+                return (User) arg;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public synchronized MovesAvaiable getMovesAvaiable() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof MovesAvaiable) {
+                return (MovesAvaiable) arg;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public synchronized SectorCard getSectorCard() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof SectorCard) {
+                return (SectorCard) arg;
+            }
+        }
+        return null;
+    }
+    
+    public synchronized Integer getInteger() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof Integer) {
+                return (Integer) arg;
             }
         }
         return null;

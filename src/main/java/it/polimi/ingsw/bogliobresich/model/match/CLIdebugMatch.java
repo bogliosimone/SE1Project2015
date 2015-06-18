@@ -39,7 +39,7 @@ Match match = new Match(null);
             if(!cli.end)
                 System.out.println("Inserisci comando: ");
         }
-        
+        cli.br.close();     
     }
 
     

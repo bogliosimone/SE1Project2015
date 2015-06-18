@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich;
 
-import it.polimi.ingsw.bogliobresich.communication.client.CLIClient;
+import it.polimi.ingsw.bogliobresich.CLI.CLIClient;
 
 
 /**
