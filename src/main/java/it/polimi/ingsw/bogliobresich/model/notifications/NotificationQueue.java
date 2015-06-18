@@ -3,8 +3,11 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
+import java.util.List;
+
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -29,6 +32,8 @@ public interface NotificationQueue {
     public Player getPlayerArgument();
     public Coordinate getCoordinateArgument();
     public ItemCard getItemCardArgument();
+    public List<User> getListOfUsers();
+    
     public String getGenericMessage();
     
     //Utility

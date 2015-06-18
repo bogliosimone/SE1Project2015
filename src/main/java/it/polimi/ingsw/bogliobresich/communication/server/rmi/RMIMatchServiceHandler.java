@@ -3,7 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
-import it.polimi.ingsw.bogliobresich.communication.ClientCommands;
+import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
+import it.polimi.ingsw.bogliobresich.communication.CommandType;
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.communication.server.CommandHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
@@ -81,11 +82,12 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
     }
 
     @Override
-    public void doAction(User user, ClientCommands command, Coordinate c) throws RemoteException {
+    public void doAction(User user, ClientCommand command) throws RemoteException {
         Player player = matchHandler.getPlayerByUser(user);
         if (player != null) {
-            CommandHandler.executeClientCommand(matchHandler,player,command,c);
+            CommandHandler.executeClientCommand(matchHandler,player,command);
         }
+        
     }
     
     @Override
@@ -100,4 +102,6 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         setChanged();
         notifyObservers(n);
     }
+
+    
 }

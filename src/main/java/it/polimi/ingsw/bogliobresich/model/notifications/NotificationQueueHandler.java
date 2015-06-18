@@ -5,8 +5,10 @@ package it.polimi.ingsw.bogliobresich.model.notifications;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Queue;
@@ -18,26 +20,46 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class NotificationQueueHandler extends Observable implements NotificationQueue {
     Queue <NotificationMessage> notificationQueue = new ConcurrentLinkedQueue <NotificationMessage>();
+    private boolean notifyAll = false;
+    
+    public NotificationQueueHandler () {
+        this(true);
+    }
+    
+    public NotificationQueueHandler (boolean notifyAll) {
+        this.notifyAll = notifyAll;
+    }
     
     @Override
-    public void addObserver(Object o) {
+    public synchronized void addObserver(Object o) {
         addObserver((Observer)o);
     }
     
     @Override
-    public void addNotification(NotificationMessage n) {
-        notificationQueue.add(n);
-        setChanged();
-        notifyObservers();
+    public synchronized void addNotification(NotificationMessage n) {
+        if(notifyAll) {
+            notificationQueue.add(n);
+            setChanged();
+            notifyObservers();
+        } else {
+            if(isEmpty()) {
+                //Add the first notification in the queue
+                notificationQueue.add(n);
+                setChanged();
+                notifyObservers();
+            } else {
+                notificationQueue.add(n);
+            }
+        }
     }
 
     @Override
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return notificationQueue.isEmpty();
     }
 
     @Override
-    public Commands getNotificationCommand() {
+    public synchronized Commands getNotificationCommand() {
         if(!notificationQueue.isEmpty()) {
             return notificationQueue.peek().getCommand();
         }
@@ -45,7 +67,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public Player getPlayerArgument() {
+    public synchronized Player getPlayerArgument() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Player) {
@@ -56,7 +78,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public Coordinate getCoordinateArgument() {
+    public synchronized Coordinate getCoordinateArgument() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof Coordinate) {
@@ -67,7 +89,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public ItemCard getItemCardArgument() {
+    public synchronized ItemCard getItemCardArgument() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof ItemCard) {
@@ -78,7 +100,7 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public String getGenericMessage() {
+    public synchronized String getGenericMessage() {
         if(!notificationQueue.isEmpty()) {
             Object arg = notificationQueue.peek().getArgument();
             if(arg instanceof String) {
@@ -89,7 +111,19 @@ public class NotificationQueueHandler extends Observable implements Notification
     }
 
     @Override
-    public NotificationMessage pollNotification() {
+    public List<User> getListOfUsers() {
+        if(!notificationQueue.isEmpty()) {
+            Object arg = notificationQueue.peek().getArgument();
+            if(arg instanceof List) {
+                return (List<User>) arg;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public synchronized NotificationMessage pollNotification() {
         return notificationQueue.poll();
     }
+
 }

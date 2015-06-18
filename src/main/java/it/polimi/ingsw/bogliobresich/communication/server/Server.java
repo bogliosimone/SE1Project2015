@@ -50,14 +50,14 @@ public class Server implements Runnable {
         socketConnectionServer = new SocketConnectionServer(ServerUtils.getLocalIp(),ServerUtils.SOCKET_REQUEST_SERVER_TCP_PORT);
     }
     
-    public static void serviceMessage(Object msg) {
+    public synchronized static void serviceMessage(Object msg) {
         System.out.println("| SERVER > " + msg);
     }
     
-    public static void errorMessage(Object msg) {
+    public synchronized static void errorMessage(Object msg) {
         System.out.println("| ERROR! > " + msg);
     }
-    public static void connectionMessage(Object msg) {
+    public synchronized static void connectionMessage(Object msg) {
         System.out.println("| LOGIN  > " + msg);
     }
     
