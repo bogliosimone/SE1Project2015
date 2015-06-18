@@ -3,7 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich;
 
-import it.polimi.ingsw.bogliobresich.communication.client.Client;
+import it.polimi.ingsw.bogliobresich.communication.client.CLIClient;
 
 
 /**
@@ -12,6 +12,6 @@ import it.polimi.ingsw.bogliobresich.communication.client.Client;
  */
 public final class ClientMain {
     public static void main (String[] args) {
-        new Client();
+        new CLIClient();
     }
 }
