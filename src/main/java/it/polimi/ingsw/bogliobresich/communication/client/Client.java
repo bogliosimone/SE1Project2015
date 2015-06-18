@@ -10,6 +10,8 @@ import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginExcepti
 import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
@@ -38,7 +40,6 @@ public class Client implements ClientController {
         try {
             communication = new RMIClient(inputNotificationQueue);
         } catch (RemoteException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
     }
@@ -51,11 +52,11 @@ public class Client implements ClientController {
             communication.addMeMatch();
             
             } catch (LoginException e) {
-                System.out.println("Errore! impossibile effettuare il login!");
-                //e.printStackTrace();
+                NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Impossibile effettuare il login!");
+                communication.ErrorToClient(connError);
             } catch (AddToMatchException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Impossibile essere aggiunti al match!");
+                communication.ErrorToClient(connError);
             }
     }
 
@@ -65,9 +66,8 @@ public class Client implements ClientController {
         try {
             communication.sendCommand(command);
         } catch (SendCommandException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Il server non risponde!");
+            communication.ErrorToClient(connError);
         }
-        
     }
 }

@@ -68,6 +68,9 @@ public enum Commands {
     DRAW_SECTOR_CARD, // (SectorCard) card sector drawed
     CALL_RUMOR, // player need to call rumor in some coordiante
     
+    SERVER_NOT_RESPONDING, //(String) server connection error
+    
+    
     //da cancellare
     ALL_PLAYERS_MESSAGE,
     PLAYER_COMMAND;
