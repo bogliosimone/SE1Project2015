@@ -3,9 +3,10 @@
  */
 package it.polimi.ingsw.bogliobresich.communication;
 
-import java.io.Serializable;
-
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+
+import java.io.Serializable;
 
 /**
  * @author matteobresich
@@ -34,5 +35,12 @@ public class ClientCommand implements Serializable {
             return (Coordinate) parameter;
         }
         return null;
-    }   
+    }
+    
+    public ItemCard getCard() {
+        if(parameter instanceof ItemCard) {
+            return (ItemCard) parameter;
+        }
+        return null;
+    }
 }
