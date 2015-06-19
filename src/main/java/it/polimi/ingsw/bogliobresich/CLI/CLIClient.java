@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
+import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -213,7 +214,8 @@ public class CLIClient implements Observer{
                             printString(command.toString()+" comando non supportato");
                             break; 
                         }
-                        queue.pollNotification(); //pop notification System.out.println(n.getCommand()  + " " + n.getArgument());
+                        Notification n= queue.pollNotification(); //pop notification 
+                        System.out.println(n.getCommand()  + " " + n.getArgument());
                     }
                 }
             }).start();
