@@ -3,16 +3,22 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.bogliobresich.model.Characters;
-import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * @author Matteo
  *
  */
-public class CharacterCard implements Card {
+public class CharacterCard implements Card,Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7421912153562352462L;
     private int id;
     private String name;
+    private String type;
 
     /**
      * Class constructor
@@ -20,6 +26,7 @@ public class CharacterCard implements Card {
      */
     public CharacterCard(Characters character) {
         this.name = character.getCharacterName();
+        this.type = character.getCharacterType();
     }
     
     /**
@@ -27,6 +34,14 @@ public class CharacterCard implements Card {
      */
     public int getId() {
         return id;
+    }
+    
+    public String getCharacterType(){
+        return this.type;
+    }
+    
+    public String getCharacterName(){
+        return this.name;
     }
 
     /**

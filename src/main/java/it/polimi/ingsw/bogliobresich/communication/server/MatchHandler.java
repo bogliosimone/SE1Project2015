@@ -137,9 +137,11 @@ public class MatchHandler implements Runnable, Observer {
             {
                 @Override
                 public void run() {
-                    while (!queue.isEmpty()) {
-                        Notification notification = queue.pollNotification();
-                        sendNotification(notification);
+                    synchronized (queue) {
+                        while (!queue.isEmpty()) {
+                            Notification notification = queue.pollNotification();
+                            sendNotification(notification);
+                        }
                     }
                 }
             }).start();

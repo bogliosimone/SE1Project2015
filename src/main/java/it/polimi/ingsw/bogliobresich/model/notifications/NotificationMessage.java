@@ -3,9 +3,14 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
-import java.io.Serializable;
-
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author matteobresich
@@ -63,6 +68,78 @@ public class NotificationMessage implements Notification<Object>, Serializable {
     @Override
     public User getNotificationReciver() {
         return addressee;
+    }
+
+    @Override
+    public Player getPlayer() {
+        if(argument instanceof Player) {
+            return (Player) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> getListOfUsers() {
+        if(argument instanceof List) {
+            return (List<User>) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public String getString() {
+        if(argument instanceof String) {
+            return (String) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public Coordinate getCoordinate() {
+        if(argument instanceof Coordinate) {
+            return (Coordinate) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public ItemCard getItemCard() {
+        if(argument instanceof ItemCard) {
+            return (ItemCard) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public MovesAvaiable getMovesAvaiable() {
+        if(argument instanceof MovesAvaiable) {
+            return (MovesAvaiable) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public User getUser() {
+        if(argument instanceof User) {
+            return (User) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public SectorCard getSectorCard() {
+        if(argument instanceof SectorCard) {
+            return (SectorCard) argument;
+        }
+        return null;
+    }
+
+    @Override
+    public Integer getInteger() {
+        if(argument instanceof Integer) {
+            return (Integer) argument;
+        }
+        return null;
     }
 
 }

@@ -52,11 +52,10 @@ public class Client implements ClientController {
             communication.addMeMatch();
             
             } catch (LoginException e) {
-                NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Impossibile effettuare il login!");
-                communication.ErrorToClient(connError);
+                e.getStackTrace();
+
             } catch (AddToMatchException e) {
-                NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Impossibile essere aggiunti al match!");
-                communication.ErrorToClient(connError);
+                e.getStackTrace();
             }
     }
 
@@ -66,8 +65,7 @@ public class Client implements ClientController {
         try {
             communication.sendCommand(command);
         } catch (SendCommandException e) {
-            NotificationMessage connError = new NotificationMessage(Commands.SERVER_NOT_RESPONDING,"Errore! Il server non risponde!");
-            communication.ErrorToClient(connError);
+            e.getStackTrace();
         }
     }
 }
