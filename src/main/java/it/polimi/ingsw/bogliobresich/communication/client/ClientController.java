@@ -4,24 +4,17 @@
 package it.polimi.ingsw.bogliobresich.communication.client;
 
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
-import it.polimi.ingsw.bogliobresich.communication.CommandType;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.AddToMatchException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
-import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
-import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 /**
  * @author matteobresich
@@ -30,9 +23,17 @@ import java.util.Scanner;
 public class ClientController extends Observable implements Observer, Client {
 
     private ClientCommunicationStrategy communication = null;
+    private static ClientController instance;
 
+    
+    public static synchronized ClientController getInstance() {
+        if (instance == null) {
+            instance = new ClientController();
+        }
+        return instance;
+    }
+    
     public ClientController() {
-
         try {
             communication = new RMIClient();
             communication.addNotificationObserver(this);
@@ -40,6 +41,7 @@ public class ClientController extends Observable implements Observer, Client {
             e1.printStackTrace();
         }
     }
+    
 
     @Override
     public void doLogin(String nickname, String password) {
@@ -59,11 +61,19 @@ public class ClientController extends Observable implements Observer, Client {
 
     @Override
     public void sendCommand(ClientCommand command) {
-        try {
-            communication.sendCommand(command);
-        } catch (SendCommandException e) {
-            e.getStackTrace();
-        }
+        final ClientCommand cmd = command;
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                try {
+                    communication.sendCommand(cmd);
+                } catch (SendCommandException e) {
+                    e.getStackTrace();
+                }
+            }
+        }).start();
+        
     }
 
     @Override

@@ -14,10 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
-import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.List;
@@ -25,23 +22,23 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.Vector;
 
 /**
  * @author matteobresich
  * @author simoneboglio
  */
-public class CLIClient implements Observer{
+public class CLIClient implements Observer, Runnable{
     Scanner scanner = new Scanner(System.in); //scanner.close();
     HexMap gameMap= new HexMap();
     Player player;
-    ClientController controller = new ClientController();
+    ClientController controller;
 
-    public CLIClient () {
+    @Override
+    public void run() {
+        controller = ClientController.getInstance();
         controller.addObserver(this);
         controller.doLogin(getNickname() , getPassword()); 
     }
-
 
 
     @Override
@@ -279,10 +276,17 @@ public class CLIClient implements Observer{
         String command=scanner.nextLine();
         if(command.equals("move")){
             System.out.println("Inserisci coordinata lettera: ");
-            char letter=scanner.nextLine().charAt(0);
+            final char letter=scanner.nextLine().charAt(0);
             System.out.println("Inserisci coordinata numero: ");
-            int number=Integer.parseInt(scanner.nextLine());
-            controller.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,new Coordinate(letter,number)));
+            final int number=Integer.parseInt(scanner.nextLine());
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run() {
+                    controller.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,new Coordinate(letter,number)));
+                }
+            }).start();
+            
             return true;
         }
         if(command.equals("attack")){
