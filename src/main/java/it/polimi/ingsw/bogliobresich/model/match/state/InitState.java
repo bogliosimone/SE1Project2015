@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
 import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
@@ -53,19 +54,16 @@ public class InitState implements State {
         List<User> users=action.getListUser();
         Collections.shuffle(users);
         Deck deckChar=match.getCharacterDeck();
-        int id=1;
         List<Player> tempList = new ArrayList<Player>();
         for(User user: users){
             Player newPlayer;
 
             try{
                 CharacterCard card = (CharacterCard)deckChar.drawCard();
-
-                if(id%2==1)
+                if(card.getCharacterType().equals(ConstantsCard.ALIEN))
                     newPlayer=new AlienPlayer(user,map.getCoordinateAlienBase(),card);
                 else
                     newPlayer=new HumanPlayer(user,map.getCoordinateHumanBase(),card);
-                id++;
                 tempList.add(newPlayer);
             }
             catch (CardFinishedException e) { 

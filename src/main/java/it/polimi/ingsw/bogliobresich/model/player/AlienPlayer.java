@@ -31,9 +31,4 @@ public class AlienPlayer extends Player {
         this.isFeed=true;
         this.movementStep=MOVEMENTSTEPALIENFEED;
     }
-    
-    @Override
-    public String toString(){
-        return new String("Alieno ; Personaggio: "+ this.characterCard.toString()  +" ; Coordinate: "+this.coordinate);
-    }
 }

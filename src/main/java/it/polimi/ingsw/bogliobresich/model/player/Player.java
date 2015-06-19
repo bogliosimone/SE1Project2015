@@ -176,5 +176,9 @@ public class Player implements Serializable {
             return false;
         return true;
     }
+    
+    public String toString(){
+        return new String("Natura: "+this.characterCard.getCharacterType()+" ; Personaggio: "+ this.characterCard.getCharacterName()  +" ; Coordinate: "+this.coordinate);
+    }
 
 }
