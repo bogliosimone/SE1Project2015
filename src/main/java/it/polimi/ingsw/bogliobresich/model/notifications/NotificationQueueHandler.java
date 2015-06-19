@@ -14,14 +14,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class NotificationQueueHandler extends Observable implements NotificationQueue, Cloneable {
     Queue <NotificationMessage> notificationQueue = new ConcurrentLinkedQueue <NotificationMessage>();
-    private boolean notifyAll = false;
     
     public NotificationQueueHandler () {
-        this(true);
-    }
-    
-    public NotificationQueueHandler (boolean notifyAll) {
-        this.notifyAll = notifyAll;
     }
     
     @Override
@@ -31,11 +25,13 @@ public class NotificationQueueHandler extends Observable implements Notification
     
     @Override
     public NotificationQueueHandler clone() {
-        try {
-            return (NotificationQueueHandler) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        synchronized(this) {
+            try {
+                return (NotificationQueueHandler) super.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
         }
     }
     
@@ -43,19 +39,9 @@ public class NotificationQueueHandler extends Observable implements Notification
     @Override
     public synchronized void addNotification(NotificationMessage n) {
         //System.out.println("NOTIFICA " + n.getCommand() + " AGGIUNTA IN CODA - CODA ISEMPTY: " + notificationQueue.isEmpty());
-        if(notifyAll) {
-            notificationQueue.add(n);
-            setChanged();
-            notifyObservers();
-        } else {
-            if(isEmpty()) {
-                notificationQueue.add(n);
-                setChanged();
-                notifyObservers();
-            } else {
-                notificationQueue.add(n);
-            }
-        }
+        notificationQueue.add(n);
+        setChanged();
+        notifyObservers();
     }
 
     @Override

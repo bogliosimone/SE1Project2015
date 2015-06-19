@@ -8,7 +8,7 @@ package it.polimi.ingsw.bogliobresich.model.notifications;
  * @author matteobresich
  *
  */
-public interface NotificationQueue {
+public interface NotificationQueue extends Cloneable{
     
     public void addObserver(Object o);
     //Enter a notification
@@ -22,6 +22,7 @@ public interface NotificationQueue {
      */
     public Commands getNotificationCommand();
     public void clear();
+    public NotificationQueue clone();
     
     //Utility
     public boolean isEmpty();

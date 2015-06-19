@@ -5,7 +5,7 @@ package it.polimi.ingsw.bogliobresich.CLI;
 
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.CommandType;
-import it.polimi.ingsw.bogliobresich.communication.client.Client;
+import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SpotlightItemCard;
@@ -35,201 +35,191 @@ public class CLIClient implements Observer{
     Scanner scanner = new Scanner(System.in); //scanner.close();
     HexMap gameMap= new HexMap();
     Player player;
-    Client controller = new Client((Observer)this);
-
-    Object outputMonitor;
+    ClientController controller = new ClientController();
 
     public CLIClient () {
+        controller.addObserver(this);
         controller.doLogin(getNickname() , getPassword()); 
     }
 
 
 
     @Override
-    public void update(Observable obsQueue, Object arg) {
-
-        if(obsQueue instanceof NotificationQueueHandler) {
-            final NotificationQueueHandler queue = ((NotificationQueueHandler)obsQueue).clone();
-            Vector <NotificationMessage> notifications = new Vector <NotificationMessage>();
-            //CLEAN QUEUE
-
-            while (!queue.isEmpty()) {
-                notifications.add(queue.pollNotification());
-            }
-
+    public void update(Observable o, Object obsNotification) {
+        if(obsNotification instanceof NotificationMessage)
+        {
             User u;
             String s;
             Coordinate coord;
             ItemCard c;
 
-            while(!notifications.isEmpty()) {
-                NotificationMessage notification = notifications.get(0);
-                notifications.remove(0);
-                System.out.println(notification.getCommand());
-                Commands command = notification.getCommand();
-                switch(command) {
-                case ATTACK:
-                    printString(notification.getString());
-                    break;
-                case CALL_RUMOR:
-                    printString("Inserisci coordinata lettera: ");
-                    char letter=scanner.nextLine().charAt(0);
-                    printString("Inserisci coordinata numero: ");
-                    int number=Integer.parseInt(scanner.nextLine());
-                    controller.sendCommand(new ClientCommand(CommandType.DO_RUMOR_IN_COORDINATE_REQUEST,new Coordinate(letter,number)));
-                    break;
-                case CANT_DISCARD_CARD:
-                    printString("Errore non puoi scartare questa carta");
-                    break;
-                case CANT_PLAY_CARD:
-                    printString("Errore, non puoi giocare questa carta");
-                    break;
-                case CARDS_END:
-                    printString("Le carte oggetto sono finite");
-                    break;
-                case COORDINATE_ERROR:
-                    printString("Le coordinate immesse non sono valide");
-                    break;
-                case DISCARD_CARD:
-                    c= notification.getItemCard();
-                    player.getHand().removeCard(c);
-                    printString("Hai scartato la carta "+c.toString());
-                    break;
-                case DISCARD_HAND:
-                    player.getHand().discardHand();
-                    printString("Hai scartato la tua mano");
-                    break;
-                case DRAW_CARD:
-                    c=notification.getItemCard();
-                    player.getHand().addCard(c);
-                    printString("Hai pescato la carta: "+c.toString());
-                    break;
-                case DRAW_SECTOR_CARD:
-                    SectorCard sc=notification.getSectorCard();
-                    s="Hai pescato la carta settore ";
-                    if(sc.isThereNoiseInAnySector())
-                        s=s+"RUMORE IN QUALUNQUE SETTORE";
-                    if(sc.isThereNoiseInMySector())
-                        s=s+"RUMORE NEL TUO SETTORE";
-                    if(sc.isThereSilence())
-                        s=s+"SILENZIO";
-                    printString(s);
-                    break;
-                case END_TURN:
-                    printString("Il tuo turno è finito");
-                    break;
-                case FATAL_ERROR:
-                    printString(notification.getString());
-                    break;
-                case GAME_END:
-                    printString("La partita è finita, digita exit per uscire");
-                    break;
-                case GAME_INFO_MESSAGE:
-                    printString(notification.getString());
-                    break;
-                case GAME_START:
-                    printString("La partita è iniziata");
-                    break;
-                case GENERIC_ERROR:
-                    printString(notification.getString());
-                    break;
-                case GENERIC_MESSAGE:
-                    printString(notification.getString());
-                    break;
-                case HAND_FULL:
-                    printString("La tua mano è piena");
-                    break;
-                case IS_NOT_YOUR_TURN:
-                    printString("Non è il tuo turno, attendi");
-                    break;
-                case ITEM_PLAYED:
-                    printString(notification.getString());
-                    break;
-                case LIST_USERS:
-                    List<User> users = notification.getListOfUsers();
-                    s=new String("Lista giocatori");
-                    int i=1;
-                    for(User tmpUser:users)
-                        s=s+"\n"+(i++)+" - "+tmpUser.getNickname();
-                    printString(s);
-                    break;
-                case MOVES_AVAIABLE:
-                    MovesAvaiable m=notification.getMovesAvaiable();
-                    do{
-                        printString(createStringMovesAvaiable(m));
-                    }while(!getInputAndSend());
-                    break;
-                case MOVE_NO_AVAIABLE:
-                    printString("Mossa non disponibile");
-                    break;
-                case PLAYER_JOIN_WAIT_ROOM:
-                    printString("Sei entrato nella sala di attesa - attendi l'inizio della partita");
-                    break;
-                case PLAYER_MESSAGE:
-                    printString(notification.getString());
-                    break;
-                case PORTHOLE_BROKEN:
-                    coord=notification.getCoordinate();
-                    printString("La scialuppa numero "+gameMap.getNumberPorthole(coord)+" in coordinate "+coord.getLetter()+coord.getNumber()+" non è più utilizzabile");
-                    break;
-                case SECTOR_TYPE_MESSAGE:
-                    printString(notification.getString()); 
-                    break;
-                case SET_YOUR_COORDINATE:
-                    coord=notification.getCoordinate();
-                    printString("Ti trovi nelle coordinate: "+coord.getLetter()+coord.getNumber());
-                    break;
-                case START_END_PHASE:
-                    printString("Sei nella end-phase");
-                    break;
-                case START_MOVEMENT_PHASE:
-                    printString("Sei nella fase di movimento");
-                    break;
-                case START_TIMER:
-                    printString("Hai 2 minuti per concludere il turno");
-                    break;
-                case START_TURN:
-                    printString("Il tuo turno è iniziato - turno "+notification.getInteger());
-                    break;
-                case USER_END_IS_GAME:
-                    u=notification.getUser();
-                    printString("Il giocatore "+u.getNickname()+" ha terminato la sua partita");
-                    break;
-                case USER_END_TURN:
-                    u=notification.getUser();
-                    printString("Il giocatore "+u.getNickname()+" ha termianto il suo turno");
-                    break;
-                case USER_START_TURN: 
-                    u=notification.getUser();
-                    printString("Il giocatore "+u.getNickname()+" ha iniziato il suo turno");
-                    break;
-                case WHO_ARE_YOU:
-                    Player p = notification.getPlayer();
-                    printString(p.getNickName());
-                    player=p;
-                    printString("Il tuo personaggio è : "+p.getCharacterCard().toString());
-                    break;
-                case YOU_ARE_FEED:
-                    printString("Ti sei nutrito di umano, ora puoi muoverti di tre caselle");
-                    break;
-                case YOU_DIE:
-                    printString("Sei stato ucciso! la tua partita finisce qua, attendi la fine del match");
-                    break;
-                case YOU_DISCONNECTED:
-                    printString("Sei stato disconnesso dal gioco per inattività");
-                    break;
-                case YOU_LOST:
-                    printString("Mi dispiace ma hai perso :(");
-                    break;
-                case YOU_WIN:
-                    printString("Complimenti hai vinto :)");
-                    break;
-                default:
-                    printString(command.toString()+" comando non supportato");
-                    break; 
-                }
+            NotificationMessage notification = (NotificationMessage)obsNotification;
 
+            Commands command = notification.getCommand();
+            switch(command) {
+            case ATTACK:
+                printString(notification.getString());
+                break;
+            case CALL_RUMOR:
+                printString("Inserisci coordinata lettera: ");
+                char letter=scanner.nextLine().charAt(0);
+                printString("Inserisci coordinata numero: ");
+                int number=Integer.parseInt(scanner.nextLine());
+                controller.sendCommand(new ClientCommand(CommandType.DO_RUMOR_IN_COORDINATE_REQUEST,new Coordinate(letter,number)));
+                break;
+            case CANT_DISCARD_CARD:
+                printString("Errore non puoi scartare questa carta");
+                break;
+            case CANT_PLAY_CARD:
+                printString("Errore, non puoi giocare questa carta");
+                break;
+            case CARDS_END:
+                printString("Le carte oggetto sono finite");
+                break;
+            case COORDINATE_ERROR:
+                printString("Le coordinate immesse non sono valide");
+                break;
+            case DISCARD_CARD:
+                c= notification.getItemCard();
+                player.getHand().removeCard(c);
+                printString("Hai scartato la carta "+c.toString());
+                break;
+            case DISCARD_HAND:
+                player.getHand().discardHand();
+                printString("Hai scartato la tua mano");
+                break;
+            case DRAW_CARD:
+                c=notification.getItemCard();
+                player.getHand().addCard(c);
+                printString("Hai pescato la carta: "+c.toString());
+                break;
+            case DRAW_SECTOR_CARD:
+                SectorCard sc=notification.getSectorCard();
+                s="Hai pescato la carta settore ";
+                if(sc.isThereNoiseInAnySector())
+                    s=s+"RUMORE IN QUALUNQUE SETTORE";
+                if(sc.isThereNoiseInMySector())
+                    s=s+"RUMORE NEL TUO SETTORE";
+                if(sc.isThereSilence())
+                    s=s+"SILENZIO";
+                printString(s);
+                break;
+            case END_TURN:
+                printString("Il tuo turno è finito");
+                break;
+            case FATAL_ERROR:
+                printString(notification.getString());
+                break;
+            case GAME_END:
+                printString("La partita è finita, digita exit per uscire");
+                break;
+            case GAME_INFO_MESSAGE:
+                printString(notification.getString());
+                break;
+            case GAME_START:
+                printString("La partita è iniziata");
+                break;
+            case GENERIC_ERROR:
+                printString(notification.getString());
+                break;
+            case GENERIC_MESSAGE:
+                printString(notification.getString());
+                break;
+            case HAND_FULL:
+                printString("La tua mano è piena");
+                break;
+            case IS_NOT_YOUR_TURN:
+                printString("Non è il tuo turno, attendi");
+                break;
+            case ITEM_PLAYED:
+                printString(notification.getString());
+                break;
+            case LIST_USERS:
+                List<User> users = notification.getListOfUsers();
+                s=new String("Lista giocatori");
+                int i=1;
+                for(User tmpUser:users)
+                    s=s+"\n"+(i++)+" - "+tmpUser.getNickname();
+                printString(s);
+                break;
+            case MOVES_AVAIABLE:
+                MovesAvaiable m=notification.getMovesAvaiable();
+                do{
+                    printString(createStringMovesAvaiable(m));
+                }while(!getInputAndSend());
+                break;
+            case MOVE_NO_AVAIABLE:
+                printString("Mossa non disponibile");
+                break;
+            case PLAYER_JOIN_WAIT_ROOM:
+                printString("Sei entrato nella sala di attesa - attendi l'inizio della partita");
+                break;
+            case PLAYER_MESSAGE:
+                printString(notification.getString());
+                break;
+            case PORTHOLE_BROKEN:
+                coord=notification.getCoordinate();
+                printString("La scialuppa numero "+gameMap.getNumberPorthole(coord)+" in coordinate "+coord.getLetter()+coord.getNumber()+" non è più utilizzabile");
+                break;
+            case SECTOR_TYPE_MESSAGE:
+                printString(notification.getString()); 
+                break;
+            case SET_YOUR_COORDINATE:
+                coord=notification.getCoordinate();
+                printString("Ti trovi nelle coordinate: "+coord.getLetter()+coord.getNumber());
+                break;
+            case START_END_PHASE:
+                printString("Sei nella end-phase");
+                break;
+            case START_MOVEMENT_PHASE:
+                printString("Sei nella fase di movimento");
+                break;
+            case START_TIMER:
+                printString("Hai 2 minuti per concludere il turno");
+                break;
+            case START_TURN:
+                printString("Il tuo turno è iniziato - turno "+notification.getInteger());
+                break;
+            case USER_END_IS_GAME:
+                u=notification.getUser();
+                printString("Il giocatore "+u.getNickname()+" ha terminato la sua partita");
+                break;
+            case USER_END_TURN:
+                u=notification.getUser();
+                printString("Il giocatore "+u.getNickname()+" ha termianto il suo turno");
+                break;
+            case USER_START_TURN: 
+                u=notification.getUser();
+                printString("Il giocatore "+u.getNickname()+" ha iniziato il suo turno");
+                break;
+            case WHO_ARE_YOU:
+                Player p = notification.getPlayer();
+                printString(p.getNickName());
+                player=p;
+                printString("Il tuo personaggio è : "+p.getCharacterCard().toString());
+                break;
+            case YOU_ARE_FEED:
+                printString("Ti sei nutrito di umano, ora puoi muoverti di tre caselle");
+                break;
+            case YOU_DIE:
+                printString("Sei stato ucciso! la tua partita finisce qua, attendi la fine del match");
+                break;
+            case YOU_DISCONNECTED:
+                printString("Sei stato disconnesso dal gioco per inattività");
+                break;
+            case YOU_LOST:
+                printString("Mi dispiace ma hai perso :(");
+                break;
+            case YOU_WIN:
+                printString("Complimenti hai vinto :)");
+                break;
+            default:
+                printString(command.toString()+" comando non supportato");
+                break; 
             }
+
+
+
 
 
         }

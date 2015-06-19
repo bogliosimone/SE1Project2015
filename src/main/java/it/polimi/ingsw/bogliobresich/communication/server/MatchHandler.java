@@ -39,7 +39,7 @@ public class MatchHandler implements Runnable, Observer {
      *
      */
     public MatchHandler() {
-        notificationQueue = new NotificationQueueHandler(false);
+        notificationQueue = new NotificationQueueHandler();
         notificationQueue.addObserver(this);
         RMI = new RMIMatchServiceHandler(this);
         this.matchID = lastMatchHandlerIDAdded;
@@ -106,7 +106,7 @@ public class MatchHandler implements Runnable, Observer {
         while(!match.isEnd()) {
             try {
                 Server.serviceMessage(this.toString() + " IS ALIVE");
-                Thread.sleep(30 * 1000);
+                Thread.sleep(100 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
@@ -132,19 +132,11 @@ public class MatchHandler implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof NotificationQueue) {
-            final NotificationQueue queue = (NotificationQueue)o;
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run() {
-                    synchronized (queue) {
-                        while (!queue.isEmpty()) {
-                            Notification notification = queue.pollNotification();
-                            sendNotification(notification);
-                        }
-                    }
-                }
-            }).start();
+            synchronized(this) {
+            NotificationQueue queue = ((NotificationQueue)o);
+            Notification notification = queue.pollNotification();
+            sendNotification(notification);
+            }
         }
     }
 }

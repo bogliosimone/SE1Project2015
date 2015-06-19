@@ -55,17 +55,21 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         public void update(Observable o, Object arg) {
             try {
                 if(arg instanceof Notification){
+                    //TODO remove
+                    
                     if(((Notification) arg).isBroadcast()) {
                         ro.update((Serializable) o, arg);
+                        Server.debugMessage("BROADCAST "+((Notification) arg).getCommand() + "" + ((Notification) arg).getArgument());
                     } else if (((Notification) arg).getNotificationReciver().equals(user)) {
                         ro.update((Serializable) o, arg);
+                        Server.debugMessage("USER: " + user +((Notification) arg).getCommand() + "" + ((Notification) arg).getArgument());
                     }
                     
                 }
             } catch (RemoteException e) {
                 Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
-                e.printStackTrace();
                 o.deleteObserver(this);
+                //e.printStackTrace();
             }
         }
     }
