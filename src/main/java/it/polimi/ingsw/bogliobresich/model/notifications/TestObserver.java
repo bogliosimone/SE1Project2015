@@ -36,11 +36,11 @@ public class TestObserver {
         public void update(Observable o, Object arg) {
             NotificationQueue queue = (NotificationQueue)o;
             if(queue.getNotificationCommand() == Commands.ALL_PLAYERS_MESSAGE) {
-                System.out.println("Messagge for players: " + queue.getGenericMessage());
+                System.out.println("Messagge for players: " + queue.getString());
                 queue.pollNotification();
             }
             if(queue.getNotificationCommand() == Commands.GENERIC_MESSAGE) {
-                System.out.println("Server: " + queue.getGenericMessage());
+                System.out.println("Server: " + queue.getString());
                 queue.pollNotification();
             }
         }

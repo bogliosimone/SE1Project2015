@@ -43,6 +43,10 @@ public class ItemHand {
         return this.cards;
     }
     
+    public void discardHand(){
+        this.cards.clear();
+    }
+    
 
     /** 
      * Return true if the hand is empty

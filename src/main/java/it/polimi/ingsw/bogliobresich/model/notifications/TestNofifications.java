@@ -24,7 +24,7 @@ public class TestNofifications {
         queue.addNotification(notification);
         
         System.out.println(queue.getNotificationCommand());
-        String msg = queue.getGenericMessage();
+        String msg = queue.getString();
         System.out.println(msg);
         
         
@@ -35,7 +35,7 @@ public class TestNofifications {
         queue.addNotification(notification);
         
         System.out.println(queue.getNotificationCommand());
-        msg = queue.getGenericMessage();
+        msg = queue.getString();
         System.out.println(msg);
         
         
@@ -45,7 +45,7 @@ public class TestNofifications {
         queue.addNotification(notification);
         
         System.out.println(queue.getNotificationCommand());
-        msg = queue.getGenericMessage();
+        msg = queue.getString();
         System.out.println(msg);
         
         
@@ -56,7 +56,7 @@ public class TestNofifications {
         queue.addNotification(notification);
         
         System.out.println(queue.getNotificationCommand());
-        Coordinate recivedCoordinate = queue.getCoordinateArgument();
+        Coordinate recivedCoordinate = queue.getCoordinate();
         System.out.println(recivedCoordinate);
         
         

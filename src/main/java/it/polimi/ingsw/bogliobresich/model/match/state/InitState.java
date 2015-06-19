@@ -79,7 +79,7 @@ public class InitState implements State {
             match.addPlayer(newPlayer);
             listUser.add(newPlayer.getUser());
             match.notifyPlayer(newPlayer,newPlayer.toString()); 
-            match.notifyPlayer(Commands.WHO_ARE_YOU, new Player(newPlayer.getUser(),newPlayer.getCoordinate(),newPlayer.getCharacterCard()),newPlayer);
+            match.notifyPlayer(Commands.WHO_ARE_YOU, newPlayer,newPlayer);
         }
         match.notifyAllPlayer(Commands.LIST_USERS, listUser);
         return;
