@@ -1,6 +1,6 @@
 package it.polimi.ingsw.bogliobresich.GUI.loginView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
-import it.polimi.ingsw.bogliobresich.GUI.GuiConstants;
+import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 
 import java.awt.BorderLayout;
@@ -41,7 +41,7 @@ public class LoginView extends JDialog implements View {
      */
     public LoginView() {
         setResizable(false);
-        setTitle(GuiConstants.LOGIN_TITLE);
+        setTitle(GUIConstants.LOGIN_TITLE);
         setBounds(100, 100, 320, 165);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

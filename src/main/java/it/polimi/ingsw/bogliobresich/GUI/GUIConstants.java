@@ -7,7 +7,7 @@ package it.polimi.ingsw.bogliobresich.GUI;
  * @author matteobresich
  *
  */
-public class GuiConstants {
+public class GUIConstants {
     
     /**
      * The name of the App to display. 
@@ -18,5 +18,5 @@ public class GuiConstants {
     
     public final static String EXIT_LABEL = "Esci";
 
-    private GuiConstants () {};
+    private GUIConstants () {};
 }

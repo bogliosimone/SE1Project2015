@@ -43,9 +43,9 @@ public class GUIController implements Observer, Runnable {
     
     public void initUI() {
         controller = ClientController.getInstance();
-        currentView = viewFactory.getView(GuiView.LOGIN_VIEW);
+        currentView = viewFactory.getView(GUIViews.LOGIN_VIEW);
         currentView.initView();
-        currentView = viewFactory.getView(GuiView.WAITING_ROOM_VIEW);
+        currentView = viewFactory.getView(GUIViews.WAITING_ROOM_VIEW);
         currentView.initView();
     }
     

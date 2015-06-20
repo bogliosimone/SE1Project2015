@@ -1,5 +1,5 @@
 package it.polimi.ingsw.bogliobresich.GUI.waitingRoomView;
-import it.polimi.ingsw.bogliobresich.GUI.GuiConstants;
+import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 
 import java.awt.BorderLayout;
@@ -45,7 +45,7 @@ public class WaitingRoomView extends JFrame implements View {
     private void initialize() {
         
         setLocationRelativeTo(null);
-        setTitle(GuiConstants.WAITING_ROOM_TITLE);
+        setTitle(GUIConstants.WAITING_ROOM_TITLE);
         setBounds(100, 100, 450, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0, 0));
@@ -65,7 +65,7 @@ public class WaitingRoomView extends JFrame implements View {
         JPanel buttonPane = new JPanel();
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
         
-        JButton btnNewButton = new JButton(GuiConstants.EXIT_LABEL);
+        JButton btnNewButton = new JButton(GUIConstants.EXIT_LABEL);
         buttonPane.add(btnNewButton);
     }
 
