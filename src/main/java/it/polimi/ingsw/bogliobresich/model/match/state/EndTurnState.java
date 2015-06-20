@@ -30,9 +30,9 @@ public class EndTurnState implements State {
         if(action instanceof EndTurnAction){
            player.setIsYourTurn(false);
            match.notifyPlayer(player, "è finito il tuo turno");
+           match.stopTimer();
            match.notifyPlayer(Commands.END_TURN, null,player);
            match.notifyAllPlayer(Commands.USER_END_TURN, player.getUser());
-           match.stopTimer();
            if(player instanceof HumanPlayer)
                ((HumanPlayer) player).resetHumanPlayerAbility();
            if(match.thereIsAnotherTurn()){

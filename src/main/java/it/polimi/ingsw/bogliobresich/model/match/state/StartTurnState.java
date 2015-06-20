@@ -30,13 +30,13 @@ public class StartTurnState implements State {
             currentPlayer.setIsYourTurn(true);
             match.notifyAllPlayer(Commands.USER_START_TURN, currentPlayer.getUser());
             match.notifyPlayer(Commands.START_TURN, new Integer(match.getCurrentTurn()), currentPlayer);
+            match.notifyPlayer(Commands.START_TIMER, null, currentPlayer);
+            match.startTimerTurn();//start timer 120 sec
             match.notifyPlayer(Commands.SET_YOUR_COORDINATE, currentPlayer.getCoordinate(), currentPlayer);
             match.notifyPlayer(currentPlayer, "è il tuo turno  - turno: "+match.getCurrentTurn());
             match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,currentPlayer) , currentPlayer);
             match.notifyPlayer(currentPlayer, "Vuoi giocare un oggetto o vuoi muoverti?");
             match.setCurrentPlayer(currentPlayer);
-            match.startTimerTurn();//start timer 120 sec
-            match.notifyPlayer(Commands.START_TIMER, null, currentPlayer);
             return;
         }
         
