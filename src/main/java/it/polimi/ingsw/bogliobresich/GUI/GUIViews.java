@@ -11,6 +11,7 @@ public class GUIViews {
     
     public final static String LOGIN_VIEW = "login";
     public final static String WAITING_ROOM_VIEW = "waiting-room";
+    public final static String GAME_BOARD_VIEW = "game-board";
 
     private GUIViews() {};
 }

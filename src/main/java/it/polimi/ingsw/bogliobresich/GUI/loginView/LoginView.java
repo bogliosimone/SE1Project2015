@@ -1,12 +1,10 @@
 package it.polimi.ingsw.bogliobresich.GUI.loginView;
-import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -69,20 +67,13 @@ public class LoginView extends JDialog implements View {
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                JButton cancelButton = new JButton("Esci");
-                cancelButton.setActionCommand("Cancel");
-                buttonPane.add(cancelButton);
+                JButton exitButton = new JButton("Esci");
+                exitButton.addActionListener(new CloseListener());
+                buttonPane.add(exitButton);
             }
             {
                 JButton doLogin = new JButton("Login");
-                doLogin.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String nickname = textField.getText();
-                        String password = passwordField.getPassword().toString();
-                        GUIController.doLogin(nickname, password);
-                    }
-                });
-                doLogin.setActionCommand("OK");
+                doLogin.addActionListener(new LoginButtonListener(textField,passwordField));
                 buttonPane.add(doLogin);
                 getRootPane().setDefaultButton(doLogin);
             }
@@ -98,5 +89,11 @@ public class LoginView extends JDialog implements View {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void doUpdate(NotificationMessage notification) {
+        // TODO Auto-generated method stub
+        
     }
 }

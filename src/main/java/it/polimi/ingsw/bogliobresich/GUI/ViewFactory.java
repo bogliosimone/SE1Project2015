@@ -23,6 +23,9 @@ public class ViewFactory {
         else if(viewType.equalsIgnoreCase("waiting-room")){
             return new WaitingRoomView();
         }
+        else if(viewType.equalsIgnoreCase("game-board")){
+            //return new GameBoardView();
+        }
         
         
         return null;

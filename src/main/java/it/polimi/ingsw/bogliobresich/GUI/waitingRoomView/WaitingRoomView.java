@@ -1,6 +1,9 @@
 package it.polimi.ingsw.bogliobresich.GUI.waitingRoomView;
+
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,8 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
+
 public class WaitingRoomView extends JFrame implements View {
 
+    private JTextArea textArea;
     private JFrame frmSalaDattesa;
 
     /**
@@ -58,7 +63,7 @@ public class WaitingRoomView extends JFrame implements View {
         scrollPane.setBounds(6, 6, 438, 227);
         contentPanel.add(scrollPane);
         
-        JTextArea textArea = new JTextArea();
+        textArea = new JTextArea();
         textArea.setEditable(false);
         scrollPane.setViewportView(textArea);
         
@@ -66,6 +71,7 @@ public class WaitingRoomView extends JFrame implements View {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
         
         JButton btnNewButton = new JButton(GUIConstants.EXIT_LABEL);
+        btnNewButton.addActionListener(new CloseListener());
         buttonPane.add(btnNewButton);
     }
 
@@ -76,6 +82,13 @@ public class WaitingRoomView extends JFrame implements View {
             this.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void doUpdate(NotificationMessage notification) {
+        if(notification.getCommand() == Commands.GENERIC_MESSAGE) {
+            textArea.append(notification.getString() + "\n");
         }
     }
 }
