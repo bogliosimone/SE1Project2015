@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.GUI;
 
 import it.polimi.ingsw.bogliobresich.GUI.loginView.LoginView;
+import it.polimi.ingsw.bogliobresich.GUI.logoView.LogoView;
 import it.polimi.ingsw.bogliobresich.GUI.waitingRoomView.WaitingRoomView;
 
 /**
@@ -16,7 +17,11 @@ public class ViewFactory {
         if(viewType == null){
             return null;
         }     
-        if(viewType.equalsIgnoreCase("login")){
+        if(viewType.equalsIgnoreCase("logo")){
+            return new LogoView();
+
+        }
+        else if(viewType.equalsIgnoreCase("login")){
             return new LoginView();
 
         }
