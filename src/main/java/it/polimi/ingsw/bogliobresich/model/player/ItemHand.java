@@ -7,6 +7,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,12 @@ import java.util.List;
  * @author simoneboglio
  *
  */
-public class ItemHand {
+public class ItemHand implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -891586495121456948L;
     List<ItemCard> cards;
     private int maximumNumberOfCards;
 

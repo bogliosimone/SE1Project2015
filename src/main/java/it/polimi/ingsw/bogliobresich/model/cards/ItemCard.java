@@ -3,6 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -10,7 +12,11 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  * @author Matteo
  *
  */
-public abstract class ItemCard implements Card, CardPlayableInPhase {
+public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5336699153651039547L;
     private int id;
     protected boolean isPlayed;
     

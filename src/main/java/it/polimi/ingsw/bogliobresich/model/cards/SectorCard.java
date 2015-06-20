@@ -3,13 +3,18 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
-import it.polimi.ingsw.bogliobresich.model.player.Player;
+import java.io.Serializable;
+
 
 /**
  * @author Matteo
  *
  */
-public class SectorCard implements Card {
+public class SectorCard implements Card,Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5982862479329321122L;
     private int id;
     private boolean drawAnItem;
     private String noise;

@@ -10,14 +10,14 @@ import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
  *
  */
 public enum Characters {
-    CAPTAIN("Umano Ennio Maria Dominoni",ConstantsCard.HUMAN),
-    PILOT("Umano Julia Niguloti",ConstantsCard.HUMAN),
-    PSYCHOLOGIST("Umano Silvano Porpora",ConstantsCard.HUMAN),
+    CAPTAIN("Ennio Maria Dominoni",ConstantsCard.HUMAN),
+    PILOT("Julia Niguloti",ConstantsCard.HUMAN),
+    PSYCHOLOGIST("Silvano Porpora",ConstantsCard.HUMAN),
     SOLDIER("Soldato Tuccio Brendon",ConstantsCard.HUMAN),
-    ALIENONE("Alieno Piero Ceccarella",ConstantsCard.ALIEN),
-    ALIENTWO("Alieno Vittorio Martana",ConstantsCard.ALIEN),
-    ALIENTHREE("Alieno Maria Galbani",ConstantsCard.ALIEN),
-    ALIENFOUR("Alieno Paolo Landon",ConstantsCard.ALIEN);
+    ALIENONE("Piero Ceccarella",ConstantsCard.ALIEN),
+    ALIENTWO("Vittorio Martana",ConstantsCard.ALIEN),
+    ALIENTHREE("Maria Galbani",ConstantsCard.ALIEN),
+    ALIENFOUR("Paolo Landon",ConstantsCard.ALIEN);
     
     
     private String name;

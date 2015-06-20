@@ -28,9 +28,9 @@ public class Player implements Serializable {
     protected boolean canPlayObject=true;
     protected boolean canDrawSectorCard=true;
     protected int movementStep=1;
-    protected transient ItemHand hand;
-    protected transient Coordinate coordinate;
-    protected transient CharacterCard characterCard;
+    protected ItemHand hand;
+    protected Coordinate coordinate;
+    protected CharacterCard characterCard;
     protected User user;
     
     /**
@@ -175,6 +175,10 @@ public class Player implements Serializable {
         } else if (!user.equals(other.user))
             return false;
         return true;
+    }
+    
+    public String toString(){
+        return new String("Natura: "+this.characterCard.getCharacterType()+" ; Personaggio: "+ this.characterCard.getCharacterName()  +" ; Coordinate: "+this.coordinate);
     }
 
 }

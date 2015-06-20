@@ -10,6 +10,7 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -17,6 +18,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Observer;
 
 
 public class RMIClient extends UnicastRemoteObject implements RemoteObserver, ClientCommunicationStrategy {
@@ -26,10 +28,9 @@ public class RMIClient extends UnicastRemoteObject implements RemoteObserver, Cl
      */
     private static final long serialVersionUID = 4074353858175931035L;
     
-    private NotificationQueue notificationQueue = null;
-    protected RMIClient(NotificationQueue notificationQueue) throws RemoteException {
+    private NotificationQueue inputNotificationQueue = new NotificationQueueHandler();
+    protected RMIClient() throws RemoteException {
         super();
-        this.notificationQueue = notificationQueue;
     }
 
     private RMIConnectionService remoteConnectionService = null;
@@ -38,6 +39,12 @@ public class RMIClient extends UnicastRemoteObject implements RemoteObserver, Cl
     
     public User getMyUser() {
         return myUser;
+    }
+    
+
+    @Override
+    public void addNotificationObserver(Observer observer) {
+        inputNotificationQueue.addObserver(observer);
     }
     
     //--- TO SERVER ---
@@ -83,13 +90,15 @@ public class RMIClient extends UnicastRemoteObject implements RemoteObserver, Cl
     
     // --- TO CLIENT ---
     
+    
+    //RemoteObserver
     @Override
     public void update(Serializable observable, Object msg) throws RemoteException {
-        notificationQueue.addNotification((NotificationMessage)msg);
+        inputNotificationQueue.addNotification((NotificationMessage)msg);
     }
 
     @Override
-    public void ErrorToClient(NotificationMessage notification) {
-        notificationQueue.addNotification(notification);
+    public void errorToClient(NotificationMessage notification) {
+        inputNotificationQueue.addNotification(notification);
     }
 }

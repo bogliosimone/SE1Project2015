@@ -26,6 +26,10 @@ public class ProvaMatch {
         User u2= new User(2,"Pluto","");
         User u3= new User(3,"Paperino","");
         User u4= new User(4,"Topolino","");
+        User u5= new User(5,"Pippo","");
+        User u6= new User(6,"Pluto","");
+        User u7= new User(7,"Paperino","");
+        User u8= new User(8,"Topolino","");
         ItemCard card=new SpotlightItemCard(1);
         ((SpotlightItemCard)card).setCoordToLight(new Coordinate ('L',8));
         Match match = new Match(null);
@@ -34,6 +38,10 @@ public class ProvaMatch {
         match.doAction(null, new AddPlayerAction(u2));
         match.doAction(null, new AddPlayerAction(u3));
         match.doAction(null, new AddPlayerAction(u4));
+        match.doAction(null, new AddPlayerAction(u5));
+        match.doAction(null, new AddPlayerAction(u6));
+        match.doAction(null, new AddPlayerAction(u7));
+        match.doAction(null, new AddPlayerAction(u8));
         List<Player> lp=match.getAllPlayer();
         
         

@@ -27,9 +27,4 @@ public class HumanPlayer extends Player {
         this.canDrawSectorCard=true;
         this.movementStep=1;
     }
-    
-    @Override
-    public String toString(){
-        return new String("Umano ; Personaggio; "+ this.characterCard.toString()  +"; Coordinate: "+this.coordinate);
-    }
 }
