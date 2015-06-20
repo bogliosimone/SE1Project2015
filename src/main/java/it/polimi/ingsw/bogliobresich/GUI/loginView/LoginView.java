@@ -1,4 +1,8 @@
-package it.polimi.ingsw.bogliobresich.GUI;
+package it.polimi.ingsw.bogliobresich.GUI.loginView;
+import it.polimi.ingsw.bogliobresich.GUI.GUIController;
+import it.polimi.ingsw.bogliobresich.GUI.GuiConstants;
+import it.polimi.ingsw.bogliobresich.GUI.View;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class LoginView extends JDialog {
+public class LoginView extends JDialog implements View {
 
     private final JPanel contentPanel = new JPanel();
     private JPasswordField passwordField;
@@ -37,7 +41,7 @@ public class LoginView extends JDialog {
      */
     public LoginView() {
         setResizable(false);
-        setTitle("Login");
+        setTitle(GuiConstants.LOGIN_TITLE);
         setBounds(100, 100, 320, 165);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,16 +74,28 @@ public class LoginView extends JDialog {
                 buttonPane.add(cancelButton);
             }
             {
-                JButton okButton = new JButton("Login");
-                okButton.addActionListener(new ActionListener() {
+                JButton doLogin = new JButton("Login");
+                doLogin.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("lol");
+                        String nickname = textField.getText();
+                        String password = passwordField.getPassword().toString();
+                        GUIController.doLogin(nickname, password);
                     }
                 });
-                okButton.setActionCommand("OK");
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
+                doLogin.setActionCommand("OK");
+                buttonPane.add(doLogin);
+                getRootPane().setDefaultButton(doLogin);
             }
+        }
+    }
+
+    @Override
+    public void initView() {
+        try {
+            this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            this.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
