@@ -9,6 +9,9 @@ package it.polimi.ingsw.bogliobresich;
  */
 public class FilePaths {
     
+    //LOGO
+    public static final String PRODUCER_LOGO = "src/main/resources/images/logo/logo.png";
+    
     //CARDS
     public static final String ITEM_CARD_ICON = "images/cards/itemcard_icon.png";
     
