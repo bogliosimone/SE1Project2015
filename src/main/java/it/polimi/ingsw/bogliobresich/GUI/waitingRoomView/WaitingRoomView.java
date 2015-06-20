@@ -44,6 +44,7 @@ public class WaitingRoomView extends JFrame implements View {
      */
     private void initialize() {
         
+        setLocationRelativeTo(null);
         setTitle(GuiConstants.WAITING_ROOM_TITLE);
         setBounds(100, 100, 450, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +71,11 @@ public class WaitingRoomView extends JFrame implements View {
 
     @Override
     public void initView() {
-        setVisible(true);
+        try {
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

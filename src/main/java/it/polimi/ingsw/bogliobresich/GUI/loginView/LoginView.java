@@ -93,6 +93,7 @@ public class LoginView extends JDialog implements View {
     public void initView() {
         try {
             this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            this.setLocationRelativeTo(null);
             this.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
