@@ -1,4 +1,4 @@
-package it.polimi.ingsw.bogliobresich.GUI;
+package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 
 import java.awt.Color;

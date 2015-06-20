@@ -1,4 +1,4 @@
-package it.polimi.ingsw.bogliobresich.GUI;
+package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
@@ -15,15 +15,6 @@ import java.awt.event.*;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-
-/**********************************
-  This is the main class of a Java program to play a game based on hexagonal tiles.
-  The mechanism of handling hexes is in the file hexmech.java.
-
-  Written by: M.H.
-  Date: December 2012
-
- ***********************************/
 
 public class HexGame2{
 
