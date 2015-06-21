@@ -1,23 +1,39 @@
+/**
+ * 
+ */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
+
 
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.awt.*;
-
-import javax.swing.*;
-
-import java.awt.event.*; 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HexGame2{
+import javax.swing.JPanel;
 
+/**
+ * @author simone boglio
+ * @author matteo bresich
+ *
+ */
+public class HexagonMapPanel extends JPanel {
+
+    private static final long serialVersionUID = -7028080785459384175L;
+    
     //constants and global variables
     final static Color COLOURBACKGROUND =  Color.BLACK;  
     final static Color COLOURGRID =  Color.BLACK;    
@@ -35,100 +51,40 @@ public class HexGame2{
     final static int XSIZE=ConstantMap.COLUMNMAP;
     final static int XSCRSIZE=(int)((HEXSIZE * (XSIZE+1) + BORDERSIZE*3)/1.25);
     final static int YSCRSIZE=HEXSIZE * (YSIZE + 1) + BORDERSIZE*3;
-
+    
     private Map<Coordinate,GUICoordinate> guiMap  = new HashMap<Coordinate,GUICoordinate>();
+    
 
-    private HexGame2() {
-        guiMap=loadHashMapFromFile(ConstantMap.NAMEFILEMAP);
-        initGame();
-        createAndShowGUI();
+    public HexagonMapPanel(String mapFile)
+    {       
+        guiMap=loadHashMapFromFile(mapFile);
+        initMech();
+        setBackground(COLOURBACKGROUND);
+        MyMouseListener ml = new MyMouseListener();            
+        addMouseListener(ml);
     }
+    
 
-    public static void main(String[] args)
-    {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new HexGame2();
-            }
-        });
-    }
-
-
-
-
-
-
-    void initGame(){
+    void initMech(){
         HexMech2.setXYasVertex(false); //RECOMMENDED: leave this as FALSE.
         HexMech2.setHeight(HEXSIZE); //Either setHeight or setSize must be run to initialize the hex
         HexMech2.setBorders(BORDERSIZE);
     }
 
-    private void createAndShowGUI()
+    public void paintComponent(Graphics g)
     {
-        DrawingPanel panel = new DrawingPanel();
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("Mappa esagoni");
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        Container content = frame.getContentPane();
-        content.add(panel);
-        //this.add(panel);  -- cannot be done in a static context
-        //for hexes in the FLAT orientation, the height of a 10x10 grid is 1.1764 * the width. (from h / (s+t))
-        frame.setSize(XSCRSIZE, YSCRSIZE);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo( null );
-        frame.setVisible(true);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, SIZETEXT));
+        super.paintComponent(g2);
+        //draw grid
+        Collection<GUICoordinate> collection=guiMap.values();
+        for(GUICoordinate tmp:collection){
+            HexMech2.drawHex(tmp.getX(),tmp.getY(),tmp.getActualColour(),g2);
+            HexMech2.fillHex(tmp.getX(),tmp.getY(),tmp.getStringValue(),g2);
+        }
     }
-
-    //CLASS DRAWING PANEL
     
-    class DrawingPanel extends JPanel
-    {
-        private static final long serialVersionUID = -7028080785459384175L;
-
-        public DrawingPanel()
-        {       
-            setBackground(COLOURBACKGROUND);
-            MyMouseListener ml = new MyMouseListener();            
-            addMouseListener(ml);
-        }
-
-        public void paintComponent(Graphics g)
-        {
-            Graphics2D g2 = (Graphics2D)g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, SIZETEXT));
-            super.paintComponent(g2);
-            //draw grid
-            Collection<GUICoordinate> collection=guiMap.values();
-            for(GUICoordinate tmp:collection){
-                HexMech2.drawHex(tmp.getX(),tmp.getY(),tmp.getActualColour(),g2);
-                HexMech2.fillHex(tmp.getX(),tmp.getY(),tmp.getStringValue(),g2);
-            }
-        }
-
-
-
-        //CLASS MOUSE LISTENER
-        
-        class MyMouseListener extends MouseAdapter      {       //inner class inside DrawingPanel 
-            public void mouseClicked(MouseEvent e) {  
-                //mPt.x = x;
-                //mPt.y = y;
-                Point p = new Point( HexMech2.pxtoHex(e.getX(),e.getY()) );
-                Coordinate coordKey=new Coordinate(p.x+1,p.y+1);
-                if (!guiMap.containsKey(coordKey))
-                    return;
-                GUICoordinate tmp=guiMap.get(coordKey);
-                resetGuiMapColour();
-                tmp.setActualColour(Color.RED);
-                repaint();
-            }                
-        } //end of MyMouseListener class 
-    } // end of DrawingPanel class
-
-
-
     private Map<Coordinate,GUICoordinate> loadHashMapFromFile (String fileName) {
         Map<Coordinate,GUICoordinate> mp= new HashMap<Coordinate,GUICoordinate>();
         int column=XSIZE;
@@ -170,8 +126,6 @@ public class HexGame2{
         return mp;
     }
 
-
-
     private GUICoordinate newGUICoordinateFromLetterType(int x, int y, char charType){
         if(charType=='U')
             return new GUICoordinate (x,y,charType,COLOURUNSAFESECTOR);
@@ -202,4 +156,20 @@ public class HexGame2{
             tmp.resetColour();
     }
 
-}
+    //CLASS MOUSE LISTENER
+    //inner class inside DrawingPanel
+    class MyMouseListener extends MouseAdapter { 
+        public void mouseClicked(MouseEvent e) {  
+            //mPt.x = x;
+            //mPt.y = y;
+            Point p = new Point( HexMech2.pxtoHex(e.getX(),e.getY()) );
+            Coordinate coordKey=new Coordinate(p.x+1,p.y+1);
+            if (!guiMap.containsKey(coordKey))
+                return;
+            GUICoordinate tmp=guiMap.get(coordKey);
+            resetGuiMapColour();
+            tmp.setActualColour(Color.RED);
+            repaint();
+        }                
+    } //end of MyMouseListener class 
+} // end of DrawingPanel class

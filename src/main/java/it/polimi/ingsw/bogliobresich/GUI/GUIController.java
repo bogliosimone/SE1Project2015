@@ -10,6 +10,8 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JFrame;
+
 /**
  * @author matteobresich
  *
@@ -19,6 +21,7 @@ public class GUIController implements Observer, Runnable {
     private static GUIController instance;
     private static ClientController controller;
     private View currentView;
+    private View previousView;
     private ViewFactory viewFactory = new ViewFactory();
     
     private GUIController() {
@@ -72,7 +75,8 @@ public class GUIController implements Observer, Runnable {
             case GAME_INFO_MESSAGE:
                 break;
             case GAME_START:
-                //currentView = viewFactory.getView(GUIViews.GAME_BOARD_VIEW);
+                currentView = viewFactory.getView(GUIViews.GAME_BOARD_VIEW);
+                currentView.initView();
                 break;
             case GENERIC_ERROR:
                 break;

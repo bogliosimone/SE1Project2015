@@ -6,4 +6,5 @@ public interface View {
 
     public void initView();
     public void doUpdate(NotificationMessage notification);
+    
 }
