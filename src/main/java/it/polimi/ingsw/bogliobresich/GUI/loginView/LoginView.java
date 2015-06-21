@@ -1,6 +1,7 @@
 package it.polimi.ingsw.bogliobresich.GUI.loginView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.BorderLayout;
@@ -93,7 +94,6 @@ public class LoginView extends JDialog implements View {
 
     @Override
     public void doUpdate(NotificationMessage notification) {
-        // TODO Auto-generated method stub
-        
+        //TODO
     }
 }

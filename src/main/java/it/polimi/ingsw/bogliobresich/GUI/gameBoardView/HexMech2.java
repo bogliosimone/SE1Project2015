@@ -106,7 +106,7 @@ The hexagon is drawn in the colour specified in hexgame.COLOURELL.
         g2.setColor(color);
         //g2.fillPolygon(hexmech.hex(x,y));
         g2.fillPolygon(poly);
-        g2.setColor(HexGame2.COLOURGRID);
+        g2.setColor(HexagonMapPanel.COLOURGRID);
         g2.drawPolygon(poly);
     }
 

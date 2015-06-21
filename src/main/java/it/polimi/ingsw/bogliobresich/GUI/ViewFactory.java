@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI;
 
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.GameBoardView;
 import it.polimi.ingsw.bogliobresich.GUI.loginView.LoginView;
 import it.polimi.ingsw.bogliobresich.GUI.logoView.LogoView;
 import it.polimi.ingsw.bogliobresich.GUI.waitingRoomView.WaitingRoomView;
@@ -29,7 +30,7 @@ public class ViewFactory {
             return new WaitingRoomView();
         }
         else if(viewType.equalsIgnoreCase("game-board")){
-            //return new GameBoardView();
+            return new GameBoardView();
         }
         
         

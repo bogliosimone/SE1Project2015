@@ -55,5 +55,4 @@ public class LogoView extends JFrame implements View {
         // TODO Auto-generated method stub
         
     }
-
 }
