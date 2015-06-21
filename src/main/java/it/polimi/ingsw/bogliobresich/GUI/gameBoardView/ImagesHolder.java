@@ -58,4 +58,122 @@ public class ImagesHolder {
         fourthAlien = new ImageIcon(FilePaths.FOURTH_ALIEN_ICON);
     }
 
+    /**
+     * @return the greenPorthole
+     */
+    public ImageIcon getGreenPorthole() {
+        return greenPorthole;
+    }
+
+    /**
+     * @return the redPorthole
+     */
+    public ImageIcon getRedPorthole() {
+        return redPorthole;
+    }
+
+    /**
+     * @return the itemIcon
+     */
+    public ImageIcon getItemIcon() {
+        return itemIcon;
+    }
+
+    /**
+     * @return the defense
+     */
+    public ImageIcon getDefense() {
+        return defense;
+    }
+
+    /**
+     * @return the attack
+     */
+    public ImageIcon getAttack() {
+        return attack;
+    }
+
+    /**
+     * @return the adrenaline
+     */
+    public ImageIcon getAdrenaline() {
+        return adrenaline;
+    }
+
+    /**
+     * @return the spotlight
+     */
+    public ImageIcon getSpotlight() {
+        return spotlight;
+    }
+
+    /**
+     * @return the sedatives
+     */
+    public ImageIcon getSedatives() {
+        return sedatives;
+    }
+
+    /**
+     * @return the teleport
+     */
+    public ImageIcon getTeleport() {
+        return teleport;
+    }
+
+    /**
+     * @return the captain
+     */
+    public ImageIcon getCaptain() {
+        return captain;
+    }
+
+    /**
+     * @return the pilot
+     */
+    public ImageIcon getPilot() {
+        return pilot;
+    }
+
+    /**
+     * @return the psychologist
+     */
+    public ImageIcon getPsychologist() {
+        return psychologist;
+    }
+
+    /**
+     * @return the soldier
+     */
+    public ImageIcon getSoldier() {
+        return soldier;
+    }
+
+    /**
+     * @return the firstAlien
+     */
+    public ImageIcon getFirstAlien() {
+        return firstAlien;
+    }
+
+    /**
+     * @return the secondAlien
+     */
+    public ImageIcon getSecondAlien() {
+        return secondAlien;
+    }
+
+    /**
+     * @return the thirdAlien
+     */
+    public ImageIcon getThirdAlien() {
+        return thirdAlien;
+    }
+
+    /**
+     * @return the fourthAlien
+     */
+    public ImageIcon getFourthAlien() {
+        return fourthAlien;
+    }
 }
