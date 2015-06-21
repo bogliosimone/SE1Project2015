@@ -32,6 +32,10 @@ public class ImagesHolder {
     private ImageIcon thirdAlien;
     private ImageIcon fourthAlien;
     
+    private ImageIcon rumorXY;
+    private ImageIcon rumorMySector;
+    private ImageIcon silence;
+    
     public ImagesHolder () {
         loadImages();
     }
@@ -56,6 +60,10 @@ public class ImagesHolder {
         secondAlien = new ImageIcon(FilePaths.SECOND_ALIEN_ICON);
         thirdAlien = new ImageIcon(FilePaths.THIRD_ALIEN_ICON);
         fourthAlien = new ImageIcon(FilePaths.FOURTH_ALIEN_ICON);
+
+        rumorXY = new ImageIcon(FilePaths.SECTORCARD_RUMOR_XY);
+        rumorMySector = new ImageIcon(FilePaths.SECTORCARD_RUMOR_MY_SECTOR);
+        silence = new ImageIcon(FilePaths.SECTORCARD_SILENCE);
     }
 
     /**
@@ -175,5 +183,26 @@ public class ImagesHolder {
      */
     public ImageIcon getFourthAlien() {
         return fourthAlien;
+    }
+
+    /**
+     * @return the rumorXY
+     */
+    public ImageIcon getRumorXY() {
+        return rumorXY;
+    }
+
+    /**
+     * @return the rumorMySector
+     */
+    public ImageIcon getRumorMySector() {
+        return rumorMySector;
+    }
+
+    /**
+     * @return the silence
+     */
+    public ImageIcon getSilence() {
+        return silence;
     }
 }
