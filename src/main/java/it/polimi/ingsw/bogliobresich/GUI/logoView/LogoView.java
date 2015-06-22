@@ -3,7 +3,8 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.logoView;
 
-import it.polimi.ingsw.bogliobresich.FilePaths;
+import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
+import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
@@ -18,6 +19,8 @@ import javax.swing.JLabel;
  *
  */
 public class LogoView extends JFrame implements View {
+    ImagesHolder imagesHolder = ImagesHolder.getInstance();
+    
     
     public static void main (String args[]) {
         try {
@@ -31,7 +34,7 @@ public class LogoView extends JFrame implements View {
     }
     
     public LogoView () {
-        ImageIcon image = new ImageIcon(FilePaths.PRODUCER_LOGO);
+        ImageIcon image = imagesHolder.getLogo();
         JLabel imagelabel = new JLabel(image);
         setLayout(new GridBagLayout());
         add(imagelabel);
@@ -54,5 +57,24 @@ public class LogoView extends JFrame implements View {
     public void doUpdate(NotificationMessage notification) {
         // TODO Auto-generated method stub
         
+    }
+    @Override
+    public void dispose() {
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    sleep(GUIConstants.LOGO_WAIT_BEFORE_DISPOSE);
+                } catch (InterruptedException e) {
+                    //TODO
+                }
+            }
+        };
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            //TODO
+        }
+        super.dispose();
     }
 }

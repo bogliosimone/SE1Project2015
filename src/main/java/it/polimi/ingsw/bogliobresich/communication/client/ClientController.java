@@ -45,17 +45,25 @@ public class ClientController extends Observable implements Observer, Client {
 
     @Override
     public void doLogin(String nickname, String password) {
-        try {
-            String url = "//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/"+ ServerUtils.REMOTE_CONNECTION_NAME;
-            communication.doLogin(url, nickname, password);
-            communication.addMeMatch();
+        final String name = nickname;
+        final String passwd = password;
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                try {
+                    String url = "//localhost:"+ ServerUtils.RMI_REQUEST_SERVER_TCP_PORT +"/"+ ServerUtils.REMOTE_CONNECTION_NAME;
+                    communication.doLogin(url, name, passwd);
+                    communication.addMeMatch();
 
-        } catch (LoginException e) {
-            e.getStackTrace();
+                } catch (LoginException e) {
+                    e.getStackTrace();
 
-        } catch (AddToMatchException e) {
-            e.getStackTrace();
-        }
+                } catch (AddToMatchException e) {
+                    e.getStackTrace();
+                }
+            }
+        }).start();
     }
 
 

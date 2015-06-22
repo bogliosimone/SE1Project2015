@@ -4,30 +4,37 @@
 package it.polimi.ingsw.bogliobresich.GUI;
 
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * @author matteobresich
  *
  */
 public class GUIController implements Observer, Runnable {
-    
+
     private static GUIController instance;
     private static ClientController controller;
     private View currentView;
     private View previousView;
+    private View nextView;
     private ViewFactory viewFactory = new ViewFactory();
+    private Player myPlayer;
+
+    private List <User> users;
     
     private GUIController() {
         //Not called
     }
-    
+
     public static synchronized GUIController getInstance() {
         if (instance == null) {
             instance = new GUIController();
@@ -37,173 +44,230 @@ public class GUIController implements Observer, Runnable {
 
     @Override
     public void update(Observable o, Object obsNotification) {
-        
+
         if(obsNotification instanceof NotificationMessage)
         {
             NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
+
             switch(command) {
             case ALL_PLAYERS_MESSAGE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case ATTACK:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case CALL_RUMOR:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case CANT_DISCARD_CARD:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case CANT_PLAY_CARD:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case CARDS_END:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case COORDINATE_ERROR:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case DISCARD_CARD:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case DISCARD_HAND:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case DRAW_CARD:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case DRAW_SECTOR_CARD:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case END_TURN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case FATAL_ERROR:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case GAME_END:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case GAME_INFO_MESSAGE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case GAME_START:
-                currentView = viewFactory.getView(GUIViews.GAME_BOARD_VIEW);
-                currentView.initView();
+                setNextView(viewFactory.getView(GUIViews.GAME_BOARD_VIEW));
+                changeToNextView();
                 break;
             case GENERIC_ERROR:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case GENERIC_MESSAGE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case HAND_FULL:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case IS_NOT_YOUR_TURN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case ITEM_PLAYED:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case LIST_USERS:
-                currentView.doUpdate(notification);
+                setUsers(notification.getListOfUsers());
                 break;
             case MOVES_AVAIABLE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case MOVE_NO_AVAIABLE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case PLAYER_COMMAND:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case PLAYER_JOIN_WAIT_ROOM:
-                currentView = viewFactory.getView(GUIViews.WAITING_ROOM_VIEW);
-                currentView.initView();
+                setNextView(viewFactory.getView(GUIViews.WAITING_ROOM_VIEW));
+                changeToNextView();
                 break;
             case PLAYER_MESSAGE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case PORTHOLE_BROKEN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case SECTOR_TYPE_MESSAGE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case SERVER_NOT_RESPONDING:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case SET_YOUR_COORDINATE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case START_END_PHASE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case START_MOVEMENT_PHASE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case START_TIMER:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case START_TURN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case USER_END_IS_GAME:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case USER_END_TURN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case USER_START_TURN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case WHO_ARE_YOU:
-                currentView.doUpdate(notification);
+                setMyPlayer(notification.getPlayer());
                 break;
             case YOU_ARE_FEED:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case YOU_DIE:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case YOU_DISCONNECTED:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case YOU_LOST:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             case YOU_WIN:
-                currentView.doUpdate(notification);
+                getCurrentView().doUpdate(notification);
                 break;
             default:
                 break;
             }
         }
-        
     }
+
 
     @Override
     public void run() {
-        initUI();
-        controller.addObserver(this);
-    }
-    
-    public void initUI() {
         controller = ClientController.getInstance();
-//        currentView = viewFactory.getView(GUIViews.LOGO_VIEW);
-//        currentView.initView();
-        currentView = viewFactory.getView(GUIViews.LOGIN_VIEW);
-        currentView.initView();
+        controller.addObserver(this);
+        initUI();
     }
-    
-    public void shutdown() {
+
+    private void initUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                setCurrentView(viewFactory.getView(GUIViews.LOGO_VIEW));
+                getCurrentView().initView();
+                setNextView(viewFactory.getView(GUIViews.LOGIN_VIEW));
+                changeToNextView();
+            }
+        });
+    }
+
+    private void changeToNextView() {
+        setPreviousView(getCurrentView());
+        setCurrentView(getNextView());
+        getCurrentView().initView();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                getPreviousView().dispose();
+            }
+        });
+    }
+
+    private void shutdown() {
         controller.deleteObserver(this);
     }
-    
+
     public static void doLogin(String nickname, String password) {
         controller.doLogin(nickname, password);
     }
-    
+
+    public void setCurrentView(View view) {
+        this.currentView = view;
+    }
+
+    public View getCurrentView() {
+        return currentView;
+    }
+
+    public View getPreviousView() {
+        return previousView;
+    }
+
+    public void setPreviousView(View previousView) {
+        this.previousView = previousView;
+    }
+
+    public View getNextView() {
+        return nextView;
+    }
+
+    public void setNextView(View nextView) {
+        this.nextView = nextView;
+    }
+
+    public List <User> getUserList() {
+        return users;
+    }
+
+    public void setUsers(List <User> users) {
+        this.users = users;
+    }
+
+    public Player getMyPlayer() {
+        return myPlayer;
+    }
+
+    public void setMyPlayer(Player myPlayer) {
+        this.myPlayer = myPlayer;
+    }
+
 }

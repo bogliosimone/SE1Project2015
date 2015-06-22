@@ -91,4 +91,23 @@ public class WaitingRoomView extends JFrame implements View {
             textArea.append(notification.getString() + "\n");
         }
     }
+    @Override
+    public void dispose() {
+        Thread t = new Thread() {
+            public void run() {
+                try {
+                    sleep(GUIConstants.WAITING_ROOM_WAIT_BEFORE_DISPOSE);
+                } catch (InterruptedException e) {
+                    //TODO
+                }
+            }
+        };
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            //TODO
+        }
+        super.dispose();
+    }
 }
