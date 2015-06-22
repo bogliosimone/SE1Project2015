@@ -1,5 +1,6 @@
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
+import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
@@ -10,6 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,13 +22,17 @@ import javax.swing.border.BevelBorder;
 
 public class GameBoardView extends JFrame implements View {
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1974037371015620156L;
     private static final int BLINK_STEP = 500;
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
     
-    protected User[] userList;
-    
     private CommandPanel commandPanel;
     private JTextArea txtMessagesArea;
+    
+    private GUIController guiController = GUIController.getInstance();
     
 
     protected Object messageMonitor = new Object();
@@ -80,6 +86,7 @@ public class GameBoardView extends JFrame implements View {
         commandPanel = new CommandPanel();
         commandPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         commandPanel.setBounds(814, 6, 460, 686);
+        //commandPanel.setBackground(new Color(0, 0, 0));
         getContentPane().add(commandPanel);
         commandPanel.setLayout(null);
 
@@ -95,7 +102,9 @@ public class GameBoardView extends JFrame implements View {
         txtMessagesArea.setBackground(new Color(0, 0, 0));
         txtMessagesArea.setForeground(new Color(0, 102, 255));
 
-        commandPanel.printUserList(null);
+        
+        List <User> users = guiController.getUserList();
+        commandPanel.printUserList(users);
         commandPanel.printHand();
         commandPanel.disableCommandPanel();
 

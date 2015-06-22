@@ -5,13 +5,22 @@ package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.Characters;
+import it.polimi.ingsw.bogliobresich.model.cards.AdrenalineItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.AttackItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SedativesItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SpotlightItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.TeleportItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +34,11 @@ import javax.swing.JSeparator;
  */
 public class CommandPanel extends JPanel {
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8666358068178077903L;
+
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
@@ -39,7 +53,6 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerState;
     private JLabel lblPlayerNickname;
     private JLabel lblPlayerIcon;
-    
     
     public CommandPanel() {
         JLabel lblUtenti = new JLabel("Utenti:");
@@ -152,19 +165,51 @@ public class CommandPanel extends JPanel {
     }
 
     public void printHand() {
-        for (int index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {
-            btnCards[index] = new JButton("");
-            btnCards[index].setBounds((86+76*index), 401, 64, 64);
-            add(btnCards[index]);
-            btnCards[index].setIcon(imagesHolder.getAdrenaline());
+        printHand(null);
+    }
+    
+    public void printHand(ItemHand hand) {
+        int index = 0;
+        if(hand == null) {
+            for (index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {
+                btnCards[index] = new JButton("");
+                btnCards[index].setBounds((86+76*index), 401, 64, 64);
+                add(btnCards[index]);
+                
+            }
+        } else {
+            List<ItemCard> cards = hand.getAllCard();
+            for(ItemCard card : cards) {
+                btnCards[index] = new JButton("");
+                btnCards[index].setBounds((86+76*index), 401, 64, 64);
+                btnCards[index].setIcon(getImageByItemCard(card));
+                index++;
+            }
         }
     }
+    
+    public ImageIcon getImageByItemCard(ItemCard card) {
+        if(card instanceof AdrenalineItemCard) {
+            return imagesHolder.getAdrenaline();
+        } else if(card instanceof AttackItemCard) {
+            return imagesHolder.getAttack();
+        } else if(card instanceof DefenceItemCard) {
+            return imagesHolder.getDefense();
+        } else if(card instanceof SedativesItemCard) {
+            return imagesHolder.getSedatives();
+        } else if(card instanceof SpotlightItemCard) {
+            return imagesHolder.getSpotlight();
+        } else if(card instanceof TeleportItemCard) {
+            return imagesHolder.getTeleport();
+        }
+        return imagesHolder.getItemIcon();
+    }
 
-    public void printUserList(User[] list) {
+    public void printUserList(List <User> list) {
         int index = 0;
         if(list != null) {
             for(User user : list) {
-                labelUsers[index] = new JLabel((index+1) + " - ");
+                labelUsers[index] = new JLabel((index+1) + " - " + user.getNickname());
                 labelUsers[index].setBounds(86, 75+20*index, 300, 15);
                 add(labelUsers[index]);
                 labelUsers[index].setForeground(Color.BLACK);

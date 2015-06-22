@@ -4,9 +4,11 @@
 package it.polimi.ingsw.bogliobresich.GUI;
 
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,8 +27,8 @@ public class GUIController implements Observer, Runnable {
     private View nextView;
     private ViewFactory viewFactory = new ViewFactory();
 
-    private static Object viewMonitor = new Object();
-
+    private List <User> users;
+    
     private GUIController() {
         //Not called
     }
@@ -112,7 +114,7 @@ public class GUIController implements Observer, Runnable {
                 getCurrentView().doUpdate(notification);
                 break;
             case LIST_USERS:
-                getCurrentView().doUpdate(notification);
+                setUsers(notification.getListOfUsers());
                 break;
             case MOVES_AVAIABLE:
                 getCurrentView().doUpdate(notification);
@@ -248,6 +250,14 @@ public class GUIController implements Observer, Runnable {
 
     public void setNextView(View nextView) {
         this.nextView = nextView;
+    }
+
+    public List <User> getUserList() {
+        return users;
+    }
+
+    public void setUsers(List <User> users) {
+        this.users = users;
     }
 
 }
