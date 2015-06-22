@@ -3,16 +3,20 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI;
 
+import it.polimi.ingsw.bogliobresich.GUI.messageView.MessageView;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.awt.EventQueue;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 /**
@@ -23,9 +27,11 @@ public class GUIController implements Observer, Runnable {
 
     private static GUIController instance;
     private static ClientController controller;
+    private ImagesHolder imagesHolder = ImagesHolder.getInstance();
     private View currentView;
     private View previousView;
     private View nextView;
+
     private ViewFactory viewFactory = new ViewFactory();
     private Player myPlayer;
 
@@ -99,6 +105,7 @@ public class GUIController implements Observer, Runnable {
             case GAME_START:
                 setNextView(viewFactory.getView(GUIViews.GAME_BOARD_VIEW));
                 changeToNextView();
+                createMessageView("ciao è iniziato il tuo turno!",imagesHolder.getItemIcon());
                 break;
             case GENERIC_ERROR:
                 getCurrentView().doUpdate(notification);
@@ -221,6 +228,16 @@ public class GUIController implements Observer, Runnable {
             }
         });
     }
+    
+    public MessageView createMessageView(final String message, final ImageIcon image) {
+            final MessageView messageView = new MessageView(message, image);
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    messageView.initView();
+                }
+            });
+            return messageView;
+    }
 
     private void shutdown() {
         controller.deleteObserver(this);
@@ -269,5 +286,4 @@ public class GUIController implements Observer, Runnable {
     public void setMyPlayer(Player myPlayer) {
         this.myPlayer = myPlayer;
     }
-
 }

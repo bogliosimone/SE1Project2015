@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
+import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
