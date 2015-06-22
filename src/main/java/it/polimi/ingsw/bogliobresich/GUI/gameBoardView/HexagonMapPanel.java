@@ -195,6 +195,14 @@ public class HexagonMapPanel extends JPanel {
             resetGuiMapColour();
             repaint();
         }
-            
+    }
+    
+    public void setAvaiableAllMoves(){
+        resetGuiMapColour();
+        Collection<GUICoordinate> tmpCollect=this.guiMap.values();
+        for(GUICoordinate tmp:tmpCollect){
+            tmp.setActualTextColour(COLOURTEXTSECTORAVAIABLE);
+        }
+        repaint();
     }
 } 
