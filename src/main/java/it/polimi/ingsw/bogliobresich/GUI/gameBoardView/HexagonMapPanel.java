@@ -173,7 +173,7 @@ public class HexagonMapPanel extends JPanel {
         return this.guiMap;
     }
     
-    public void setAvaiableMoves(List<Coordinate> listCoord){
+    public void setAvaiableMoves(Set<Coordinate> listCoord){
         resetGuiMapColour();
         for(Coordinate coord:listCoord){
             GUICoordinate tmp=this.guiMap.get(coord);

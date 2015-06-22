@@ -20,7 +20,7 @@ public class CommandHandler {
         //Not Called
     }
     
-    public static void dispatchUpdate(GameBoardView board, NotificationMessage notification) {
+    public static void dispatchUpdate(GameBoardView board, HexagonMapPanel map, NotificationMessage notification) {
         switch (notification.getCommand()) {
         case ALL_PLAYERS_MESSAGE:
             board.printMessage(notification.getString());
@@ -73,6 +73,7 @@ public class CommandHandler {
         case LIST_USERS:
             break;
         case MOVES_AVAIABLE:
+            map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
             break;
         case MOVE_NO_AVAIABLE:
             break;
@@ -84,6 +85,7 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case PORTHOLE_BROKEN:
+            map.setBreakPorthole(notification.getCoordinate());
             break;
         case SECTOR_TYPE_MESSAGE:
             break;
@@ -91,6 +93,7 @@ public class CommandHandler {
             break;
         case SET_YOUR_COORDINATE:
             board.getCommandPanel().printMyCoordinate(notification.getCoordinate());
+            map.setActualCoordinate(notification.getCoordinate());
             break;
         case START_END_PHASE:
             break;

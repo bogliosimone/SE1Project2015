@@ -25,7 +25,8 @@ public class MouseListenerGameBoard extends MouseAdapter {
         GUICoordinate tmp=guiMap.get(coordKey);
         if(!tmp.getActualTextColour().equals(HexagonMapPanel.COLOURTEXTSECTORAVAIABLE))
             return;
-        
+        hp.resetGuiMapColour();
+        hp.repaint();
         //what to do
         
         /*hp.resetGuiMapColour();
