@@ -18,7 +18,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,12 +37,12 @@ public class HexagonMapPanel extends JPanel {
     final static Color COLOURGRID =  Color.BLACK;    
     final static Color COLOURSAFESECTOR = Color.WHITE;
     final static Color COLOURUNSAFESECTOR = Color.GRAY;
-    final static Color COLOURACTIVEPH = new Color(0,204,0);
+    final static Color COLOURACTIVEPH = new Color(12,149,16);
     final static Color COLOURBROKENPH = new Color (255,51,51);
-    final static Color COLOURHUMANBASE = new Color(153,204,255);
-    final static Color COLOURALIENBASE = new Color(255,178,102);
+    final static Color COLOURHUMANBASE = new Color(36,126,229);
+    final static Color COLOURALIENBASE = new Color(229,132,36);
     final static Color COLOURTEXTSECTOR = Color.BLACK;
-    final static Color COLOURTEXTSECTORAVAIABLE = new Color(0,204,0);
+    final static Color COLOURTEXTSECTORAVAIABLE = new Color(107,229,36);
     final static Color COLORACTUALPOSITION = new Color(204,255,255);
     
     
