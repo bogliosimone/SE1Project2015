@@ -1,6 +1,8 @@
-package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
+package it.polimi.ingsw.bogliobresich.GUI.messageView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
+import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
-public class MessageView extends JDialog {
+public class MessageView extends JDialog implements View {
 
     private final JPanel contentPanel = new JPanel();
     static ImagesHolder imagesHolder = ImagesHolder.getInstance();
@@ -47,12 +49,12 @@ public class MessageView extends JDialog {
         
         JLabel label = new JLabel("");
         label.setIcon(image);
-        label.setBounds(20, 35, 59, 60);
+        label.setBounds(36, 20, 80, 80);
         contentPanel.add(label);
         
         JLabel lblRumoreNelTuo = new JLabel(message);
         lblRumoreNelTuo.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-        lblRumoreNelTuo.setBounds(91, 35, 340, 60);
+        lblRumoreNelTuo.setBounds(128, 35, 296, 60);
         contentPanel.add(lblRumoreNelTuo);
         {
             JPanel buttonPane = new JPanel();
@@ -70,5 +72,19 @@ public class MessageView extends JDialog {
                 getRootPane().setDefaultButton(okButton);
             }
         }
+    }
+
+    @Override
+    public void initView() {
+        setAlwaysOnTop(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setVisible(true);
+    }
+
+    @Override
+    public void doUpdate(NotificationMessage notification) {
+        // TODO Auto-generated method stub
+        
     }
 }

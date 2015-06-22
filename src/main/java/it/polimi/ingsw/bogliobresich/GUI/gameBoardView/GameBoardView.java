@@ -13,10 +13,7 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
@@ -165,15 +162,5 @@ public class GameBoardView extends JFrame implements View {
                 }
             }
         }).start();
-    }
-
-    public static void createMessageView(final String message, final ImageIcon image) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MessageView dialog = new MessageView(message, image);
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setVisible(true);
-            }
-        });
     }
 }
