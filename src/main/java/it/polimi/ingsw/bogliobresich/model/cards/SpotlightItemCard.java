@@ -77,6 +77,16 @@ public class SpotlightItemCard extends ItemCard {
     public void setCoordToLight(Coordinate coordToLight) {
         this.coordToLight = coordToLight;
     }
+    
+    @Override
+    public String getName(){
+        return "Spotlight";
+    }
+    
+    @Override
+    public String getInfo(){
+        return "\n"+this.stringEnlightened;
+    }
 
     @Override
     public  String toString(){

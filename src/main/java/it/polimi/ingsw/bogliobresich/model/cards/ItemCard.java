@@ -38,6 +38,17 @@ public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable
     public boolean isPlayed() {
         return this.isPlayed;
     }
+    
+    
+    public String getName(){
+        return "Generics Item Card";
+    }
+    
+    public String getInfo(){
+        return "";
+    }
+    
+    
     @Override
     public int hashCode() {
         final int prime = 31;

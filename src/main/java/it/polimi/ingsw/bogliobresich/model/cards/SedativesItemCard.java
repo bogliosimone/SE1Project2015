@@ -47,6 +47,11 @@ public class SedativesItemCard extends ItemCard {
     }
     
     @Override
+    public String getName(){
+        return "Sedatives";
+    }
+    
+    @Override
     public  String toString(){
         return new String("Sedatives Card id: "+this.getId());
     }

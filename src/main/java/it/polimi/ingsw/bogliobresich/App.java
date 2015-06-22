@@ -7,8 +7,8 @@ package it.polimi.ingsw.bogliobresich;
  */
 public class App 
 {
+    
     public static void main( String[] args )
     {
-    	
     }
 }
