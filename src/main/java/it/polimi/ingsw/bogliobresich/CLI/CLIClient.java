@@ -37,6 +37,7 @@ public class CLIClient implements Observer, Runnable{
     public void run() {
         controller = ClientController.getInstance();
         controller.addObserver(this);
+        printString("*Benvenuto in Escape from the Aliens in Outer Space*");
         controller.doLogin(getNickname() , getPassword()); 
     }
 
@@ -49,6 +50,8 @@ public class CLIClient implements Observer, Runnable{
             String s;
             Coordinate coord;
             ItemCard c;
+            char letter;
+            int number;
 
             NotificationMessage notification = (NotificationMessage)obsNotification;
 
@@ -58,10 +61,10 @@ public class CLIClient implements Observer, Runnable{
                 printString(notification.getString());
                 break;
             case CALL_RUMOR:
-                printString("Inserisci coordinata lettera: ");
-                char letter=scanner.nextLine().charAt(0);
-                printString("Inserisci coordinata numero: ");
-                int number=Integer.parseInt(scanner.nextLine());
+                printString("Inserisci coordinata (lettera-numero): ");
+                s=readString();
+                letter=getLetterCoordianteFromString(s);
+                number=getNumberCoordinateFromString(s);
                 controller.sendCommand(new ClientCommand(CommandType.DO_RUMOR_IN_COORDINATE_REQUEST,new Coordinate(letter,number)));
                 break;
             case CANT_DISCARD_CARD:
@@ -79,7 +82,7 @@ public class CLIClient implements Observer, Runnable{
             case DISCARD_CARD:
                 c= notification.getItemCard();
                 player.getHand().removeCard(c);
-                printString("Hai scartato la carta "+c.toString());
+                printString("Hai scartato la carta "+c.getName());
                 break;
             case DISCARD_HAND:
                 player.getHand().discardHand();
@@ -88,7 +91,7 @@ public class CLIClient implements Observer, Runnable{
             case DRAW_CARD:
                 c=notification.getItemCard();
                 player.getHand().addCard(c);
-                printString("Hai pescato la carta: "+c.toString());
+                printString("Hai pescato la carta: "+c.getName());
                 break;
             case DRAW_SECTOR_CARD:
                 SectorCard sc=notification.getSectorCard();
@@ -109,6 +112,12 @@ public class CLIClient implements Observer, Runnable{
                 break;
             case GAME_END:
                 printString("La partita è finita, digita exit per uscire");
+                boolean exit=false;
+                while(!exit){
+                    if(readString().equals("exit"))
+                        exit=true;
+                }
+                System.exit(0);
                 break;
             case GAME_INFO_MESSAGE:
                 printString(notification.getString());
@@ -143,7 +152,7 @@ public class CLIClient implements Observer, Runnable{
                 MovesAvaiable m=notification.getMovesAvaiable();
                 do{
                     printString(createStringMovesAvaiable(m));
-                }while(!getInputAndSend());
+                }while(!getInputAndSend(m));
                 break;
             case MOVE_NO_AVAIABLE:
                 printString("Mossa non disponibile");
@@ -166,20 +175,20 @@ public class CLIClient implements Observer, Runnable{
                 printString("Ti trovi nelle coordinate: "+coord.getLetter()+coord.getNumber());
                 break;
             case START_END_PHASE:
-                printString("Sei nella end-phase");
+                printString("*Sei nella end-phase*");
                 break;
             case START_MOVEMENT_PHASE:
-                printString("Sei nella fase di movimento");
+                printString("*Sei nella fase di movimento*");
                 break;
             case START_TIMER:
                 printString("Hai 2 minuti per concludere il turno");
                 break;
             case START_TURN:
-                printString("Il tuo turno è iniziato - turno "+notification.getInteger());
+                printString("*Il tuo turno è iniziato - turno "+notification.getInteger()+"*");
                 break;
             case USER_END_IS_GAME:
                 u=notification.getUser();
-                printString("Il giocatore "+u.getNickname()+" ha terminato la sua partita");
+                printString("----------------------\nIl giocatore "+u.getNickname()+" ha terminato la sua partita\n----------------------");
                 break;
             case USER_END_TURN:
                 u=notification.getUser();
@@ -187,13 +196,13 @@ public class CLIClient implements Observer, Runnable{
                 break;
             case USER_START_TURN: 
                 u=notification.getUser();
-                printString("Il giocatore "+u.getNickname()+" ha iniziato il suo turno");
+                printString("----------------------\nIl giocatore "+u.getNickname()+" ha iniziato il suo turno");
                 break;
             case WHO_ARE_YOU:
                 Player p = notification.getPlayer();
                 printString(p.getNickName());
                 player=p;
-                printString("Il tuo personaggio è : "+p.getCharacterCard().toString());
+                printString("*Il tuo personaggio è : "+p.getCharacterCard().getCharacterName()+" natura: "+p.getCharacterCard().getCharacterType()+"*");
                 break;
             case YOU_ARE_FEED:
                 printString("Ti sei nutrito di umano, ora puoi muoverti di tre caselle");
@@ -205,10 +214,10 @@ public class CLIClient implements Observer, Runnable{
                 printString("Sei stato disconnesso dal gioco per inattività");
                 break;
             case YOU_LOST:
-                printString("Mi dispiace ma hai perso :(");
+                printString("Mi dispiace ma HAI PERSO :(");
                 break;
             case YOU_WIN:
-                printString("Complimenti hai vinto :)");
+                printString("Complimenti HAI VINTO :)");
                 break;
             default:
                 printString(command.toString()+" comando non supportato");
@@ -272,70 +281,93 @@ public class CLIClient implements Observer, Runnable{
         return s;
     }
 
-    private boolean getInputAndSend(){
-        String command=scanner.nextLine();
-        if(command.equals("move")){
-            System.out.println("Inserisci coordinata lettera: ");
-            final char letter=scanner.nextLine().charAt(0);
-            System.out.println("Inserisci coordinata numero: ");
-            final int number=Integer.parseInt(scanner.nextLine());
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run() {
-                    controller.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,new Coordinate(letter,number)));
-                }
-            }).start();
-            
+    private boolean getInputAndSend(MovesAvaiable m){
+        String command=readString();
+        String s;
+        command=command.toLowerCase();
+        if(command.equals("move")&&m.canMove()){
+            printString("Inserisci coordinate (lettera-numero): ");
+            s=readString();
+            char letter=getLetterCoordianteFromString(s);
+            int number=getNumberCoordinateFromString(s);
+            controller.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,new Coordinate(letter,number)));
             return true;
         }
-        if(command.equals("attack")){
+        if(command.equals("attack")&&m.canAttack()){
             controller.sendCommand(new ClientCommand(CommandType.DO_ATTACK_REQUEST,null));
             return true;
         }
-        if(command.equals("draw sector")){
+        if(command.equals("draw sector")&&m.canDrawSectorCard()){
             controller.sendCommand(new ClientCommand(CommandType.DO_DRAW_SECTOR_REQUEST,null));
             return true;
         }
-        if(command.equals("end movement")){
+        if(command.equals("end movement")&&m.canGoInEndPhase()){
             controller.sendCommand(new ClientCommand(CommandType.DO_END_MOVEMENT_PHASE_REQUEST,null));
             return true;
         }
-        if(command.equals("end turn")){
+        if(command.equals("end turn")&&m.canEndTurn()){
             controller.sendCommand(new ClientCommand(CommandType.DO_END_TURN_REQUEST,null));
             return true;
         }
-        if(command.equals("rumor")){
-            System.out.println("Inserisci coordinata lettera: ");
-            char letter=scanner.nextLine().charAt(0);
-            System.out.println("Inserisci coordinata numero: ");
-            int number=Integer.parseInt(scanner.nextLine());
-            controller.sendCommand(new ClientCommand(CommandType.DO_RUMOR_IN_COORDINATE_REQUEST,new Coordinate(letter,number)));
-            return true;
-        }
-        if(command.equals("item")){
-            //stampa lista carte
-            System.out.println("Inserisci id carta da giocare: ");
-            int idCard=Integer.parseInt(scanner.nextLine());
+        if(command.equals("item")&&m.canPlayItem()){
+            if(player.getHand().isEmpty()){
+                printString("Non hai carte in mano da giocare");
+                return false;
+            }
+            List<ItemCard> tmpList=player.getHand().getAllCard();
+            printString("Lista carte in mano");
+            for(ItemCard tmpCard:tmpList)
+                printString("- "+tmpCard.getName() + " id:" +tmpCard.getId()+" ");
+            printString("Inserisci id carta da giocare: ");
+            int idCard=idCardFromString(readString());
             ItemCard card=player.getHand().getCard(idCard);
+            if(card==null){
+                printString("Non possiedi questa carta");
+                return false;
+            }
             if(card instanceof SpotlightItemCard){
-                System.out.println("Inserisci coordinata lettera su cui far luce: ");
-                char letter=this.scanner.nextLine().charAt(0);
-                System.out.println("Inserisci coordinata numero su cui far luce: ");
-                int number=Integer.parseInt(scanner.nextLine());
+                printString("Inserisci coordinata  su cui far luce: ");
+                s=readString();
+                char letter=getLetterCoordianteFromString(s);
+                int number=getNumberCoordinateFromString(s);
                 ((SpotlightItemCard) card).setCoordToLight(new Coordinate(letter,number));
             }
             controller.sendCommand(new ClientCommand(CommandType.DO_PLAY_ITEM_REQUEST,card));
             return true;
         }
-        if(command.equals("discard")){
-            System.out.println("Inserisci id carta da scartare: ");
-            int idCard=Integer.parseInt(scanner.nextLine());
+        if(command.equals("discard")&&m.canDiscardItemCard()){
+            if(player.getHand().isEmpty()){
+                printString("Non hai carte in mano da scartare");
+                return false;
+            }
+            List<ItemCard> tmpList=player.getHand().getAllCard();
+            printString("Lista carte in mano");
+            for(ItemCard tmpCard:tmpList)
+                printString("- "+tmpCard.getName() + " id:" +tmpCard.getId()+" ");
+            printString("Inserisci id carta da scartare: ");
+            int idCard=idCardFromString(readString());
             ItemCard card=player.getHand().getCard(idCard);
+            if(card==null){
+                printString("Non possiedi questa carta");
+                return false;
+            }
             controller.sendCommand(new ClientCommand(CommandType.DO_DISCARD_ITEM_REQUEST,card));
             return true;
         }
         printString("Comando non valido");
         return false;
+    }
+    
+    private char getLetterCoordianteFromString(String s){
+        s=s.toUpperCase();
+        return s.charAt(0);
+    }
+    private int getNumberCoordinateFromString(String s){
+        s=s.substring(1,s.length());
+        return Integer.parseInt(s);
+    }
+    
+    private int idCardFromString(String s){
+        return Integer.parseInt(s);
     }
 }

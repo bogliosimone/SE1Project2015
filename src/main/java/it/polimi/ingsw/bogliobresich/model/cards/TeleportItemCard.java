@@ -47,6 +47,11 @@ public class TeleportItemCard extends ItemCard {
     }
     
     @Override
+    public String getName(){
+        return "Teleport";
+    }
+    
+    @Override
     public  String toString(){
         return new String("Teleport Card id: "+this.getId());
     }

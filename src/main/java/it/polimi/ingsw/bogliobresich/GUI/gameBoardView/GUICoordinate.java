@@ -14,6 +14,8 @@ public class GUICoordinate {
     Coordinate coord;
     Color defaultColour;
     Color actualColour;
+    Color defaultTextColour;
+    Color actualTextColour;
     char sectorType;
     String stringValue;
     
@@ -21,11 +23,13 @@ public class GUICoordinate {
         
     }
     
-    public GUICoordinate(int x, int y, char sectorType, Color color){
+    public GUICoordinate(int x, int y, char sectorType, Color color,Color textColor){
         this.coord=new Coordinate(x,y);
         this.sectorType=sectorType;
         this.defaultColour=color;
         this.actualColour=color;
+        this.defaultTextColour=textColor;
+        this.actualTextColour=textColor;
         if(sectorType=='1'||sectorType=='2'||sectorType=='3'||sectorType=='4')
                 this.stringValue=Character.toString(sectorType);
         else 
@@ -48,7 +52,6 @@ public class GUICoordinate {
         return defaultColour;
     }
     
-    
     public void resetColour(){
         actualColour=defaultColour;
     }
@@ -59,6 +62,29 @@ public class GUICoordinate {
     public void setActualColour(Color color) {
         this.actualColour = color;
     }
+    
+    public void setDefaultColour(Color color) {
+        this.defaultColour = color;
+    }
+    
+    
+    public Color getDefaultTextColour() {
+        return defaultTextColour;
+    }
+    
+    public void resetTextColour(){
+        actualTextColour=defaultTextColour;
+    }
+    
+    public Color getActualTextColour() {
+        return actualTextColour;
+    }
+    public void setActualTextColour(Color color) {
+        this.actualTextColour = color;
+    }
+    
+    
+    
     public char getSectorType() {
         return sectorType;
     }

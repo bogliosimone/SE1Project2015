@@ -46,7 +46,7 @@ public class EndPhaseTurnState implements State {
                 card = match.playItemCard(player, card);
                 if(card!=null){
                     match.notifyAllPlayer("ha giocato la carta: "+card.toString());
-                    match.notifyAllPlayer(Commands.ITEM_PLAYED, player+" ha giocato la carta: "+card.toString());
+                    match.notifyAllPlayer(Commands.ITEM_PLAYED, player.getNickName()+" ha giocato la carta: "+card.getName()+card.getInfo());
                     match.notifyPlayer(Commands.DISCARD_CARD, card, player);
                     match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,player),player);
                     return;
@@ -54,6 +54,7 @@ public class EndPhaseTurnState implements State {
             }
             match.notifyPlayer(player, "Non puoi giocare questa carta");
             match.notifyPlayer(Commands.CANT_PLAY_CARD, null, player);
+            match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,player),player);
             return; 
         }
         match.notifyPlayer(player,"Mossa non disponibile nella end phase del turno");
