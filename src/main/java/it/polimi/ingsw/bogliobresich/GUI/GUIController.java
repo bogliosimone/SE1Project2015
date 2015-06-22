@@ -42,7 +42,6 @@ public class GUIController implements Observer, Runnable {
         {
             NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
-            System.out.println(command);
 
             switch(command) {
             case ALL_PLAYERS_MESSAGE:
@@ -204,12 +203,10 @@ public class GUIController implements Observer, Runnable {
         final String view = newView;
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                synchronized(currentView) {
-                    previousView = currentView;
-                    currentView = viewFactory.getView(view);
-                    previousView.dispose();
-                    currentView.initView();                    
-                }
+                previousView = currentView;
+                currentView = viewFactory.getView(view);
+                previousView.dispose();
+                currentView.initView();
             }
         });
 

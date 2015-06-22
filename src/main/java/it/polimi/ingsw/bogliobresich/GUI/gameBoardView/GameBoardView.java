@@ -2,6 +2,7 @@ package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
@@ -15,6 +16,7 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,14 +27,15 @@ import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 
 
-public class GameBoardView extends JFrame implements View{
-
-
+public class GameBoardView extends JFrame implements View {
+    
     private static final int BLINK_STEP = 500;
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
+    
+    protected User[] userList;
+    
     private JPanel command_panel;
     private JTextArea txtMessagesArea;
-    private User[] userList;
     private JLabel labelTurnNumber;
     private JButton btnPlayTheCard;
     private JButton btnDrawSectorCard;
@@ -42,6 +45,9 @@ public class GameBoardView extends JFrame implements View{
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
     private JLabel lblPlayerNickname;
+    private JLabel lblPlayerIcon;
+
+    Object messageMonitor = new Object();
 
     private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
 
@@ -136,17 +142,17 @@ public class GameBoardView extends JFrame implements View{
         lblPlayerNickname.setBounds(238, 278, 180, 16);
         command_panel.add(lblPlayerNickname);
 
-        JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setBounds(94, 275, 54, 55);
-        command_panel.add(lblNewLabel_1);
-        lblNewLabel_1.setIcon(imagesHolder.getPilot());
+        lblPlayerIcon = new JLabel();
+        lblPlayerIcon.setBounds(94, 275, 54, 55);
+        command_panel.add(lblPlayerIcon);
+
 
         JLabel lblPlayer = new JLabel("PLAYER:");
         lblPlayer.setBounds(162, 296, 61, 16);
         command_panel.add(lblPlayer);
         lblPlayer.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        lblPlayerName = new JLabel("Capitano Tuccio Brendon");
+        lblPlayerName = new JLabel();
         lblPlayerName.setBounds(218, 296, 200, 16);
         command_panel.add(lblPlayerName);
 
@@ -195,21 +201,21 @@ public class GameBoardView extends JFrame implements View{
         lblTurno.setFont(new Font("Lucida Grande", Font.BOLD, 13));
         lblTurno.setBounds(162, 332, 54, 16);
         command_panel.add(lblTurno);
-        
+
         btnAttack = new JButton("Attacca");
         btnAttack.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnAttack.setBounds(238, 513, 145, 30);
         command_panel.add(btnAttack);
-        
+
         JLabel lblPosizioneCorrente = new JLabel("POSIZIONE CORRENTE:");
         lblPosizioneCorrente.setFont(new Font("Lucida Grande", Font.BOLD, 13));
         lblPosizioneCorrente.setBounds(162, 350, 154, 16);
         command_panel.add(lblPosizioneCorrente);
-        
-        lblPlayerState = new JLabel("Human");
+
+        lblPlayerState = new JLabel();
         lblPlayerState.setBounds(209, 314, 209, 16);
         command_panel.add(lblPlayerState);
-        
+
         lblCurrentPosition = new JLabel("");
         lblCurrentPosition.setBounds(317, 350, 101, 16);
         command_panel.add(lblCurrentPosition);
@@ -219,13 +225,14 @@ public class GameBoardView extends JFrame implements View{
         getContentPane().add(scrollPane);
 
         txtMessagesArea = new JTextArea();
+        txtMessagesArea.setDragEnabled(false);
+        txtMessagesArea.setEditable(false);
         scrollPane.setViewportView(txtMessagesArea);
         txtMessagesArea.setBackground(new Color(0, 0, 0));
         txtMessagesArea.setForeground(new Color(0, 102, 255));
-        
+
         printUserList(null);
         disableCommandPanel();
-        
 
         new Thread(new Runnable()
         {
@@ -234,10 +241,13 @@ public class GameBoardView extends JFrame implements View{
                 try {
                     while(true)
                     {
-                        txtMessagesArea.append("_");
-                        Thread.sleep(BLINK_STEP);
-                        String appo = txtMessagesArea.getText().substring(0,txtMessagesArea.getText().length() - 1);
-                        txtMessagesArea.setText(appo);
+                        synchronized(messageMonitor){
+                            txtMessagesArea.append("_");
+                            Thread.sleep(BLINK_STEP);
+
+                            String appo = txtMessagesArea.getText().substring(0,txtMessagesArea.getText().length() - 1);
+                            txtMessagesArea.setText(appo);
+                        }
                         Thread.sleep(BLINK_STEP);
                     }
                 } catch (InterruptedException e) {
@@ -247,7 +257,7 @@ public class GameBoardView extends JFrame implements View{
         }).start();
 
     }
-    
+
     public void disableCommandPanel() {
         btnPlayTheCard.setEnabled(false);
         btnDrawSectorCard.setEnabled(false);
@@ -256,7 +266,9 @@ public class GameBoardView extends JFrame implements View{
     }
 
     public synchronized void printMessage(String msg) {
-        txtMessagesArea.append("> " + msg + "\n");
+        synchronized(messageMonitor){
+            txtMessagesArea.append("> " + msg + "\n");
+        }
     }
 
     public void printUserList(User[] list) {
@@ -281,17 +293,38 @@ public class GameBoardView extends JFrame implements View{
     public void printMyCoordinate(Coordinate c) {
         lblCurrentPosition.setText(c.toString());
     }
-    
+
     public void printCurrentTurnNumber(Integer turnNumber) {
         labelTurnNumber.setText(turnNumber.toString());
     }
-    
+
     public void printPlayer(Player player) {
-        lblPlayerName.setText(player.getCharacterCard().getCharacterName());
-        lblPlayerState.setText(player.getCharacterCard().getCharacterType());
-        
-        //NON OTTIENE IL NICKNAME
-        //lblPlayerNickname.setText(player.getUser().getNickname());
+        if(player != null) {
+            lblPlayerName.setText(player.getCharacterCard().getCharacterName());
+            lblPlayerState.setText(player.getCharacterCard().getCharacterType());
+            lblPlayerIcon.setIcon(getImageByPlayer(player));
+        }
+    }
+    
+    public ImageIcon getImageByPlayer(Player player) {
+        if(player.getCharacterCard().getCharacterName().equals(Characters.CAPTAIN)) {
+            return imagesHolder.getCaptain();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PILOT)) {
+            return imagesHolder.getPilot();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PSYCHOLOGIST)) {
+            return imagesHolder.getPsychologist();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.SOLDIER)) {
+            return imagesHolder.getSoldier();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENONE)) {
+            return imagesHolder.getFirstAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTWO)) {
+            return imagesHolder.getSecondAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTHREE)) {
+            return imagesHolder.getThirdAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENFOUR)) {
+            return imagesHolder.getFourthAlien();
+        }
+        return null;
     }
 
     @Override
@@ -306,105 +339,6 @@ public class GameBoardView extends JFrame implements View{
 
     @Override
     public void doUpdate(NotificationMessage notification) {
-        switch (notification.getCommand()) {
-        case ALL_PLAYERS_MESSAGE:
-            printMessage(notification.getString());
-            break;
-        case ATTACK:
-            break;
-        case CALL_RUMOR:
-            break;
-        case CANT_DISCARD_CARD:
-            break;
-        case CANT_PLAY_CARD:
-            break;
-        case CARDS_END:
-            break;
-        case COORDINATE_ERROR:
-            break;
-        case DISCARD_CARD:
-            break;
-        case DISCARD_HAND:
-            break;
-        case DRAW_CARD:
-            break;
-        case DRAW_SECTOR_CARD:
-            break;
-        case END_TURN:
-            break;
-        case FATAL_ERROR:
-            break;
-        case GAME_END:
-            break;
-        case GAME_INFO_MESSAGE:
-            printMessage(notification.getString());
-            break;
-        case GAME_START:
-            break;
-        case GENERIC_ERROR:
-            break;
-        case GENERIC_MESSAGE:
-            break;
-        case HAND_FULL:
-            break;
-        case IS_NOT_YOUR_TURN:
-            break;
-        case ITEM_PLAYED:
-            break;
-        case LIST_USERS:
-            userList = (User[]) notification.getListOfUsers().toArray();
-            printUserList(userList);
-            break;
-        case MOVES_AVAIABLE:
-            break;
-        case MOVE_NO_AVAIABLE:
-            break;
-        case PLAYER_COMMAND:
-            break;
-        case PLAYER_JOIN_WAIT_ROOM:
-            break;
-        case PLAYER_MESSAGE:
-            break;
-        case PORTHOLE_BROKEN:
-            break;
-        case SECTOR_TYPE_MESSAGE:
-            break;
-        case SERVER_NOT_RESPONDING:
-            break;
-        case SET_YOUR_COORDINATE:
-            printMyCoordinate(notification.getCoordinate());
-            break;
-        case START_END_PHASE:
-            break;
-        case START_MOVEMENT_PHASE:
-            break;
-        case START_TIMER:
-            break;
-        case START_TURN:
-            printCurrentTurnNumber(notification.getInteger());
-            break;
-        case USER_END_IS_GAME:
-            break;
-        case USER_END_TURN:
-            break;
-        case USER_START_TURN:
-            break;
-        case WHO_ARE_YOU:
-            printPlayer(notification.getPlayer());
-            break;
-        case YOU_ARE_FEED:
-            break;
-        case YOU_DIE:
-            break;
-        case YOU_DISCONNECTED:
-            break;
-        case YOU_LOST:
-            break;
-        case YOU_WIN:
-            break;
-        default:
-            break;
-
-        }
+        CommandHandler.dispatchUpdate(this, notification);
     }
 }
