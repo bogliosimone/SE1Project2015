@@ -20,7 +20,11 @@ public class HexMech2 {
     private static int t=0; // short side of 30o triangle outside of each hex
     private static int r=0; // radius of inscribed circle (centre to middle of each side). r= h/2
     private static int h=0; // height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
-
+    private static int s2=0; // length of one side
+    private static int t2=0; // short side of 30o triangle outside of each hex
+    private static int r2=0; // radius of inscribed circle (centre to middle of each side). r= h/2
+    private static int h2=0; // height. Distance between centres of two adjacent hexes. Distance between two opposite sides in a hex.
+    
     public static void setXYasVertex(boolean b) {
         XYVertex=b;
     }
@@ -41,8 +45,15 @@ public class HexMech2 {
         r = h/2;                        // r = radius of inscribed circle
         s = (int) (h / 1.73205);        // s = (h/2)/cos(30)= (h/2) / (sqrt(3)/2) = h / sqrt(3)
         t = (int) (r / 1.73205);        // t = (h/2) tan30 = (h/2) 1/sqrt(3) = h / (2 sqrt(3)) = r / sqrt(3)
+        
+        h2 = height-8;                     // h = basic dimension: height (distance between two adj centresr aka size)
+        r2 = h2/2;                        // r = radius of inscribed circle
+        s2 = (int) (h2 / 1.73205);        // s = (h/2)/cos(30)= (h/2) / (sqrt(3)/2) = h / sqrt(3)
+        t2 = (int) (r2 / 1.73205);   
+        
     }
 
+    
     /*********************************************************
 Name: hex()
 Parameters: (x0,y0) This point is normally the top left corner 
@@ -74,17 +85,29 @@ and calculates all six of the points in the hexagon.
 
         cy = new int[] {y,y,y+r,y+r+r,y+r+r,y+r};
         return new Polygon(cx,cy,6);
+    }
+    
+    
+    public static Polygon hexLittle (int x0, int y0) {
 
-        /*
-           x=200;
-           poly = new Polygon();
-           poly.addPoint(x,y);
-           poly.addPoint(x+s,y);
-           poly.addPoint(x+s+t,y+r);
-           poly.addPoint(x+s,y+r+r);
-           poly.addPoint(x,y+r+r);
-           poly.addPoint(x-t,y+r);
-         */
+        int y = y0 + BORDERS;
+        int x = x0 + BORDERS; // + (XYVertex ? t : 0); //Fix added for XYVertex = true. 
+        // NO! Done below in cx= section
+        if (s2 == 0  || h2 == 0) {
+            System.out.println("ERROR: size of hex has not been set");
+            return new Polygon();
+        }
+
+        int[] cx,cy;
+
+        //I think that this XYvertex stuff is taken care of in the int x line above. Why is it here twice?
+        if (XYVertex) 
+            cx = new int[] {x,x+s2,x+s2+t2,x+s2,x,x-t2};  //this is for the top left vertex being at x,y. Which means that some of the hex is cutoff.
+        else
+            cx = new int[] {x+t2,x+s2+t2,x+s2+t2+t2,x+s2+t2,x+t2,x}; //this is for the whole hexagon to be below and to the right of this point
+
+        cy = new int[] {y,y,y+r2,y+r2+r2,y+r2+r2,y+r2};
+        return new Polygon(cx,cy,6);
     }
 
     /********************************************************************
@@ -97,19 +120,27 @@ Purpose: This function draws a hexagon based on the initial point (x,y).
 The hexagon is drawn in the colour specified in hexgame.COLOURELL.
      *********************************************************************/
     public static void drawHex(int i, int j, Color color ,Graphics2D g2) {
-
-
         int x = i * (s+t);
         int y = j * h + (i%2) * h/2;
-
         Polygon poly = hex(x,y);
         g2.setColor(color);
-        //g2.fillPolygon(hexmech.hex(x,y));
         g2.fillPolygon(poly);
         g2.setColor(HexagonMapPanel.COLOURGRID);
         g2.drawPolygon(poly);
     }
 
+    public static void drawLittleHex(int i, int j, Color color ,Graphics2D g2) {
+        int x = i * (s+t)+4;
+        int y = (j * h + (i%2) * h/2)+4;
+        Polygon poly = hexLittle(x,y);
+        g2.setColor(color);
+        g2.fillPolygon(poly);
+        g2.setColor(HexagonMapPanel.COLOURGRID);
+        g2.drawPolygon(poly);
+    }
+    
+    
+    
     /***************************************************************************
      * Name: fillHex()
      * Parameters: (i,j) : the x,y coordinates of the initial point of the hexagon
@@ -123,9 +154,10 @@ The hexagon is drawn in the colour specified in hexgame.COLOURELL.
   The colour is set by hexgame.COLOURONE and hexgame.COLOURTWO.
   The value of n is converted to letter and drawn in the hexagon.
      *****************************************************************************/
-    public static void fillHex(int i, int j, String coord, Graphics2D g2) {
+    public static void fillHex(int i, int j, String coord,Color colorString, Graphics2D g2) {
         int x = i * (s+t);
         int y = j * h + (i%2) * h/2;
+        g2.setColor(colorString);
         if(coord.length()==1)
             g2.drawString(coord, x+r+BORDERS-2, y+r+BORDERS+5);       
         else
@@ -134,6 +166,14 @@ The hexagon is drawn in the colour specified in hexgame.COLOURELL.
                 else
                     g2.drawString(coord, x+r+BORDERS-8, y+r+BORDERS+5);
         }
+    
+    public static void drawCircle(int i, int j,Color colorCircle,Graphics2D g2){
+        int radius=13;
+        int x = i * (s+t);
+        int y = j * h + (i%2) * h/2;
+        g2.setColor(colorCircle);
+        g2.fillOval(x+r+BORDERS-radius+2, y+r+BORDERS-radius+1, 2*radius, 2*radius);
+    }
 
     //This function changes pixel location from a mouse click to a hex grid location
     /*****************************************************************************

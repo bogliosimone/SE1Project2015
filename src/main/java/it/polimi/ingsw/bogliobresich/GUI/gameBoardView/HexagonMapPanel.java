@@ -11,15 +11,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,10 +38,14 @@ public class HexagonMapPanel extends JPanel {
     final static Color COLOURGRID =  Color.BLACK;    
     final static Color COLOURSAFESECTOR = Color.WHITE;
     final static Color COLOURUNSAFESECTOR = Color.GRAY;
-    final static Color COLOURACTIVEPH = Color.GREEN;
-    final static Color COLOURBROKENPH = Color.RED;
-    final static Color COLOURHUMANBASE = Color.CYAN;
-    final static Color COLOURALIENBASE = Color.ORANGE;
+    final static Color COLOURACTIVEPH = new Color(0,204,0);
+    final static Color COLOURBROKENPH = new Color (255,51,51);
+    final static Color COLOURHUMANBASE = new Color(153,204,255);
+    final static Color COLOURALIENBASE = new Color(255,178,102);
+    final static Color COLOURTEXTSECTOR = Color.BLACK;
+    final static Color COLOURTEXTSECTORAVAIABLE = new Color(0,204,0);
+    final static Color COLORACTUALPOSITION = new Color(204,255,255);
+    
     
     final static int SIZETEXT = 10; //text size in pixel
     final static int HEXSIZE = 34;  //hex size in pixels
@@ -52,6 +55,8 @@ public class HexagonMapPanel extends JPanel {
     final static int XSCRSIZE=(int)((HEXSIZE * (XSIZE+1) + BORDERSIZE*3)/1.25);
     final static int YSCRSIZE=HEXSIZE * (YSIZE + 1) + BORDERSIZE*3;
     
+    private Coordinate actualCoordinate;
+    
     private Map<Coordinate,GUICoordinate> guiMap  = new HashMap<Coordinate,GUICoordinate>();
     
 
@@ -60,7 +65,7 @@ public class HexagonMapPanel extends JPanel {
         guiMap=loadHashMapFromFile(mapFile);
         initMech();
         setBackground(COLOURBACKGROUND);
-        MyMouseListener ml = new MyMouseListener();            
+        MouseListener ml = new MouseListenerGameBoard(this);            
         addMouseListener(ml);
     }
     
@@ -81,7 +86,13 @@ public class HexagonMapPanel extends JPanel {
         Collection<GUICoordinate> collection=guiMap.values();
         for(GUICoordinate tmp:collection){
             HexMech2.drawHex(tmp.getX(),tmp.getY(),tmp.getActualColour(),g2);
-            HexMech2.fillHex(tmp.getX(),tmp.getY(),tmp.getStringValue(),g2);
+        }
+        if(actualCoordinate!=null){
+            GUICoordinate actualGuiCoordinate=this.guiMap.get(actualCoordinate);
+            HexMech2.drawLittleHex(actualGuiCoordinate.getX(), actualGuiCoordinate.getY(), COLORACTUALPOSITION, g2);
+        }
+        for(GUICoordinate tmp:collection){
+            HexMech2.fillHex(tmp.getX(),tmp.getY(),tmp.getStringValue(),tmp.getActualTextColour(),g2);
         }
     }
     
@@ -128,17 +139,17 @@ public class HexagonMapPanel extends JPanel {
 
     private GUICoordinate newGUICoordinateFromLetterType(int x, int y, char charType){
         if(charType=='U')
-            return new GUICoordinate (x,y,charType,COLOURUNSAFESECTOR);
+            return new GUICoordinate (x,y,charType,COLOURUNSAFESECTOR,COLOURTEXTSECTOR);
         if(charType=='S')
-            return new GUICoordinate (x,y,charType,COLOURSAFESECTOR);
+            return new GUICoordinate (x,y,charType,COLOURSAFESECTOR,COLOURTEXTSECTOR);
         if(charType=='D')
             return null;
         if(charType=='1'||charType=='2'||charType=='3'||charType=='4')
-            return new GUICoordinate (x,y, charType,COLOURACTIVEPH);
+            return new GUICoordinate (x,y, charType,COLOURACTIVEPH,COLOURTEXTSECTOR);
         if(charType=='H')
-            return new GUICoordinate (x,y, charType,COLOURHUMANBASE);
+            return new GUICoordinate (x,y, charType,COLOURHUMANBASE,COLOURTEXTSECTOR);
         if(charType=='A')
-            return new GUICoordinate (x,y, charType,COLOURALIENBASE);
+            return new GUICoordinate (x,y, charType,COLOURALIENBASE,COLOURTEXTSECTOR);
         return null;
     }
 
@@ -152,24 +163,38 @@ public class HexagonMapPanel extends JPanel {
 
     public void resetGuiMapColour(){
         Collection<GUICoordinate> collection=guiMap.values();
-        for(GUICoordinate tmp:collection)
+        for(GUICoordinate tmp:collection){
             tmp.resetColour();
+            tmp.resetTextColour();
+        }
     }
-
-    //CLASS MOUSE LISTENER
-    //inner class inside DrawingPanel
-    class MyMouseListener extends MouseAdapter { 
-        public void mouseClicked(MouseEvent e) {  
-            //mPt.x = x;
-            //mPt.y = y;
-            Point p = new Point( HexMech2.pxtoHex(e.getX(),e.getY()) );
-            Coordinate coordKey=new Coordinate(p.x+1,p.y+1);
-            if (!guiMap.containsKey(coordKey))
-                return;
-            GUICoordinate tmp=guiMap.get(coordKey);
+    
+    public Map<Coordinate,GUICoordinate> getGuiMap(){
+        return this.guiMap;
+    }
+    
+    public void setAvaiableMoves(List<Coordinate> listCoord){
+        resetGuiMapColour();
+        for(Coordinate coord:listCoord){
+            GUICoordinate tmp=this.guiMap.get(coord);
+            tmp.setActualTextColour(COLOURTEXTSECTORAVAIABLE);
+        }
+        repaint();
+    }
+    
+    public void setActualCoordinate(Coordinate coord){
+        resetGuiMapColour();
+        this.actualCoordinate=coord;
+        repaint();
+    }
+    
+    public void setBreakPorthole(Coordinate coord){
+        GUICoordinate tmp = this.guiMap.get(coord);
+        if(tmp!=null){
+            tmp.setDefaultColour(COLOURBROKENPH);
             resetGuiMapColour();
-            tmp.setActualColour(Color.RED);
             repaint();
-        }                
-    } //end of MyMouseListener class 
-} // end of DrawingPanel class
+        }
+            
+    }
+} 

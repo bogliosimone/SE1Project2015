@@ -41,6 +41,11 @@ public class DefenceItemCard extends ItemCard {
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
     }
+    
+    @Override
+    public String getName(){
+        return "Defence";
+    }
 
     @Override
     public  String toString(){

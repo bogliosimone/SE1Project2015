@@ -46,6 +46,11 @@ public class AttackItemCard extends ItemCard {
     }
     
     @Override
+    public String getName(){
+        return "Attacco";
+    }
+    
+    @Override
     public  String toString(){
         return new String("Attack Card id: "+this.getId());
     }

@@ -46,6 +46,11 @@ public class AdrenalineItemCard extends ItemCard {
     }
     
     @Override
+    public String getName(){
+        return "Adrenaline";
+    }
+    
+    @Override
     public  String toString(){
         return new String("Adrenalin Card id: "+this.getId());
     }
