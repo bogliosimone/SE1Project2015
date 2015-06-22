@@ -26,18 +26,16 @@ public class GameBoardView extends JFrame implements View {
      */
     private static final long serialVersionUID = 1974037371015620156L;
     private static final int BLINK_STEP = 500;
+    private static final Color MESSAGES_AREA = new Color(0, 0, 0);
+    private static final Color MESSAGES_AREA_TEXT = new Color(0, 102, 255);
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
-
+    private GUIController guiController = GUIController.getInstance();
+    
     private CommandPanel commandPanel;
     private JTextArea txtMessagesArea;
-
-    private GUIController guiController = GUIController.getInstance();
-
     private HexagonMapPanel map;
 
     protected Object messageMonitor = new Object();
-
-
 
     /**
      * Launch the application.
@@ -79,7 +77,6 @@ public class GameBoardView extends JFrame implements View {
 
         map = new HexagonMapPanel(ConstantMap.NAMEFILEMAP);
         map.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        map.setForeground(Color.LIGHT_GRAY);
         map.setBounds(60, 18, 676, 540);
         getContentPane().add(map);
 
@@ -99,8 +96,8 @@ public class GameBoardView extends JFrame implements View {
         txtMessagesArea.setDragEnabled(false);
         txtMessagesArea.setEditable(false);
         scrollPane.setViewportView(txtMessagesArea);
-        txtMessagesArea.setBackground(new Color(0, 0, 0));
-        txtMessagesArea.setForeground(new Color(0, 102, 255));
+        txtMessagesArea.setBackground(MESSAGES_AREA);
+        txtMessagesArea.setForeground(MESSAGES_AREA_TEXT);
 
 
         List <User> users = guiController.getUserList();

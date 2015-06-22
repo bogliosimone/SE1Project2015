@@ -38,7 +38,9 @@ public class CommandPanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = -8666358068178077903L;
-
+    final static Color MISSING_USER = Color.GRAY;
+    final static Color CONNECTED_USER = Color.BLACK;
+    
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
@@ -204,7 +206,7 @@ public class CommandPanel extends JPanel {
                 labelUsers[index] = new JLabel((index+1) + " - " + user.getNickname());
                 labelUsers[index].setBounds(86, 75+20*index, 300, 15);
                 add(labelUsers[index]);
-                labelUsers[index].setForeground(Color.BLACK);
+                labelUsers[index].setForeground(CONNECTED_USER);
                 index++;
             }
         }
@@ -212,7 +214,7 @@ public class CommandPanel extends JPanel {
             labelUsers[remainderUsers] = new JLabel((remainderUsers+1) + " - [Missing User]");
             labelUsers[remainderUsers].setBounds(86, 75+20*remainderUsers, 300, 15);
             add(labelUsers[remainderUsers]);
-            labelUsers[remainderUsers].setForeground(Color.GRAY);
+            labelUsers[remainderUsers].setForeground(MISSING_USER);
         }
     }
 
