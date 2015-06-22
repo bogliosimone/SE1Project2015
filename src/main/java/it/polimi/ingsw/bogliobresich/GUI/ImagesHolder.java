@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
+package it.polimi.ingsw.bogliobresich.GUI;
 
 import it.polimi.ingsw.bogliobresich.FilePaths;
 
@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
  *
  */
 public class ImagesHolder {
+    private ImageIcon logo;
+    
     private ImageIcon greenPorthole;
     private ImageIcon redPorthole;
     
@@ -36,11 +38,22 @@ public class ImagesHolder {
     private ImageIcon rumorMySector;
     private ImageIcon silence;
     
-    public ImagesHolder () {
-        loadImages();
+    private static ImagesHolder instance = null;
+    public static synchronized ImagesHolder getInstance() {
+        if (instance == null) {
+            instance = new ImagesHolder();
+            instance.loadImages();
+        }
+        return instance;
+    }
+    
+    private ImagesHolder() {
+        //Not Called
     }
     
     private void loadImages() {
+        logo = new ImageIcon(FilePaths.PRODUCER_LOGO); 
+        
         greenPorthole = new ImageIcon(FilePaths.PORTHOLE_GREEN);
         redPorthole = new ImageIcon(FilePaths.PORTHOLE_RED);
         
@@ -64,6 +77,13 @@ public class ImagesHolder {
         rumorXY = new ImageIcon(FilePaths.SECTORCARD_RUMOR_XY);
         rumorMySector = new ImageIcon(FilePaths.SECTORCARD_RUMOR_MY_SECTOR);
         silence = new ImageIcon(FilePaths.SECTORCARD_SILENCE);
+    }
+    
+    /**
+     * @return the logo
+     */
+    public ImageIcon getLogo() {
+        return logo;
     }
 
     /**

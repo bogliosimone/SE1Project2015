@@ -17,6 +17,10 @@ public class GUIConstants {
     public final static String WAITING_ROOM_TITLE = "Sala d'attesa";
     
     public final static String EXIT_LABEL = "Esci";
+    
+    
+    public final static int LOGO_WAIT_BEFORE_DISPOSE = 2 * 1000;
+    public final static int WAITING_ROOM_WAIT_BEFORE_DISPOSE = 2 * 1000;
 
     private GUIConstants () {};
 }

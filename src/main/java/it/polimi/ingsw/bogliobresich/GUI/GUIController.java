@@ -10,24 +10,24 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * @author matteobresich
  *
  */
 public class GUIController implements Observer, Runnable {
-    
+
     private static GUIController instance;
     private static ClientController controller;
     private View currentView;
     private View previousView;
     private ViewFactory viewFactory = new ViewFactory();
-    
+
     private GUIController() {
         //Not called
     }
-    
+
     public static synchronized GUIController getInstance() {
         if (instance == null) {
             instance = new GUIController();
@@ -37,11 +37,13 @@ public class GUIController implements Observer, Runnable {
 
     @Override
     public void update(Observable o, Object obsNotification) {
-        
+
         if(obsNotification instanceof NotificationMessage)
         {
             NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
+            System.out.println(command);
+
             switch(command) {
             case ALL_PLAYERS_MESSAGE:
                 currentView.doUpdate(notification);
@@ -89,8 +91,7 @@ public class GUIController implements Observer, Runnable {
                 currentView.doUpdate(notification);
                 break;
             case GAME_START:
-                currentView = viewFactory.getView(GUIViews.GAME_BOARD_VIEW);
-                currentView.initView();
+                changeView(GUIViews.GAME_BOARD_VIEW);
                 break;
             case GENERIC_ERROR:
                 currentView.doUpdate(notification);
@@ -120,8 +121,7 @@ public class GUIController implements Observer, Runnable {
                 currentView.doUpdate(notification);
                 break;
             case PLAYER_JOIN_WAIT_ROOM:
-                currentView = viewFactory.getView(GUIViews.WAITING_ROOM_VIEW);
-                currentView.initView();
+                changeView(GUIViews.WAITING_ROOM_VIEW);
                 break;
             case PLAYER_MESSAGE:
                 currentView.doUpdate(notification);
@@ -181,29 +181,46 @@ public class GUIController implements Observer, Runnable {
                 break;
             }
         }
-        
     }
 
     @Override
     public void run() {
-        initUI();
-        controller.addObserver(this);
-    }
-    
-    public void initUI() {
         controller = ClientController.getInstance();
-//        currentView = viewFactory.getView(GUIViews.LOGO_VIEW);
-//        currentView.initView();
-        currentView = viewFactory.getView(GUIViews.LOGIN_VIEW);
-        currentView.initView();
+        controller.addObserver(this);
+        initUI();
     }
-    
-    public void shutdown() {
+
+    private void initUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                currentView = viewFactory.getView(GUIViews.LOGO_VIEW);
+                currentView.initView();
+                changeView(GUIViews.LOGIN_VIEW);
+            }
+        });
+    }
+
+    private void changeView(String newView) {
+        final String view = newView;
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                synchronized(currentView) {
+                    previousView = currentView;
+                    currentView = viewFactory.getView(view);
+                    previousView.dispose();
+                    currentView.initView();                    
+                }
+            }
+        });
+
+    }
+
+    private void shutdown() {
         controller.deleteObserver(this);
     }
-    
+
     public static void doLogin(String nickname, String password) {
         controller.doLogin(nickname, password);
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
+import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
@@ -28,7 +29,7 @@ public class GameBoardView extends JFrame implements View{
 
 
     private static final int BLINK_STEP = 500;
-    private ImagesHolder imagesHolder = new ImagesHolder();
+    private ImagesHolder imagesHolder = ImagesHolder.getInstance();
     private JPanel command_panel;
     private JTextArea txtMessagesArea;
     private User[] userList;
