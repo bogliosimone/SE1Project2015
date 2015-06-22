@@ -3,14 +3,18 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
-import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+
+import javax.swing.JDialog;
 
 /**
  * @author matteobresich
  *
  */
 public class CommandHandler {
+    
+    private static ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private CommandHandler() {
         //Not Called
@@ -25,6 +29,7 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case CALL_RUMOR:
+            //POPUP
             break;
         case CANT_DISCARD_CARD:
             break;
@@ -44,7 +49,7 @@ public class CommandHandler {
             break;
         case END_TURN:
             break;
-        case FATAL_ERROR:
+        case FATAL_ERROR:            
             break;
         case GAME_END:
             break;
@@ -61,12 +66,11 @@ public class CommandHandler {
         case HAND_FULL:
             break;
         case IS_NOT_YOUR_TURN:
+            board.printMessage(notification.getString());
             break;
         case ITEM_PLAYED:
             break;
         case LIST_USERS:
-            board.userList = (User[]) notification.getListOfUsers().toArray();
-            board.getCommandPanel().printUserList(board.userList);
             break;
         case MOVES_AVAIABLE:
             break;
@@ -104,7 +108,6 @@ public class CommandHandler {
         case USER_START_TURN:
             break;
         case WHO_ARE_YOU:
-            board.getCommandPanel().printPlayer(notification.getPlayer());
             break;
         case YOU_ARE_FEED:
             break;

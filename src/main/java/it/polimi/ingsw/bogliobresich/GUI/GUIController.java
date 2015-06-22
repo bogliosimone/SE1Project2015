@@ -7,6 +7,7 @@ import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.List;
 import java.util.Observable;
@@ -26,6 +27,7 @@ public class GUIController implements Observer, Runnable {
     private View previousView;
     private View nextView;
     private ViewFactory viewFactory = new ViewFactory();
+    private Player myPlayer;
 
     private List <User> users;
     
@@ -166,7 +168,7 @@ public class GUIController implements Observer, Runnable {
                 getCurrentView().doUpdate(notification);
                 break;
             case WHO_ARE_YOU:
-                getCurrentView().doUpdate(notification);
+                setMyPlayer(notification.getPlayer());
                 break;
             case YOU_ARE_FEED:
                 getCurrentView().doUpdate(notification);
@@ -258,6 +260,14 @@ public class GUIController implements Observer, Runnable {
 
     public void setUsers(List <User> users) {
         this.users = users;
+    }
+
+    public Player getMyPlayer() {
+        return myPlayer;
+    }
+
+    public void setMyPlayer(Player myPlayer) {
+        this.myPlayer = myPlayer;
     }
 
 }

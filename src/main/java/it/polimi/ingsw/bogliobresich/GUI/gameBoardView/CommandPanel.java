@@ -51,7 +51,6 @@ public class CommandPanel extends JPanel {
     private JLabel lblCurrentPosition;
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
-    private JLabel lblPlayerNickname;
     private JLabel lblPlayerIcon;
     
     public CommandPanel() {
@@ -64,14 +63,7 @@ public class CommandPanel extends JPanel {
         lblCarteInMano.setBounds(86, 371, 116, 33);
         add(lblCarteInMano);
 
-        JLabel lblNickname = new JLabel("NICKNAME:");
-        lblNickname.setBounds(162, 278, 75, 16);
-        add(lblNickname);
-        lblNickname.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-        lblPlayerNickname = new JLabel();
-        lblPlayerNickname.setBounds(238, 278, 180, 16);
-        add(lblPlayerNickname);
+        
 
         lblPlayerIcon = new JLabel();
         lblPlayerIcon.setBounds(94, 275, 54, 55);

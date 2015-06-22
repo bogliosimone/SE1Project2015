@@ -13,6 +13,8 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,23 +23,23 @@ import javax.swing.border.BevelBorder;
 
 
 public class GameBoardView extends JFrame implements View {
-    
+
     /**
      * 
      */
     private static final long serialVersionUID = 1974037371015620156L;
     private static final int BLINK_STEP = 500;
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
-    
+
     private CommandPanel commandPanel;
     private JTextArea txtMessagesArea;
-    
+
     private GUIController guiController = GUIController.getInstance();
-    
+
 
     protected Object messageMonitor = new Object();
 
-    
+
 
     /**
      * Launch the application.
@@ -90,7 +92,7 @@ public class GameBoardView extends JFrame implements View {
         getContentPane().add(commandPanel);
         commandPanel.setLayout(null);
 
-       
+
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(60, 559, 676, 133);
         getContentPane().add(scrollPane);
@@ -102,12 +104,45 @@ public class GameBoardView extends JFrame implements View {
         txtMessagesArea.setBackground(new Color(0, 0, 0));
         txtMessagesArea.setForeground(new Color(0, 102, 255));
 
-        
+
         List <User> users = guiController.getUserList();
         commandPanel.printUserList(users);
+        commandPanel.printPlayer(guiController.getMyPlayer());
+        commandPanel.printCurrentTurnNumber(1);
+        commandPanel.printMyCoordinate(guiController.getMyPlayer().getCoordinate());
         commandPanel.printHand();
         commandPanel.disableCommandPanel();
 
+        cursorBlinkEffect();
+    }
+
+    public CommandPanel getCommandPanel() {
+        return commandPanel;
+    }
+
+    public synchronized void printMessage(String msg) {
+        synchronized(messageMonitor){
+            txtMessagesArea.append("> " + msg + "\n");
+        }
+    }
+
+    @Override
+    public void initView() {
+        try {
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void doUpdate(NotificationMessage notification) {
+        CommandHandler.dispatchUpdate(this, notification);
+    }
+
+    public void cursorBlinkEffect() {
         new Thread(new Runnable()
         {
             @Override
@@ -129,31 +164,15 @@ public class GameBoardView extends JFrame implements View {
                 }
             }
         }).start();
-
     }
 
-    public CommandPanel getCommandPanel() {
-        return commandPanel;
-    }
-    
-    public synchronized void printMessage(String msg) {
-        synchronized(messageMonitor){
-            txtMessagesArea.append("> " + msg + "\n");
-        }
-    }
-
-    @Override
-    public void initView() {
-        try {
-            this.setLocationRelativeTo(null);
-            this.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void doUpdate(NotificationMessage notification) {
-        CommandHandler.dispatchUpdate(this, notification);
+    public static void createMessageView(final String message, final ImageIcon image) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                MessageView dialog = new MessageView(message, image);
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            }
+        });
     }
 }
