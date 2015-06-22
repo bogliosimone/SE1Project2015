@@ -4,6 +4,11 @@
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnAttackListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnCardListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnDrawSectorCardListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndMovementListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndTurnListener;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.AdrenalineItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.AttackItemCard;
@@ -39,17 +44,22 @@ public class CommandPanel extends JPanel {
      */
     private static final long serialVersionUID = -8666358068178077903L;
     final static Color MISSING_USER = Color.GRAY;
-    final static Color CONNECTED_USER = Color.BLACK;
+    final static Color CONNECTED_USER = Color.WHITE;
+    final static Color PLAYING_USER = Color.GREEN;
+    final static Color PLAYER_INFO = Color.WHITE;
     
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
-    private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
     private JButton[] btnCards = new JButton[ConstantMatch.MAXCARDINHAND];
-    private JLabel labelTurnNumber;
     private JButton btnPlayTheCard;
     private JButton btnDrawSectorCard;
     private JButton btnDiscardTheCard;
     private JButton btnAttack;
+    private JButton btnEndMovement;
+    private JButton btnEndTurn;
+    
+    private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
+    private JLabel labelTurnNumber;
     private JLabel lblCurrentPosition;
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
@@ -61,43 +71,77 @@ public class CommandPanel extends JPanel {
         add(lblUtenti);
         lblUtenti.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        JLabel lblCarteInMano = new JLabel("Carte in mano:");
-        lblCarteInMano.setBounds(86, 371, 116, 33);
-        add(lblCarteInMano);
-
         
-
+        
+        JSeparator separator = new JSeparator();
+        separator.setBounds(28, 264, 403, 16);
+        add(separator);
+        
+        
+        
         lblPlayerIcon = new JLabel();
-        lblPlayerIcon.setBounds(94, 275, 54, 55);
+        lblPlayerIcon.setBounds(94, 300, 54, 55);
         add(lblPlayerIcon);
-
 
         JLabel lblPlayer = new JLabel("PLAYER:");
         lblPlayer.setBounds(162, 296, 61, 16);
+        lblPlayer.setForeground(PLAYER_INFO);
         add(lblPlayer);
         lblPlayer.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
         lblPlayerName = new JLabel();
         lblPlayerName.setBounds(218, 296, 200, 16);
+        lblPlayerName.setForeground(PLAYER_INFO);
         add(lblPlayerName);
 
         JLabel lblState = new JLabel("STATE:");
         lblState.setBounds(162, 314, 54, 16);
+        lblState.setForeground(PLAYER_INFO);
         add(lblState);
         lblState.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        lblPlayerState = new JLabel();
+        lblPlayerState.setBounds(209, 314, 209, 16);
+        lblPlayerState.setForeground(PLAYER_INFO);
+        add(lblPlayerState);
 
+        JLabel lblTurno = new JLabel("TURNO:");
+        lblTurno.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblTurno.setBounds(162, 332, 54, 16);
+        lblTurno.setForeground(PLAYER_INFO);
+        add(lblTurno);
+        
         labelTurnNumber = new JLabel();
         labelTurnNumber.setBounds(218, 333, 200, 16);
+        labelTurnNumber.setForeground(PLAYER_INFO);
         add(labelTurnNumber);
 
-        JSeparator separator = new JSeparator();
-        separator.setBounds(28, 264, 403, 16);
-        add(separator);
+        JLabel lblPosizioneCorrente = new JLabel("POSIZIONE CORRENTE:");
+        lblPosizioneCorrente.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblPosizioneCorrente.setBounds(162, 350, 154, 16);
+        lblPosizioneCorrente.setForeground(PLAYER_INFO);
+        add(lblPosizioneCorrente);
 
+        lblCurrentPosition = new JLabel("");
+        lblCurrentPosition.setBounds(317, 350, 101, 16);
+        lblCurrentPosition.setForeground(PLAYER_INFO);
+        add(lblCurrentPosition);
+
+        
+        
+        
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(31, 365, 400, 16);
         add(separator_1);
-
+        
+        
+        
+        JLabel lblCarteInMano = new JLabel("Carte in mano:");
+        lblCarteInMano.setBounds(86, 371, 116, 33);
+        add(lblCarteInMano);
+        
+        
+        
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
         add(btnPlayTheCard);
@@ -110,40 +154,28 @@ public class CommandPanel extends JPanel {
 
         btnDrawSectorCard = new JButton("Pesca una carta settore");
         btnDrawSectorCard.setBounds(86, 513, 145, 30);
+        btnDrawSectorCard.addActionListener(new BtnDrawSectorCardListener());
         add(btnDrawSectorCard);
         btnDrawSectorCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-
-        JLabel lblCartaSettore = new JLabel("Carta settore:");
-        lblCartaSettore.setBounds(86, 590, 154, 55);
-        add(lblCartaSettore);
-        lblCartaSettore.setIcon(imagesHolder.getRumorXY());
-
-        JLabel lblRumoreIn = new JLabel("Rumore in XY");
-        lblRumoreIn.setBounds(241, 609, 116, 16);
-        add(lblRumoreIn);
-
-        JLabel lblTurno = new JLabel("TURNO:");
-        lblTurno.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        lblTurno.setBounds(162, 332, 54, 16);
-        add(lblTurno);
-
+        
         btnAttack = new JButton("Attacca");
         btnAttack.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnAttack.setBounds(238, 513, 145, 30);
+        btnAttack.addActionListener(new BtnAttackListener());
         add(btnAttack);
+        
+        btnEndMovement = new JButton("Fine movimento");
+        btnEndMovement.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnEndMovement.setBounds(86, 543, 145, 30);
+        btnEndMovement.addActionListener(new BtnEndMovementListener());
+        add(btnEndMovement);
+        
+        btnEndTurn = new JButton("Fine turno");
+        btnEndTurn.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnEndTurn.setBounds(238, 543, 145, 30);
+        btnEndTurn.addActionListener(new BtnEndTurnListener());
+        add(btnEndTurn);
 
-        JLabel lblPosizioneCorrente = new JLabel("POSIZIONE CORRENTE:");
-        lblPosizioneCorrente.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        lblPosizioneCorrente.setBounds(162, 350, 154, 16);
-        add(lblPosizioneCorrente);
-
-        lblPlayerState = new JLabel();
-        lblPlayerState.setBounds(209, 314, 209, 16);
-        add(lblPlayerState);
-
-        lblCurrentPosition = new JLabel("");
-        lblCurrentPosition.setBounds(317, 350, 101, 16);
-        add(lblCurrentPosition);
     }
     
     
@@ -157,28 +189,19 @@ public class CommandPanel extends JPanel {
             btnCards[index].setEnabled(false);
         }
     }
-
-    public void printHand() {
-        printHand(null);
-    }
     
     public void printHand(ItemHand hand) {
         int index = 0;
-        if(hand == null) {
-            for (index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {
-                btnCards[index] = new JButton("");
-                btnCards[index].setBounds((86+76*index), 401, 64, 64);
-                add(btnCards[index]);
-                
-            }
-        } else {
-            List<ItemCard> cards = hand.getAllCard();
-            for(ItemCard card : cards) {
-                btnCards[index] = new JButton("");
-                btnCards[index].setBounds((86+76*index), 401, 64, 64);
-                btnCards[index].setIcon(getImageByItemCard(card));
-                index++;
-            }
+        List<ItemCard> cards = hand.getAllCard();
+        for(ItemCard card : cards) {
+            System.out.println(card);
+            btnCards[index] = new JButton("");
+            btnCards[index].setBounds((86+76*index), 401, 64, 64);
+            btnCards[index].setIcon(getImageByItemCard(card));
+            btnCards[index].addActionListener(new BtnCardListener(card.getId()));
+            add(btnCards[index]);
+            validate();
+            index++;
         }
     }
     
@@ -252,6 +275,6 @@ public class CommandPanel extends JPanel {
         } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENFOUR)) {
             return imagesHolder.getFourthAlien();
         }
-        return null;
+        return imagesHolder.getCaptain();
     }
 }

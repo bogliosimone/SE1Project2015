@@ -48,7 +48,9 @@ public class MessageView extends JDialog implements View {
         contentPanel.setLayout(null);
         
         JLabel label = new JLabel("");
-        label.setIcon(image);
+        if(image != null) {
+            label.setIcon(image);
+        }
         label.setBounds(36, 20, 80, 80);
         contentPanel.add(label);
         

@@ -7,8 +7,6 @@ import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
-import javax.swing.JDialog;
-
 /**
  * @author matteobresich
  *
@@ -33,8 +31,10 @@ public class CommandHandler {
             //POPUP
             break;
         case CANT_DISCARD_CARD:
+            board.printMessage("Errore non puoi scartare questa carta");
             break;
         case CANT_PLAY_CARD:
+            board.printMessage("Errore non puoi giocare questa carta");
             break;
         case CARDS_END:
             break;
@@ -45,6 +45,7 @@ public class CommandHandler {
         case DISCARD_HAND:
             break;
         case DRAW_CARD:
+            board.getCommandPanel().printHand(GUIController.getInstance().getHandOfCards());
             break;
         case DRAW_SECTOR_CARD:
             break;
@@ -67,7 +68,7 @@ public class CommandHandler {
         case HAND_FULL:
             break;
         case IS_NOT_YOUR_TURN:
-            board.printMessage(notification.getString());
+            board.printMessage("Non puoi compiere questa azione: non è il tuo turno!");
             break;
         case ITEM_PLAYED:
             break;
@@ -77,6 +78,7 @@ public class CommandHandler {
             map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
             break;
         case MOVE_NO_AVAIABLE:
+            board.printMessage("Non puoi compiere questa azione: azione non disponibile.");
             break;
         case PLAYER_COMMAND:
             break;

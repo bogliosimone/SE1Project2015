@@ -4,10 +4,15 @@
 package it.polimi.ingsw.bogliobresich.GUI;
 
 import it.polimi.ingsw.bogliobresich.GUI.messageView.MessageView;
+import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
+import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
+import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.EventQueue;
@@ -16,7 +21,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 /**
@@ -33,10 +37,12 @@ public class GUIController implements Observer, Runnable {
     private View nextView;
 
     private ViewFactory viewFactory = new ViewFactory();
-    private Player myPlayer;
-
-    private List <User> users;
     
+    private Player myPlayer;
+    private List <User> users;
+    private ItemHand handOfCards = new ItemHand(ConstantMatch.MAXCARDINHAND);
+    private int idCardSelected = -1;
+
     private GUIController() {
         //Not called
     }
@@ -85,10 +91,24 @@ public class GUIController implements Observer, Runnable {
                 getCurrentView().doUpdate(notification);
                 break;
             case DRAW_CARD:
+                ItemCard card = notification.getItemCard();
+                handOfCards.addCard(card);
                 getCurrentView().doUpdate(notification);
                 break;
             case DRAW_SECTOR_CARD:
-                getCurrentView().doUpdate(notification);
+                SectorCard sc = notification.getSectorCard();
+                if(sc.isThereNoiseInAnySector()) {
+                    createMessageView("Hai pescato una carta settore rumore in qualunque settore",imagesHolder.getRumorXY());
+                }
+                if(sc.isThereNoiseInMySector()) {
+                    createMessageView("Hai pescato una carta settore rumore nel tuo settore",imagesHolder.getRumorMySector());
+                }
+                if(sc.isThereSilence()) {
+                    createMessageView("Hai pescato una carta settore silenzio",imagesHolder.getSilence());
+                }
+                if(sc.isThereAnItemToDraw()) {
+                    createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
+                }
                 break;
             case END_TURN:
                 getCurrentView().doUpdate(notification);
@@ -105,7 +125,6 @@ public class GUIController implements Observer, Runnable {
             case GAME_START:
                 setNextView(viewFactory.getView(GUIViews.GAME_BOARD_VIEW));
                 changeToNextView();
-                createMessageView("ciao è iniziato il tuo turno!",imagesHolder.getItemIcon());
                 break;
             case GENERIC_ERROR:
                 getCurrentView().doUpdate(notification);
@@ -181,7 +200,7 @@ public class GUIController implements Observer, Runnable {
                 getCurrentView().doUpdate(notification);
                 break;
             case YOU_DIE:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Sei morto!",null);
                 break;
             case YOU_DISCONNECTED:
                 getCurrentView().doUpdate(notification);
@@ -243,9 +262,18 @@ public class GUIController implements Observer, Runnable {
         controller.deleteObserver(this);
     }
 
+    //TO NETWORK CONTROLLER
+    
     public static void doLogin(String nickname, String password) {
         controller.doLogin(nickname, password);
+        
     }
+    
+    public static void sendCommand(ClientCommand command) {
+        controller.sendCommand(command);
+    }
+    
+    //SETTER AND GETTER
 
     public void setCurrentView(View view) {
         this.currentView = view;
@@ -285,5 +313,27 @@ public class GUIController implements Observer, Runnable {
 
     public void setMyPlayer(Player myPlayer) {
         this.myPlayer = myPlayer;
+    }
+
+    /**
+     * @return the handOfCards
+     */
+    public ItemHand getHandOfCards() {
+        return handOfCards;
+    }
+
+    /**
+     * @param handOfCards the handOfCards to set
+     */
+    public void setHandOfCards(ItemHand handOfCards) {
+        this.handOfCards = handOfCards;
+    }
+
+    public int getIdCardSelected() {
+        return idCardSelected;
+    }
+
+    public void setIdCardSelected(int idCardSelected) {
+        this.idCardSelected = idCardSelected;
     }
 }
