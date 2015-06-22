@@ -66,7 +66,7 @@ public class CommandHandler {
             break;
         case LIST_USERS:
             board.userList = (User[]) notification.getListOfUsers().toArray();
-            board.printUserList(board.userList);
+            board.getCommandPanel().printUserList(board.userList);
             break;
         case MOVES_AVAIABLE:
             break;
@@ -86,7 +86,7 @@ public class CommandHandler {
         case SERVER_NOT_RESPONDING:
             break;
         case SET_YOUR_COORDINATE:
-            board.printMyCoordinate(notification.getCoordinate());
+            board.getCommandPanel().printMyCoordinate(notification.getCoordinate());
             break;
         case START_END_PHASE:
             break;
@@ -95,7 +95,7 @@ public class CommandHandler {
         case START_TIMER:
             break;
         case START_TURN:
-            board.printCurrentTurnNumber(notification.getInteger());
+            board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_IS_GAME:
             break;
@@ -104,7 +104,7 @@ public class CommandHandler {
         case USER_START_TURN:
             break;
         case WHO_ARE_YOU:
-            board.printPlayer(notification.getPlayer());
+            board.getCommandPanel().printPlayer(notification.getPlayer());
             break;
         case YOU_ARE_FEED:
             break;
