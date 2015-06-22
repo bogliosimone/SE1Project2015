@@ -36,6 +36,7 @@ public class GameBoardView extends JFrame implements View {
 
     private GUIController guiController = GUIController.getInstance();
 
+    private HexagonMapPanel map;
 
     protected Object messageMonitor = new Object();
 
@@ -75,11 +76,11 @@ public class GameBoardView extends JFrame implements View {
         setTitle(GUIConstants.APP_TITLE);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         setAlwaysOnTop(true);
-        setBounds(100, 100, 1280, 720);
+        setBounds(100, 100, 1280, 730);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        JPanel map = new HexagonMapPanel(ConstantMap.NAMEFILEMAP);
+        map = new HexagonMapPanel(ConstantMap.NAMEFILEMAP);
         map.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         map.setForeground(Color.LIGHT_GRAY);
         map.setBounds(60, 18, 676, 540);
@@ -88,7 +89,7 @@ public class GameBoardView extends JFrame implements View {
         commandPanel = new CommandPanel();
         commandPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         commandPanel.setBounds(814, 6, 460, 686);
-        //commandPanel.setBackground(new Color(0, 0, 0));
+        commandPanel.setBackground(new Color(0, 0, 0));
         getContentPane().add(commandPanel);
         commandPanel.setLayout(null);
 
@@ -139,7 +140,7 @@ public class GameBoardView extends JFrame implements View {
 
     @Override
     public void doUpdate(NotificationMessage notification) {
-        CommandHandler.dispatchUpdate(this, notification);
+        CommandHandler.dispatchUpdate(this, map ,notification);
     }
 
     public void cursorBlinkEffect() {
