@@ -128,12 +128,15 @@ public class CommandHandler {
             break;
         case USER_DISCONNECTED:
             //update list
+            board.printMessage(notification.getUser().getNickname()+" si è disconnesso");
             break;
         case HUMAN_ESCAPE:
             //update list
+            board.printMessage(notification.getPlayer().getNickName()+" ha lasciato l'astronave \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case PLAYER_DIE:
             //update list
+            board.printMessage(notification.getPlayer().getNickName()+" è morto \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case GAME_MAP_FILE_NAME:
             break;
