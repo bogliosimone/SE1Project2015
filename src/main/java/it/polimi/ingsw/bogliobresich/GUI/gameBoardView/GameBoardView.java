@@ -75,12 +75,13 @@ public class GameBoardView extends JFrame implements View {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        map = new HexagonMapPanel(ConstantMap.NAMEFILEMAP);
+        String path = new String(ConstantMap.PATHFILEMAP + guiController.getMapFileName());
+        map = new HexagonMapPanel(path);
         map.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         map.setBounds(60, 18, 676, 540);
         getContentPane().add(map);
 
-        commandPanel = new CommandPanel();
+        commandPanel = new CommandPanel(map);
         commandPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         commandPanel.setBounds(814, 6, 460, 686);
         commandPanel.setBackground(new Color(0, 0, 0));

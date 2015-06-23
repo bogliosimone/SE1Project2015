@@ -40,9 +40,10 @@ public class GUIController implements Observer, Runnable {
     
     private Player myPlayer;
     private List <User> users;
-    private ItemHand handOfCards = new ItemHand(ConstantMatch.MAXCARDINHAND);
+    private ItemHand handOfCards;
     private int idCardSelected = -1;
 
+    private String mapFileName;
     private GUIController() {
         //Not called
     }
@@ -184,9 +185,6 @@ public class GUIController implements Observer, Runnable {
             case START_TURN:
                 getCurrentView().doUpdate(notification);
                 break;
-            case USER_END_IS_GAME:
-                getCurrentView().doUpdate(notification);
-                break;
             case USER_END_TURN:
                 getCurrentView().doUpdate(notification);
                 break;
@@ -195,6 +193,7 @@ public class GUIController implements Observer, Runnable {
                 break;
             case WHO_ARE_YOU:
                 setMyPlayer(notification.getPlayer());
+                handOfCards = myPlayer.getHand();
                 break;
             case YOU_ARE_FEED:
                 getCurrentView().doUpdate(notification);
@@ -210,6 +209,18 @@ public class GUIController implements Observer, Runnable {
                 break;
             case YOU_WIN:
                 getCurrentView().doUpdate(notification);
+                break;
+            case USER_DISCONNECTED:
+                //USER
+                break;
+            case HUMAN_ESCAPE:
+                //PLAYER
+                break;
+            case PLAYER_DIE:
+                //PLAYER
+                break;
+            case GAME_MAP_FILE_NAME:
+                setMapFileName(notification.getString());
                 break;
             default:
                 break;
@@ -335,5 +346,13 @@ public class GUIController implements Observer, Runnable {
 
     public void setIdCardSelected(int idCardSelected) {
         this.idCardSelected = idCardSelected;
+    }
+
+    public String getMapFileName() {
+        return mapFileName;
+    }
+
+    public void setMapFileName(String mapFileName) {
+        this.mapFileName = mapFileName;
     }
 }

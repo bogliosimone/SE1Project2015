@@ -23,6 +23,8 @@ public class Server implements Runnable {
     private RMIConnectionServer rmiConnectionServer;
     private SocketConnectionServer socketConnectionServer;
     
+    private static String selectedMap;
+    
     private static final boolean SERVER_DEBUG = true;
 
     public static synchronized Server getInstance() {
@@ -78,5 +80,14 @@ public class Server implements Runnable {
         if(matchesHandler != null) {
             matchesHandler.shutdownNow();
         }
+    }
+
+    public static String getSelectedMap() {
+        return selectedMap;
+    }
+
+    public static void selectMap(String map) {
+        Server.serviceMessage("MAP SELECTED: " + map);
+        selectedMap = map;
     }
 }
