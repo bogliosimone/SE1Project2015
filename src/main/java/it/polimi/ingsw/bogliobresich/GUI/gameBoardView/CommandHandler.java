@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
+import java.awt.Color;
 import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
@@ -88,6 +89,7 @@ public class CommandHandler {
         case LIST_USERS:
             break;
         case MOVES_AVAIABLE:
+            board.getCommandPanel().printOtherMessage("ESEMPIO\n" + notification.getCommand());
             if(notification.getMovesAvaiable().canMove()) {
                 map.setStateMoveRumorSpotlight(map.STATE_MOVE);
                 map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
@@ -95,6 +97,7 @@ public class CommandHandler {
             if(notification.getMovesAvaiable().canPlayItem()){
                 if(!GUIController.getInstance().getHandOfCards().isEmpty()) {
                     board.getCommandPanel().setBtnPlayTheCardEnabled(true);
+                    board.getCommandPanel().setCardsEnabled(true);
                 }
             }
             if(notification.getMovesAvaiable().canAttack()){
@@ -132,6 +135,7 @@ public class CommandHandler {
             map.setActualCoordinate(notification.getCoordinate());
             break;
         case START_END_PHASE:
+            board.getCommandPanel().printPhaseTurnMessage("End phase", Color.CYAN);
             break;
         case START_MOVEMENT_PHASE:
             break;

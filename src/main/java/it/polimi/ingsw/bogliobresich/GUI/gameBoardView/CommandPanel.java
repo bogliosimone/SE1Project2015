@@ -3,7 +3,6 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
-import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnAttackListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnCardListener;
@@ -28,6 +27,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextArea;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -47,11 +47,14 @@ public class CommandPanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = -8666358068178077903L;
-    final static Color MISSING_USER = Color.GRAY;
-    final static Color CONNECTED_USER = Color.WHITE;
-    final static Color PLAYING_USER = Color.GREEN;
-    final static Color PLAYER_INFO = Color.WHITE;
-    final static Color OTHER_MESSAGES_AREA = Color.CYAN;
+    private final static Color MISSING_USER = Color.GRAY;
+    private final static Color CONNECTED_USER = Color.WHITE;
+    private final static Color PLAYING_USER = Color.GREEN;
+    private final static Color PLAYER_INFO = Color.WHITE;
+    private final static Color OTHER_MESSAGES_AREA = Color.BLACK;
+    private final static Color OTHER_MESSAGES_TEXT = Color.GRAY;
+    private static final Color BUTTON_TEXT = new Color(0, 102, 255);
+
 
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
@@ -66,23 +69,34 @@ public class CommandPanel extends JPanel {
     private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
     private JLabel labelTurnNumber;
     private JLabel lblCurrentPosition;
+    private JLabel lblUserNickname;
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
-    private JLabel lblOtherMessages;
+    private TextArea lblOtherMessages;
+    private JLabel lblPhaseTurnMessage;
 
     private BtnCardListener [] cardListeners;
 
     private HexagonMapPanel map;
 
     public CommandPanel(HexagonMapPanel map) {
+
+
         this.map = map;
+        
+        lblPhaseTurnMessage = new JLabel("SEI NELLA PHASE BHA");
+        lblPhaseTurnMessage.setBounds(86, 20, 200, 16);
+        lblPhaseTurnMessage.setForeground(PLAYER_INFO);
+        add(lblPhaseTurnMessage);
+        lblPhaseTurnMessage.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        
         JLabel lblUtenti = new JLabel("Utenti:");
         lblUtenti.setBounds(86, 50, 61, 16);
+        lblUtenti.setForeground(PLAYER_INFO);
         add(lblUtenti);
         lblUtenti.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-
-
 
         JSeparator separator = new JSeparator();
         separator.setBounds(28, 264, 403, 16);
@@ -94,6 +108,19 @@ public class CommandPanel extends JPanel {
         lblPlayerIcon.setBounds(94, 300, 54, 55);
         add(lblPlayerIcon);
 
+        
+        JLabel lblNickname = new JLabel("NICKNAME:");
+        lblNickname.setBounds(162, 278, 80, 16);
+        lblNickname.setForeground(PLAYER_INFO);
+        add(lblNickname);
+        lblNickname.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
+        lblUserNickname = new JLabel();
+        lblUserNickname.setBounds(242, 278, 200, 16);
+        lblUserNickname.setForeground(PLAYER_INFO);
+        add(lblUserNickname);
+        lblUserNickname.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        
         JLabel lblPlayer = new JLabel("PLAYER:");
         lblPlayer.setBounds(162, 296, 61, 16);
         lblPlayer.setForeground(PLAYER_INFO);
@@ -189,11 +216,12 @@ public class CommandPanel extends JPanel {
         btnEndTurn.addActionListener(new BtnEndTurnListener(this));
         add(btnEndTurn);
 
-        lblOtherMessages = new JLabel();
+        lblOtherMessages = new TextArea();
         lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-        lblOtherMessages.setBounds(86, 573, 297, 200);
+        lblOtherMessages.setBounds(86, 580, 297, 200);
         lblOtherMessages.setBackground(OTHER_MESSAGES_AREA);
-        lblOtherMessages.setForeground(PLAYER_INFO);
+        lblOtherMessages.setForeground(OTHER_MESSAGES_TEXT);
+        lblOtherMessages.setEditable(false);
         add(lblOtherMessages);
     }
 
@@ -210,16 +238,21 @@ public class CommandPanel extends JPanel {
     }
 
     public void setCardsEnabled(boolean b) {
-        for(int index = 0; index < btnCards.length; index++) {
-            if(btnCards[index].getActionListeners() != null) {
-                btnCards[index].setEnabled(b);
+        if(b == true) {
+            for(int index = 0; index < btnCards.length; index++) {
+                if(btnCards[index].getActionListeners().length > 0) {
+                    btnCards[index].setEnabled(true);
+                }
+            }
+        } else {
+            for(int index = 0; index < btnCards.length; index++) {
+                btnCards[index].setEnabled(false);
             }
         }
     }
 
     public void setBtnPlayTheCardEnabled(boolean b) {
         btnPlayTheCard.setEnabled(b);
-        setCardsEnabled(b);
     }
 
     public void setBtnDrawSectorCardEnabled(boolean b) {
@@ -245,6 +278,11 @@ public class CommandPanel extends JPanel {
     public void printOtherMessage(String msg) {
         lblOtherMessages.setText(msg);
     }
+    
+    public void printPhaseTurnMessage(String msg, Color c) {
+        lblPhaseTurnMessage.setText(msg);
+        lblPhaseTurnMessage.setForeground(c);;
+    }
 
     public void initHand() {
         for(int index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {  
@@ -264,11 +302,11 @@ public class CommandPanel extends JPanel {
             }
             b.setIcon(null);
         }
-        
+
         List<ItemCard> cards = hand.getAllCard();
         int index = 0;
         for(ItemCard card : cards) {
-//            //REMOVE
+            //TODO            //REMOVE
             System.out.println(card.getId() + "");
             btnCards[index].setIcon(getImageByItemCard(card));
             btnCards[index].addActionListener(new BtnCardListener(card.getId()));
@@ -341,6 +379,7 @@ public class CommandPanel extends JPanel {
 
     public void printPlayer(Player player) {
         if(player != null) {
+            lblUserNickname.setText(player.getUser().getNickname());
             lblPlayerName.setText(player.getCharacterCard().getCharacterName());
             lblPlayerState.setText(player.getCharacterCard().getCharacterType());
             lblPlayerIcon.setIcon(getImageByPlayer(player));
