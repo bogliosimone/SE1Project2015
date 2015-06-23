@@ -90,6 +90,7 @@ public class GameBoardView extends JFrame implements View {
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(60, 559, 676, 133);
+        scrollPane.setAutoscrolls(true);
         getContentPane().add(scrollPane);
 
         txtMessagesArea = new JTextArea();
@@ -105,8 +106,7 @@ public class GameBoardView extends JFrame implements View {
         commandPanel.printPlayer(guiController.getMyPlayer());
         commandPanel.printCurrentTurnNumber(1);
         commandPanel.printMyCoordinate(guiController.getMyPlayer().getCoordinate());
-        commandPanel.printHand();
-        commandPanel.disableCommandPanel();
+        //commandPanel.disableCommandPanel();
 
         cursorBlinkEffect();
     }
