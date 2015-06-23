@@ -23,6 +23,7 @@ public class GUIConstants {
     
     public final static int LOGO_WAIT_BEFORE_DISPOSE = 0 * 1000;
     public final static int WAITING_ROOM_WAIT_BEFORE_DISPOSE = 0 * 1000;
+    public final static int WINNERS_WAIT_BEFORE_DISPOSE = 2 * 1000;
 
     private GUIConstants () {};
 }
