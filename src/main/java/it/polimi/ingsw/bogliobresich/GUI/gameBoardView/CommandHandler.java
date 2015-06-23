@@ -21,9 +21,6 @@ public class CommandHandler {
 
     public static void dispatchUpdate(GameBoardView board, HexagonMapPanel map, NotificationMessage notification) {
         switch (notification.getCommand()) {
-        case ALL_PLAYERS_MESSAGE:
-            board.printMessage(notification.getString());
-            break;
         case ATTACK:
             board.printMessage(notification.getString());
             break;
@@ -33,19 +30,18 @@ public class CommandHandler {
             map.setAvaiableAllMoves();
             break;
         case CANT_DISCARD_CARD:
-            board.printMessage("Errore non puoi scartare questa carta");
             break;
         case CANT_PLAY_CARD:
-            board.printMessage("Errore non puoi giocare questa carta");
             break;
         case CARDS_END:
             break;
         case COORDINATE_ERROR:
             break;
         case DISCARD_CARD:
-            
+            board.getCommandPanel().printHand(GUIController.getInstance().getHandOfCards());
             break;
         case DISCARD_HAND:
+            board.getCommandPanel().printHand(GUIController.getInstance().getHandOfCards());
             break;
         case DRAW_CARD:
             board.getCommandPanel().printHand(GUIController.getInstance().getHandOfCards());
@@ -53,6 +49,7 @@ public class CommandHandler {
         case DRAW_SECTOR_CARD:
             break;
         case END_TURN:
+            //update list
             break;
         case FATAL_ERROR:            
             break;
@@ -71,11 +68,12 @@ public class CommandHandler {
         case HAND_FULL:
             break;
         case IS_NOT_YOUR_TURN:
-            board.printMessage("Non puoi compiere questa azione: non è il tuo turno!");
             break;
         case ITEM_PLAYED:
+            board.printMessage(notification.getString());
             break;
         case LIST_USERS:
+            //update list user
             break;
         case MOVES_AVAIABLE:
             if(notification.getMovesAvaiable().canMove()) {
@@ -84,14 +82,11 @@ public class CommandHandler {
             }
             break;
         case MOVE_NO_AVAIABLE:
-            board.printMessage("Non puoi compiere questa azione: azione non disponibile.");
-            break;
-        case PLAYER_COMMAND:
             break;
         case PLAYER_JOIN_WAIT_ROOM:
             break;
         case PLAYER_MESSAGE:
-            board.printMessage(notification.getString());
+            board.printMessage("da spostare.. "+notification.getString());
             break;
         case PORTHOLE_BROKEN:
             map.setBreakPorthole(notification.getCoordinate());
@@ -114,8 +109,10 @@ public class CommandHandler {
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_TURN:
+            //update list
             break;
         case USER_START_TURN:
+            //update list
             break;
         case WHO_ARE_YOU:
             break;
@@ -130,13 +127,16 @@ public class CommandHandler {
         case YOU_WIN:
             break;
         case USER_DISCONNECTED:
-            //USER
+            //update list
+            board.printMessage(notification.getUser().getNickname()+" si è disconnesso");
             break;
         case HUMAN_ESCAPE:
-            //PLAYER
+            //update list
+            board.printMessage(notification.getPlayer().getNickName()+" ha lasciato l'astronave \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case PLAYER_DIE:
-            //PLAYER
+            //update list
+            board.printMessage(notification.getPlayer().getNickName()+" è morto \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case GAME_MAP_FILE_NAME:
             break;
