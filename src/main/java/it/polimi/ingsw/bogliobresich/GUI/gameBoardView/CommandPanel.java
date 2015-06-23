@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
+import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnAttackListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnCardListener;
@@ -48,6 +49,7 @@ public class CommandPanel extends JPanel {
     final static Color CONNECTED_USER = Color.WHITE;
     final static Color PLAYING_USER = Color.GREEN;
     final static Color PLAYER_INFO = Color.WHITE;
+    final static Color OTHER_MESSAGES_AREA = Color.CYAN;
     
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
@@ -65,6 +67,7 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
+    private JLabel lblOtherMessages;
     
     private HexagonMapPanel map;
     
@@ -180,19 +183,50 @@ public class CommandPanel extends JPanel {
         btnEndTurn.setBounds(238, 543, 145, 30);
         btnEndTurn.addActionListener(new BtnEndTurnListener());
         add(btnEndTurn);
-
+        
+        lblOtherMessages = new JLabel();
+        lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+        lblOtherMessages.setBounds(86, 573, 297, 200);
+        lblOtherMessages.setBackground(OTHER_MESSAGES_AREA);
+        lblOtherMessages.setForeground(PLAYER_INFO);
+        add(lblOtherMessages);
     }
     
     
     
     public void disableCommandPanel() {
-        btnPlayTheCard.setEnabled(false);
-        btnDrawSectorCard.setEnabled(false);
-        btnDiscardTheCard.setEnabled(false);
-        btnAttack.setEnabled(false);
-        for(int index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {
-            btnCards[index].setEnabled(false);
+        setBtnPlayTheCardEnabled(false);
+        setBtnDrawSectorCardEnabled(false);
+        setBtnDiscardTheCardEnabled(false);
+        setBtnAttackEnabled(false);
+        setCardsEnabled(false);
+    }
+    
+    public void setCardsEnabled(boolean b) {
+        for(int index = 0; index < GUIController.getInstance().getHandOfCards().getAllCard().size(); index++) {
+            btnCards[index].setEnabled(b);
         }
+    }
+    
+    public void setBtnPlayTheCardEnabled(boolean b) {
+        btnPlayTheCard.setEnabled(b);
+        setCardsEnabled(b);
+    }
+    
+    public void setBtnDrawSectorCardEnabled(boolean b) {
+        btnDrawSectorCard.setEnabled(b);
+    }
+    
+    public void setBtnDiscardTheCardEnabled(boolean b) {
+        btnDiscardTheCard.setEnabled(b);
+    }
+    
+    public void setBtnAttackEnabled(boolean b) {
+        btnAttack.setEnabled(b);
+    }
+    
+    public void printOtherMessage(String msg) {
+        lblOtherMessages.setText(msg);
     }
     
     public void printHand(ItemHand hand) {
