@@ -43,6 +43,7 @@ public class CommandHandler {
         case COORDINATE_ERROR:
             break;
         case DISCARD_CARD:
+            
             break;
         case DISCARD_HAND:
             break;

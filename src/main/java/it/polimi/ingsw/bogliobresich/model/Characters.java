@@ -13,7 +13,7 @@ public enum Characters {
     CAPTAIN("Ennio Maria Dominoni",ConstantsCard.HUMAN),
     PILOT("Julia Niguloti",ConstantsCard.HUMAN),
     PSYCHOLOGIST("Silvano Porpora",ConstantsCard.HUMAN),
-    SOLDIER("Soldato Tuccio Brendon",ConstantsCard.HUMAN),
+    SOLDIER("Tuccio Brendon",ConstantsCard.HUMAN),
     ALIENONE("Piero Ceccarella",ConstantsCard.ALIEN),
     ALIENTWO("Vittorio Martana",ConstantsCard.ALIEN),
     ALIENTHREE("Maria Galbani",ConstantsCard.ALIEN),
