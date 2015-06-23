@@ -9,6 +9,7 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
@@ -33,6 +34,8 @@ public class MatchHandler implements Runnable, Observer {
     private ServerCommunicationStrategy Socket;
     
     private List<User> users = new Vector<User>();
+    
+    private final int ALIVE_STEP = 60 * 1000;
     
     /**
      * Class constructor
@@ -105,23 +108,34 @@ public class MatchHandler implements Runnable, Observer {
         return false;
     }
     
-    public void sendNotification(Notification n) {
-        RMI.sendNotification(n);
+    public void sendNotification(Notification notification) {
+        checkIfEndAndTerminate(notification);
+        RMI.sendNotification(notification);
+    }
+    
+    private void checkIfEndAndTerminate(Notification n) {
+        if(!n.isBroadcast()) {
+            if(n.getNotificationReciver() == null) {
+                if(n.getCommand().equals(Commands.GAME_END)) {
+                    Server.serviceMessage(this.toString() + " IS ENDED.");
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        }
     }
     
 
     @Override
     public void run() {
-        //TODO 
         while(!match.isEnd()) {
             try {
                 Server.serviceMessage(this.toString() + " IS ALIVE");
-                Thread.sleep(100 * 1000);
+                Thread.sleep(ALIVE_STEP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } 
         }
-        Server.serviceMessage(this.toString() + " ENDED");
     }
     
     @Override
@@ -129,12 +143,9 @@ public class MatchHandler implements Runnable, Observer {
         return "MATCH [ID=" + matchID + "]";
     }
     
-    
-    //TODO sistemare
     public RMIMatchService getRMIMatchServiceHandler() {
         return (RMIMatchService) RMI;
     }
-
 
     /* 
      * @see NotificationQueue
