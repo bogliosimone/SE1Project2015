@@ -20,7 +20,7 @@ public class ServerMain {
         try {
             executor = Executors.newSingleThreadExecutor();
             server = Server.getInstance();
-            Server.selectMap("fermi.txt");
+            Server.selectMap("dilemma.txt");
             executor.submit(server);
         }
         catch (Exception e) {

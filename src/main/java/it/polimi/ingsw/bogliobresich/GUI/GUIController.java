@@ -211,12 +211,12 @@ public class GUIController implements Observer, Runnable {
                 commandPanelUserList.setUserState(notification.getUser(), "DISCONNECTED");
                 break;
             case HUMAN_ESCAPE:
-                commandPanelUserList.setUserColor(notification.getUser(), Color.CYAN);
-                commandPanelUserList.setUserState(notification.getUser(), "ESCAPED");
+                commandPanelUserList.setUserColor(notification.getPlayer().getUser(), Color.CYAN);
+                commandPanelUserList.setUserState(notification.getPlayer().getUser(), "ESCAPED");
                 break;
             case PLAYER_DIE:
-                commandPanelUserList.setUserColor(notification.getUser(), Color.RED);
-                commandPanelUserList.setUserState(notification.getUser(), "DEAD");
+                commandPanelUserList.setUserColor(notification.getPlayer().getUser(), Color.RED);
+                commandPanelUserList.setUserState(notification.getPlayer().getUser(), "DEAD");
                 break;
             case GAME_MAP_FILE_NAME:
                 setMapFileName(notification.getString());
