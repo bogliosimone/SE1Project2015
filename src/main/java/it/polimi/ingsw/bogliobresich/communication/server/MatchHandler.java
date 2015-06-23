@@ -39,13 +39,23 @@ public class MatchHandler implements Runnable, Observer {
      *
      */
     public MatchHandler() {
+        this(null);
+    }
+    
+    public MatchHandler(String nameFileMap) {
         notificationQueue = new NotificationQueueHandler();
         notificationQueue.addObserver(this);
         RMI = new RMIMatchServiceHandler(this);
         this.matchID = lastMatchHandlerIDAdded;
-        this.match = new Match(matchID,notificationQueue);
+        if(nameFileMap != null) {
+            this.match = new Match(matchID,notificationQueue,nameFileMap);
+        } else {
+            this.match = new Match(matchID,notificationQueue);
+        }
         lastMatchHandlerIDAdded++;
     }
+    
+    
     
     /**
      * @param p is the player that want to do an action

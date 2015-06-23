@@ -4,6 +4,7 @@
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.MouseListenerGameBoard;
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
@@ -42,7 +43,7 @@ public class HexagonMapPanel extends JPanel {
     final static Color COLOURHUMANBASE = new Color(36,126,229);
     final static Color COLOURALIENBASE = new Color(229,132,36);
     final static Color COLOURTEXTSECTOR = Color.BLACK;
-    final static Color COLOURTEXTSECTORAVAIABLE = new Color(107,229,36);
+    public final static Color COLOURTEXTSECTORAVAIABLE = new Color(107,229,36);
     final static Color COLORACTUALPOSITION = new Color(204,255,255);
     
     
@@ -55,7 +56,11 @@ public class HexagonMapPanel extends JPanel {
     final static int YSCRSIZE=HEXSIZE * (YSIZE + 1) + BORDERSIZE*3;
     
     private Coordinate actualCoordinate;
-    
+    private String stateMoveRumorSpotlight;
+    public final String STATE_RUMOR = "rumor-xy";
+    public final String STATE_SPOTLIGHT = "spotlight";
+    public final String STATE_MOVE = "move";
+
     private Map<Coordinate,GUICoordinate> guiMap  = new HashMap<Coordinate,GUICoordinate>();
     
 
@@ -203,5 +208,20 @@ public class HexagonMapPanel extends JPanel {
             tmp.setActualTextColour(COLOURTEXTSECTORAVAIABLE);
         }
         repaint();
+    }
+    
+    /**
+     * @return the stateMoveRumorSpotlight
+     */
+    public String getStateMoveRumorSpotlight() {
+        return stateMoveRumorSpotlight;
+    }
+
+
+    /**
+     * @param stateMoveRumorSpotlight the stateMoveRumorSpotlight to set
+     */
+    public void setStateMoveRumorSpotlight(String stateMoveRumorSpotlight) {
+        this.stateMoveRumorSpotlight = stateMoveRumorSpotlight;
     }
 } 

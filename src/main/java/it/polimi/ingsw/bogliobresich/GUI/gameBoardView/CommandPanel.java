@@ -9,6 +9,7 @@ import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnCardListener
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnDrawSectorCardListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndMovementListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndTurnListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnPlayTheCardListener;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.AdrenalineItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.AttackItemCard;
@@ -65,7 +66,10 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
     
-    public CommandPanel() {
+    private HexagonMapPanel map;
+    
+    public CommandPanel(HexagonMapPanel map) {
+        this.map = map;
         JLabel lblUtenti = new JLabel("Utenti:");
         lblUtenti.setBounds(86, 50, 61, 16);
         add(lblUtenti);
@@ -144,6 +148,7 @@ public class CommandPanel extends JPanel {
         
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
+        btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map));
         add(btnPlayTheCard);
         btnPlayTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 

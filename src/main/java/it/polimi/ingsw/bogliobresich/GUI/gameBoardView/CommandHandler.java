@@ -12,13 +12,13 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
  *
  */
 public class CommandHandler {
-    
+
     private static ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private CommandHandler() {
         //Not Called
     }
-    
+
     public static void dispatchUpdate(GameBoardView board, HexagonMapPanel map, NotificationMessage notification) {
         switch (notification.getCommand()) {
         case ALL_PLAYERS_MESSAGE:
@@ -28,7 +28,9 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case CALL_RUMOR:
-            //POPUP
+            board.printMessage("Clicca sulla mappa per inviare le coordinate dove vuoi fare rumore");
+            map.setStateMoveRumorSpotlight(map.STATE_RUMOR);
+            map.setAvaiableAllMoves();
             break;
         case CANT_DISCARD_CARD:
             board.printMessage("Errore non puoi scartare questa carta");
@@ -75,7 +77,10 @@ public class CommandHandler {
         case LIST_USERS:
             break;
         case MOVES_AVAIABLE:
-            map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
+            if(notification.getMovesAvaiable().canMove()) {
+                map.setStateMoveRumorSpotlight(map.STATE_MOVE);
+                map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
+            }
             break;
         case MOVE_NO_AVAIABLE:
             board.printMessage("Non puoi compiere questa azione: azione non disponibile.");
@@ -107,8 +112,6 @@ public class CommandHandler {
         case START_TURN:
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
-        case USER_END_IS_GAME:
-            break;
         case USER_END_TURN:
             break;
         case USER_START_TURN:
@@ -125,7 +128,19 @@ public class CommandHandler {
             break;
         case YOU_WIN:
             break;
+        case USER_DISCONNECTED:
+            //USER
+            break;
+        case HUMAN_ESCAPE:
+            //PLAYER
+            break;
+        case PLAYER_DIE:
+            //PLAYER
+            break;
+        case GAME_MAP_FILE_NAME:
+            break;
         default:
+            board.printMessage("Comando non supportato");
             break;
         }
     }

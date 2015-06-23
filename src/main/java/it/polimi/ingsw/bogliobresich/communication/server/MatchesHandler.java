@@ -49,10 +49,10 @@ public class MatchesHandler{
     
     public synchronized MatchHandler addNewUser(User user) {
         if(lastMatchHandlerAdded == null) {
-            lastMatchHandlerAdded = addNewMatch();
+            lastMatchHandlerAdded = addNewMatch(Server.getSelectedMap());
         }
         if(lastMatchHandlerAdded.isMatchStarted()) {
-            lastMatchHandlerAdded = addNewMatch();
+            lastMatchHandlerAdded = addNewMatch(Server.getSelectedMap());
         }
         if(lastMatchHandlerAdded == null) {
             throw new RuntimeException();
@@ -60,11 +60,11 @@ public class MatchesHandler{
         return lastMatchHandlerAdded;
     }
 
-    public synchronized MatchHandler addNewMatch() {
+    public synchronized MatchHandler addNewMatch(String nameFileMap) {
         MatchHandler last = null;
         try {
             Server.serviceMessage("MATCHESHANDLER: NEW MATCH");
-            last = new MatchHandler();
+            last = new MatchHandler(nameFileMap);
             
             Registry rmiRegistry;
             try {
