@@ -40,7 +40,7 @@ import javax.swing.JSeparator;
  *
  */
 public class CommandPanel extends JPanel {
-    
+
     /**
      * 
      */
@@ -50,7 +50,7 @@ public class CommandPanel extends JPanel {
     final static Color PLAYING_USER = Color.GREEN;
     final static Color PLAYER_INFO = Color.WHITE;
     final static Color OTHER_MESSAGES_AREA = Color.CYAN;
-    
+
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private JButton[] btnCards = new JButton[ConstantMatch.MAXCARDINHAND];
@@ -60,7 +60,7 @@ public class CommandPanel extends JPanel {
     private JButton btnAttack;
     private JButton btnEndMovement;
     private JButton btnEndTurn;
-    
+
     private JLabel[] labelUsers = new JLabel[ConstantMatch.MAXPLAYERS];
     private JLabel labelTurnNumber;
     private JLabel lblCurrentPosition;
@@ -68,9 +68,9 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
     private JLabel lblOtherMessages;
-    
+
     private HexagonMapPanel map;
-    
+
     public CommandPanel(HexagonMapPanel map) {
         this.map = map;
         JLabel lblUtenti = new JLabel("Utenti:");
@@ -78,14 +78,14 @@ public class CommandPanel extends JPanel {
         add(lblUtenti);
         lblUtenti.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 
-        
-        
+
+
         JSeparator separator = new JSeparator();
         separator.setBounds(28, 264, 403, 16);
         add(separator);
-        
-        
-        
+
+
+
         lblPlayerIcon = new JLabel();
         lblPlayerIcon.setBounds(94, 300, 54, 55);
         add(lblPlayerIcon);
@@ -106,7 +106,7 @@ public class CommandPanel extends JPanel {
         lblState.setForeground(PLAYER_INFO);
         add(lblState);
         lblState.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        
+
         lblPlayerState = new JLabel();
         lblPlayerState.setBounds(209, 314, 209, 16);
         lblPlayerState.setForeground(PLAYER_INFO);
@@ -117,7 +117,7 @@ public class CommandPanel extends JPanel {
         lblTurno.setBounds(162, 332, 54, 16);
         lblTurno.setForeground(PLAYER_INFO);
         add(lblTurno);
-        
+
         labelTurnNumber = new JLabel();
         labelTurnNumber.setBounds(218, 333, 200, 16);
         labelTurnNumber.setForeground(PLAYER_INFO);
@@ -134,21 +134,21 @@ public class CommandPanel extends JPanel {
         lblCurrentPosition.setForeground(PLAYER_INFO);
         add(lblCurrentPosition);
 
-        
-        
-        
+
+
+
         JSeparator separator_1 = new JSeparator();
         separator_1.setBounds(31, 365, 400, 16);
         add(separator_1);
-        
-        
-        
+
+
+
         JLabel lblCarteInMano = new JLabel("Carte in mano:");
         lblCarteInMano.setBounds(86, 371, 116, 33);
         add(lblCarteInMano);
-        
-        
-        
+
+
+
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
         btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map));
@@ -165,25 +165,25 @@ public class CommandPanel extends JPanel {
         btnDrawSectorCard.addActionListener(new BtnDrawSectorCardListener());
         add(btnDrawSectorCard);
         btnDrawSectorCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-        
+
         btnAttack = new JButton("Attacca");
         btnAttack.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnAttack.setBounds(238, 513, 145, 30);
         btnAttack.addActionListener(new BtnAttackListener());
         add(btnAttack);
-        
+
         btnEndMovement = new JButton("Fine movimento");
         btnEndMovement.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnEndMovement.setBounds(86, 543, 145, 30);
         btnEndMovement.addActionListener(new BtnEndMovementListener());
         add(btnEndMovement);
-        
+
         btnEndTurn = new JButton("Fine turno");
         btnEndTurn.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnEndTurn.setBounds(238, 543, 145, 30);
         btnEndTurn.addActionListener(new BtnEndTurnListener());
         add(btnEndTurn);
-        
+
         lblOtherMessages = new JLabel();
         lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
         lblOtherMessages.setBounds(86, 573, 297, 200);
@@ -191,9 +191,9 @@ public class CommandPanel extends JPanel {
         lblOtherMessages.setForeground(PLAYER_INFO);
         add(lblOtherMessages);
     }
-    
-    
-    
+
+
+
     public void disableCommandPanel() {
         setBtnPlayTheCardEnabled(false);
         setBtnDrawSectorCardEnabled(false);
@@ -201,34 +201,34 @@ public class CommandPanel extends JPanel {
         setBtnAttackEnabled(false);
         setCardsEnabled(false);
     }
-    
+
     public void setCardsEnabled(boolean b) {
         for(int index = 0; index < GUIController.getInstance().getHandOfCards().getAllCard().size(); index++) {
             btnCards[index].setEnabled(b);
         }
     }
-    
+
     public void setBtnPlayTheCardEnabled(boolean b) {
         btnPlayTheCard.setEnabled(b);
         setCardsEnabled(b);
     }
-    
+
     public void setBtnDrawSectorCardEnabled(boolean b) {
         btnDrawSectorCard.setEnabled(b);
     }
-    
+
     public void setBtnDiscardTheCardEnabled(boolean b) {
         btnDiscardTheCard.setEnabled(b);
     }
-    
+
     public void setBtnAttackEnabled(boolean b) {
         btnAttack.setEnabled(b);
     }
-    
+
     public void printOtherMessage(String msg) {
         lblOtherMessages.setText(msg);
     }
-    
+
     public void printHand(ItemHand hand) {
         int index = 0;
         List<ItemCard> cards = hand.getAllCard();
@@ -243,7 +243,7 @@ public class CommandPanel extends JPanel {
             index++;
         }
     }
-    
+
     public ImageIcon getImageByItemCard(ItemCard card) {
         if(card instanceof AdrenalineItemCard) {
             return imagesHolder.getAdrenaline();
@@ -261,23 +261,40 @@ public class CommandPanel extends JPanel {
         return imagesHolder.getItemIcon();
     }
 
-    public void printUserList(List <User> list) {
-        int index = 0;
-        if(list != null) {
-            for(User user : list) {
-                labelUsers[index] = new JLabel((index+1) + " - " + user.getNickname());
+    public void initAndPrintUserList(List <User> userList, UserListProprieties userListProprieties) {
+        if(userListProprieties != null) {
+            int index = 0;
+            for(User user : userList) {
+                String text;
+                if(!userListProprieties.getStateByUser(user).isEmpty()) {
+                    text = (index+1) + " - " + user.getNickname() + " [ " + userListProprieties.getStateByUser(user) + " ]";
+                } else {
+                    text = (index+1) + " - " + user.getNickname();
+                }
+                labelUsers[index] = new JLabel(text);
                 labelUsers[index].setBounds(86, 75+20*index, 300, 15);
                 add(labelUsers[index]);
-                labelUsers[index].setForeground(CONNECTED_USER);
+                labelUsers[index].setForeground(userListProprieties.getColorByUser(user));
                 index++;
             }
         }
-        /*for(int remainderUsers = index; remainderUsers < ConstantMatch.MAXPLAYERS; remainderUsers++) {
-            labelUsers[remainderUsers] = new JLabel((remainderUsers+1) + " - [Missing User]");
-            labelUsers[remainderUsers].setBounds(86, 75+20*remainderUsers, 300, 15);
-            add(labelUsers[remainderUsers]);
-            labelUsers[remainderUsers].setForeground(MISSING_USER);
-        }*/
+    }
+
+    public void printUserList(List <User> userList, UserListProprieties userListProprieties) {
+        if(userListProprieties != null) {
+            int index = 0;
+            for(User user : userList) {
+                String text;
+                if(!userListProprieties.getStateByUser(user).isEmpty()) {
+                    text = (index+1) + " - " + user.getNickname() + " [ " + userListProprieties.getStateByUser(user) + " ]";
+                } else {
+                    text = (index+1) + " - " + user.getNickname();
+                }
+                labelUsers[index].setText(text);
+                labelUsers[index].setForeground(userListProprieties.getColorByUser(user));
+                index++;
+            }
+        }
     }
 
     public void printMyCoordinate(Coordinate c) {
@@ -295,7 +312,7 @@ public class CommandPanel extends JPanel {
             lblPlayerIcon.setIcon(getImageByPlayer(player));
         }
     }
-    
+
     public ImageIcon getImageByPlayer(Player player) {
         if(player.getCharacterCard().getCharacterName().equals(Characters.CAPTAIN.getCharacterName())) {
             return imagesHolder.getCaptain();

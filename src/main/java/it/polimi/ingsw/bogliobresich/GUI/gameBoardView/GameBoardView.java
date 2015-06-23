@@ -103,7 +103,7 @@ public class GameBoardView extends JFrame implements View {
 
 
         List <User> users = guiController.getUserList();
-        commandPanel.printUserList(users);
+        commandPanel.initAndPrintUserList(guiController.getUserList(),guiController.getCommandPanelUserList());
         commandPanel.printPlayer(guiController.getMyPlayer());
         commandPanel.printCurrentTurnNumber(1);
         commandPanel.printMyCoordinate(guiController.getMyPlayer().getCoordinate());

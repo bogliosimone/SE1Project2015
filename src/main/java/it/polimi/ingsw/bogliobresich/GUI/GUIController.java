@@ -3,6 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI;
 
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.UserListProprieties;
 import it.polimi.ingsw.bogliobresich.GUI.messageView.MessageView;
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.List;
 import java.util.Observable;
@@ -41,6 +43,8 @@ public class GUIController implements Observer, Runnable {
     private List <User> users;
     private ItemHand handOfCards;
     private int idCardSelected = -1;
+    
+    private UserListProprieties commandPanelUserList;
 
     private String mapFileName;
     private GUIController() {
@@ -132,13 +136,14 @@ public class GUIController implements Observer, Runnable {
                 createMessageView("La tua mano è piena",null);
                 break;
             case IS_NOT_YOUR_TURN:
-                createMessageView(myPlayer.getNickName()+" non è il tuo turno",null);
+                createMessageView(myPlayer.getNickName() + " non è il tuo turno",null);
                 break;
             case ITEM_PLAYED:
                 //up
                 break;
             case LIST_USERS:
                 setUsers(notification.getListOfUsers());
+                setCommandPanelUserList(new UserListProprieties(notification.getListOfUsers() , Color.WHITE ,""));
                 break;
             case MOVES_AVAIABLE:
                 //up
@@ -344,5 +349,19 @@ public class GUIController implements Observer, Runnable {
 
     public void setMapFileName(String mapFileName) {
         this.mapFileName = mapFileName;
+    }
+
+    /**
+     * @return the commandPanelUserList
+     */
+    public UserListProprieties getCommandPanelUserList() {
+        return commandPanelUserList;
+    }
+
+    /**
+     * @param commandPanelUserList the commandPanelUserList to set
+     */
+    public void setCommandPanelUserList(UserListProprieties commandPanelUserList) {
+        this.commandPanelUserList = commandPanelUserList;
     }
 }

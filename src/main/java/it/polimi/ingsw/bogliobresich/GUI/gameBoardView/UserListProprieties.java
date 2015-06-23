@@ -14,16 +14,21 @@ import java.util.Map;
  * @author matteobresich
  *
  */
-public class UserList {
+public class UserListProprieties {
 
     
     private Map <User, Proprieties> map;
     
-    public UserList() {
-        this(null,null,null);
+    public UserListProprieties(List <User> userList, Color color, String state) {
+        map = new HashMap <User, Proprieties> ();
+        if((userList != null)&&(color != null)&&(state != null)) {
+            for(User user : userList) {
+                map.put(user, new Proprieties(color,state));
+            }
+        }
     }
     
-    public UserList(List <User> userList, List <Color> color, List <String> state) {
+    public UserListProprieties(List <User> userList, List <Color> color, List <String> state) {
         map = new HashMap <User, Proprieties> ();
         
         if((userList != null)&&(color != null)&&(state != null)) {
