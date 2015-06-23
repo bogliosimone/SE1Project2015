@@ -76,7 +76,7 @@ public class GameBoardView extends JFrame implements View {
         getContentPane().setLayout(null);
 
         String path = new String(ConstantMap.PATHFILEMAP + guiController.getMapFileName());
-        map = new HexagonMapPanel(path);
+        map = new HexagonMapPanel(path,getCommandPanel());
         map.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         map.setBounds(60, 18, 676, 540);
         getContentPane().add(map);
@@ -107,8 +107,8 @@ public class GameBoardView extends JFrame implements View {
         commandPanel.printPlayer(guiController.getMyPlayer());
         commandPanel.printCurrentTurnNumber(1);
         commandPanel.printMyCoordinate(guiController.getMyPlayer().getCoordinate());
-        //commandPanel.disableCommandPanel();
 
+        commandPanel.disableCommandPanel();
         cursorBlinkEffect();
     }
 

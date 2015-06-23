@@ -151,7 +151,7 @@ public class CommandPanel extends JPanel {
 
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
-        btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map));
+        btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map,this));
         add(btnPlayTheCard);
         btnPlayTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
@@ -223,6 +223,14 @@ public class CommandPanel extends JPanel {
 
     public void setBtnAttackEnabled(boolean b) {
         btnAttack.setEnabled(b);
+    }
+    
+    public void setBtnEndMovementEnabled(boolean b) {
+        btnEndMovement.setEnabled(b);
+    }
+    
+    public void setBtnEndTurnEnabled(boolean b) {
+        btnEndTurn.setEnabled(b);
     }
 
     public void printOtherMessage(String msg) {

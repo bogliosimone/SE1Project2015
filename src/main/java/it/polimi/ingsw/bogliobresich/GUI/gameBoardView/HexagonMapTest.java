@@ -33,7 +33,7 @@ public class HexagonMapTest{
 
     private void createAndShowGUI()
     {
-        HexagonMapPanel panel = new HexagonMapPanel(ConstantMap.NAMEFILEMAP);
+        HexagonMapPanel panel = new HexagonMapPanel(ConstantMap.NAMEFILEMAP,null);
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("Mappa esagoni");
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );

@@ -80,6 +80,24 @@ public class CommandHandler {
                 map.setStateMoveRumorSpotlight(map.STATE_MOVE);
                 map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
             }
+            if(notification.getMovesAvaiable().canPlayItem()){
+                board.getCommandPanel().setBtnPlayTheCardEnabled(true);
+            }
+            if(notification.getMovesAvaiable().canAttack()){
+                board.getCommandPanel().setBtnAttackEnabled(true);
+            }
+            if(notification.getMovesAvaiable().canDiscardItemCard()){
+                board.getCommandPanel().setBtnDiscardTheCardEnabled(true);
+            }
+            if(notification.getMovesAvaiable().canEndTurn()){
+                board.getCommandPanel().setBtnEndTurnEnabled(true);
+            }
+            if(notification.getMovesAvaiable().canGoInEndPhase()){
+                board.getCommandPanel().setBtnEndMovementEnabled(true);
+            }
+            if(notification.getMovesAvaiable().canDrawSectorCard()){
+                board.getCommandPanel().setBtnDrawSectorCardEnabled(true);
+            }
             break;
         case MOVE_NO_AVAIABLE:
             break;

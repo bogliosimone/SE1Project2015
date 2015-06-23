@@ -1,6 +1,7 @@
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners;
 
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.CommandPanel;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.GUICoordinate;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.HexMech2;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.HexagonMapPanel;
@@ -19,9 +20,11 @@ public class MouseListenerGameBoard extends MouseAdapter {
 
     private Map<Coordinate,GUICoordinate> guiMap;
     private HexagonMapPanel hp;
+    private CommandPanel commandPanel;
     private GUIController guiController = GUIController.getInstance();
 
-    public MouseListenerGameBoard(HexagonMapPanel hp){
+    public MouseListenerGameBoard(HexagonMapPanel hp, CommandPanel commandPanel){
+        this.commandPanel = commandPanel;
         this.hp=hp;
     }
 
@@ -38,7 +41,8 @@ public class MouseListenerGameBoard extends MouseAdapter {
         hp.repaint();
         //what to do
 
-
+        //commandPanel.disableCommandPanel();
+        
         if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_MOVE)) {
             GUIController.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,coordKey));
         } else if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_RUMOR)) {

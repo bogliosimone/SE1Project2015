@@ -64,12 +64,12 @@ public class HexagonMapPanel extends JPanel {
     private Map<Coordinate,GUICoordinate> guiMap  = new HashMap<Coordinate,GUICoordinate>();
     
 
-    public HexagonMapPanel(String mapFile)
+    public HexagonMapPanel(String mapFile, CommandPanel commandPanel)
     {       
         guiMap=loadHashMapFromFile(mapFile);
         initMech();
         setBackground(COLOURBACKGROUND);
-        MouseListener ml = new MouseListenerGameBoard(this);            
+        MouseListener ml = new MouseListenerGameBoard(this,commandPanel);            
         addMouseListener(ml);
     }
     
