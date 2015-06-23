@@ -7,6 +7,7 @@ import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnAttackListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnCardListener;
+import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnDiscardTheCardListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnDrawSectorCardListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndMovementListener;
 import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnEndTurnListener;
@@ -152,6 +153,7 @@ public class CommandPanel extends JPanel {
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
         btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map,this));
+        btnPlayTheCard.addActionListener(new BtnDiscardTheCardListener(this));
         add(btnPlayTheCard);
         btnPlayTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
@@ -162,26 +164,26 @@ public class CommandPanel extends JPanel {
 
         btnDrawSectorCard = new JButton("Pesca una carta settore");
         btnDrawSectorCard.setBounds(86, 513, 145, 30);
-        btnDrawSectorCard.addActionListener(new BtnDrawSectorCardListener());
+        btnDrawSectorCard.addActionListener(new BtnDrawSectorCardListener(this));
         add(btnDrawSectorCard);
         btnDrawSectorCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
         btnAttack = new JButton("Attacca");
         btnAttack.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnAttack.setBounds(238, 513, 145, 30);
-        btnAttack.addActionListener(new BtnAttackListener());
+        btnAttack.addActionListener(new BtnAttackListener(this));
         add(btnAttack);
 
         btnEndMovement = new JButton("Fine movimento");
         btnEndMovement.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnEndMovement.setBounds(86, 543, 145, 30);
-        btnEndMovement.addActionListener(new BtnEndMovementListener());
+        btnEndMovement.addActionListener(new BtnEndMovementListener(this));
         add(btnEndMovement);
 
         btnEndTurn = new JButton("Fine turno");
         btnEndTurn.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
         btnEndTurn.setBounds(238, 543, 145, 30);
-        btnEndTurn.addActionListener(new BtnEndTurnListener());
+        btnEndTurn.addActionListener(new BtnEndTurnListener(this));
         add(btnEndTurn);
 
         lblOtherMessages = new JLabel();
@@ -200,6 +202,8 @@ public class CommandPanel extends JPanel {
         setBtnDiscardTheCardEnabled(false);
         setBtnAttackEnabled(false);
         setCardsEnabled(false);
+        setBtnEndMovementEnabled(false);
+        setBtnEndTurnEnabled(false);
     }
 
     public void setCardsEnabled(boolean b) {

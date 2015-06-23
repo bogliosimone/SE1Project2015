@@ -41,8 +41,6 @@ public class MouseListenerGameBoard extends MouseAdapter {
         hp.repaint();
         //what to do
 
-        //commandPanel.disableCommandPanel();
-        
         if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_MOVE)) {
             GUIController.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,coordKey));
         } else if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_RUMOR)) {
