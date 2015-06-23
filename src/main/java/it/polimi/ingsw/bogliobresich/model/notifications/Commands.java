@@ -21,7 +21,7 @@ public enum Commands {
     USER_DISCONNECTED, //(User) when user disconnected (broadcast)
     YOU_DISCONNECTED, //advise the player he can't play anymore until end of the game cause time is up
     YOU_ARE_FEED, //when alien eat another player
-    
+    LIST_PLAYERS_END_GAME, //list player with winners and loser 
     
     //item card
     DISCARD_CARD, //(ItemCard) when player play in right mode a card he need to discard its

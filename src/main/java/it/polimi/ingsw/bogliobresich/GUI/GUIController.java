@@ -41,6 +41,7 @@ public class GUIController implements Observer, Runnable {
     
     private Player myPlayer;
     private List <User> users;
+    private List <Player> players;
     private ItemHand handOfCards;
     private int idCardSelected = -1;
     
@@ -66,6 +67,10 @@ public class GUIController implements Observer, Runnable {
             NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
             switch(command) {
+            case LIST_PLAYERS_END_GAME:
+                setPlayers(notification.getListOfPlayers()); // li salvo nella lista 
+                //fare nuova finestra con lista vincitori
+                break;
             case ATTACK:
                 //up
                 break;
@@ -365,5 +370,13 @@ public class GUIController implements Observer, Runnable {
      */
     public void setCommandPanelUserList(UserListProprieties commandPanelUserList) {
         this.commandPanelUserList = commandPanelUserList;
+    }
+
+    public List <Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List <Player> players) {
+        this.players = players;
     }
 }

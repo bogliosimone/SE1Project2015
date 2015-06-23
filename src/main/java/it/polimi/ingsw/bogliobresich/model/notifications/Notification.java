@@ -29,6 +29,7 @@ public interface Notification <Argument> {
     //Get the argument of the notification
     public Player getPlayer(); 
     public List<User> getListOfUsers();
+    public List<Player> getListOfPlayers();
     public String getString();
     public Coordinate getCoordinate();
     public ItemCard getItemCard();

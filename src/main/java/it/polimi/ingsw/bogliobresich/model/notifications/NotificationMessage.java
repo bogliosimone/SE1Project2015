@@ -85,6 +85,14 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         }
         return null;
     }
+    
+    @Override
+    public List<Player> getListOfPlayers() {
+        if(argument instanceof List) {
+            return (List<Player>) argument;
+        }
+        return null;
+    }
 
     @Override
     public String getString() {

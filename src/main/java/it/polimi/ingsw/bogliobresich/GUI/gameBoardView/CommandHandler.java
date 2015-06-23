@@ -3,16 +3,19 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
+import java.util.List;
+
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * @author matteobresich
  *
  */
 public class CommandHandler {
-
+    
     private static ImagesHolder imagesHolder = ImagesHolder.getInstance();
 
     private CommandHandler() {
@@ -21,6 +24,17 @@ public class CommandHandler {
 
     public static void dispatchUpdate(GameBoardView board, HexagonMapPanel map, NotificationMessage notification) {
         switch (notification.getCommand()) {
+        case LIST_PLAYERS_END_GAME:
+            List<Player> players =notification.getListOfPlayers();
+            String s;
+            board.printMessage("***Lista vincitori e sconfitti***");
+            for(Player tmp:players){
+                s=" ha perso";
+                if(tmp.isWinner())
+                    s=" ha vinto";
+                board.printMessage(tmp.getNickName()+s+" - Natura: "+tmp.getCharacterCard().getCharacterType()+" - Personaggio: "+tmp.getCharacterCard().getCharacterName());
+            }
+            break;
         case ATTACK:
             board.printMessage(notification.getString());
             break;

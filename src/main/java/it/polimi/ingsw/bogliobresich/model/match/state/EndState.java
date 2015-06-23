@@ -9,7 +9,7 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndGameAction;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
+import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
@@ -40,7 +40,11 @@ public class EndState implements State {
         if(match.atLeastOneHumaAliveNoWinner()||match.isLastHumanKill())
             alienWin=true;
         List<Player> tmpPlayers = match.getAllPlayer();
-        for(Player tmpPlayer:tmpPlayers){
+        for(Player tmpPlayer:tmpPlayers)
+            if(alienWin && tmpPlayer instanceof AlienPlayer)
+                tmpPlayer.setIsWinner(true);
+        match.notifyAllPlayer(Commands.LIST_PLAYERS_END_GAME, tmpPlayers);
+        /*for(Player tmpPlayer:tmpPlayers){
             if(tmpPlayer instanceof HumanPlayer){
                 if(tmpPlayer instanceof HumanPlayer&& tmpPlayer.isWinner()){
                     match.notifyAllPlayer("L'umano "+tmpPlayer.getNickName()+" ha vinto");
@@ -66,7 +70,7 @@ public class EndState implements State {
                 }
             }
                 
-        }
+        }*/
         for(Player tmpPlayer:tmpPlayers){
             if(tmpPlayer.isWinner())
                 match.notifyPlayer(Commands.YOU_WIN, null, tmpPlayer);

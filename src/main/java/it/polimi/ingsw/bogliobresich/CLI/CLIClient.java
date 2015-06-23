@@ -58,6 +58,16 @@ public class CLIClient implements Observer, Runnable{
 
             Commands command = notification.getCommand();
             switch(command) {
+            case LIST_PLAYERS_END_GAME:
+                List<Player> tmpList = notification.getListOfPlayers();
+                printString("***Lista vincitori e sconfitti***");
+                for(Player tmp:tmpList){
+                    s=" ha perso";
+                    if(tmp.isWinner())
+                        s=" ha vinto";
+                    printString(tmp.getNickName()+s+" - Natura: "+tmp.getCharacterCard().getCharacterType()+" - Personaggio: "+tmp.getCharacterCard().getCharacterName());
+                }
+                break;
             case GAME_MAP_FILE_NAME:
                 gameMap= new HexMap(notification.getString());
                 printString("Stai giocando sulla mappa: "+(notification.getString()).replace(".txt", "").toUpperCase());
