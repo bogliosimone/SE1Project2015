@@ -50,12 +50,11 @@ public class MouseListenerGameBoard extends MouseAdapter {
             if(card instanceof SpotlightItemCard) {
                 SpotlightItemCard spotlightCard = (SpotlightItemCard)card;
                 spotlightCard.setCoordToLight(coordKey);
+                System.out.println(spotlightCard.toString());
                 GUIController.sendCommand(new ClientCommand(CommandType.DO_PLAY_ITEM_REQUEST,spotlightCard));
-            } else {
-                throw new RuntimeException();
+                guiController.setIdCardSelected(-1);
             }
         }
-
 
         /*hp.resetGuiMapColour();
         hp.setActualCoordinate(new Coordinate('L',10));

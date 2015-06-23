@@ -28,6 +28,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -69,6 +70,8 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
     private JLabel lblOtherMessages;
+
+    private BtnCardListener [] cardListeners;
 
     private HexagonMapPanel map;
 
@@ -153,12 +156,12 @@ public class CommandPanel extends JPanel {
         btnPlayTheCard = new JButton("Gioca la carta");
         btnPlayTheCard.setBounds(86, 483, 145, 30);
         btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map,this));
-        btnPlayTheCard.addActionListener(new BtnDiscardTheCardListener(this));
         add(btnPlayTheCard);
         btnPlayTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
         btnDiscardTheCard = new JButton("Scarta la carta");
         btnDiscardTheCard.setBounds(238, 483, 145, 30);
+        btnPlayTheCard.addActionListener(new BtnDiscardTheCardListener(this));
         add(btnDiscardTheCard);
         btnDiscardTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
@@ -201,14 +204,16 @@ public class CommandPanel extends JPanel {
         setBtnDrawSectorCardEnabled(false);
         setBtnDiscardTheCardEnabled(false);
         setBtnAttackEnabled(false);
-        setCardsEnabled(false);
         setBtnEndMovementEnabled(false);
         setBtnEndTurnEnabled(false);
+        setCardsEnabled(false);
     }
 
     public void setCardsEnabled(boolean b) {
-        for(int index = 0; index < GUIController.getInstance().getHandOfCards().getAllCard().size(); index++) {
-            btnCards[index].setEnabled(b);
+        for(int index = 0; index < btnCards.length; index++) {
+            if(btnCards[index].getActionListeners() != null) {
+                btnCards[index].setEnabled(b);
+            }
         }
     }
 
@@ -228,11 +233,11 @@ public class CommandPanel extends JPanel {
     public void setBtnAttackEnabled(boolean b) {
         btnAttack.setEnabled(b);
     }
-    
+
     public void setBtnEndMovementEnabled(boolean b) {
         btnEndMovement.setEnabled(b);
     }
-    
+
     public void setBtnEndTurnEnabled(boolean b) {
         btnEndTurn.setEnabled(b);
     }
@@ -241,13 +246,30 @@ public class CommandPanel extends JPanel {
         lblOtherMessages.setText(msg);
     }
 
-    public void printHand(ItemHand hand) {
-        int index = 0;
-        List<ItemCard> cards = hand.getAllCard();
-        for(ItemCard card : cards) {
-            System.out.println(card);
+    public void initHand() {
+        for(int index = 0; index < ConstantMatch.MAXCARDINHAND; index++) {  
             btnCards[index] = new JButton("");
             btnCards[index].setBounds((86+76*index), 401, 64, 64);
+            add(btnCards[index]);
+            validate();
+        }
+        setCardsEnabled(false);
+    }
+
+    public void printHand(ItemHand hand) {
+        setCardsEnabled(false);
+        for(JButton b : btnCards) {
+            for(ActionListener al : b.getActionListeners()) {
+                b.removeActionListener(al);
+            }
+            b.setIcon(null);
+        }
+        
+        List<ItemCard> cards = hand.getAllCard();
+        int index = 0;
+        for(ItemCard card : cards) {
+//            //REMOVE
+            System.out.println(card.getId() + "");
             btnCards[index].setIcon(getImageByItemCard(card));
             btnCards[index].addActionListener(new BtnCardListener(card.getId()));
             add(btnCards[index]);

@@ -79,7 +79,9 @@ public class CommandHandler {
                 map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
             }
             if(notification.getMovesAvaiable().canPlayItem()){
-                board.getCommandPanel().setBtnPlayTheCardEnabled(true);
+                if(!GUIController.getInstance().getHandOfCards().isEmpty()) {
+                    board.getCommandPanel().setBtnPlayTheCardEnabled(true);
+                }
             }
             if(notification.getMovesAvaiable().canAttack()){
                 board.getCommandPanel().setBtnAttackEnabled(true);

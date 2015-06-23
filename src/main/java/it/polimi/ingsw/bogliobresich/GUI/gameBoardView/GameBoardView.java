@@ -102,12 +102,11 @@ public class GameBoardView extends JFrame implements View {
         txtMessagesArea.setForeground(MESSAGES_AREA_TEXT);
 
 
-        List <User> users = guiController.getUserList();
         commandPanel.initAndPrintUserList(guiController.getUserList(),guiController.getCommandPanelUserList());
         commandPanel.printPlayer(guiController.getMyPlayer());
         commandPanel.printCurrentTurnNumber(1);
         commandPanel.printMyCoordinate(guiController.getMyPlayer().getCoordinate());
-
+        commandPanel.initHand();
         commandPanel.disableCommandPanel();
         cursorBlinkEffect();
     }

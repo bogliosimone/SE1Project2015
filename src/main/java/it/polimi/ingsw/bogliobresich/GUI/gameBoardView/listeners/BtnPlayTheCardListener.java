@@ -22,6 +22,8 @@ public class BtnPlayTheCardListener implements ActionListener{
 
     private HexagonMapPanel map;
     private CommandPanel commandPanel;
+    private int idCardSelected = -1;
+    private GUIController guiController = GUIController.getInstance();
 
     public BtnPlayTheCardListener(HexagonMapPanel map,CommandPanel commandPanel) {
         this.map = map;
@@ -30,19 +32,21 @@ public class BtnPlayTheCardListener implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        GUIController guiController = GUIController.getInstance();
+
         ItemHand handOfCards = guiController.getHandOfCards();
+        idCardSelected = guiController.getIdCardSelected();
 
-        int id = guiController.getIdCardSelected();
-        if(id != -1) {
-            guiController.setIdCardSelected(-1);
-            commandPanel.disableCommandPanel();
-
-            if(handOfCards.getCard(id) instanceof SpotlightItemCard) {
-                map.setStateMoveRumorSpotlight(map.STATE_SPOTLIGHT);
-                map.setAvaiableAllMoves();
-            } else {
-                GUIController.sendCommand(new ClientCommand(CommandType.DO_PLAY_ITEM_REQUEST, handOfCards.getCard(id)));
+        if(!handOfCards.isEmpty()) {
+            if(idCardSelected != -1) {
+                commandPanel.disableCommandPanel();        
+                if(handOfCards.getCard(idCardSelected) instanceof SpotlightItemCard) {
+                    map.setStateMoveRumorSpotlight(map.STATE_SPOTLIGHT);
+                    map.setAvaiableAllMoves();
+                }
+                else {
+                    GUIController.sendCommand(new ClientCommand(CommandType.DO_PLAY_ITEM_REQUEST, handOfCards.getCard(idCardSelected)));
+                    guiController.setIdCardSelected(-1);
+                }
             }
         }
     }
