@@ -98,6 +98,7 @@ public class GUIController implements Observer, Runnable {
             case DRAW_CARD:
                 ItemCard card = notification.getItemCard();
                 handOfCards.addCard(card);
+                createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
                 break;
             case DRAW_SECTOR_CARD:
                 SectorCard sc = notification.getSectorCard();
@@ -109,9 +110,6 @@ public class GUIController implements Observer, Runnable {
                 }
                 if(sc.isThereSilence()) {
                     createMessageView("Hai pescato una carta settore:\n SILENZIO",imagesHolder.getSilence());
-                }
-                if(sc.isThereAnItemToDraw()) {
-                    createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
                 }
                 break;
             case END_TURN:
