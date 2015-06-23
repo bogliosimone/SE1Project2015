@@ -72,9 +72,4 @@ public enum Commands {
     CALL_RUMOR, // player need to call rumor in some coordiante
     
     SERVER_NOT_RESPONDING, //(String) server connection error
-    
-    
-    //da cancellare
-    ALL_PLAYERS_MESSAGE,
-    PLAYER_COMMAND;
 }

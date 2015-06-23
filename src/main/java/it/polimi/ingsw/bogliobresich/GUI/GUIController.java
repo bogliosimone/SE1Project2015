@@ -8,7 +8,6 @@ import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
-import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
@@ -62,39 +61,34 @@ public class GUIController implements Observer, Runnable {
         {
             NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
-
             switch(command) {
-            case ALL_PLAYERS_MESSAGE:
-                getCurrentView().doUpdate(notification);
-                break;
             case ATTACK:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case CALL_RUMOR:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case CANT_DISCARD_CARD:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Non puoi scartare questa carta",null);
                 break;
             case CANT_PLAY_CARD:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Non puoi giocare questa carta",null);
                 break;
             case CARDS_END:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Le carte oggetto sono finite",null);
                 break;
             case COORDINATE_ERROR:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Coordinata non valida",null);
                 break;
             case DISCARD_CARD:
-                getCurrentView().doUpdate(notification);
+                this.handOfCards.removeCard(notification.getItemCard());
                 break;
             case DISCARD_HAND:
-                getCurrentView().doUpdate(notification);
+                this.handOfCards.discardHand();
                 break;
             case DRAW_CARD:
                 ItemCard card = notification.getItemCard();
                 handOfCards.addCard(card);
-                getCurrentView().doUpdate(notification);
                 break;
             case DRAW_SECTOR_CARD:
                 SectorCard sc = notification.getSectorCard();
@@ -112,96 +106,88 @@ public class GUIController implements Observer, Runnable {
                 }
                 break;
             case END_TURN:
-                getCurrentView().doUpdate(notification);
                 createMessageView(myPlayer.getNickName()+" il tuo turno è finito",null);
+                //disabilita comandi per sicurezza
                 break;
             case FATAL_ERROR:
-                getCurrentView().doUpdate(notification);
                 createMessageView(notification.getString(),null);
                 break;
             case GAME_END:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Il gioco è finito",null);
                 break;
             case GAME_INFO_MESSAGE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case GAME_START:
                 setNextView(viewFactory.getView(GUIViews.GAME_BOARD_VIEW));
                 changeToNextView();
                 break;
             case GENERIC_ERROR:
-                getCurrentView().doUpdate(notification);
                 createMessageView(notification.getString(),null);
                 break;
             case GENERIC_MESSAGE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case HAND_FULL:
-                getCurrentView().doUpdate(notification);
+                createMessageView("La tua mano è piena",null);
                 break;
             case IS_NOT_YOUR_TURN:
-                getCurrentView().doUpdate(notification);
                 createMessageView(myPlayer.getNickName()+" non è il tuo turno",null);
                 break;
             case ITEM_PLAYED:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case LIST_USERS:
                 setUsers(notification.getListOfUsers());
                 break;
             case MOVES_AVAIABLE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case MOVE_NO_AVAIABLE:
-                getCurrentView().doUpdate(notification);
-                break;
-            case PLAYER_COMMAND:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Mossa non disponibile",null);
                 break;
             case PLAYER_JOIN_WAIT_ROOM:
                 setNextView(viewFactory.getView(GUIViews.WAITING_ROOM_VIEW));
                 changeToNextView();
                 break;
             case PLAYER_MESSAGE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case PORTHOLE_BROKEN:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case SECTOR_TYPE_MESSAGE:
-                getCurrentView().doUpdate(notification);
+                //not used - used in CLI, string with safe unsafe porthole sector
                 break;
             case SERVER_NOT_RESPONDING:
-                getCurrentView().doUpdate(notification);
+                createMessageView("Il server non risponde - ERRORE",null);
                 break;
             case SET_YOUR_COORDINATE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case START_END_PHASE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case START_MOVEMENT_PHASE:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case START_TIMER:
-                getCurrentView().doUpdate(notification);
+                //start timer, not implemented
                 break;
             case START_TURN:
                 createMessageView(myPlayer.getNickName()+" è il tuo turno",null);
-                getCurrentView().doUpdate(notification);
                 break;
             case USER_END_TURN:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case USER_START_TURN:
-                getCurrentView().doUpdate(notification);
+                //up
                 break;
             case WHO_ARE_YOU:
                 setMyPlayer(notification.getPlayer());
                 handOfCards = myPlayer.getHand();
                 break;
             case YOU_ARE_FEED:
-                getCurrentView().doUpdate(notification);
                 createMessageView(myPlayer.getNickName()+" ti sei nutrito di un umano\n ora puoi muoverti di tre caselle",null);
                 break;
             case YOU_DIE:
@@ -211,19 +197,19 @@ public class GUIController implements Observer, Runnable {
                 createMessageView(myPlayer.getNickName()+"Sei stato disconnesso!",null);
                 break;
             case YOU_LOST:
-                getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+"Hai perso! :(",null);
                 break;
             case YOU_WIN:
-                getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+"Hai vinto! :)",null);
                 break;
             case USER_DISCONNECTED:
-                //USER
+                //up
                 break;
             case HUMAN_ESCAPE:
-                //PLAYER
+                //up
                 break;
             case PLAYER_DIE:
-                //PLAYER
+                //up
                 break;
             case GAME_MAP_FILE_NAME:
                 setMapFileName(notification.getString());
@@ -231,6 +217,8 @@ public class GUIController implements Observer, Runnable {
             default:
                 break;
             }
+
+            getCurrentView().doUpdate(notification);
         }
     }
 
@@ -273,10 +261,6 @@ public class GUIController implements Observer, Runnable {
                 }
             });
             return messageView;
-    }
-
-    private void shutdown() {
-        controller.deleteObserver(this);
     }
 
     //TO NETWORK CONTROLLER
