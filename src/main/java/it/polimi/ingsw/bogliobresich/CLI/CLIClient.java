@@ -326,7 +326,7 @@ public class CLIClient implements Observer, Runnable{
                 return false;
             }
             if(card instanceof SpotlightItemCard){
-                printString("Inserisci coordinata  su cui far luce: ");
+                printString("Inserisci coordinata (lettera-numero) su cui far luce: ");
                 s=readString();
                 char letter=getLetterCoordianteFromString(s);
                 int number=getNumberCoordinateFromString(s);
@@ -362,12 +362,26 @@ public class CLIClient implements Observer, Runnable{
         s=s.toUpperCase();
         return s.charAt(0);
     }
+    
     private int getNumberCoordinateFromString(String s){
         s=s.substring(1,s.length());
-        return Integer.parseInt(s);
+        try{
+        int numb=Integer.parseInt(s);
+        return numb;
+        }
+        catch(Exception e){
+            return 0;
+        }
+        
     }
     
     private int idCardFromString(String s){
-        return Integer.parseInt(s);
+        try{
+            int numb=Integer.parseInt(s);
+            return numb;
+            }
+            catch(Exception e){
+                return 0;
+            }
     }
 }

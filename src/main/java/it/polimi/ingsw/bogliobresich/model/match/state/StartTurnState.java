@@ -86,7 +86,7 @@ public class StartTurnState implements State {
             }
             else{
                 match.notifyPlayer(player, "spostamento non valido in "+endCoord.toString());
-                match.notifyPlayer(Commands.GENERIC_ERROR, "Coordinate non valide "+endCoord.toString(), player);
+                match.notifyPlayer(Commands.GENERIC_ERROR, "Coordinate non valide ", player);
                 match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,player),player);
             }
             
