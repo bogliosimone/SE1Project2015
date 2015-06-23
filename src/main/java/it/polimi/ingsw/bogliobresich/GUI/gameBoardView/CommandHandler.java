@@ -49,7 +49,6 @@ public class CommandHandler {
         case DRAW_SECTOR_CARD:
             break;
         case END_TURN:
-            //update list
             break;
         case FATAL_ERROR:            
             break;
@@ -73,7 +72,6 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case LIST_USERS:
-            //update list user
             break;
         case MOVES_AVAIABLE:
             if(notification.getMovesAvaiable().canMove()) {
@@ -127,10 +125,10 @@ public class CommandHandler {
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_TURN:
-            //update list
+            board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
             break;
         case USER_START_TURN:
-            //update list
+            board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
             break;
         case WHO_ARE_YOU:
             break;
@@ -145,15 +143,15 @@ public class CommandHandler {
         case YOU_WIN:
             break;
         case USER_DISCONNECTED:
-            //update list
+            board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
             board.printMessage(notification.getUser().getNickname()+" si è disconnesso");
             break;
         case HUMAN_ESCAPE:
-            //update list
+            board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
             board.printMessage(notification.getPlayer().getNickName()+" ha lasciato l'astronave \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case PLAYER_DIE:
-            //update list
+            board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
             board.printMessage(notification.getPlayer().getNickName()+" è morto \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case GAME_MAP_FILE_NAME:

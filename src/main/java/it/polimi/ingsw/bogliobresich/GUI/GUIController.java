@@ -111,7 +111,6 @@ public class GUIController implements Observer, Runnable {
                 break;
             case END_TURN:
                 createMessageView(myPlayer.getNickName()+" il tuo turno è finito",null);
-                //disabilita comandi per sicurezza
                 break;
             case FATAL_ERROR:
                 createMessageView(notification.getString(),null);
@@ -183,10 +182,10 @@ public class GUIController implements Observer, Runnable {
                 createMessageView(myPlayer.getNickName()+" è il tuo turno",null);
                 break;
             case USER_END_TURN:
-                //up
+                commandPanelUserList.setUserColor(notification.getUser(), Color.WHITE);
                 break;
             case USER_START_TURN:
-                //up
+                commandPanelUserList.setUserColor(notification.getUser(), Color.GREEN);
                 break;
             case WHO_ARE_YOU:
                 setMyPlayer(notification.getPlayer());
@@ -208,13 +207,16 @@ public class GUIController implements Observer, Runnable {
                 createMessageView(myPlayer.getNickName()+"Hai vinto! :)",null);
                 break;
             case USER_DISCONNECTED:
-                //up
+                commandPanelUserList.setUserColor(notification.getUser(), Color.YELLOW);
+                commandPanelUserList.setUserState(notification.getUser(), "DISCONNECTED");
                 break;
             case HUMAN_ESCAPE:
-                //up
+                commandPanelUserList.setUserColor(notification.getUser(), Color.CYAN);
+                commandPanelUserList.setUserState(notification.getUser(), "ESCAPED");
                 break;
             case PLAYER_DIE:
-                //up
+                commandPanelUserList.setUserColor(notification.getUser(), Color.RED);
+                commandPanelUserList.setUserState(notification.getUser(), "DEAD");
                 break;
             case GAME_MAP_FILE_NAME:
                 setMapFileName(notification.getString());
