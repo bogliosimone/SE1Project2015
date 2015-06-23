@@ -50,6 +50,7 @@ public class CLIClient implements Observer, Runnable{
             String s;
             Coordinate coord;
             ItemCard c;
+            Player p;
             char letter;
             int number;
 
@@ -57,6 +58,10 @@ public class CLIClient implements Observer, Runnable{
 
             Commands command = notification.getCommand();
             switch(command) {
+            case GAME_MAP_FILE_NAME:
+                gameMap= new HexMap(notification.getString());
+                printString("Stai giocando sulla mappa: "+(notification.getString()).replace(".txt", "").toUpperCase());
+                break;
             case ATTACK:
                 printString(notification.getString());
                 break;
@@ -186,9 +191,17 @@ public class CLIClient implements Observer, Runnable{
             case START_TURN:
                 printString("*Il tuo turno è iniziato - turno "+notification.getInteger()+"*");
                 break;
-            case USER_END_IS_GAME:
+            case USER_DISCONNECTED:
                 u=notification.getUser();
-                printString("----------------------\nIl giocatore "+u.getNickname()+" ha terminato la sua partita\n----------------------");
+                printString("----------------------\nIl giocatore "+u.getNickname()+" si è disconnesso\n----------------------");
+                break;
+            case HUMAN_ESCAPE:
+                p=notification.getPlayer();
+                printString(p.getNickName()+" personaggio: "+p.getCharacterCard().getCharacterName()+" natura:"+p.getCharacterCard().getCharacterType()+" ha lasciato l'astronave, "+p.getNickName()+" ha vinto");
+                break;
+            case PLAYER_DIE:
+                p=notification.getPlayer();
+                printString(p.getNickName()+" personaggio: "+p.getCharacterCard().getCharacterName()+" natura:"+p.getCharacterCard().getCharacterType()+" è morto");
                 break;
             case USER_END_TURN:
                 u=notification.getUser();
@@ -199,7 +212,7 @@ public class CLIClient implements Observer, Runnable{
                 printString("----------------------\nIl giocatore "+u.getNickname()+" ha iniziato il suo turno");
                 break;
             case WHO_ARE_YOU:
-                Player p = notification.getPlayer();
+                p = notification.getPlayer();
                 printString(p.getNickName());
                 player=p;
                 printString("*Il tuo personaggio è : "+p.getCharacterCard().getCharacterName()+" natura: "+p.getCharacterCard().getCharacterType()+"*");

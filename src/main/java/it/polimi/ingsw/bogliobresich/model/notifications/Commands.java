@@ -16,7 +16,9 @@ public enum Commands {
     YOU_WIN, //when a player win 
     YOU_LOST, // when a player lost
     YOU_DIE, //when a player die after an attack
-    USER_END_IS_GAME, //(User) when a player die ,win or disconnected, he don't play anymore in this game(broadcast)
+    HUMAN_ESCAPE, //(Player) human that escape from the alien, he win (broadcast)
+    PLAYER_DIE, //(Player) user that die after attack (broadcast)
+    USER_DISCONNECTED, //(User) when user disconnected (broadcast)
     YOU_DISCONNECTED, //advise the player he can't play anymore until end of the game cause time is up
     YOU_ARE_FEED, //when alien eat another player
     
@@ -37,6 +39,7 @@ public enum Commands {
     //initial state
     WHO_ARE_YOU, //(Player) player know is role in the game
     LIST_USERS, //(List User) player know his game mate
+    GAME_MAP_FILE_NAME, //(String) name of the file map that need to used in this game
     GAME_START, // the game begin
     //start turn
     USER_START_TURN, //(User) user that actually play (broadcast)

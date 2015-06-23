@@ -47,8 +47,7 @@ public class PortholePhaseTurnState implements State {
                     match.notifyAllPlayer(player.getNickName()+" ha pescato un carta scialuppa VERDE");
                     player.setIsWinner(true);
                     match.setIsLastPlayerKill(false);
-                    match.notifyAllPlayer(Commands.GAME_INFO_MESSAGE,player.getNickName()+" ha lasciato l'astronave, "+player.getNickName()+" ha vinto!");
-                    match.notifyPlayer(Commands.USER_END_IS_GAME, null, player);
+                    match.notifyAllPlayer(Commands.HUMAN_ESCAPE,player);
                     match.notifyAllPlayer(player.getNickName()+" ha lasciato l'astronave, "+player.getNickName()+" ha vinto!");
                     match.notifyPlayer(Commands.YOU_WIN,null,player);
                 }

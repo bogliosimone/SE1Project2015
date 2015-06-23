@@ -34,10 +34,11 @@ public class InitState implements State {
         if(action instanceof ActionListUser){
             int numbOfPlayers=(((ActionListUser) action).getListUser()).size();
             createDecks(match,numbOfPlayers);
+            match.notifyAllPlayer(Commands.GAME_MAP_FILE_NAME,match.getNameFileMap());
             createPlayers(match,(ActionListUser)action);
-            match.setState(new StartTurnState());
             match.notifyAllPlayer("La partita è attiva");
             match.notifyAllUser(Commands.GAME_START, null);
+            match.setState(new StartTurnState());
             match.doAction(null, new ActionStartTurn());
             match.setIsActive(true);
             return;
