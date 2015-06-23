@@ -238,12 +238,12 @@ public class CommandPanel extends JPanel {
                 index++;
             }
         }
-        for(int remainderUsers = index; remainderUsers < ConstantMatch.MAXPLAYERS; remainderUsers++) {
+        /*for(int remainderUsers = index; remainderUsers < ConstantMatch.MAXPLAYERS; remainderUsers++) {
             labelUsers[remainderUsers] = new JLabel((remainderUsers+1) + " - [Missing User]");
             labelUsers[remainderUsers].setBounds(86, 75+20*remainderUsers, 300, 15);
             add(labelUsers[remainderUsers]);
             labelUsers[remainderUsers].setForeground(MISSING_USER);
-        }
+        }*/
     }
 
     public void printMyCoordinate(Coordinate c) {
@@ -263,21 +263,21 @@ public class CommandPanel extends JPanel {
     }
     
     public ImageIcon getImageByPlayer(Player player) {
-        if(player.getCharacterCard().getCharacterName().equals(Characters.CAPTAIN)) {
+        if(player.getCharacterCard().getCharacterName().equals(Characters.CAPTAIN.getCharacterName())) {
             return imagesHolder.getCaptain();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PILOT)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PILOT.getCharacterName())) {
             return imagesHolder.getPilot();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PSYCHOLOGIST)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PSYCHOLOGIST.getCharacterName())) {
             return imagesHolder.getPsychologist();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.SOLDIER)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.SOLDIER.getCharacterName())) {
             return imagesHolder.getSoldier();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENONE)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENONE.getCharacterName())) {
             return imagesHolder.getFirstAlien();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTWO)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTWO.getCharacterName())) {
             return imagesHolder.getSecondAlien();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTHREE)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTHREE.getCharacterName())) {
             return imagesHolder.getThirdAlien();
-        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENFOUR)) {
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENFOUR.getCharacterName())) {
             return imagesHolder.getFourthAlien();
         }
         return imagesHolder.getCaptain();

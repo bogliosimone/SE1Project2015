@@ -99,13 +99,13 @@ public class GUIController implements Observer, Runnable {
             case DRAW_SECTOR_CARD:
                 SectorCard sc = notification.getSectorCard();
                 if(sc.isThereNoiseInAnySector()) {
-                    createMessageView("Hai pescato una carta settore rumore in qualunque settore",imagesHolder.getRumorXY());
+                    createMessageView("Hai pescato una carta settore:\n RUMORE IN QUALUNQUE SETTORE",imagesHolder.getRumorXY());
                 }
                 if(sc.isThereNoiseInMySector()) {
-                    createMessageView("Hai pescato una carta settore rumore nel tuo settore",imagesHolder.getRumorMySector());
+                    createMessageView("Hai pescato una carta settore:\n RUMORE NEL TUO SETTORE",imagesHolder.getRumorMySector());
                 }
                 if(sc.isThereSilence()) {
-                    createMessageView("Hai pescato una carta settore silenzio",imagesHolder.getSilence());
+                    createMessageView("Hai pescato una carta settore:\n SILENZIO",imagesHolder.getSilence());
                 }
                 if(sc.isThereAnItemToDraw()) {
                     createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
@@ -113,9 +113,11 @@ public class GUIController implements Observer, Runnable {
                 break;
             case END_TURN:
                 getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+" il tuo turno è finito",null);
                 break;
             case FATAL_ERROR:
                 getCurrentView().doUpdate(notification);
+                createMessageView(notification.getString(),null);
                 break;
             case GAME_END:
                 getCurrentView().doUpdate(notification);
@@ -129,6 +131,7 @@ public class GUIController implements Observer, Runnable {
                 break;
             case GENERIC_ERROR:
                 getCurrentView().doUpdate(notification);
+                createMessageView(notification.getString(),null);
                 break;
             case GENERIC_MESSAGE:
                 getCurrentView().doUpdate(notification);
@@ -138,6 +141,7 @@ public class GUIController implements Observer, Runnable {
                 break;
             case IS_NOT_YOUR_TURN:
                 getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+" non è il tuo turno",null);
                 break;
             case ITEM_PLAYED:
                 getCurrentView().doUpdate(notification);
@@ -183,6 +187,7 @@ public class GUIController implements Observer, Runnable {
                 getCurrentView().doUpdate(notification);
                 break;
             case START_TURN:
+                createMessageView(myPlayer.getNickName()+" è il tuo turno",null);
                 getCurrentView().doUpdate(notification);
                 break;
             case USER_END_TURN:
@@ -197,12 +202,13 @@ public class GUIController implements Observer, Runnable {
                 break;
             case YOU_ARE_FEED:
                 getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+" ti sei nutrito di un umano\n ora puoi muoverti di tre caselle",null);
                 break;
             case YOU_DIE:
-                createMessageView("Sei morto!",null);
+                createMessageView(myPlayer.getNickName()+"Sei morto!",null);
                 break;
             case YOU_DISCONNECTED:
-                getCurrentView().doUpdate(notification);
+                createMessageView(myPlayer.getNickName()+"Sei stato disconnesso!",null);
                 break;
             case YOU_LOST:
                 getCurrentView().doUpdate(notification);

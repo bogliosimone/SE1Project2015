@@ -83,6 +83,7 @@ public class AttackPhaseTurnState implements State {
             if(!match.atLeastOneHumaAlive()){
                 match.setState(new EndTurnState()); 
                 match.doAction(player, new EndTurnAction());
+                return;
             }
             match.setState(new EndPhaseTurnState()); 
             match.doAction(player, new EndPhaseAction());
