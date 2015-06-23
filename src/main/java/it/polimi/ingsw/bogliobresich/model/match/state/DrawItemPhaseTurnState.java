@@ -25,7 +25,6 @@ public class DrawItemPhaseTurnState implements State {
         
         if(action instanceof DrawItemCardAction){
              match.notifyPlayer(player, "La tua carta settore contiene un oggetto");
-             match.notifyPlayer(Commands.PLAYER_MESSAGE,"La tua carta settore contiene un oggetto",player);
              Deck deckItem= match.getItemDeck();
              Card tempCard;
              try {

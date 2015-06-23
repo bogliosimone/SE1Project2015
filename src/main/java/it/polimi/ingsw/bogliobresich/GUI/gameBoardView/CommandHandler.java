@@ -40,7 +40,7 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case CALL_RUMOR:
-            board.printMessage("Clicca sulla mappa per inviare le coordinate dove vuoi fare rumore");
+            board.getCommandPanel().printOtherMessage("Clicca sulla mappa per fare rumore");
             map.setStateMoveRumorSpotlight(map.STATE_RUMOR);
             map.setAvaiableAllMoves();
             break;
@@ -64,6 +64,7 @@ public class CommandHandler {
         case DRAW_SECTOR_CARD:
             break;
         case END_TURN:
+            board.getCommandPanel().printPhaseTurnMessage("", Color.GREEN);
             break;
         case FATAL_ERROR:            
             break;
@@ -89,32 +90,40 @@ public class CommandHandler {
         case LIST_USERS:
             break;
         case MOVES_AVAIABLE:
-            board.getCommandPanel().printOtherMessage("ESEMPIO\n" + notification.getCommand());
+            s = "Mosse disponibili";
             if(notification.getMovesAvaiable().canMove()) {
                 map.setStateMoveRumorSpotlight(map.STATE_MOVE);
                 map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
+                s=s+" - MUOVI";
             }
             if(notification.getMovesAvaiable().canPlayItem()){
                 if(!GUIController.getInstance().getHandOfCards().isEmpty()) {
                     board.getCommandPanel().setBtnPlayTheCardEnabled(true);
                     board.getCommandPanel().setCardsEnabled(true);
+                    s=s+" - GIOCA OGGETTO";
                 }
             }
             if(notification.getMovesAvaiable().canAttack()){
                 board.getCommandPanel().setBtnAttackEnabled(true);
+                s=s+" - ATTACCA";
             }
             if(notification.getMovesAvaiable().canDiscardItemCard()){
                 board.getCommandPanel().setBtnDiscardTheCardEnabled(true);
+                s=s+" - SCARTA";
             }
             if(notification.getMovesAvaiable().canEndTurn()){
                 board.getCommandPanel().setBtnEndTurnEnabled(true);
+                s=s+" - FINE TURNO";
             }
             if(notification.getMovesAvaiable().canGoInEndPhase()){
                 board.getCommandPanel().setBtnEndMovementEnabled(true);
+                s=s+" - FINE MOVIMENTO";
             }
             if(notification.getMovesAvaiable().canDrawSectorCard()){
                 board.getCommandPanel().setBtnDrawSectorCardEnabled(true);
+                s=s+" - PESCA CARTA SETTORE";
             }
+            board.getCommandPanel().printOtherMessage(s);
             break;
         case MOVE_NO_AVAIABLE:
             break;
@@ -135,13 +144,15 @@ public class CommandHandler {
             map.setActualCoordinate(notification.getCoordinate());
             break;
         case START_END_PHASE:
-            board.getCommandPanel().printPhaseTurnMessage("End phase", Color.CYAN);
+            board.getCommandPanel().printPhaseTurnMessage("Sei nella End Phase", Color.GREEN);
             break;
         case START_MOVEMENT_PHASE:
+            board.getCommandPanel().printPhaseTurnMessage("Sei nella Movement Phaase", Color.GREEN);
             break;
         case START_TIMER:
             break;
         case START_TURN:
+            board.getCommandPanel().printPhaseTurnMessage("Sei nella Start Phaase", Color.GREEN);
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_TURN:
