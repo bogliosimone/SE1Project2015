@@ -41,6 +41,7 @@ public class Match {
     private List<Player> players = new LinkedList<Player>();
     private List<Player> arrayPlayers = new ArrayList<Player>();
     private HexMap gameMap=new HexMap();
+    private String nameFileMap="galilei.txt";
     private int numberOfPlayers=0;
     private Deck itemDeck;
     private Deck characterDeck;
@@ -56,9 +57,15 @@ public class Match {
     }
     
     public Match(int idMatch,NotificationQueue queue){
+        this(queue);
         this.idMatch=idMatch;
-        this.notificationQueue=queue;
-        setState(new WaitRoomState());
+    }
+    
+    public Match(int idMatch,NotificationQueue queue,String nameFileMap){
+        this(queue);
+        this.idMatch=idMatch;
+        this.nameFileMap=nameFileMap;
+        gameMap=new HexMap(this.nameFileMap);
     }
     
     public void startTimerTurn(){
@@ -74,6 +81,10 @@ public class Match {
 
     public int getIdMatch(){
         return this.idMatch;
+    }
+    
+    public String getNameFileMap(){
+        return this.nameFileMap;
     }
     
     public int getCurrentTurn(){

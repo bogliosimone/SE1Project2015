@@ -52,15 +52,12 @@ public class AttackPhaseTurnState implements State {
                         else{
                             tmpPlayer.SetIsAlive(false);
                             match.notifyAllPlayer(tmpPlayer.getNickName()+" è morto, era un UMANO");
-                            match.notifyAllPlayer(Commands.GAME_INFO_MESSAGE,tmpPlayer.getNickName()+" è morto, era un UMANO");
                             match.notifyPlayer(tmpPlayer, "Sei morto!");
+                            match.notifyAllPlayer(Commands.PLAYER_DIE, tmpPlayer);
                             match.notifyPlayer(Commands.YOU_DIE, null,tmpPlayer);
-                            match.notifyPlayer(Commands.USER_END_IS_GAME, null, tmpPlayer);
                             match.setIsLastPlayerKill(true);
                             if(player instanceof AlienPlayer && !((AlienPlayer) player).isFeed()){
                                 ((AlienPlayer) player).feed();
-                                match.notifyAllPlayer(player.getNickName()+" si è nutrito di un umano");
-                                match.notifyAllPlayer(Commands.GAME_INFO_MESSAGE,player.getNickName()+" si è nutrito di un umano");
                                 match.notifyPlayer( player,"Ti sei nutrito di un umano, ora puoi muoverti di tre caselle");
                                 match.notifyPlayer(Commands.YOU_ARE_FEED,null,player);
                             }
@@ -69,10 +66,9 @@ public class AttackPhaseTurnState implements State {
                     if(tmpPlayer instanceof AlienPlayer){
                         tmpPlayer.SetIsAlive(false);
                         match.notifyAllPlayer(tmpPlayer.getNickName()+" è morto, era un ALIENO");
-                        match.notifyAllPlayer(Commands.GAME_INFO_MESSAGE,tmpPlayer.getNickName()+" è morto, era un ALIENO");
                         match.notifyPlayer(tmpPlayer, "Sei morto!");
+                        match.notifyAllPlayer(Commands.PLAYER_DIE,tmpPlayer);
                         match.notifyPlayer(Commands.YOU_DIE, null,tmpPlayer);
-                        match.notifyPlayer(Commands.USER_END_IS_GAME, null, tmpPlayer);
                     }
                     if(!tmpPlayer.isAlive()){
                         match.discardItemHandInItemDeck(tmpPlayer);

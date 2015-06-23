@@ -38,13 +38,25 @@ public class HexMap {
      * Coordinate of alien base
      */
     private Coordinate humanBaseCoordinate;
+    
     /**
-     * Create HexMap on default Galilei map
+     * List of Porthole Sector
      */
     private List<PortholeSector> listPorthole = new ArrayList<PortholeSector>();
     
+    /**
+     * Create HexMap on default Galilei map
+     */
     public HexMap(){
         this.hashMap=loadHashMapFromFile(ConstantMap.NAMEFILEMAP);
+    }
+    
+    /**
+     * Create HexMap on a specific map file
+     * @param namefilemap name of the file
+     */
+    public HexMap(String namefilemap){
+        this.hashMap=loadHashMapFromFile(ConstantMap.PATHFILEMAP+namefilemap);
     }
 
     public static void main( String[] args ){

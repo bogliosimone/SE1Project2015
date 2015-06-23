@@ -33,7 +33,7 @@ public class DrawSectorPhaseState implements State {
             return;
         }
 
-        if(action instanceof DrawSectorAction){
+        if(action instanceof DrawSectorAction && cardDraw==null){
             Deck deckItem= match.getSectorDeck();
             Card tempCard;
             try {
@@ -93,6 +93,8 @@ public class DrawSectorPhaseState implements State {
         }
         
         match.notifyPlayer(Commands.MOVE_NO_AVAIABLE, null, player);
+        if(cardDraw!=null)
+            match.notifyPlayer(Commands.CALL_RUMOR,null,player);
 
     }
     
