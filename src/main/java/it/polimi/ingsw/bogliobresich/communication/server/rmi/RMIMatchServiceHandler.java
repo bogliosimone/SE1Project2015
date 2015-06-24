@@ -4,14 +4,13 @@
 package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
-import it.polimi.ingsw.bogliobresich.communication.CommandType;
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
 import it.polimi.ingsw.bogliobresich.communication.server.CommandHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerCommunicationStrategy;
-import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
+import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
@@ -25,18 +24,18 @@ import java.util.Observer;
  *
  */
 public class RMIMatchServiceHandler extends Observable implements RMIMatchService, Serializable, ServerCommunicationStrategy {
-    
-    
+
+
     /**
      * 
      */
     private static final long serialVersionUID = 5899514569944036667L;
     private transient MatchHandler matchHandler;
-    
+
     public RMIMatchServiceHandler (MatchHandler matchHandler) {
         this.matchHandler = matchHandler;
     }
-    
+
     private class WrappedObserver implements Observer, Serializable {
 
         /**
@@ -55,28 +54,32 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         public void update(Observable o, Object arg) {
             try {
                 if(arg instanceof Notification){
-                    //TODO remove
-                    
-                    if(((Notification) arg).isBroadcast()) {
-                        ro.update((Serializable) o, arg);
-                        Server.debugMessage("BROADCAST "+((Notification) arg).getCommand() + "" + ((Notification) arg).getArgument());
-                    } else if (((Notification) arg).getNotificationReciver().equals(user)) {
-                        ro.update((Serializable) o, arg);
-                        Server.debugMessage("USER: " + user +((Notification) arg).getCommand() + "" + ((Notification) arg).getArgument());
+                    Notification notification = (Notification)arg;
+                    if(Server.isServerNotification(notification)) {
+                        if(notification.getCommand().equals(Commands.USER_DISCONNECTED)) {
+                            Server.serviceMessage("Utente " + notification.getUser() + " disconnesso: time-out superato");
+                            o.deleteObserver(this);
+                        }
                     }
-                    
+                    if(notification.isBroadcast()) {
+                        ro.update((Serializable) o, arg);
+                        Server.debugMessage("BROADCAST "+ notification.getCommand() + "" + notification.getArgument());
+                    } else if (notification.getNotificationReciver().equals(user)) {
+                        ro.update((Serializable) o, arg);
+                        Server.debugMessage("USER: " + user + notification.getCommand() + "" + notification.getArgument());
+                    }
+
                 }
             } catch (RemoteException e) {
                 Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
                 o.deleteObserver(this);
-                //e.printStackTrace();
             }
         }
     }
 
-    
+
     //--- RMI REQUESTS ---
-    
+
     @Override
     public void addObserver(User user, RemoteObserver o) throws RemoteException {
         WrappedObserver mo = new WrappedObserver(user,o);
@@ -90,19 +93,19 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         if(Server.SERVER_DEBUG) {
             Server.debugMessage("Comando in arrivo: " + command.getCommandType() + " carta: " + command.getCard() + " coordinata: " + command.getCoordinate());
         }
-        
+
         Player player = matchHandler.getPlayerByUser(user);
         if (player != null) {
             CommandHandler.executeClientCommand(matchHandler,player,command);
         }
-        
+
     }
-    
+
     @Override
     public String getMatchHandlerID() throws RemoteException {
         return matchHandler.getID();
     }
-    
+
     // --- SEND TO OBSERVERS ---
 
     @Override
@@ -111,5 +114,5 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
         notifyObservers(n);
     }
 
-    
+
 }

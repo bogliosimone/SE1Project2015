@@ -4,11 +4,8 @@
 package it.polimi.ingsw.bogliobresich.communication.server;
 
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionServer;
-import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionService;
 import it.polimi.ingsw.bogliobresich.communication.server.socket.SocketConnectionServer;
-
-import java.rmi.registry.Registry;
-import java.util.concurrent.ExecutorService;
+import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 
 /**
  * @author matteobresich
@@ -89,5 +86,14 @@ public class Server implements Runnable {
     public static void selectMap(String map) {
         Server.serviceMessage("MAP SELECTED: " + map);
         selectedMap = map;
+    }
+    
+    public static boolean isServerNotification(Notification n) {
+        if(!n.isBroadcast()) { 
+             if(n.getNotificationReciver() == null) {
+                 return true;
+             }
+        }
+        return false;
     }
 }
