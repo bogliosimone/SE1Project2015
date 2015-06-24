@@ -36,6 +36,7 @@ public class BtnDiscardTheCardListener implements ActionListener{
             if(idCardSelected != -1) {
                 commandPanel.disableCommandPanel();
                 GUIController.sendCommand(new ClientCommand(CommandType.DO_DISCARD_ITEM_REQUEST,GUIController.getInstance().getHandOfCards().getCard(GUIController.getInstance().getIdCardSelected())));
+                guiController.setIdCardSelected(-1);
             }
         }
     }
