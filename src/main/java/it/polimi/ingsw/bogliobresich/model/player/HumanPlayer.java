@@ -5,7 +5,9 @@ import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 
 public class HumanPlayer extends Player {
-    
+
+    private static final long serialVersionUID = 8216655866206414070L;
+
     public HumanPlayer(User user,Coordinate coordinate,CharacterCard characterCard){
         super(user,coordinate,characterCard);
     }

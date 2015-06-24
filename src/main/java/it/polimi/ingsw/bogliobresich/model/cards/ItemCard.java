@@ -24,6 +24,7 @@ public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable
     /**
      * @return the id
      */
+    @Override
     public int getId() {
         return id;
     }
@@ -31,6 +32,7 @@ public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(int id) {
         this.id = id;
     }

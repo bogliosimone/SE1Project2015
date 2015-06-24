@@ -27,6 +27,7 @@ public class MyDeckFactory extends DeckFactory {
         return new CharacterDeck();
     }
     
+    @Override
     public Deck createCharacterDeck(int n) {
         return new CharacterDeck(n);
     }

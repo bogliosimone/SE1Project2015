@@ -35,6 +35,8 @@ public class PortholeDeck extends Deck {
         super.shuffle();
     }
     
-    private int generateId() { return lastId++; }
+    private int generateId() {
+        return lastId++;
+        }
 
 }

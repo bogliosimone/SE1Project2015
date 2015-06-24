@@ -13,6 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class AttackItemCard extends ItemCard {
 
+    private static final long serialVersionUID = -4525591736748400938L;
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = true;
     private boolean isPlayableEnd = false;

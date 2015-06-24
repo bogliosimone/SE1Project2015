@@ -12,7 +12,6 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -69,9 +68,13 @@ public class CharacterDeck extends Deck {
         }
     }
 
-    public CharacterDeck() { this(8); }
+    public CharacterDeck() {
+        this(8);
+        }
     
-    private int generateId() { return lastId++; }
+    private int generateId() {
+        return lastId++;
+        }
     
     
     

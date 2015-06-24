@@ -11,7 +11,10 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
  * @author simoneboglio
  *
  */
+
 public class AlienPlayer extends Player {
+    
+    private static final long serialVersionUID = -269798935049307699L;
     protected boolean isFeed=false;
     static final int MOVEMENTSTEPALIENFEED=3;
     

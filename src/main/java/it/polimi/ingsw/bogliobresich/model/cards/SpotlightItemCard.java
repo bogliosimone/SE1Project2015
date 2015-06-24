@@ -18,6 +18,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class SpotlightItemCard extends ItemCard {
 
+    private static final long serialVersionUID = 2806105238735547351L;
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = true;
     private boolean isPlayableEnd = true;

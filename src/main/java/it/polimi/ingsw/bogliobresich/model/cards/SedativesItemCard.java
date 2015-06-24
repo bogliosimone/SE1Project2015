@@ -13,6 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class SedativesItemCard extends ItemCard {
 
+    private static final long serialVersionUID = 1294759215955567323L;
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = true;
     private boolean isPlayableEnd = false;

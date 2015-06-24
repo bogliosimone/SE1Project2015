@@ -69,9 +69,6 @@ public class HexMap {
         HexMapUtil.printAllNeighbors(mp,coord);
         HexMapUtil.printIsValidMove(mp,coord,end1,2);
         HexMapUtil.printIsValidMove(mp,coord,end2,4);
-        System.out.println("Base alieni: "+mp.alienBaseCoordinate+" Base umani: "+mp.humanBaseCoordinate);
-        System.out.println(mp.isValidCoordinate(new Coordinate('L',8)));
-        System.out.println(mp.isValidCoordinate(new Coordinate('L',9)));
     }
     
     /**
@@ -379,7 +376,7 @@ public class HexMap {
             }
         }
         catch (IOException e){
-            System.out.println(e+" Errore apertura file");
+            printString(e+" Errore apertura file");
         }
         finally{
             if(reader != null){
@@ -387,7 +384,7 @@ public class HexMap {
                     reader.close();
                     buffer.close();
                 } catch (IOException e) {
-                    System.out.println(e+" Errore chiusura file");
+                    printString(e+" Errore chiusura file");
                 }
             }
         }
@@ -423,6 +420,10 @@ public class HexMap {
             return new AlienBaseSector (x,y);
             }
         return new DisableSector (x,y);
+    }
+    
+    private void printString(String string){
+        System.out.println(string);
     }
     
 }

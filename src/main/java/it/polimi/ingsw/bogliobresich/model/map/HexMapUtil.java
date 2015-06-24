@@ -3,10 +3,7 @@
  */
 package it.polimi.ingsw.bogliobresich.model.map;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -35,7 +32,7 @@ public class HexMapUtil {
         Set<CubeCoord> keys = mp.keySet();
         for(CubeCoord key : keys){
             Sector sec = mp.get(key);
-            System.out.println(sec + " " + key);
+            printString(sec + " " + key);
         }
     }
      
@@ -47,9 +44,9 @@ public class HexMapUtil {
      */
     public static void printMapNeighborsByDistance(HexMap hexMap,CubeCoord hex, int maxDistance){
         Set<CubeCoord> set = hexMap.getNeighborsByDistance(hex, maxDistance);
-        System.out.println("Vicini di "+hex.toString()+" a distanza: "+ maxDistance );
+        printString("Vicini di "+hex.toString()+" a distanza: "+ maxDistance );
         for (CubeCoord temp: set)
-            System.out.println("Vicino: "+temp);
+            printString("Vicino: "+temp);
     }
     
     /**
@@ -60,25 +57,29 @@ public class HexMapUtil {
      */
     public static void printMapNeighborsByDistance(HexMap hexMap,Coordinate coord, int maxDistance){
         Set<Coordinate> set = hexMap.getNeighborsByDistance(coord, maxDistance);
-        System.out.println("Vicini di "+ coord.toString() + " a distanza: " + maxDistance );
+        printString("Vicini di "+ coord.toString() + " a distanza: " + maxDistance );
         for (Coordinate temp: set)
-            System.out.println("Vicino: "+temp.getLetter()+temp.getNumber());
+            printString("Vicino: "+temp.getLetter()+temp.getNumber());
     }
     
     public static void printAllNeighbors(HexMap hexMap,Coordinate coord){
         Set<Coordinate> set = hexMap.allNeighbors(coord);
-        System.out.println("TUTTI i vicini di "+ coord.toString());
+        printString("TUTTI i vicini di "+ coord.toString());
         for (Coordinate temp: set)
-            System.out.println("Vicino: "+temp.getLetter()+temp.getNumber());
+            printString("Vicino: "+temp.getLetter()+temp.getNumber());
         
     }
     
     public static void printIsValidMove(HexMap hexMap,Coordinate start,Coordinate end,int range){
         boolean isValid=hexMap.isValidMove(start, end, range);
         if (isValid)
-            System.out.println(start+" può raggiungere "+end);
+            printString(start+" può raggiungere "+end);
         else
-            System.out.println(start+" non può raggiungere "+end);
+            printString(start+" non può raggiungere "+end);
+    }
+    
+    private static void printString(String string){
+        System.out.println(string);
     }
     
 }

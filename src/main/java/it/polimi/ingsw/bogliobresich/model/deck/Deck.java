@@ -140,17 +140,17 @@ public abstract class Deck {
     }
 
     public void showCards() {
-        System.out.println("Show stackOfCards:");
+        printString("Show stackOfCards:");
         for(Card c:stackOfCards) {
-            System.out.println("Card " + c.toString());
+            printString("Card " + c.toString());
         }
         System.out.println("Show drawnOutCards:");
         for(Card c1:drawnOutCards) {
-            System.out.println("Card " + c1.toString());
+            printString("Card " + c1.toString());
         }
-        System.out.println("Show discardedCards:");
+        printString("Show discardedCards:");
         for(Card c2:discardedCards) {
-            System.out.println("Card " + c2.toString());
+            printString("Card " + c2.toString());
         }
     }
     
@@ -159,4 +159,7 @@ public abstract class Deck {
         return "Deck [stackOfCards=" + stackOfCards + "]";
     }
     
+    private static void printString(String string){
+        System.out.println(string);
+    }
 }

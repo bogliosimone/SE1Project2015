@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class TeleportItemCard extends ItemCard {
 
+    private static final long serialVersionUID = 3392064214760107064L;
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = false;
     private boolean isPlayableEnd = true;

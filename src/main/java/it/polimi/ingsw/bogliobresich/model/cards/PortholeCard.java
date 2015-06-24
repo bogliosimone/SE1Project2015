@@ -47,6 +47,7 @@ public class PortholeCard implements Card {
     /**
      * @return the id
      */
+    @Override
     public int getId() {
         return id;
     }
@@ -54,6 +55,7 @@ public class PortholeCard implements Card {
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(int id) {
         this.id = id;
     }

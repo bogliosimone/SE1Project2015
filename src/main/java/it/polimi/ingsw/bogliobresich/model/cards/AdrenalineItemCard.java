@@ -13,6 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 public class AdrenalineItemCard extends ItemCard {
     
+    private static final long serialVersionUID = -4541074207490980654L;
     private boolean isPlayableInit = true;
     private boolean isPlayableMove = false;
     private boolean isPlayableEnd = false;

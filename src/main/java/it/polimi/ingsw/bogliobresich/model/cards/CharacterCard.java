@@ -32,6 +32,7 @@ public class CharacterCard implements Card,Serializable {
     /**
      * @return the id
      */
+    @Override
     public int getId() {
         return id;
     }
@@ -47,6 +48,7 @@ public class CharacterCard implements Card,Serializable {
     /**
      * @param id the id to set
      */
+    @Override
     public void setId(int id) {
         this.id = id;
     }

@@ -35,7 +35,9 @@ public class ItemDeck extends Deck {
         super.shuffle();
     }
     
-    private int generateId() { return lastId++; }
+    private int generateId() {
+        return lastId++;
+        }
     
     private void addItemCard(String type,int nItem) {
         Card card;
