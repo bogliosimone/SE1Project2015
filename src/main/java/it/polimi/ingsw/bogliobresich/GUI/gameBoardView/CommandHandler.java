@@ -24,17 +24,9 @@ public class CommandHandler {
     }
 
     public static void dispatchUpdate(GameBoardView board, HexagonMapPanel map, NotificationMessage notification) {
+        String s;
         switch (notification.getCommand()) {
         case LIST_PLAYERS_END_GAME:
-            List<Player> players =notification.getListOfPlayers();
-            String s;
-            board.printMessage("***Lista vincitori e sconfitti***");
-            for(Player tmp:players){
-                s=" ha perso";
-                if(tmp.isWinner())
-                    s=" ha vinto";
-                board.printMessage(tmp.getNickName()+s+" - Natura: "+tmp.getCharacterCard().getCharacterType()+" - Personaggio: "+tmp.getCharacterCard().getCharacterName());
-            }
             break;
         case ATTACK:
             board.printMessage(notification.getString());
@@ -64,7 +56,7 @@ public class CommandHandler {
         case DRAW_SECTOR_CARD:
             break;
         case END_TURN:
-            board.getCommandPanel().printPhaseTurnMessage("", Color.GREEN);
+            board.getCommandPanel().printPhaseTurnMessage("Non è il tuo turno", Color.RED);
             break;
         case FATAL_ERROR:            
             break;
@@ -152,7 +144,7 @@ public class CommandHandler {
         case START_TIMER:
             break;
         case START_TURN:
-            board.getCommandPanel().printPhaseTurnMessage("Sei nella Start Phaase", Color.GREEN);
+            board.getCommandPanel().printPhaseTurnMessage("Sei nella Start Phase", Color.GREEN);
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_TURN:

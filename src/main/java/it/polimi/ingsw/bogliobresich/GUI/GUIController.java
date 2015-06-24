@@ -81,7 +81,7 @@ public class GUIController implements Observer, Runnable {
                 createMessageView("Non puoi scartare questa carta",null);
                 break;
             case CANT_PLAY_CARD:
-                createMessageView("Non puoi giocare questa carta",null);
+                createMessageView("Non puoi giocare questa carta\nin questa fase di gioco",null);
                 break;
             case CARDS_END:
                 createMessageView("Le carte oggetto sono finite",null);
@@ -98,22 +98,26 @@ public class GUIController implements Observer, Runnable {
             case DRAW_CARD:
                 ItemCard card = notification.getItemCard();
                 handOfCards.addCard(card);
-                createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
+                //createMessageView("La carta settore contiene un oggetto",imagesHolder.getItemIcon());
                 break;
             case DRAW_SECTOR_CARD:
+                String s=new String("");
                 SectorCard sc = notification.getSectorCard();
+                if(sc.isThereAnItemToDraw()){
+                    s="\nLa tua carta contiene un oggetto";
+                }
                 if(sc.isThereNoiseInAnySector()) {
-                    createMessageView("Hai pescato una carta settore:\n RUMORE IN QUALUNQUE SETTORE",imagesHolder.getRumorXY());
+                    createMessageView("Hai pescato una carta settore:\n RUMORE IN QUALUNQUE SETTORE"+s,imagesHolder.getRumorXY());
                 }
                 if(sc.isThereNoiseInMySector()) {
-                    createMessageView("Hai pescato una carta settore:\n RUMORE NEL TUO SETTORE",imagesHolder.getRumorMySector());
+                    createMessageView("Hai pescato una carta settore:\n RUMORE NEL TUO SETTORE"+s,imagesHolder.getRumorMySector());
                 }
                 if(sc.isThereSilence()) {
-                    createMessageView("Hai pescato una carta settore:\n SILENZIO",imagesHolder.getSilence());
+                    createMessageView("Hai pescato una carta settore:\n SILENZIO"+s,imagesHolder.getSilence());
                 }
                 break;
             case END_TURN:
-                createMessageView(myPlayer.getNickName()+" il tuo turno è finito",null);
+                //createMessageView(myPlayer.getNickName()+" il tuo turno è finito",null);
                 break;
             case FATAL_ERROR:
                 createMessageView(notification.getString(),null);
@@ -199,16 +203,16 @@ public class GUIController implements Observer, Runnable {
                 createMessageView(myPlayer.getNickName()+" ti sei nutrito di un umano\n ora puoi muoverti di tre caselle",null);
                 break;
             case YOU_DIE:
-                createMessageView(myPlayer.getNickName()+"Sei morto!",null);
+                //createMessageView(myPlayer.getNickName()+"Sei morto!",null);
                 break;
             case YOU_DISCONNECTED:
-                createMessageView(myPlayer.getNickName()+"Sei stato disconnesso!",null);
+                //createMessageView(myPlayer.getNickName()+"Sei stato disconnesso!",null);
                 break;
             case YOU_LOST:
-                createMessageView(myPlayer.getNickName()+"Hai perso! :(",null);
+                //createMessageView(myPlayer.getNickName()+"Hai perso! :(",null);
                 break;
             case YOU_WIN:
-                createMessageView(myPlayer.getNickName()+"Hai vinto! :)",null);
+                //createMessageView(myPlayer.getNickName()+"Hai vinto! :)",null);
                 break;
             case USER_DISCONNECTED:
                 commandPanelUserList.setUserColor(notification.getUser(), Color.YELLOW);
