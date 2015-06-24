@@ -87,6 +87,10 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
 
     @Override
     public void doAction(User user, ClientCommand command) throws RemoteException {
+        if(Server.SERVER_DEBUG) {
+            Server.debugMessage("Comando in arrivo: " + command.getCommandType() + " carta: " + command.getCard() + " coordinata: " + command.getCoordinate());
+        }
+        
         Player player = matchHandler.getPlayerByUser(user);
         if (player != null) {
             CommandHandler.executeClientCommand(matchHandler,player,command);

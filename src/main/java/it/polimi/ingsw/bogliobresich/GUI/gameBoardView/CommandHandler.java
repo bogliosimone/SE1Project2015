@@ -3,13 +3,11 @@
  */
 package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
-import java.awt.Color;
-import java.util.List;
-
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
-import it.polimi.ingsw.bogliobresich.model.player.Player;
+
+import java.awt.Color;
 
 /**
  * @author matteobresich

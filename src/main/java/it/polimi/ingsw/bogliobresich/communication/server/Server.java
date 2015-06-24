@@ -25,7 +25,7 @@ public class Server implements Runnable {
     
     private static String selectedMap;
     
-    private static final boolean SERVER_DEBUG = true;
+    public static final boolean SERVER_DEBUG = true;
 
     public static synchronized Server getInstance() {
         if (instance == null) {

@@ -22,9 +22,9 @@ public class ServerUtils {
     private static String localIPAddress = null;
     
     
-    public static int N_MIN_PLAYERS_TO_START = 2;
+    public static final int N_MIN_PLAYERS_TO_START = 2;
     
-    public static String REMOTE_CONNECTION_NAME = "ConnectionService";
+    public static final String REMOTE_CONNECTION_NAME = "ConnectionService";
     
     public static String getLocalIp() {
         if(localIPAddress == null) {

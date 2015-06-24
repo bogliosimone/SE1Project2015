@@ -86,7 +86,7 @@ public class CommandPanel extends JPanel {
 
         this.map = map;
         
-        lblPhaseTurnMessage = new JLabel("SEI NELLA PHASE BHA");
+        lblPhaseTurnMessage = new JLabel();
         lblPhaseTurnMessage.setBounds(86, 20, 200, 16);
         lblPhaseTurnMessage.setForeground(PLAYER_INFO);
         add(lblPhaseTurnMessage);
@@ -189,7 +189,7 @@ public class CommandPanel extends JPanel {
 
         btnDiscardTheCard = new JButton("Scarta la carta");
         btnDiscardTheCard.setBounds(238, 483, 145, 30);
-        btnPlayTheCard.addActionListener(new BtnDiscardTheCardListener(this));
+        btnDiscardTheCard.addActionListener(new BtnDiscardTheCardListener(this));
         add(btnDiscardTheCard);
         btnDiscardTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 
