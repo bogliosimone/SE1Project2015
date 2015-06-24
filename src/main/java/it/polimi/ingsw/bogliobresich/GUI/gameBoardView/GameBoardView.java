@@ -13,6 +13,7 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.EventQueue;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -27,7 +28,8 @@ public class GameBoardView extends JFrame implements View {
     private static final long serialVersionUID = 1974037371015620156L;
     private static final int BLINK_STEP = 500;
     private static final Color MESSAGES_AREA = new Color(0, 0, 0);
-    private static final Color MESSAGES_AREA_TEXT = new Color(0, 102, 255);
+    private static final Color MESSAGES_AREA_TEXT = new Color(0, 98, 247);
+    private static final Color COMMAND_PANEL_BACK = new Color(0, 0, 0);
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
     private GUIController guiController = GUIController.getInstance();
     
@@ -81,28 +83,32 @@ public class GameBoardView extends JFrame implements View {
         map.setBounds(60, 18, 676, 540);
         getContentPane().add(map);
 
-        commandPanel = new CommandPanel(map);
-        commandPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        commandPanel.setBounds(814, 6, 460, 686);
-        commandPanel.setBackground(new Color(0, 0, 0));
-        getContentPane().add(commandPanel);
-        commandPanel.setLayout(null);
+        
 
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(60, 559, 676, 133);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scrollPane.setAutoscrolls(true);
         
         getContentPane().add(scrollPane);
 
-        txtMessagesArea = new JTextArea();
+        txtMessagesArea = new JTextArea(">");
         txtMessagesArea.setDragEnabled(false);
         txtMessagesArea.setEditable(false);
+        txtMessagesArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         scrollPane.setViewportView(txtMessagesArea);
         txtMessagesArea.setBackground(MESSAGES_AREA);
         txtMessagesArea.setForeground(MESSAGES_AREA_TEXT);
 
 
+        commandPanel = new CommandPanel(map);
+        commandPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        commandPanel.setBounds(800, 0, 480, 730);
+        commandPanel.setBackground(COMMAND_PANEL_BACK);
+        getContentPane().add(commandPanel);
+        commandPanel.setLayout(null);
+        
         commandPanel.initAndPrintUserList(guiController.getUserList(),guiController.getCommandPanelUserList());
         commandPanel.printPlayer(guiController.getMyPlayer());
         commandPanel.printCurrentTurnNumber(1);
@@ -118,7 +124,8 @@ public class GameBoardView extends JFrame implements View {
 
     public synchronized void printMessage(String msg) {
         synchronized(messageMonitor){
-            txtMessagesArea.append("> " + msg + "\n");
+            txtMessagesArea.append(msg + "\n>");
+            txtMessagesArea.setCaretPosition(txtMessagesArea.getDocument().getLength());
         }
     }
 
@@ -147,10 +154,9 @@ public class GameBoardView extends JFrame implements View {
                     while(true)
                     {
                         synchronized(messageMonitor){
+                            String appo = txtMessagesArea.getText();
                             txtMessagesArea.append("_");
                             Thread.sleep(BLINK_STEP);
-
-                            String appo = txtMessagesArea.getText().substring(0,txtMessagesArea.getText().length() - 1);
                             txtMessagesArea.setText(appo);
                         }
                         Thread.sleep(BLINK_STEP);
