@@ -18,11 +18,12 @@ public class TimerWaitEndTurn extends TimerTask {
     private Match match;
     private Player dcPlayer;
     
-    public TimerWaitEndTurn(Match match){
+    public TimerWaitEndTurn(Match match,Player currentPlayer){
         this.match=match;
-        dcPlayer = match.getCurrentPlayer();
+        dcPlayer = currentPlayer;
     }
     
+    @Override
     public void run() {
         this.match.setState(new EndTurnState());
         this.match.doAction(dcPlayer, new TimerEndTurnAction());

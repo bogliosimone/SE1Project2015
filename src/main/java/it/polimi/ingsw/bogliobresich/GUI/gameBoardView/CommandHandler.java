@@ -99,6 +99,7 @@ public class CommandHandler {
             }
             if(notification.getMovesAvaiable().canDiscardItemCard()){
                 board.getCommandPanel().setBtnDiscardTheCardEnabled(true);
+                board.getCommandPanel().setCardsEnabled(true);
                 s=s+" - SCARTA";
             }
             if(notification.getMovesAvaiable().canEndTurn()){

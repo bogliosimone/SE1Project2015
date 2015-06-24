@@ -68,9 +68,9 @@ public class Match {
         gameMap=new HexMap(this.nameFileMap);
     }
     
-    public void startTimerTurn(){
+    public void startTimerTurn(Player currentPlayer){
         timerWaitRoom = new Timer();
-        timerClass = new TimerWaitEndTurn(this);
+        timerClass = new TimerWaitEndTurn(this,currentPlayer);
         this.timerWaitRoom.schedule(timerClass, ConstantMatch.TIMETURN);
     }
     
