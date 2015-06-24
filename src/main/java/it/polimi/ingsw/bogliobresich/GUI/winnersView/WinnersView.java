@@ -1,15 +1,24 @@
 package it.polimi.ingsw.bogliobresich.GUI.winnersView;
 
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
+import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.model.Characters;
+import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,10 +26,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class WinnersView extends JFrame implements View {
-    
+
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
+    private GUIController guiController = GUIController.getInstance();
 
     private JPanel contentPane;
+    
+    final Color TEXT = Color.WHITE;
+    final Color WINNER = new Color(51, 204, 51);
+    final Color LOOSER = new Color(204, 0, 0);
+    
 
     /**
      * Launch the application.
@@ -47,73 +62,27 @@ public class WinnersView extends JFrame implements View {
         setBounds(100, 100, 800, 600);
         contentPane = new JPanel();
         contentPane.setBackground(Color.BLACK);
-        contentPane.setForeground(Color.WHITE);
+        contentPane.setForeground(TEXT);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
         setUndecorated(true);
         setLocationRelativeTo(null);
-        
-        JLabel lblNickname = new JLabel("Giocatore:");
-        lblNickname.setForeground(Color.WHITE);
-        lblNickname.setBounds(172, 30, 70, 16);
-        contentPane.add(lblNickname);
-        
-        JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setBounds(100, 20, 60, 60);
-        lblNewLabel.setIcon(imagesHolder.getCaptain());
-        contentPane.add(lblNewLabel);
-        
-        JLabel lblWinner = new JLabel("WINNER");
-        lblWinner.setForeground(new Color(51, 204, 51));
-        lblWinner.setBounds(30, 40, 61, 16);
-        contentPane.add(lblWinner);
-        
-        JLabel lblNome = new JLabel("nome");
-        lblNome.setForeground(Color.WHITE);
-        lblNome.setBounds(290, 30, 71, 16);
-        contentPane.add(lblNome);
-        
-        JLabel lblPlayer = new JLabel("Personaggio:");
-        lblPlayer.setForeground(Color.WHITE);
-        lblPlayer.setBounds(172, 50, 89, 16);
-        contentPane.add(lblPlayer);
-        
-        JLabel lblTuccioBrendon = new JLabel("Tuccio Brendon");
-        lblTuccioBrendon.setForeground(Color.WHITE);
-        lblTuccioBrendon.setBounds(290, 50, 178, 16);
-        contentPane.add(lblTuccioBrendon);
-        
-        JLabel lblLoser = new JLabel("LOSER");
-        lblLoser.setForeground(new Color(204, 0, 0));
-        lblLoser.setBounds(30, 120, 61, 16);
-        contentPane.add(lblLoser);
-        
-        JLabel label_1 = new JLabel("");
-        label_1.setBounds(100, 100, 60, 60);
-        label_1.setIcon(imagesHolder.getFourthAlien());
-        contentPane.add(label_1);
-        
-        JLabel label_2 = new JLabel("Giocatore:");
-        label_2.setForeground(Color.WHITE);
-        label_2.setBounds(172, 110, 70, 16);
-        contentPane.add(label_2);
-        
-        JLabel label_3 = new JLabel("Personaggio:");
-        label_3.setForeground(Color.WHITE);
-        label_3.setBounds(172, 130, 89, 16);
-        contentPane.add(label_3);
-        
-        JLabel label_4 = new JLabel("Tuccio Brendon");
-        label_4.setForeground(Color.WHITE);
-        label_4.setBounds(290, 130, 178, 16);
-        contentPane.add(label_4);
-        
-        JLabel label_5 = new JLabel("nome");
-        label_5.setForeground(Color.WHITE);
-        label_5.setBounds(290, 110, 71, 16);
-        contentPane.add(label_5);
-        
+
+
+        printPlayerList(guiController.getPlayers());
+//        List <Player> p = new ArrayList <Player>();
+//        p.add(new Player(new User(1, "matteo", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.CAPTAIN)));
+//        p.add(new Player(new User(2, "simone", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.PILOT)));
+//        p.add(new Player(new User(3, "chira", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.PSYCHOLOGIST)));
+//        p.add(new Player(new User(4, "daniele", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.SOLDIER)));
+//        p.add(new Player(new User(5, "mirko", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.ALIENONE)));
+//        p.add(new Player(new User(6, "romina", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.ALIENTWO)));
+//        p.add(new Player(new User(7, "july", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.ALIENTHREE)));
+//        p.add(new Player(new User(8, "simone", "non si sa"), new Coordinate('L',2), new CharacterCard(Characters.ALIENFOUR)));
+//        printPlayerList(p);
+
+
         JButton btnOk = new JButton("Esci");
         btnOk.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -122,6 +91,70 @@ public class WinnersView extends JFrame implements View {
         });
         btnOk.setBounds(694, 565, 100, 29);
         contentPane.add(btnOk);
+    }
+
+    public void printPlayerList(List <Player> playerList) {
+        int index = 0;
+        for(Player player : playerList) {
+            if(player.isWinner()) {
+                JLabel lblWinner = new JLabel("WINNER");
+                lblWinner.setForeground(WINNER);
+                lblWinner.setBounds(30, 40+65*index, 61, 16);
+                contentPane.add(lblWinner);
+            } else {
+                JLabel lblLoser = new JLabel("LOSER");
+                lblLoser.setForeground(LOOSER);
+                lblLoser.setBounds(30, 40+65*index, 61, 16);
+                contentPane.add(lblLoser);
+            }
+            
+            JLabel lblNewLabel = new JLabel();
+            lblNewLabel.setBounds(100, 20+65*index, 60, 60);
+            lblNewLabel.setIcon(getImageByPlayer(player));
+            contentPane.add(lblNewLabel);
+
+            JLabel lblNickname = new JLabel("Giocatore:");
+            lblNickname.setForeground(TEXT);
+            lblNickname.setBounds(172, 30+65*index, 70, 16);
+            contentPane.add(lblNickname);
+            
+            JLabel lblNome = new JLabel(player.getUser().getNickname());
+            lblNome.setForeground(TEXT);
+            lblNome.setBounds(290, 30+65*index, 71, 16);
+            contentPane.add(lblNome);
+
+            JLabel lblPlayer = new JLabel("Personaggio:");
+            lblPlayer.setForeground(TEXT);
+            lblPlayer.setBounds(172, 50+65*index, 89, 16);
+            contentPane.add(lblPlayer);
+
+            JLabel lblTuccioBrendon = new JLabel(player.getCharacterCard().getCharacterName() + " [ " + player.getCharacterCard().getCharacterType() + " ] ");
+            lblTuccioBrendon.setForeground(TEXT);
+            lblTuccioBrendon.setBounds(290, 50+65*index, 350, 16);
+            contentPane.add(lblTuccioBrendon);
+            index++;
+        }
+    }
+    
+    public ImageIcon getImageByPlayer(Player player) {
+        if(player.getCharacterCard().getCharacterName().equals(Characters.CAPTAIN.getCharacterName())) {
+            return imagesHolder.getCaptain();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PILOT.getCharacterName())) {
+            return imagesHolder.getPilot();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.PSYCHOLOGIST.getCharacterName())) {
+            return imagesHolder.getPsychologist();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.SOLDIER.getCharacterName())) {
+            return imagesHolder.getSoldier();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENONE.getCharacterName())) {
+            return imagesHolder.getFirstAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTWO.getCharacterName())) {
+            return imagesHolder.getSecondAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENTHREE.getCharacterName())) {
+            return imagesHolder.getThirdAlien();
+        } else if(player.getCharacterCard().getCharacterName().equals(Characters.ALIENFOUR.getCharacterName())) {
+            return imagesHolder.getFourthAlien();
+        }
+        return imagesHolder.getCaptain();
     }
 
     @Override
@@ -137,9 +170,9 @@ public class WinnersView extends JFrame implements View {
     @Override
     public void doUpdate(NotificationMessage notification) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     @Override
     public void dispose() {
         Thread t = new Thread() {

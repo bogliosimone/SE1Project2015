@@ -36,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextArea;
 
 /**
  * @author matteobresich
@@ -47,13 +48,13 @@ public class CommandPanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = -8666358068178077903L;
-    private final static Color MISSING_USER = Color.GRAY;
-    private final static Color CONNECTED_USER = Color.WHITE;
-    private final static Color PLAYING_USER = Color.GREEN;
-    private final static Color PLAYER_INFO = Color.WHITE;
-    private final static Color OTHER_MESSAGES_AREA = Color.BLACK;
-    private final static Color OTHER_MESSAGES_TEXT = Color.GRAY;
-    private static final Color BUTTON_TEXT = new Color(0, 102, 255);
+    final static Color MISSING_USER = Color.GRAY;
+    final static Color CONNECTED_USER = Color.WHITE;
+    final static Color PLAYING_USER = Color.GREEN;
+    final static Color PLAYER_INFO = Color.WHITE;
+    final static Color OTHER_MESSAGES_AREA = Color.BLACK;
+    final static Color OTHER_MESSAGES_TEXT = Color.GRAY;
+    static final Color BUTTON_TEXT = new Color(0, 102, 255);
 
 
     private ImagesHolder imagesHolder = ImagesHolder.getInstance();
@@ -73,7 +74,7 @@ public class CommandPanel extends JPanel {
     private JLabel lblPlayerName;
     private JLabel lblPlayerState;
     private JLabel lblPlayerIcon;
-    private TextArea lblOtherMessages;
+    private JTextArea lblOtherMessages;
     private JLabel lblPhaseTurnMessage;
 
     private BtnCardListener [] cardListeners;
@@ -216,7 +217,7 @@ public class CommandPanel extends JPanel {
         btnEndTurn.addActionListener(new BtnEndTurnListener(this));
         add(btnEndTurn);
 
-        lblOtherMessages = new TextArea();
+        lblOtherMessages = new JTextArea();
         lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
         lblOtherMessages.setBounds(86, 580, 297, 200);
         lblOtherMessages.setBackground(OTHER_MESSAGES_AREA);
