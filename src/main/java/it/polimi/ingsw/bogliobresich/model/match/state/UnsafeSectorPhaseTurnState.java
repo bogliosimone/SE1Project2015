@@ -85,7 +85,8 @@ public class UnsafeSectorPhaseTurnState implements State {
             move.setCanPlayItem(true);
         if(!player.canDrawSectorCard())
             move.setCanGoInEndPhase(true);
-        move.setCanDrawSectorCard(true);
+        if(player.canDrawSectorCard())
+            move.setCanDrawSectorCard(true);
         return move;
     }
 }

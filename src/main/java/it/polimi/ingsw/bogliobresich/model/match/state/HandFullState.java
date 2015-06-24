@@ -32,6 +32,7 @@ public class HandFullState implements State {
             if(match.discardItemCardInItemDeck(player, cardToDiscard)){
                 match.notifyAllPlayer(player.getNickName()+" ha scartato una carta oggetto");
                 match.notifyAllPlayer(Commands.GENERIC_MESSAGE, player.getNickName()+" ha scartato una carta oggetto");
+                match.notifyPlayer(Commands.DISCARD_CARD, cardToDiscard, player);
                 if(!player.getHand().isFull()){
                     match.setState(new EndPhaseTurnState());
                     match.doAction(player, new EndPhaseAction());
