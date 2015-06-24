@@ -60,15 +60,15 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
                             Server.serviceMessage("Utente " + notification.getUser() + " disconnesso: time-out superato");
                             o.deleteObserver(this);
                         }
+                    } else {
+                        if(notification.isBroadcast()) {
+                            ro.update((Serializable) o, arg);
+                            Server.debugMessage("BROADCAST "+ notification.getCommand() + "" + notification.getArgument());
+                        } else if (notification.getNotificationReciver().equals(user)) {
+                            ro.update((Serializable) o, arg);
+                            Server.debugMessage("USER: " + user + notification.getCommand() + "" + notification.getArgument());
+                        }
                     }
-                    if(notification.isBroadcast()) {
-                        ro.update((Serializable) o, arg);
-                        Server.debugMessage("BROADCAST "+ notification.getCommand() + "" + notification.getArgument());
-                    } else if (notification.getNotificationReciver().equals(user)) {
-                        ro.update((Serializable) o, arg);
-                        Server.debugMessage("USER: " + user + notification.getCommand() + "" + notification.getArgument());
-                    }
-
                 }
             } catch (RemoteException e) {
                 Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
