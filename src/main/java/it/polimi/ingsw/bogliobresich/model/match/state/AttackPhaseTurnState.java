@@ -42,11 +42,11 @@ public class AttackPhaseTurnState implements State {
                     if(tmpPlayer instanceof HumanPlayer){
                         ItemCard tmpCard=tmpPlayer.getHand().getDefenceCard();
                         if(tmpCard!=null){
-                            tmpCard = match.playItemCard(player, tmpCard);
+                            tmpCard = match.playItemCard(tmpPlayer, tmpCard);
                             if(tmpCard!=null){
                                 match.notifyAllPlayer("ha giocato la carta: "+tmpCard.toString());
-                                match.notifyAllPlayer(Commands.ITEM_PLAYED, player+" ha giocato la carta: "+tmpCard.toString());
-                                match.notifyPlayer(Commands.DISCARD_CARD, tmpCard, player);
+                                match.notifyAllPlayer(Commands.ITEM_PLAYED, tmpPlayer.getNickName()+" ha giocato la carta: "+tmpCard.toString());
+                                match.notifyPlayer(Commands.DISCARD_CARD, tmpCard, tmpPlayer);
                             }
                         }
                         else{
