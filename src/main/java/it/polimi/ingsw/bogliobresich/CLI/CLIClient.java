@@ -44,8 +44,9 @@ public class CLIClient implements Observer, Runnable{
 
     @Override
     public void update(Observable o, Object obsNotification) {
-        if(obsNotification instanceof NotificationMessage)
-        {
+        NotificationMessage notification = controller.getQueueNotification().poll();
+//        if(obsNotification instanceof NotificationMessage)
+//        {
             User u;
             String s;
             Coordinate coord;
@@ -54,7 +55,7 @@ public class CLIClient implements Observer, Runnable{
             char letter;
             int number;
 
-            NotificationMessage notification = (NotificationMessage)obsNotification;
+//            NotificationMessage notification = (NotificationMessage)obsNotification;
 
             Commands command = notification.getCommand();
             switch(command) {
@@ -76,11 +77,14 @@ public class CLIClient implements Observer, Runnable{
                 printString(notification.getString());
                 break;
             case CALL_RUMOR:
+                new Thread (new Runnable() { public void run() {
                 printString("Inserisci coordinata (lettera-numero): ");
-                s=readString();
-                letter=getLetterCoordianteFromString(s);
-                number=getNumberCoordinateFromString(s);
+                 String s=readString();
+                char letter=getLetterCoordianteFromString(s);
+                int number=getNumberCoordinateFromString(s);
                 controller.sendCommand(new ClientCommand(CommandType.DO_RUMOR_IN_COORDINATE_REQUEST,new Coordinate(letter,number)));
+                }
+                }).start();
                 break;
             case CANT_DISCARD_CARD:
                 printString("Errore non puoi scartare questa carta");
@@ -164,10 +168,14 @@ public class CLIClient implements Observer, Runnable{
                 printString(s);
                 break;
             case MOVES_AVAIABLE:
-                MovesAvaiable m=notification.getMovesAvaiable();
+                final MovesAvaiable m=notification.getMovesAvaiable();
+                new Thread (new Runnable() { public void run() {
                 do{
                     printString(createStringMovesAvaiable(m));
                 }while(!getInputAndSend(m));
+                }
+                }).start();
+               
                 break;
             case MOVE_NO_AVAIABLE:
                 printString("Mossa non disponibile");
@@ -253,7 +261,7 @@ public class CLIClient implements Observer, Runnable{
 
         }
 
-    }
+//    }
 
 
 

@@ -55,10 +55,13 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
             try {
                 if(arg instanceof Notification){
                     Notification notification = (Notification)arg;
+                    Server.serviceMessage("NOTOFICA PRIMA DI INVIARE " + notification.getCommand() + "");
                     if(Server.isServerNotification(notification)) {
-                        if(notification.getCommand().equals(Commands.USER_DISCONNECTED)) {
-                            Server.serviceMessage("Utente " + notification.getUser() + " disconnesso: time-out superato");
-                            o.deleteObserver(this);
+                        if (notification.getUser().equals(user)) {
+                            if(notification.getCommand().equals(Commands.USER_DISCONNECTED)) {
+                                Server.serviceMessage("Utente " + notification.getUser() + " disconnesso: time-out superato");
+                                o.deleteObserver(this);
+                            }
                         }
                     } else {
                         if(notification.isBroadcast()) {

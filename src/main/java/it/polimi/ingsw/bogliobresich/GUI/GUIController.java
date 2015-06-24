@@ -61,10 +61,11 @@ public class GUIController implements Observer, Runnable {
 
     @Override
     public void update(Observable o, Object obsNotification) {
+        NotificationMessage notification = controller.getQueueNotification().poll();
 
-        if(obsNotification instanceof NotificationMessage)
-        {
-            NotificationMessage notification = (NotificationMessage)obsNotification;
+//        if(obsNotification instanceof NotificationMessage)
+//        {
+//            NotificationMessage notification = (NotificationMessage)obsNotification;
             Commands command = notification.getCommand();
             switch(command) {
             case LIST_PLAYERS_END_GAME:
@@ -235,7 +236,7 @@ public class GUIController implements Observer, Runnable {
 
             getCurrentView().doUpdate(notification);
         }
-    }
+//    }
 
 
     @Override

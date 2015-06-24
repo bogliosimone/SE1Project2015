@@ -9,12 +9,15 @@ import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginExcepti
 import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
 import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
+import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @author matteobresich
@@ -24,8 +27,16 @@ public class ClientController extends Observable implements Observer, Client {
 
     private ClientCommunicationStrategy communication = null;
     private static ClientController instance;
-
+    private Queue <NotificationMessage> queueNotification = new ConcurrentLinkedQueue <NotificationMessage>();
     
+    public Queue<NotificationMessage> getQueueNotification() {
+        return queueNotification;
+    }
+
+    public void setQueueNotification(Queue<NotificationMessage> queueNotification) {
+        this.queueNotification = queueNotification;
+    }
+
     public static synchronized ClientController getInstance() {
         if (instance == null) {
             instance = new ClientController();
@@ -89,8 +100,9 @@ public class ClientController extends Observable implements Observer, Client {
         if(o instanceof NotificationQueueHandler) {
             NotificationQueue queue = ((NotificationQueueHandler)o);
             Notification notification = queue.pollNotification();
+            queueNotification.add((NotificationMessage) notification);
             setChanged();
-            notifyObservers(notification);
+            notifyObservers();
         }
     }
 }

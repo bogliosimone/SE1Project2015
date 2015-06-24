@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  * @author matteobresich
  *
  */
-public final class ClientMain {
+public final class CliClientMain {
     public static void main (String[] args) {
         
         CLIClient client = null;
