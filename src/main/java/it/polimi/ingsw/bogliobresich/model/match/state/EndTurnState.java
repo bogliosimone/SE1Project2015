@@ -49,10 +49,10 @@ public class EndTurnState implements State {
             Player dcPlayer=match.getCurrentPlayer();
             dcPlayer.setIsConnected(false);
             match.notifyAllPlayer(dcPlayer.getNickName()+" si è disconnesso dal gioco");
+            match.notifyPlayer(Commands.YOU_DISCONNECTED,null,dcPlayer);
+            match.notifyPlayer(dcPlayer, "Ti sei disconnesso");
             match.serviceMessage(Commands.USER_DISCONNECTED, dcPlayer.getUser());
             match.notifyAllPlayer(Commands.USER_DISCONNECTED, dcPlayer.getUser());
-            match.notifyPlayer(dcPlayer, "Ti sei disconnesso");
-            //match.notifyPlayer(Commands.YOU_DISCONNECTED,null,dcPlayer);
             match.setState(new EndTurnState()); 
             match.doAction(match.getCurrentPlayer(), new EndTurnAction());
             return;

@@ -10,6 +10,7 @@ import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * @author Matteo
@@ -31,7 +32,7 @@ public class ItemHand implements Serializable {
      */
     public ItemHand(int numberOfCards) {
         maximumNumberOfCards = numberOfCards;
-        cards = new ArrayList<ItemCard>();
+        cards = new Vector<ItemCard>();
     }
 
     /**	
@@ -49,7 +50,8 @@ public class ItemHand implements Serializable {
     }
     
     public void discardHand(){
-        this.cards.clear();
+        if(!cards.isEmpty())
+            this.cards.clear();
     }
     
 

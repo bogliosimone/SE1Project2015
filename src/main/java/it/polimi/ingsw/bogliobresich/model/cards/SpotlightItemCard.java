@@ -50,7 +50,7 @@ public class SpotlightItemCard extends ItemCard {
             for(Player tmpPlayer:listPlayerEnlightened)
                 tmp=new String(tmp+" "+tmpPlayer.getNickName()+" in coordinate "+ tmpPlayer.getCoordinate());
             this.stringEnlightened = new String("Giocatori illuminati:"+tmp);
-            this.isPlayed=false;
+            this.isPlayed=true;
             return this;
         }
         return null;

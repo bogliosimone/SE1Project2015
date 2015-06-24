@@ -329,11 +329,16 @@ public class Match {
     
     public void discardItemHandInItemDeck(Player player){
         ItemHand tmpHand = player.getHand();
-        List<ItemCard> cardList = tmpHand.getAllCard();
-        this.serviceMessage("Scartata mano di "+player.getNickName());
-        for(ItemCard tmpCard: cardList){
-            tmpHand.removeCard(tmpCard);
-            this.itemDeck.discardCard(tmpCard); //scarta nel mazzo
+        if(!tmpHand.isEmpty()){
+            List<ItemCard> cardList = tmpHand.getAllCard();
+            this.serviceMessage("Scartata mano di "+player.getNickName());
+            for(ItemCard tmpCard: cardList){
+                this.serviceMessage(tmpCard.toString());
+            }
+            for(ItemCard tmpCard: cardList){
+                this.itemDeck.discardCard(tmpCard);
+            }
+            tmpHand.discardHand();
         }
         return;
     }
