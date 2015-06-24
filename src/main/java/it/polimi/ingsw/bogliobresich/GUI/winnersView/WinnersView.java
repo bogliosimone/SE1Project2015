@@ -7,7 +7,10 @@ import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,7 +42,7 @@ public class WinnersView extends JFrame implements View {
      * Create the frame.
      */
     public WinnersView() {
-        setTitle("Winners");
+        setTitle(GUIConstants.WINNERS_TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
         contentPane = new JPanel();
@@ -110,12 +113,25 @@ public class WinnersView extends JFrame implements View {
         label_5.setForeground(Color.WHITE);
         label_5.setBounds(290, 110, 71, 16);
         contentPane.add(label_5);
+        
+        JButton btnOk = new JButton("Esci");
+        btnOk.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        btnOk.setBounds(694, 565, 100, 29);
+        contentPane.add(btnOk);
     }
 
     @Override
     public void initView() {
-        // TODO Auto-generated method stub
-        
+        try {
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

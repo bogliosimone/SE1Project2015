@@ -119,7 +119,8 @@ public class GUIController implements Observer, Runnable {
                 createMessageView(notification.getString(),null);
                 break;
             case GAME_END:
-                createMessageView("Il gioco è finito",null);
+                setNextView(viewFactory.getView(GUIViews.WINNERS_VIEW));
+                changeToNextView();
                 break;
             case GAME_INFO_MESSAGE:
                 //up

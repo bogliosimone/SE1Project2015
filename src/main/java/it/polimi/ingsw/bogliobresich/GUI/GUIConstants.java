@@ -16,6 +16,7 @@ public class GUIConstants {
     public final static String LOGIN_TITLE = "Login";
     public final static String WAITING_ROOM_TITLE = "Sala d'attesa";
     public final static String MESSAGE_TITLE = "Messaggio";
+    public final static String WINNERS_TITLE = "Winners";
     
     
     public final static String EXIT_LABEL = "Esci";
