@@ -5,10 +5,15 @@ package it.polimi.ingsw.bogliobresich.model.cards;
 
 import java.io.Serializable;
 
-
 /**
- * @author Matteo
- *
+ * The <code>SectorCard</code> class implements abstract class Card.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.Card
+ * 
  */
 public class SectorCard implements Card,Serializable {
     /**
@@ -20,8 +25,9 @@ public class SectorCard implements Card,Serializable {
     private String noise;
     
     /**
-     * Class constructor
-     * @param d indicates if you have to draw an item card  
+     * Constructs a SectorCard with the id of the card and if make noise
+     * @param noise indicates if the sector make noise
+     * @param d indicates if you have to draw an item card
      */
     public SectorCard(String noise, boolean d) {
         if(isDataOk(noise)) {
@@ -76,7 +82,7 @@ public class SectorCard implements Card,Serializable {
     }
     
     /**
-     * @return the id
+     * {@inheritDoc}
      */
     @Override
     public int getId() {
@@ -84,7 +90,7 @@ public class SectorCard implements Card,Serializable {
     }
 
     /**
-     * @param id the id to set
+     * {@inheritDoc}
      */
     @Override
     public void setId(int id) {
@@ -133,8 +139,5 @@ public class SectorCard implements Card,Serializable {
         } else if (!noise.equals(other.noise))
             return false;
         return true;
-    }
-
-    
-    
+    }   
 }

@@ -3,20 +3,25 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
-import it.polimi.ingsw.bogliobresich.model.match.Match;
-import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author Matteo
- *
+ * The <code>PortholeCard</code> class implements abstract class Card.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.Card
+ * 
  */
 public class PortholeCard implements Card {
     private int id;
     private String state;
     
-
     /**
-     * Class constructor
+     * Constructs a PortholeCard with the id of the card
+     * @param state the state of the porthole
+     * 
      */
     public PortholeCard(String state) {
         if(isDataOk(state)) {
@@ -43,9 +48,8 @@ public class PortholeCard implements Card {
         return false;
     }
 
-    
     /**
-     * @return the id
+     * {@inheritDoc}
      */
     @Override
     public int getId() {
@@ -53,13 +57,12 @@ public class PortholeCard implements Card {
     }
 
     /**
-     * @param id the id to set
+     * {@inheritDoc}
      */
     @Override
     public void setId(int id) {
         this.id = id;
     }
-    
     
     @Override
     public String toString() {
@@ -93,6 +96,4 @@ public class PortholeCard implements Card {
             return false;
         return true;
     }
-    
-
 }

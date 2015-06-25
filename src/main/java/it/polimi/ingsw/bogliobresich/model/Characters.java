@@ -6,8 +6,13 @@ package it.polimi.ingsw.bogliobresich.model;
 import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 
 /**
- * @author Matteo
- *
+ * The <code>Characters</code> enum contains all the characters of the game.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * 
  */
 public enum Characters {
     CAPTAIN("Ennio Maria Dominoni",ConstantsCard.HUMAN),
@@ -19,7 +24,6 @@ public enum Characters {
     ALIENTHREE("Maria Galbani",ConstantsCard.ALIEN),
     ALIENFOUR("Paolo Landon",ConstantsCard.ALIEN);
     
-    
     private String name;
     private String type;
     
@@ -28,10 +32,16 @@ public enum Characters {
         this.type = type;
     }
     
+    /**
+     * @return the character name
+     */
     public String getCharacterName() {
         return this.name;
     }
     
+    /**
+     * @return the character type
+     */
     public String getCharacterType() {
         return this.type;
     }

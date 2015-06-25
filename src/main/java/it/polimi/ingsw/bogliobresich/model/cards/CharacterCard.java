@@ -8,8 +8,14 @@ import java.io.Serializable;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 
 /**
- * @author Matteo
- *
+ * The <code>CharacterCard</code> class implements abstract class Card.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.Card
+ * 
  */
 public class CharacterCard implements Card,Serializable {
     /**
@@ -21,8 +27,9 @@ public class CharacterCard implements Card,Serializable {
     private String type;
 
     /**
-     * Class constructor
-     * @param character
+     * Constructs a CharacterCard with the id of the card
+     * @param character the character of the card
+     * 
      */
     public CharacterCard(Characters character) {
         this.name = character.getCharacterName();
@@ -30,27 +37,33 @@ public class CharacterCard implements Card,Serializable {
     }
     
     /**
-     * @return the id
+     * {@inheritDoc}
      */
     @Override
     public int getId() {
         return id;
     }
     
-    public String getCharacterType(){
-        return this.type;
-    }
-    
-    public String getCharacterName(){
-        return this.name;
-    }
-
     /**
-     * @param id the id to set
+     * {@inheritDoc}
      */
     @Override
     public void setId(int id) {
         this.id = id;
+    }
+    
+    /**
+     * @return the type of the character
+     */
+    public String getCharacterType(){
+        return this.type;
+    }
+    
+    /**
+     * @return name the character name
+     */
+    public String getCharacterName(){
+        return this.name;
     }
     
     
@@ -67,7 +80,6 @@ public class CharacterCard implements Card,Serializable {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-
 
     @Override
     public boolean equals(Object obj) {
