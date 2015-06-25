@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
+import it.polimi.ingsw.bogliobresich.model.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;

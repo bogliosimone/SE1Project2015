@@ -5,7 +5,7 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchServiceHandler;
-import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
+import it.polimi.ingsw.bogliobresich.model.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;

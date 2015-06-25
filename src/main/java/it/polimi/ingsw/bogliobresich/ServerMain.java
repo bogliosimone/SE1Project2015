@@ -11,9 +11,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
-* This class is the entry point of the Server Process.
-* Main method launches all server components. 
-*/
+ *  * @author matteo bresich
+ * @author simone boglio
+ * This class is the entry point of the Server Process.
+ * Main method launches all server components. 
+ */
 public class ServerMain {
     public static void main (String [] args) {
         Server server = null;
@@ -45,10 +47,10 @@ public class ServerMain {
             catch(Exception e){ 
                 printString("Comando non valido");
                 validMap=false;
-                }
+            }
         }
         scanner.close(); 
-        
+
         try {
             executor = Executors.newSingleThreadExecutor();
             server = Server.getInstance();
@@ -71,8 +73,8 @@ public class ServerMain {
     /***/
     private ServerMain () 
     {}
-    
-    
+
+
     private static void printString(String s){
         System.out.println(s);
     }

@@ -5,9 +5,9 @@ package it.polimi.ingsw.bogliobresich.model.player;
 
 import java.io.Serializable;
 
+import it.polimi.ingsw.bogliobresich.model.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
-import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 
 /**
