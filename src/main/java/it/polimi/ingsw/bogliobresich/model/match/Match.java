@@ -26,51 +26,131 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * @author simoneboglio
- *
+ * @author matteo bresich
  */
 
 public class Match {
+    /**
+     * used for enable message for debug
+     */
     private boolean CLIenable=false;
+    /**
+     * current state of the match (for pattern state)
+     */
     private State myState;
+    /**
+     *  id of the match
+     */
     private int idMatch;
+    /**
+     * signal if the game is started, is true when game start after reach max number of player or timer wait room end, can't add other player
+     */
     private boolean isActive=false;
+    /**
+     * signal if the game is ended or not
+     */
     private boolean isEnd=false;
-    private boolean IsLastPlayerKill=false; //true  when player kill, false when player escape, used for calculate victory of alien
+    /**
+     * for calculate winners and losers (alien lost if last player escape)
+     */
+    private boolean isLastPlayerKill=false; //true  when player kill, false when player escape, used for calculate victory of alien
+    /**
+     * number of the current turn in the game
+     */
     private int currentTurn=0;
+    /**
+     * current player that play turn
+     */
     private Player currentPlayer;
+    /**
+     * index of current player
+     */
     private int indexCurrentPlayer=0;
+    /**
+     * list used for calculate next player that play after a turn is end
+     */
     private List<Player> players = new LinkedList<Player>();
+    /**
+     * list of players used for operations and control in match
+     */
     private List<Player> arrayPlayers = new ArrayList<Player>();
-    private HexMap gameMap=new HexMap();
+    /**
+     * game map structure of the game
+     */
+    private HexMap gameMap;
+    /**
+     * name of default map
+     */
     private String nameFileMap="galilei.txt";
+    /**
+     * number of current player in the game
+     */
     private int numberOfPlayers=0;
+    /**
+     * item card deck 
+     */
     private Deck itemDeck;
+    /**
+     * character card deck
+     */
     private Deck characterDeck;
+    /**
+     * porthole card deck
+     */
     private Deck portholeDeck;
+    /**
+     * sector card deck
+     */
     private Deck sectorDeck;
+    /**
+     * timer for wait room, when time is up game start (if min player <= number of current player <=max player)
+     */
     private Timer timerWaitRoom;
+    /**
+     * number of max player for the game, default 8 for map galilei
+     */
     private int maxNumberPlayer=8;
+    /**
+     * timer for disconnect player for inactivity
+     */
     TimerWaitEndTurn timerClass;
+    /**
+     * queue used for notify the players
+     */
     NotificationQueue notificationQueue;
     
-    public Match(NotificationQueue queue){
+    /**
+     * use galilei as default map
+     * @param idMatch number id match
+     * @param queue used for notification
+     */
+    public Match(int idMatch,NotificationQueue queue){
         this.notificationQueue=queue;
+        this.idMatch=idMatch;
+        gameMap=new HexMap();
         setState(new WaitRoomState());
     }
     
-    public Match(int idMatch,NotificationQueue queue){
-        this(queue);
-        this.idMatch=idMatch;
-    }
-    
+    /**
+     * you can set different map and number of max player for the map used 
+     * @param idMatch number 
+     * @param queue used for notification
+     * @param nameFileMap file name of the map
+     * @param maxNumberPlayer number of max player
+     */
     public Match(int idMatch,NotificationQueue queue,String nameFileMap,int maxNumberPlayer){
-        this(queue);
+        this.notificationQueue=queue;
         this.idMatch=idMatch;
         this.nameFileMap=nameFileMap;
         this.maxNumberPlayer=maxNumberPlayer;
         gameMap=new HexMap(this.nameFileMap);
+        setState(new WaitRoomState());
     }
     
+    /**
+     * start the timer for disconnect player for inactivity when his turn start
+     * @param currentPlayer
+     */
     public void startTimerTurn(Player currentPlayer){
         timerWaitRoom = new Timer();
         timerClass = new TimerWaitEndTurn(this,currentPlayer);
@@ -127,11 +207,11 @@ public class Match {
     }
 
     public boolean isLastPlayerKill() {
-        return IsLastPlayerKill;
+        return isLastPlayerKill;
     }
 
     public void setIsLastPlayerKill(boolean IsLastPlayerKill) {
-        this.IsLastPlayerKill = IsLastPlayerKill;
+        this.isLastPlayerKill = IsLastPlayerKill;
     }
 
     public Player getCurrentPlayer() {
@@ -203,7 +283,7 @@ public class Match {
     }
     
     public boolean isLastHumanKill(){
-        if(this.IsLastPlayerKill&& !this.atLeastOneHumaAlive())
+        if(this.isLastPlayerKill&& !this.atLeastOneHumaAlive())
             return true;
         return false;
     }

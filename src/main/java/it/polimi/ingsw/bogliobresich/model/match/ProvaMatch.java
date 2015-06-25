@@ -32,7 +32,7 @@ public class ProvaMatch {
         User u8= new User(8,"Topolino","");
         ItemCard card=new SpotlightItemCard(1);
         ((SpotlightItemCard)card).setCoordToLight(new Coordinate ('L',8));
-        Match match = new Match(null);
+        Match match = new Match(1,null);
         match.setIsCLIenable(true);
         match.doAction(null, new AddPlayerAction(u1));
         match.doAction(null, new AddPlayerAction(u2));
