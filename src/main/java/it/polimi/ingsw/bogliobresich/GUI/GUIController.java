@@ -216,11 +216,11 @@ public class GUIController implements Observer, Runnable {
                 //createMessageView(myPlayer.getNickName()+"Hai vinto! :)",null);
                 break;
             case USER_DISCONNECTED:
-                commandPanelUserList.setUserColor(notification.getUser(), Color.YELLOW);
+                commandPanelUserList.setUserColor(notification.getUser(), new Color(239,239,41));
                 commandPanelUserList.setUserState(notification.getUser(), "DISCONNECTED");
                 break;
             case HUMAN_ESCAPE:
-                commandPanelUserList.setUserColor(notification.getPlayer().getUser(), Color.CYAN);
+                commandPanelUserList.setUserColor(notification.getPlayer().getUser(), new Color(41,147,239));
                 commandPanelUserList.setUserState(notification.getPlayer().getUser(), "ESCAPED");
                 break;
             case PLAYER_DIE:

@@ -31,7 +31,7 @@ public class ConstantMatch {
     /**
      * time to wait in the waiting room in seconds
      */
-    public static final long TIMEWAITROOM=7000; 
+    public static final long TIMEWAITROOM=120000; 
     
     /**
      * time limit for the player turn in seconds

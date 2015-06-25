@@ -1,6 +1,8 @@
 package it.polimi.ingsw.bogliobresich.model.match.state;
 
+import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
@@ -139,10 +141,14 @@ public class StartTurnState implements State {
     private Set<Coordinate> listCoordinateReachable(Match match,Player player,Coordinate coord){
         HexMap gameMap= match.getGameMap();
         Set<Coordinate> tmpSet=gameMap.getNeighborsByDistance(coord, player.getMovementStep());
-        if(player instanceof AlienPlayer)
+        List<Coordinate> tmpVector = new Vector<Coordinate>();
+        if(player instanceof AlienPlayer){
             for(Coordinate tmpCoord:tmpSet)
+                tmpVector.add(tmpCoord);
+            for(Coordinate tmpCoord:tmpVector)
                 if(gameMap.coordinateIsPortholeSector(tmpCoord))
                     tmpSet.remove(tmpCoord);
+        }
         return tmpSet;
     }
     
