@@ -29,7 +29,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  */
 
 public class Match {
-    private boolean CLIenable=true;
+    private boolean CLIenable=false;
     private State myState;
     private int idMatch;
     private boolean isActive=false;
