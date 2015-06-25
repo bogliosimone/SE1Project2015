@@ -7,6 +7,7 @@ package it.polimi.ingsw.bogliobresich;
  * @author matteo bresich
  * @author simone boglio
  *
+ * This class contains all URLs of the media files of the application.
  * 
  */
 public class FilePaths {

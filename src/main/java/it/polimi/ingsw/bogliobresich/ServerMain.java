@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- *  * @author matteo bresich
+ * @author matteo bresich
  * @author simone boglio
  * This class is the entry point of the Server Process.
  * Main method launches all server components. 
