@@ -15,7 +15,7 @@ public class FilePaths {
     private static final String HEADER = "src/main/resources/";
 
     //LOGO
-    public static final String PRODUCER_LOGO = HEADER + "images/logo/logo.png";
+    public static final String PRODUCER_LOGO = HEADER + "images/logo/app-logo.png";
 
     //CARDS
     public static final String ITEM_CARD_ICON = HEADER + "images/cards/itemcard_icon.png";

@@ -8,6 +8,7 @@ import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
 import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
 
 import javax.swing.ImageIcon;
@@ -34,13 +35,15 @@ public class LogoView extends JFrame implements View {
     }
     
     public LogoView () {
+        this.setBackground(Color.WHITE);
         ImageIcon image = imagesHolder.getLogo();
         JLabel imagelabel = new JLabel(image);
         setLayout(new GridBagLayout());
         add(imagelabel);
         setAlwaysOnTop(true);
         setUndecorated(true);
-        setSize(533, 300);
+        setSize(460, 230);
+        
     }
 
     @Override
