@@ -55,26 +55,27 @@ public class RMIMatchServiceHandler extends Observable implements RMIMatchServic
             try {
                 if(arg instanceof Notification){
                     Notification notification = (Notification)arg;
-                    Server.serviceMessage("NOTOFICA PRIMA DI INVIARE " + notification.getCommand() + "");
+                    Server.debugMessage("SENDING " + notification.getCommand());
                     if(Server.isServerNotification(notification)) {
                         if (notification.getUser().equals(user)) {
                             if(notification.getCommand().equals(Commands.USER_DISCONNECTED)) {
-                                Server.serviceMessage("Utente " + notification.getUser() + " disconnesso: time-out superato");
+                                Server.serviceMessage("USER " + notification.getUser() + " DISCONNECTED: TIME-OUT");
                                 o.deleteObserver(this);
                             }
                         }
                     } else {
                         if(notification.isBroadcast()) {
                             ro.update((Serializable) o, arg);
-                            Server.debugMessage("BROADCAST "+ notification.getCommand() + "" + notification.getArgument());
+                            Server.debugMessage("BROADCAST "+ notification.getCommand() + " " + notification.getArgument());
                         } else if (notification.getNotificationReciver().equals(user)) {
                             ro.update((Serializable) o, arg);
-                            Server.debugMessage("USER: " + user + notification.getCommand() + "" + notification.getArgument());
+                            Server.debugMessage("USER: " + user + notification.getCommand() + " " + notification.getArgument());
                         }
                     }
                 }
             } catch (RemoteException e) {
-                Server.errorMessage("REMOTE EXCEPTION REMOVING OBSERVER:" + user);
+                Server.communicationMessage("REMOTE EXCEPTION USER " + user + " UNREACHABLE");
+                Server.communicationMessage("USER " + user + " DISCONNECTED");
                 o.deleteObserver(this);
             }
         }

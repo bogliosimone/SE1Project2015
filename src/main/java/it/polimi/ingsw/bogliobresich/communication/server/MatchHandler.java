@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.communication.server;
 
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchServiceHandler;
+import it.polimi.ingsw.bogliobresich.model.match.ConstantMatch;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
@@ -42,19 +43,20 @@ public class MatchHandler implements Runnable, Observer {
      *
      */
     public MatchHandler() {
-        this(null);
+        this(null,ConstantMatch.MAXPLAYERS);
     }
     
-    public MatchHandler(String nameFileMap) {
+    public MatchHandler(String nameFileMap, int numberOfPlayers) {
         notificationQueue = new NotificationQueueHandler();
         notificationQueue.addObserver(this);
         RMI = new RMIMatchServiceHandler(this);
         this.matchID = lastMatchHandlerIDAdded;
         if(nameFileMap != null) {
-            this.match = new Match(matchID,notificationQueue,nameFileMap);
+            this.match = new Match(matchID,notificationQueue,nameFileMap,numberOfPlayers);
         } else {
             this.match = new Match(matchID,notificationQueue);
         }
+        match.setIsCLIenable(Server.SERVER_DEBUG);
         lastMatchHandlerIDAdded++;
     }
     
@@ -130,7 +132,7 @@ public class MatchHandler implements Runnable, Observer {
     public void run() {
         while(!match.isEnd()) {
             try {
-                Server.serviceMessage(this.toString() + " IS ALIVE");
+                Server.debugMessage(this.toString() + " IS ALIVE");
                 Thread.sleep(ALIVE_STEP);
             } catch (InterruptedException e) {
                 e.printStackTrace();

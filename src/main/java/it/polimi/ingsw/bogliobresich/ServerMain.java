@@ -52,7 +52,8 @@ public class ServerMain {
         try {
             executor = Executors.newSingleThreadExecutor();
             server = Server.getInstance();
-            Server.selectMap(map,numberPlayer);
+            Server.selectMap(map);
+            Server.setNumberOfPlayerInMap(numberPlayer);
             executor.submit(server);
         }
         catch (Exception e) {

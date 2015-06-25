@@ -19,10 +19,14 @@ public class Server implements Runnable {
 
     private RMIConnectionServer rmiConnectionServer;
     private SocketConnectionServer socketConnectionServer;
-    
+
     private static String selectedMap;
-    
-    public static final boolean SERVER_DEBUG = true;
+    private static int numberOfPlayerInMap;
+
+    public static final boolean SERVER_DEBUG = false;
+    public static final boolean SERVER_ERROR = true;
+    public static final boolean SERVER_LOGIN = true;
+    public static final boolean SERVER_COMMUNICATION = true;
 
     public static synchronized Server getInstance() {
         if (instance == null) {
@@ -56,18 +60,27 @@ public class Server implements Runnable {
     }
 
     public synchronized static void errorMessage(Object msg) {
-        System.out.println("| ERROR! > " + msg);
+        if(SERVER_ERROR) {
+            System.out.println("| ERROR! > " + msg);
+        }
     }
     public synchronized static void connectionMessage(Object msg) {
-        System.out.println("| LOGIN  > " + msg);
+        if(SERVER_LOGIN) {
+            System.out.println("| LOGIN  > " + msg);
+        }
+    }
+
+    public synchronized static void communicationMessage(Object msg) {
+        if(SERVER_COMMUNICATION) {
+            System.out.println("| COMMUNICATION > " + msg);
+        }
     }
 
     public synchronized static void debugMessage(Object msg) {
         if(SERVER_DEBUG) {
-            System.out.println("| COMMUNICATION  > " + msg);
+            System.out.println("| DEBUG  > " + msg);
         }
     }
-
 
     public static synchronized int getUserID() {
         return lastUserAdded++;
@@ -88,11 +101,19 @@ public class Server implements Runnable {
         selectedMap = map;
     }
     
+    public static int getNumberOfPlayerInMap() {
+        return numberOfPlayerInMap;
+    }
+
+    public static void setNumberOfPlayerInMap(int numberOfPlayerInMap) {
+        Server.numberOfPlayerInMap = numberOfPlayerInMap;
+    }
+
     public static boolean isServerNotification(Notification n) {
         if(!n.isBroadcast()) { 
-             if(n.getNotificationReciver() == null) {
-                 return true;
-             }
+            if(n.getNotificationReciver() == null) {
+                return true;
+            }
         }
         return false;
     }
