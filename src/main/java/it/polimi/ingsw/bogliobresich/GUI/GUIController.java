@@ -207,7 +207,7 @@ public class GUIController implements Observer, Runnable {
                 //createMessageView(myPlayer.getNickName()+"Sei morto!",null);
                 break;
             case YOU_DISCONNECTED:
-                createMessageView(myPlayer.getNickName()+"Sei stato disconnesso per inattività!",null);
+                createMessageView(myPlayer.getNickName()+" sei stato disconnesso per inattività!",null);
                 break;
             case YOU_LOST:
                 //createMessageView(myPlayer.getNickName()+"Hai perso! :(",null);
