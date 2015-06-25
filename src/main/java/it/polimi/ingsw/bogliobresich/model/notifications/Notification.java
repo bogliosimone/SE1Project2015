@@ -3,13 +3,13 @@
  */
 package it.polimi.ingsw.bogliobresich.model.notifications;
 
-import java.util.List;
-
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
+
+import java.util.List;
 
 /**
  * This class provides a skeletal implementation of a notification.<br />

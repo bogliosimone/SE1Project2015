@@ -52,8 +52,6 @@ public class CLIClient implements Observer, Runnable{
             Coordinate coord;
             ItemCard c;
             Player p;
-            char letter;
-            int number;
 
 //            NotificationMessage notification = (NotificationMessage)obsNotification;
 
