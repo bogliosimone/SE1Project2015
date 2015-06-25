@@ -1,4 +1,4 @@
-package it.polimi.ingsw.bogliobresich.model.sector;
+package it.polimi.ingsw.bogliobresich.model.map.sector;
 
 import static org.junit.Assert.*;
 import it.polimi.ingsw.bogliobresich.model.map.sector.AlienBaseSector;
