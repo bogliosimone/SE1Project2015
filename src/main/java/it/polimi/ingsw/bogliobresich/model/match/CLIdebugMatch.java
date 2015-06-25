@@ -28,7 +28,7 @@ public class CLIdebugMatch {
 private boolean end=false;
 //private boolean start=false;
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-Match match = new Match(null);
+Match match = new Match(1,null);
     
     public static void main(String[] args) throws IOException {
         CLIdebugMatch cli=new CLIdebugMatch();
