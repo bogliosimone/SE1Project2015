@@ -1,22 +1,16 @@
 package it.polimi.ingsw.bogliobresich.model.match;
 
-import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SpotlightItemCard;
-import it.polimi.ingsw.bogliobresich.model.cards.TeleportItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
-import it.polimi.ingsw.bogliobresich.model.match.action.DiscardAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.DrawSectorAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
-import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProvaMatch {
