@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class HexMapIsValidCoordinate {
+public class HexMapIsValidCoordinateTest {
     
     @Parameters
     public static Collection<Object[]> data() {
@@ -30,7 +30,7 @@ public class HexMapIsValidCoordinate {
     private Coordinate coordinate;
     private boolean result;
     
-    public HexMapIsValidCoordinate(Coordinate coordinate, boolean result) {
+    public HexMapIsValidCoordinateTest(Coordinate coordinate, boolean result) {
         this.coordinate = coordinate;
         this.result = result;
     }
