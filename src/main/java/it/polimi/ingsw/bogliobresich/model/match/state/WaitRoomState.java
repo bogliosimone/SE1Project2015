@@ -37,7 +37,7 @@ public class WaitRoomState implements State {
                 TimerWaitRoom timerClass = new TimerWaitRoom(match);
                 this.timerWaitRoom.schedule(timerClass, ConstantMatch.TIMEWAITROOM);
             }
-            if(users.size()==ConstantMatch.MAXPLAYERS){
+            if(users.size()==match.getMaxNumberPlayer()){
                 this.timerWaitRoom.cancel();
                 match.setState(new InitState());
                 match.doAction(null, new ActionListUser(users));

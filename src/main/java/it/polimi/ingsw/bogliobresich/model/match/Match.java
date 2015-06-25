@@ -48,6 +48,7 @@ public class Match {
     private Deck portholeDeck;
     private Deck sectorDeck;
     private Timer timerWaitRoom;
+    private int maxNumberPlayer=8;
     TimerWaitEndTurn timerClass;
     NotificationQueue notificationQueue;
     
@@ -61,10 +62,11 @@ public class Match {
         this.idMatch=idMatch;
     }
     
-    public Match(int idMatch,NotificationQueue queue,String nameFileMap){
+    public Match(int idMatch,NotificationQueue queue,String nameFileMap,int maxNumberPlayer){
         this(queue);
         this.idMatch=idMatch;
         this.nameFileMap=nameFileMap;
+        this.maxNumberPlayer=maxNumberPlayer;
         gameMap=new HexMap(this.nameFileMap);
     }
     
@@ -87,6 +89,10 @@ public class Match {
         return this.nameFileMap;
     }
     
+    public int getMaxNumberPlayer() {
+        return maxNumberPlayer;
+    }
+
     public int getCurrentTurn(){
         return this.currentTurn;
     }
