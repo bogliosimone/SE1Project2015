@@ -15,10 +15,14 @@ import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 
 /**
- * @author matteobresich
- *
+ * The <code>ItemDeck</code> implements Deck. Can only contains ItemCards. This Deck could be reshuffled.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ * 
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException
  */
-
 public class ItemDeck extends Deck {
     private int lastId = 0;
 

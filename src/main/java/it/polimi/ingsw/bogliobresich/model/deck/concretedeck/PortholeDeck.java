@@ -10,8 +10,14 @@ import it.polimi.ingsw.bogliobresich.model.deck.ConstantsDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 
 /**
- * @author matteobresich
- *
+ * The <code>PortholeDeck</code> implements Deck. Can only contains PortholeCards. This Deck could not be reshuffled.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ * 
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.NoReShuffleableException
  */
 public class PortholeDeck extends Deck {
     private int lastId = 0;

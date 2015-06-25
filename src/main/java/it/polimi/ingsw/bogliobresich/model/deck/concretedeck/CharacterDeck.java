@@ -15,9 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The <code>CharacterDeck</code> implements Deck. Can only contains CharacterCards. This Deck could not be reshuffled.
+ * 
  * @author matteo bresich
  * @author simone boglio
  * 
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.NoReShuffleableException
  */
 public class CharacterDeck extends Deck {
     private static final int TWO = 2;

@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 
 
 /**
+ * This class provides a skeletal implementation of a deck of cards.
  * The <code>Deck</code> class implements a growable array of cards.<br>
  * The size of a <code>Deck</code> can grow or shrink as needed to accommodate adding and removing items after the <code>Deck</code> has been created.
  * @author matteo bresich

@@ -11,8 +11,13 @@ import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 
 /**
- * @author matteobresich
- *
+ * The <code>SectorDeck</code> implements Deck. Can only contains SectorCards. This Deck could be reshuffled.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ * 
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException
  */
 public class SectorDeck extends Deck {
     private int lastId = 0;
