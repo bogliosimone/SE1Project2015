@@ -16,6 +16,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state when a player move in an unsafe sector
  * @author simoneboglio
  *
  */

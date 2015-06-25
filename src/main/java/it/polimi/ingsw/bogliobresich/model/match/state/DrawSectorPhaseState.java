@@ -19,6 +19,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state where the player draw sector card
  * @author simoneboglio
  *
  */

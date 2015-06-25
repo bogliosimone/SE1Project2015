@@ -25,8 +25,9 @@ import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * class handler for all the date used in the game, hexMap, all deck, all card, player
+ * class handler for all the data used in the game, hexMap, all deck, all card, player
  * @author simoneboglio
+ * @author matteo bresich
  */
 public class Match {
     /**

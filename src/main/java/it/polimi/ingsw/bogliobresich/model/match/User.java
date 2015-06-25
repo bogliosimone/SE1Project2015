@@ -6,13 +6,12 @@ package it.polimi.ingsw.bogliobresich.model.match;
 import java.io.Serializable;
 
 /**
+ * user used by client and match for the game, this class is serializable
  * @author simoneboglio
  *
  */
 public class User implements Serializable {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 2007938065543320937L;
     private String nickname;
     private String password;

@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state when player go in his end phase
  * @author simoneboglio
  *
  */

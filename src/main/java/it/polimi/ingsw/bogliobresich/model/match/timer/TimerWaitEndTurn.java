@@ -11,6 +11,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 import java.util.TimerTask;
 
 /**
+ * timer for end turn time out
  * @author simoneboglio
  *
  */

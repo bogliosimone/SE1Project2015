@@ -18,6 +18,11 @@ import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+/**
+ * state when a new turn need to start with a new current player
+ * @author simoneboglio
+ *
+ */
 public class StartTurnState implements State {
     @Override
     public void doAction(Match match,Player player, Action action){
@@ -37,7 +42,6 @@ public class StartTurnState implements State {
             match.notifyPlayer(currentPlayer, "è il tuo turno  - turno: "+match.getCurrentTurn());
             match.notifyPlayer(Commands.MOVES_AVAIABLE, currentMoves(match,currentPlayer) , currentPlayer);
             match.notifyPlayer(currentPlayer, "Vuoi giocare un oggetto o vuoi muoverti?");
-            match.setCurrentPlayer(currentPlayer);
             return;
         }
         

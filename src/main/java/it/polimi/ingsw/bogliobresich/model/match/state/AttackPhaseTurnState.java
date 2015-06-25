@@ -18,6 +18,7 @@ import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state where a player attack
  * @author simoneboglio
  *
  */

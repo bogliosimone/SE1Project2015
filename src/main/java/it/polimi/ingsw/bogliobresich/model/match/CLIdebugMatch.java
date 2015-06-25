@@ -21,12 +21,13 @@ import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.RumorCoordinate;
 
 /**
+ * CLI used for debug the game, you play all the time the current player when game start
+ * before you need to add player, after game start and you can play with the current player of the turn
  * @author simoneboglio
  *
  */
 public class CLIdebugMatch {
 private boolean end=false;
-//private boolean start=false;
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 Match match = new Match(1,null);
     
@@ -44,14 +45,6 @@ Match match = new Match(1,null);
 
     
     private void action (String command) throws IOException{
-        /*if(command.equals("start")){
-            this.match = new Match(null);
-            return;
-        }
-        if(start==false){
-            System.out.println("Devi far iniziare la partita");
-            return;
-        }*/
         if(command.equals("ap")){
             System.out.println("Inserisci id: ");
             int id=Integer.parseInt(this.br.readLine());

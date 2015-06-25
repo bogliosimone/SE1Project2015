@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state where the player need to discard or play a card cause his hand is full
  * @author simoneboglio
  *
  */

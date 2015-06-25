@@ -19,6 +19,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state where the users join the game, if min player is reach game start after timer wait room is up or max player is reach
  * @author simoneboglio
  *
  */

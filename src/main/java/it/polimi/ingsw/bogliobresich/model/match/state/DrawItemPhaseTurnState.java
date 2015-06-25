@@ -13,6 +13,11 @@ import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+/**
+ * state where player draw item card
+ * @author simoneboglio
+ *
+ */
 public class DrawItemPhaseTurnState implements State {
 
     @Override

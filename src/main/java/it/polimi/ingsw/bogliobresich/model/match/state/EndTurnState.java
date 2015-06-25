@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state where player end is turn
  * @author simoneboglio
  *
  */

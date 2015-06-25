@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * action for send to match the list of all users for the game
  * @author simoneboglio
- *
  */
 public class ActionListUser implements Action {
     List<User> users=new ArrayList<User>();

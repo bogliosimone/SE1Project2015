@@ -17,6 +17,7 @@ import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state when a player go in a porthole sector
  * @author simoneboglio
  *
  */

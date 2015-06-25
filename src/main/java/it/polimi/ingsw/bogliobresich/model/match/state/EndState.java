@@ -13,6 +13,7 @@ import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
+ * state when game is end, calculate winners losers and after end
  * @author simoneboglio
  *
  */

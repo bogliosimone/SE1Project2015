@@ -11,6 +11,11 @@ import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
+/**
+ * state when a player go in a safe sector
+ * @author simoneboglio
+ *
+ */
 public class SafeSectorPhaseTurnState implements State {
 
     @Override

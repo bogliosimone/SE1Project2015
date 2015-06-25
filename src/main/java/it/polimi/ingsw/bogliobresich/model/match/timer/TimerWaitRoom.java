@@ -9,6 +9,7 @@ import it.polimi.ingsw.bogliobresich.model.match.action.TimerRoomEndAction;
 import java.util.TimerTask;
 
 /**
+ * timer for wait room
  * @author simoneboglio
  *
  */

@@ -6,6 +6,7 @@ package it.polimi.ingsw.bogliobresich.model.match.action;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 
 /**
+ * action used by player when he want call rumor in a coordinate
  * @author simoneboglio
  *
  */
