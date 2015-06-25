@@ -39,8 +39,6 @@ public class MouseListenerGameBoard extends MouseAdapter {
             return;
         hp.resetGuiMapColour();
         hp.repaint();
-        //what to do
-        
         
         
         if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_MOVE)) {
@@ -52,7 +50,6 @@ public class MouseListenerGameBoard extends MouseAdapter {
             if(card instanceof SpotlightItemCard) {
                 SpotlightItemCard spotlightCard = (SpotlightItemCard)card;
                 spotlightCard.setCoordToLight(coordKey);
-                System.out.println(spotlightCard.toString());
                 GUIController.sendCommand(new ClientCommand(CommandType.DO_PLAY_ITEM_REQUEST,spotlightCard));
                 guiController.setIdCardSelected(-1);
             }

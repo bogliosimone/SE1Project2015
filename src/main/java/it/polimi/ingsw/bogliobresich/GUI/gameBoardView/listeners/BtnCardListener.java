@@ -22,6 +22,5 @@ public class BtnCardListener implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         GUIController.getInstance().setIdCardSelected(id);
-        System.out.println("My id is: " + id);
     }
 }
