@@ -54,7 +54,7 @@ public class CommandPanel extends JPanel {
     final static Color PLAYING_USER = Color.GREEN;
     final static Color PLAYER_INFO = Color.WHITE;
     final static Color OTHER_MESSAGES_AREA = Color.BLACK;
-    final static Color OTHER_MESSAGES_TEXT = Color.GRAY;
+    final static Color OTHER_MESSAGES_TEXT = new Color(21, 233, 255);
     static final Color BUTTON_TEXT = new Color(0, 102, 255);
 
 
@@ -88,10 +88,11 @@ public class CommandPanel extends JPanel {
         this.map = map;
         
         lblPhaseTurnMessage = new JLabel();
-        lblPhaseTurnMessage.setBounds(86, 20, 200, 16);
+        lblPhaseTurnMessage.setBounds(86, 20, 250, 16);
         lblPhaseTurnMessage.setForeground(PLAYER_INFO);
         add(lblPhaseTurnMessage);
-        lblPhaseTurnMessage.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        //lblPhaseTurnMessage.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblPhaseTurnMessage.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         
         
         JLabel lblUtenti = new JLabel("Utenti:");
@@ -228,7 +229,8 @@ public class CommandPanel extends JPanel {
         add(btnEndTurn);
 
         lblOtherMessages = new JTextArea();
-        lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+        //lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+        lblOtherMessages.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
         lblOtherMessages.setBounds(x, 580, 297, 200);
         lblOtherMessages.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         lblOtherMessages.setBackground(OTHER_MESSAGES_AREA);
@@ -240,6 +242,7 @@ public class CommandPanel extends JPanel {
 
 
     public void disableCommandPanel() {
+        printOtherMessage("");
         setBtnPlayTheCardEnabled(false);
         setBtnDrawSectorCardEnabled(false);
         setBtnDiscardTheCardEnabled(false);

@@ -30,7 +30,7 @@ public class CommandHandler {
             board.printMessage(notification.getString());
             break;
         case CALL_RUMOR:
-            board.getCommandPanel().printOtherMessage("Clicca sulla mappa per fare rumore");
+            board.getCommandPanel().printOtherMessage("Clicca sulla mappa il settore in cui\nvuoi far rumore");
             map.setStateMoveRumorSpotlight(map.STATE_RUMOR);
             map.setAvaiableAllMoves();
             break;
@@ -54,7 +54,7 @@ public class CommandHandler {
         case DRAW_SECTOR_CARD:
             break;
         case END_TURN:
-            board.getCommandPanel().printPhaseTurnMessage("Non è il tuo turno", Color.RED);
+            board.getCommandPanel().printPhaseTurnMessage("- Non è il tuo turno -", Color.RED);
             break;
         case FATAL_ERROR:            
             break;
@@ -80,48 +80,40 @@ public class CommandHandler {
         case LIST_USERS:
             break;
         case MOVES_AVAIABLE:
-            s = "Mosse disponibili";
             if(notification.getMovesAvaiable().canMove()) {
                 map.setStateMoveRumorSpotlight(map.STATE_MOVE);
                 map.setAvaiableMoves(notification.getMovesAvaiable().getReachableCoordinate());
-                s=s+" - MUOVI";
+                board.getCommandPanel().printOtherMessage("Clicca sulla mappa per muoverti");
             }
             if(notification.getMovesAvaiable().canPlayItem()){
                 if(!GUIController.getInstance().getHandOfCards().isEmpty()) {
                     board.getCommandPanel().setBtnPlayTheCardEnabled(true);
                     board.getCommandPanel().setCardsEnabled(true);
-                    s=s+" - GIOCA OGGETTO";
                 }
             }
             if(notification.getMovesAvaiable().canAttack()){
                 board.getCommandPanel().setBtnAttackEnabled(true);
-                s=s+" - ATTACCA";
             }
             if(notification.getMovesAvaiable().canDiscardItemCard()){
                 board.getCommandPanel().setBtnDiscardTheCardEnabled(true);
                 board.getCommandPanel().setCardsEnabled(true);
-                s=s+" - SCARTA";
             }
             if(notification.getMovesAvaiable().canEndTurn()){
                 board.getCommandPanel().setBtnEndTurnEnabled(true);
-                s=s+" - FINE TURNO";
             }
             if(notification.getMovesAvaiable().canGoInEndPhase()){
                 board.getCommandPanel().setBtnEndMovementEnabled(true);
-                s=s+" - FINE MOVIMENTO";
             }
             if(notification.getMovesAvaiable().canDrawSectorCard()){
                 board.getCommandPanel().setBtnDrawSectorCardEnabled(true);
-                s=s+" - PESCA CARTA SETTORE";
             }
-            board.getCommandPanel().printOtherMessage(s);
             break;
         case MOVE_NO_AVAIABLE:
             break;
         case PLAYER_JOIN_WAIT_ROOM:
             break;
         case PLAYER_MESSAGE:
-            board.printMessage("da spostare.. "+notification.getString());
+            board.printMessage("NON USATO.. "+notification.getString());
             break;
         case PORTHOLE_BROKEN:
             map.setBreakPorthole(notification.getCoordinate());
@@ -135,15 +127,15 @@ public class CommandHandler {
             map.setActualCoordinate(notification.getCoordinate());
             break;
         case START_END_PHASE:
-            board.getCommandPanel().printPhaseTurnMessage("Sei nella End Phase", Color.GREEN);
+            board.getCommandPanel().printPhaseTurnMessage("- Sei nella End Phase -", Color.GREEN);
             break;
         case START_MOVEMENT_PHASE:
-            board.getCommandPanel().printPhaseTurnMessage("Sei nella Movement Phaase", Color.GREEN);
+            board.getCommandPanel().printPhaseTurnMessage("- Sei nella Movement Phase -", Color.GREEN);
             break;
         case START_TIMER:
             break;
         case START_TURN:
-            board.getCommandPanel().printPhaseTurnMessage("Sei nella Start Phase", Color.GREEN);
+            board.getCommandPanel().printPhaseTurnMessage("- Sei nella Start Phase -", Color.GREEN);
             board.getCommandPanel().printCurrentTurnNumber(notification.getInteger());
             break;
         case USER_END_TURN:
@@ -170,11 +162,13 @@ public class CommandHandler {
             break;
         case HUMAN_ESCAPE:
             board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
-            board.printMessage(notification.getPlayer().getNickName()+" ha lasciato l'astronave \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
+            board.printMessage(notification.getPlayer().getNickName()+" ha lasciato l'astronave");
+            board.printMessage(notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case PLAYER_DIE:
             board.getCommandPanel().printUserList(GUIController.getInstance().getUserList(), GUIController.getInstance().getCommandPanelUserList());
-            board.printMessage(notification.getPlayer().getNickName()+" è morto \n"+notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
+            board.printMessage(notification.getPlayer().getNickName()+" è morto");
+            board.printMessage(notification.getPlayer().getNickName()+" personaggio: "+notification.getPlayer().getCharacterCard().getCharacterName()+" natura: "+notification.getPlayer().getCharacterCard().getCharacterType());
             break;
         case GAME_MAP_FILE_NAME:
             break;

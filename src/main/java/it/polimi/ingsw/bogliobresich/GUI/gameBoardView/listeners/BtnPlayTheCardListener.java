@@ -40,6 +40,7 @@ public class BtnPlayTheCardListener implements ActionListener{
             if(idCardSelected != -1) {
                 commandPanel.disableCommandPanel();        
                 if(handOfCards.getCard(idCardSelected) instanceof SpotlightItemCard) {
+                    commandPanel.printOtherMessage("Clicca sulla mappa il settore da illuminare");
                     map.setStateMoveRumorSpotlight(map.STATE_SPOTLIGHT);
                     map.setAvaiableAllMoves();
                 }

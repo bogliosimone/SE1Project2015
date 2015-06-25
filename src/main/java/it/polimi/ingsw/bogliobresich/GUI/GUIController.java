@@ -108,13 +108,13 @@ public class GUIController implements Observer, Runnable {
                     s="\nLa tua carta contiene un oggetto";
                 }
                 if(sc.isThereNoiseInAnySector()) {
-                    createMessageView("Hai pescato una carta settore:\n RUMORE IN QUALUNQUE SETTORE"+s,imagesHolder.getRumorXY());
+                    createMessageView("Hai pescato una carta settore:\nRUMORE IN QUALUNQUE SETTORE"+s,imagesHolder.getRumorXY());
                 }
                 if(sc.isThereNoiseInMySector()) {
-                    createMessageView("Hai pescato una carta settore:\n RUMORE NEL TUO SETTORE"+s,imagesHolder.getRumorMySector());
+                    createMessageView("Hai pescato una carta settore:\nRUMORE NEL TUO SETTORE"+s,imagesHolder.getRumorMySector());
                 }
                 if(sc.isThereSilence()) {
-                    createMessageView("Hai pescato una carta settore:\n SILENZIO"+s,imagesHolder.getSilence());
+                    createMessageView("Hai pescato una carta settore:\nSILENZIO"+s,imagesHolder.getSilence());
                 }
                 break;
             case END_TURN:
@@ -201,13 +201,13 @@ public class GUIController implements Observer, Runnable {
                 handOfCards = myPlayer.getHand();
                 break;
             case YOU_ARE_FEED:
-                createMessageView(myPlayer.getNickName()+" ti sei nutrito di un umano\n ora puoi muoverti di tre caselle",null);
+                createMessageView(myPlayer.getNickName()+" ti sei nutrito di un umano\n Ora puoi muoverti di tre caselle",null);
                 break;
             case YOU_DIE:
                 //createMessageView(myPlayer.getNickName()+"Sei morto!",null);
                 break;
             case YOU_DISCONNECTED:
-                //createMessageView(myPlayer.getNickName()+"Sei stato disconnesso!",null);
+                createMessageView(myPlayer.getNickName()+"Sei stato disconnesso per inattività!",null);
                 break;
             case YOU_LOST:
                 //createMessageView(myPlayer.getNickName()+"Hai perso! :(",null);

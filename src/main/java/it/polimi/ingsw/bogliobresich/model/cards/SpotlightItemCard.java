@@ -46,10 +46,10 @@ public class SpotlightItemCard extends ItemCard {
             }
             String tmp=new String();
             if(listPlayerEnlightened.isEmpty())
-                tmp=new String("nessuno");
+                tmp=new String(" - nessuno");
             for(Player tmpPlayer:listPlayerEnlightened)
-                tmp=new String(tmp+" "+tmpPlayer.getNickName()+" in coordinate "+ tmpPlayer.getCoordinate());
-            this.stringEnlightened = new String("Giocatori illuminati:"+tmp);
+                tmp=new String(tmp+" - "+tmpPlayer.getNickName()+" in coordinate "+ tmpPlayer.getCoordinate());
+            this.stringEnlightened = new String("Giocatori illuminati "+tmp);
             this.isPlayed=true;
             return this;
         }
@@ -86,7 +86,7 @@ public class SpotlightItemCard extends ItemCard {
     
     @Override
     public String getInfo(){
-        return "\n"+this.stringEnlightened;
+        return "\n> "+this.stringEnlightened;
     }
 
     @Override

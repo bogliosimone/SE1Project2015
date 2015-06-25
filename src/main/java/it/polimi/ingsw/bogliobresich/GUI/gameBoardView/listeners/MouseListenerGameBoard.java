@@ -40,7 +40,9 @@ public class MouseListenerGameBoard extends MouseAdapter {
         hp.resetGuiMapColour();
         hp.repaint();
         //what to do
-
+        
+        
+        
         if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_MOVE)) {
             GUIController.sendCommand(new ClientCommand(CommandType.DO_MOVE_REQUEST,coordKey));
         } else if(hp.getStateMoveRumorSpotlight().equals(hp.STATE_RUMOR)) {
@@ -55,10 +57,15 @@ public class MouseListenerGameBoard extends MouseAdapter {
                 guiController.setIdCardSelected(-1);
             }
         }
+        commandPanel.disableCommandPanel();
 
         /*hp.resetGuiMapColour();
         hp.setActualCoordinate(new Coordinate('L',10));
         tmp.setActualColour(Color.RED);
         hp.repaint();*/
+    }
+
+    public void setCommandPanel(CommandPanel commandPanel) {
+        this.commandPanel = commandPanel;
     }                
 }
