@@ -9,10 +9,15 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author Matteo
- *
+ * This class provides a skeletal implementation of an item card.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * 
  */
-public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable {
+public abstract class ItemCard implements Card, CardPlayableInPhase, Serializable {
     /**
      * 
      */
@@ -21,8 +26,9 @@ public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable
     protected boolean isPlayed;
     
     public abstract ItemCard play(Match m, Player p);
+    
     /**
-     * @return the id
+     * @return the id of the card
      */
     @Override
     public int getId() {
@@ -30,22 +36,32 @@ public abstract class ItemCard implements Card, CardPlayableInPhase,Serializable
     }
 
     /**
-     * @param id the id to set
+     * @param id the item card id to set
      */
     @Override
     public void setId(int id) {
         this.id = id;
     }
     
+    /**
+     * @return if the item card is played
+     */
     public boolean isPlayed() {
         return this.isPlayed;
     }
     
     
+    /**
+     * @return the name of the item card
+     */
     public String getName(){
         return "Generics Item Card";
     }
     
+    
+    /**
+     * @return the info about the item card
+     */
     public String getInfo(){
         return "";
     }

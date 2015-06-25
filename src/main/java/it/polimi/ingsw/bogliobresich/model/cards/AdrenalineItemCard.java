@@ -8,8 +8,13 @@ import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author matteobresich
- *
+ * The <code>AdrenalineItemCard</code> class implements abstract class ItemCard.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * 
  */
 public class AdrenalineItemCard extends ItemCard {
     
@@ -22,6 +27,9 @@ public class AdrenalineItemCard extends ItemCard {
         super.setId(id);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AdrenalineItemCard play(Match m, Player p) {
         if(p instanceof HumanPlayer){
@@ -31,21 +39,33 @@ public class AdrenalineItemCard extends ItemCard {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableInitPhase() {
         return isPlayableInit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableMovePhase() {
         return isPlayableMove;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(){
         return "Adrenaline";

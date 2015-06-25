@@ -9,11 +9,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author matteo bresich
- * @author simone boglio
- *
  * This class is the entry point of the Application Process.
- * Main method launches all GUI components. 
+ * Main method launches all GUI components.
+ * 
+ * @author matteo bresich
+ * @author simone boglio 
+ * @version 0.9
+ * 
  */
 public class GuiClientMain {
     public static void main (String[] args) {

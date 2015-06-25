@@ -10,11 +10,13 @@ import java.util.concurrent.Executors;
 
 
 /**
- * @author matteo bresich
- * @author simone boglio
- *
  * This class is the entry point of the Application Process.
  * Main method launches all CLI components. 
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ * @version 1.0
+ * 
  */
 public final class CliClientMain {
     public static void main (String[] args) {

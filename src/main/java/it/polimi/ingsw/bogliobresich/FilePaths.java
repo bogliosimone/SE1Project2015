@@ -4,11 +4,11 @@
 package it.polimi.ingsw.bogliobresich;
 
 /**
+ * This class contains all URLs of the media files of the application.
+ * 
  * @author matteo bresich
  * @author simone boglio
  *
- * This class contains all URLs of the media files of the application.
- * 
  */
 public class FilePaths {
 

@@ -11,10 +11,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * This class is the entry point of the Server Process.
+ * Main method launches all server components.
+ * 
  * @author matteo bresich
  * @author simone boglio
- * This class is the entry point of the Server Process.
- * Main method launches all server components. 
+ * @version 2.0
+ *  
  */
 public class ServerMain {
     public static void main (String [] args) {

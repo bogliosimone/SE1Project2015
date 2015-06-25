@@ -6,7 +6,10 @@ package it.polimi.ingsw.bogliobresich.model.deck;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 
 /**
- * @author matteobresich
+ * This class contains all constants decks used in the application.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
  *
  */
 public final class ConstantsDeck {
