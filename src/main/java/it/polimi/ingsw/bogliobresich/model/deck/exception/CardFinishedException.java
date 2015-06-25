@@ -1,5 +1,13 @@
 package it.polimi.ingsw.bogliobresich.model.deck.exception;
 
+/**
+ * This class is thrown when there aren't cards in a deck.
+ * @author matteo bresich
+ * @author simone boglio
+ * @version 1.0 
+ * @see java.lang.Exception
+ */
+
 public class CardFinishedException extends Exception {
     /**
      * 

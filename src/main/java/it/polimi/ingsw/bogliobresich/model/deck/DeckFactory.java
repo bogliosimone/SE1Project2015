@@ -4,7 +4,8 @@
 package it.polimi.ingsw.bogliobresich.model.deck;
 
 /**
- * @author matteobresich
+ * @author matteo bresich
+ * @author simone boglio
  *
  */
 public abstract class DeckFactory {

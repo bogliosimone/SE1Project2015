@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author matteobresich
- *
+ * @author matteo bresich
+ * @author simone boglio
+ * 
  */
 public class CharacterDeck extends Deck {
     private static final int TWO = 2;

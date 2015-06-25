@@ -14,8 +14,14 @@ import java.util.NoSuchElementException;
 
 
 /**
- * @author matteobresich
- *
+ * The <code>Deck</code> class implements a growable array of cards.<br>
+ * The size of a <code>Deck</code> can grow or shrink as needed to accommodate adding and removing items after the <code>Deck</code> has been created.
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.1 
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException
+ * @see it.polimi.ingsw.bogliobresich.model.deck.exception.NoReShuffleableException
  */
 public abstract class Deck {
 
@@ -27,7 +33,7 @@ public abstract class Deck {
     protected List<Card> drawnOutCards = new ArrayList<Card>();
     //A deck by default is re-shuffleable
     private boolean isReShuffleable = true;
-    
+
 
     /**
      * Shuffle all the cards in the deck. To use when the deck is created. 
@@ -73,7 +79,7 @@ public abstract class Deck {
         c.setId(id);
         stackOfCards.add(c);
     }
-    
+
     /**
      * Return how many cards are in the stack.
      * @return numbers of card
@@ -89,7 +95,7 @@ public abstract class Deck {
     public boolean isEmpty() {
         return stackOfCards.isEmpty();
     }
-    
+
     /**
      * Return if the stack of discarded cards is empty.
      * @return Return true if the stack is empty
@@ -130,7 +136,7 @@ public abstract class Deck {
         }
 
     }
- 
+
     /**
      * Set if deck can be remixed
      * @param reshuffleable true if the deck can be remixed
@@ -153,12 +159,12 @@ public abstract class Deck {
             printString("Card " + c2.toString());
         }
     }
-    
+
     @Override
     public String toString() {
         return "Deck [stackOfCards=" + stackOfCards + "]";
     }
-    
+
     private static void printString(String string){
         System.out.println(string);
     }

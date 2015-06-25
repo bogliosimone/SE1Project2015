@@ -9,7 +9,8 @@ import it.polimi.ingsw.bogliobresich.model.deck.concretedeck.PortholeDeck;
 import it.polimi.ingsw.bogliobresich.model.deck.concretedeck.SectorDeck;
 
 /**
- * @author matteobresich
+ * @author matteo bresich
+ * @author simone boglio
  *
  */
 public class MyDeckFactory extends DeckFactory {
