@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.listeners.BtnPlayTheCardL
 import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.AdrenalineItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.AttackItemCard;
+import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
 import it.polimi.ingsw.bogliobresich.model.cards.DefenceItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SedativesItemCard;
@@ -91,7 +92,6 @@ public class CommandPanel extends JPanel {
         lblPhaseTurnMessage.setBounds(86, 20, 250, 16);
         lblPhaseTurnMessage.setForeground(PLAYER_INFO);
         add(lblPhaseTurnMessage);
-        //lblPhaseTurnMessage.setFont(new Font("Lucida Grande", Font.BOLD, 13));
         lblPhaseTurnMessage.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         
         
@@ -229,7 +229,6 @@ public class CommandPanel extends JPanel {
         add(btnEndTurn);
 
         lblOtherMessages = new JTextArea();
-        //lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
         lblOtherMessages.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         lblOtherMessages.setBounds(x, 580, 297, 200);
         lblOtherMessages.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
@@ -316,17 +315,36 @@ public class CommandPanel extends JPanel {
                 b.removeActionListener(al);
             }
             b.setIcon(null);
+            b.setToolTipText(null);
         }
 
         List<ItemCard> cards = hand.getAllCard();
         int index = 0;
         for(ItemCard card : cards) {
             btnCards[index].setIcon(getImageByItemCard(card));
+            btnCards[index].setToolTipText(getTooltipTextByItemCard(card));
             btnCards[index].addActionListener(new BtnCardListener(card.getId()));
             add(btnCards[index]);
             validate();
             index++;
         }
+    }
+    
+    public String getTooltipTextByItemCard(ItemCard card) {
+        if(card instanceof AdrenalineItemCard) {
+            return ConstantsCard.ADRENALINE;
+        } else if(card instanceof AttackItemCard) {
+            return ConstantsCard.ATTACK;
+        } else if(card instanceof DefenceItemCard) {
+            return ConstantsCard.DEFENCE;
+        } else if(card instanceof SedativesItemCard) {
+            return ConstantsCard.SEDATIVES;
+        } else if(card instanceof SpotlightItemCard) {
+            return ConstantsCard.SPOTLIGHT;
+        } else if(card instanceof TeleportItemCard) {
+            return ConstantsCard.TELEPORT;
+        }
+        return "";
     }
 
     public ImageIcon getImageByItemCard(ItemCard card) {
