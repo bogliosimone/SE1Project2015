@@ -105,16 +105,16 @@ public class GUIController implements Observer, Runnable {
                 String s=new String("");
                 SectorCard sc = notification.getSectorCard();
                 if(sc.isThereAnItemToDraw()){
-                    s="\nLa tua carta contiene un oggetto";
+                    s="\nLa carta contiene un oggetto";
                 }
                 if(sc.isThereNoiseInAnySector()) {
-                    createMessageView("Hai pescato una carta settore:\nRUMORE IN QUALUNQUE SETTORE"+s,imagesHolder.getRumorXY());
+                    createMessageView("Hai pescato la carta:\nRUMORE IN QUALUNQUE SETTORE"+s,imagesHolder.getRumorXY());
                 }
                 if(sc.isThereNoiseInMySector()) {
-                    createMessageView("Hai pescato una carta settore:\nRUMORE NEL TUO SETTORE"+s,imagesHolder.getRumorMySector());
+                    createMessageView("Hai pescato la carta:\nRUMORE NEL TUO SETTORE"+s,imagesHolder.getRumorMySector());
                 }
                 if(sc.isThereSilence()) {
-                    createMessageView("Hai pescato una carta settore:\nSILENZIO"+s,imagesHolder.getSilence());
+                    createMessageView("Hai pescato la carta:\nSILENZIO"+s,imagesHolder.getSilence());
                 }
                 break;
             case END_TURN:

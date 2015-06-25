@@ -113,7 +113,7 @@ public class CommandHandler {
         case PLAYER_JOIN_WAIT_ROOM:
             break;
         case PLAYER_MESSAGE:
-            board.printMessage("NON USATO.. "+notification.getString());
+            //not used
             break;
         case PORTHOLE_BROKEN:
             map.setBreakPorthole(notification.getCoordinate());

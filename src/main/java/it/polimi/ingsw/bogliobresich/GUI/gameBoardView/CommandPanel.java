@@ -99,7 +99,7 @@ public class CommandPanel extends JPanel {
         lblUtenti.setBounds(86, 50, 61, 16);
         lblUtenti.setForeground(PLAYER_INFO);
         add(lblUtenti);
-        lblUtenti.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblUtenti.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
 
 
         lblPlayerIcon = new JLabel();
@@ -111,22 +111,22 @@ public class CommandPanel extends JPanel {
         lblNickname.setBounds(182, 278, 80, 16);
         lblNickname.setForeground(PLAYER_INFO);
         add(lblNickname);
-        lblNickname.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblNickname.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         
         lblUserNickname = new JLabel();
-        lblUserNickname.setBounds(262, 278, 200, 16);
+        lblUserNickname.setBounds(255, 278, 200, 16);
         lblUserNickname.setForeground(PLAYER_INFO);
         add(lblUserNickname);
-        lblUserNickname.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblUserNickname.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
         
-        JLabel lblPlayer = new JLabel("PLAYER:");
-        lblPlayer.setBounds(182, 296, 61, 16);
+        JLabel lblPlayer = new JLabel("CHARACTER:");
+        lblPlayer.setBounds(182, 296, 80, 16);
         lblPlayer.setForeground(PLAYER_INFO);
         add(lblPlayer);
-        lblPlayer.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblPlayer.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
 
         lblPlayerName = new JLabel();
-        lblPlayerName.setBounds(238, 296, 200, 16);
+        lblPlayerName.setBounds(263, 296, 200, 16);
         lblPlayerName.setForeground(PLAYER_INFO);
         add(lblPlayerName);
 
@@ -134,32 +134,32 @@ public class CommandPanel extends JPanel {
         lblState.setBounds(182, 314, 54, 16);
         lblState.setForeground(PLAYER_INFO);
         add(lblState);
-        lblState.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblState.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
 
         lblPlayerState = new JLabel();
-        lblPlayerState.setBounds(229, 314, 209, 16);
+        lblPlayerState.setBounds(231, 314, 209, 16);
         lblPlayerState.setForeground(PLAYER_INFO);
         add(lblPlayerState);
 
         JLabel lblTurno = new JLabel("TURNO:");
-        lblTurno.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblTurno.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         lblTurno.setBounds(182, 332, 54, 16);
         lblTurno.setForeground(PLAYER_INFO);
         add(lblTurno);
 
         labelTurnNumber = new JLabel();
-        labelTurnNumber.setBounds(238, 333, 200, 16);
+        labelTurnNumber.setBounds(231, 332, 200, 16);
         labelTurnNumber.setForeground(PLAYER_INFO);
         add(labelTurnNumber);
 
         JLabel lblPosizioneCorrente = new JLabel("POSIZIONE CORRENTE:");
-        lblPosizioneCorrente.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+        lblPosizioneCorrente.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         lblPosizioneCorrente.setBounds(182, 350, 154, 16);
         lblPosizioneCorrente.setForeground(PLAYER_INFO);
         add(lblPosizioneCorrente);
 
         lblCurrentPosition = new JLabel("");
-        lblCurrentPosition.setBounds(337, 350, 101, 16);
+        lblCurrentPosition.setBounds(336, 350, 101, 16);
         lblCurrentPosition.setForeground(PLAYER_INFO);
         add(lblCurrentPosition);
 
@@ -192,45 +192,45 @@ public class CommandPanel extends JPanel {
         final int btnHeight = 30;
         
         
-        btnPlayTheCard = new JButton("Gioca la carta");
+        btnPlayTheCard = new JButton("Gioca Carta");
         btnPlayTheCard.setBounds(x, 483, btnWidth, btnHeight);
         btnPlayTheCard.addActionListener(new BtnPlayTheCardListener(map,this));
         add(btnPlayTheCard);
-        btnPlayTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnPlayTheCard.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
 
-        btnDiscardTheCard = new JButton("Scarta la carta");
+        btnDiscardTheCard = new JButton("Scarta Carta");
         btnDiscardTheCard.setBounds(x1, 483, btnWidth, btnHeight);
         btnDiscardTheCard.addActionListener(new BtnDiscardTheCardListener(this));
         add(btnDiscardTheCard);
-        btnDiscardTheCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnDiscardTheCard.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
 
-        btnDrawSectorCard = new JButton("Pesca una carta settore");
+        btnDrawSectorCard = new JButton("Pesca Carta Settore");
         btnDrawSectorCard.setBounds(x, 513, btnWidth, btnHeight);
         btnDrawSectorCard.addActionListener(new BtnDrawSectorCardListener(this));
         add(btnDrawSectorCard);
-        btnDrawSectorCard.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnDrawSectorCard.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
 
         btnAttack = new JButton("Attacca");
-        btnAttack.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnAttack.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
         btnAttack.setBounds(x1, 513, btnWidth, btnHeight);
         btnAttack.addActionListener(new BtnAttackListener(this));
         add(btnAttack);
 
-        btnEndMovement = new JButton("Fine movimento");
-        btnEndMovement.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnEndMovement = new JButton("Fine Movimento");
+        btnEndMovement.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
         btnEndMovement.setBounds(x, 543, btnWidth, btnHeight);
         btnEndMovement.addActionListener(new BtnEndMovementListener(this));
         add(btnEndMovement);
 
-        btnEndTurn = new JButton("Fine turno");
-        btnEndTurn.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+        btnEndTurn = new JButton("Fine Turno");
+        btnEndTurn.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
         btnEndTurn.setBounds(x1, 543, btnWidth, btnHeight);
         btnEndTurn.addActionListener(new BtnEndTurnListener(this));
         add(btnEndTurn);
 
         lblOtherMessages = new JTextArea();
         //lblOtherMessages.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-        lblOtherMessages.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
+        lblOtherMessages.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         lblOtherMessages.setBounds(x, 580, 297, 200);
         lblOtherMessages.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         lblOtherMessages.setBackground(OTHER_MESSAGES_AREA);

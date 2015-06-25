@@ -8,20 +8,20 @@ package it.polimi.ingsw.bogliobresich.model.cards;
  *
  */
 public final class ConstantsCard {
-    public static final String ALIEN = "alien";
-    public static final String HUMAN = "human"; 
+    public static final String ALIEN = "Alien";
+    public static final String HUMAN = "Human"; 
     
     //PORTHOLE CARD
     public static final String PORTHOLE_WORKS = "works";
     public static final String PORTHOLE_BROKEN = "broken";
     
     //ITEM CARD
-    public static final String ATTACK = "attack";
-    public static final String DEFENCE = "defence";
-    public static final String TELEPORT= "teleport";
-    public static final String SPOTLIGHT = "spotlight";
-    public static final String SEDATIVES = "sedatives";
-    public static final String ADRENALINE = "adrenaline";
+    public static final String ATTACK = "Attack";
+    public static final String DEFENCE = "Defence";
+    public static final String TELEPORT= "Teleport";
+    public static final String SPOTLIGHT = "Spotlight";
+    public static final String SEDATIVES = "Sedatives";
+    public static final String ADRENALINE = "Adrenaline";
     public static final int ADRENALINESTEP = 2;
     
     //SECTOR CARD
