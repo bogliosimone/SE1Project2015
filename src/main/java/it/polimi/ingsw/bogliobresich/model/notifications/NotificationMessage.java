@@ -13,8 +13,14 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author matteobresich
- *
+ * This class provides a skeletal implementation of a notification queue.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * 
+ * @see it.polimi.ingsw.bogliobresich.model.notifications.Notification
  */
 public class NotificationMessage implements Notification<Object>, Serializable {
     
@@ -50,26 +56,41 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         this(type, argument, false, null);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Commands getCommand() {
         return command;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getArgument() {
         return argument;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isBroadcast() {
         return isBroadcast;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getNotificationReciver() {
         return addressee;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getPlayer() {
         if(argument instanceof Player) {
@@ -78,6 +99,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<User> getListOfUsers() {
         if(argument instanceof List) {
@@ -86,6 +110,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Player> getListOfPlayers() {
         if(argument instanceof List) {
@@ -94,6 +121,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getString() {
         if(argument instanceof String) {
@@ -102,6 +132,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Coordinate getCoordinate() {
         if(argument instanceof Coordinate) {
@@ -110,6 +143,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ItemCard getItemCard() {
         if(argument instanceof ItemCard) {
@@ -118,6 +154,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MovesAvaiable getMovesAvaiable() {
         if(argument instanceof MovesAvaiable) {
@@ -126,6 +165,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUser() {
         if(argument instanceof User) {
@@ -134,6 +176,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SectorCard getSectorCard() {
         if(argument instanceof SectorCard) {
@@ -142,6 +187,9 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer getInteger() {
         if(argument instanceof Integer) {
@@ -149,5 +197,4 @@ public class NotificationMessage implements Notification<Object>, Serializable {
         }
         return null;
     }
-
 }

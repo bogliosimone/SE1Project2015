@@ -9,8 +9,14 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * @author matteobresich
- *
+ * The <code>NotificationQueueHandler</code> implements a queue of notification.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue
+ * 
  */
 public class NotificationQueueHandler extends Observable implements NotificationQueue, Cloneable {
     Queue <NotificationMessage> notificationQueue = new ConcurrentLinkedQueue <NotificationMessage>();
@@ -18,11 +24,17 @@ public class NotificationQueueHandler extends Observable implements Notification
     public NotificationQueueHandler () {
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void addObserver(Object o) {
         addObserver((Observer)o);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public NotificationQueueHandler clone() {
         synchronized(this) {
@@ -35,7 +47,9 @@ public class NotificationQueueHandler extends Observable implements Notification
         }
     }
     
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void addNotification(NotificationMessage n) {
         //System.out.println("NOTIFICA " + n.getCommand() + " AGGIUNTA IN CODA - CODA ISEMPTY: " + notificationQueue.isEmpty());
@@ -44,11 +58,17 @@ public class NotificationQueueHandler extends Observable implements Notification
         notifyObservers();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized boolean isEmpty() {
         return notificationQueue.isEmpty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized Commands getNotificationCommand() {
         if(!notificationQueue.isEmpty()) {
@@ -57,12 +77,18 @@ public class NotificationQueueHandler extends Observable implements Notification
         return null;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized NotificationMessage pollNotification() {
         //System.out.println("NOTIFICA " + notificationQueue.peek().getCommand() + " DA SCODARE - CODA ISEMPTY BEFORE SCODARE: " + notificationQueue.isEmpty());
         return notificationQueue.poll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void clear() {
         notificationQueue.clear();

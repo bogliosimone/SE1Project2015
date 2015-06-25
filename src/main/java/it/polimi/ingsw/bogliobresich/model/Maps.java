@@ -1,5 +1,15 @@
 package it.polimi.ingsw.bogliobresich.model;
 
+
+/**
+ * The <code>Maps</code> enum contains all the maps for the game.
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * 
+ */
 public enum Maps {
     GALILEI(1,"Galilei","galilei.txt",8),
     GALVANI(2,"Galvani","galvani.txt",8),
@@ -19,18 +29,30 @@ public enum Maps {
         this.numberPlayer=numberPlayer;
     }
     
+    /**
+     * @return the number of the map
+     */
     public int getNumberMap(){
         return this.number;
     }
     
+    /**
+     * @return the name of the map
+     */
     public String getNameMap(){
         return this.name;
     }
     
+    /**
+     * @return the filesystem name of the map file 
+     */
     public String getFileNameMap(){
         return this.fileName;
     }
     
+    /**
+     * @return the maximum number of the player for the map 
+     */
     public int getNumberPlayerMap(){
         return this.numberPlayer;
     }
