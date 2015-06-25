@@ -13,8 +13,14 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author matteobresich
- *
+ * The <code>SpotlightItemCard</code> class implements abstract class ItemCard.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.ItemCard
+ * 
  */
 public class SpotlightItemCard extends ItemCard {
 
@@ -25,10 +31,18 @@ public class SpotlightItemCard extends ItemCard {
     private Coordinate coordToLight =null;
     private String stringEnlightened=null;
     
+    /**
+     * Constructs an SpotlightItemCard with the id of the card
+     * @param id the id of the spotlight card
+     * 
+     */
     public SpotlightItemCard(int id) {
         super.setId(id);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SpotlightItemCard play(Match match, Player p) {
         HexMap gameMap=match.getGameMap();
@@ -56,34 +70,57 @@ public class SpotlightItemCard extends ItemCard {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableInitPhase() {
         return isPlayableInit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableMovePhase() {
         return isPlayableMove;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public Coordinate getCoordToLight() {
         return coordToLight;
     }
 
+    /**
+     * This method allows you to set the coordinate of the map used for the play effect on the match 
+     * @param coordToLight the coordinate of the map
+     * @see it.polimi.ingsw.bogliobresich.model.map.Coordinate
+     */
     public void setCoordToLight(Coordinate coordToLight) {
         this.coordToLight = coordToLight;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(){
         return "Spotlight";
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getInfo(){
         return "\n> "+this.stringEnlightened;

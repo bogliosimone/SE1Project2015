@@ -9,8 +9,14 @@ import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author matteobresich
- *
+ * The <code>TeleportItemCard</code> class implements abstract class ItemCard.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.ItemCard
+ * 
  */
 public class TeleportItemCard extends ItemCard {
 
@@ -19,10 +25,18 @@ public class TeleportItemCard extends ItemCard {
     private boolean isPlayableMove = false;
     private boolean isPlayableEnd = true;
     
+    /**
+     * Constructs an TeleportItemCard with the id of the card
+     * @param id the id of the teleport card
+     * 
+     */
     public TeleportItemCard(int id) {
         super.setId(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TeleportItemCard play(Match m, Player p) {
         HexMap gameMap = m.getGameMap();
@@ -32,21 +46,33 @@ public class TeleportItemCard extends ItemCard {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableInitPhase() {
         return isPlayableInit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableMovePhase() {
         return isPlayableMove;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(){
         return "Teleport";

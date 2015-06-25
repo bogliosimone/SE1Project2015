@@ -7,8 +7,14 @@ import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
- * @author matteobresich
- *
+ * The <code>DefenceItemCard</code> class implements abstract class ItemCard.<br>
+ * 
+ * @author matteo bresich
+ * @author simone boglio
+ *  
+ * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.ItemCard
+ * 
  */
 public class DefenceItemCard extends ItemCard {
     
@@ -17,10 +23,18 @@ public class DefenceItemCard extends ItemCard {
     private boolean isPlayableMove = false;
     private boolean isPlayableEnd = false;
     
+    /**
+     * Constructs an DefenceItemCard with the id of the card
+     * @param id the id of the defence card
+     * 
+     */
     public DefenceItemCard(int id) {
         super.setId(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DefenceItemCard play(Match m, Player p) {
         p.SetIsAlive(true);
@@ -28,21 +42,33 @@ public class DefenceItemCard extends ItemCard {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableInitPhase() {
         return isPlayableInit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableMovePhase() {
         return isPlayableMove;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPlayableEndPhase() {
         return isPlayableEnd;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName(){
         return "Defence";

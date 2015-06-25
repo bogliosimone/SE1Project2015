@@ -14,6 +14,7 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
  * @author simone boglio
  *  
  * @version 1.0
+ * @see it.polimi.ingsw.bogliobresich.model.cards.ItemCard
  * 
  */
 public class AdrenalineItemCard extends ItemCard {
@@ -23,6 +24,11 @@ public class AdrenalineItemCard extends ItemCard {
     private boolean isPlayableMove = false;
     private boolean isPlayableEnd = false;
 
+    /**
+     * Constructs an AdrenalineItemCard with the id of the card
+     * @param id the id of the adrenaline card
+     * 
+     */
     public AdrenalineItemCard(int id) {
         super.setId(id);
     }

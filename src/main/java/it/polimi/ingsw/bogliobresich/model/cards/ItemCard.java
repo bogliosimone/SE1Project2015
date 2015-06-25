@@ -10,6 +10,8 @@ import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**
  * This class provides a skeletal implementation of an item card.
+ * The <code>ItemCard</code> class represents the only type of card that could be played by a player during the match.
+ * The play method allow to change the match state with the effect of the item card card.
  * 
  * @author matteo bresich
  * @author simone boglio
@@ -25,6 +27,13 @@ public abstract class ItemCard implements Card, CardPlayableInPhase, Serializabl
     private int id;
     protected boolean isPlayed;
     
+    
+    /**
+     * This method is used for change the match state with the effect of the item card card.
+     * @param m the match where the item card is played by the player
+     * @param p the player who play the item card
+     * @return the item card played
+     */
     public abstract ItemCard play(Match m, Player p);
     
     /**
