@@ -53,4 +53,14 @@ public class MatchStartTest {
             assertTrue(userList.contains(p.getUser()));
         }
     }
+    
+    @Test
+    public void testTheHighlanderVictory() {
+//        List<Player> players = match.getAllPlayer();
+//        for(Player p : players) {
+//            match.setState(new EndTurnState());
+//            match.doAction(match.getCurrentPlayer(), new TimerEndTurnAction());
+//        }
+//        assertTrue(match.isEnd());
+    }
 }

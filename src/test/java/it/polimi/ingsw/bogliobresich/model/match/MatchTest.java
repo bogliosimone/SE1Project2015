@@ -1,6 +1,14 @@
 package it.polimi.ingsw.bogliobresich.model.match;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import it.polimi.ingsw.bogliobresich.model.deck.concretedeck.SectorDeck;
+import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.action.DrawSectorAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
+import it.polimi.ingsw.bogliobresich.model.match.action.MovementAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.TimerEndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.state.EndTurnState;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
@@ -24,7 +32,7 @@ public class MatchTest {
         Player p = match.getCurrentPlayer();
         assertNotNull(p);
     }
-    
+
     @Test
     public void testPlayerTimeOut() {
         List<Player> players = match.getAllPlayer();
@@ -32,10 +40,49 @@ public class MatchTest {
             match.setState(new EndTurnState());
             match.doAction(match.getCurrentPlayer(), new TimerEndTurnAction());
         }
-        players = match.getAllPlayer();
-        for(Player p : players) {
-            assertFalse(p.isConnected());
-        }
         assertTrue(match.isEnd());
+    }
+
+    @Test
+    public void testTheAlienHighlander() {
+        List<Player> players = match.getAllPlayer();
+        for(int i = 0; i < players.size(); i++ ) {
+            match.setState(new EndTurnState());
+            match.doAction(match.getCurrentPlayer(), new TimerEndTurnAction());
+        }
+        Player p = match.getCurrentPlayer();
+        if(match.playerIsAlien(p)) {
+            assertTrue(match.isEnd());
+        }
+    }
+
+    @Test
+    public void testTheHumanHighlander() {
+        List<Player> players = match.getAllPlayer();
+        for(int i = 0; i < players.size(); i++ ) {
+            match.setState(new EndTurnState());
+            match.doAction(match.getCurrentPlayer(), new TimerEndTurnAction());
+        }
+        Player p = match.getCurrentPlayer();
+        if (match.playerIsHuman(p)) {
+            match.doAction(p, new MovementAction(new Coordinate('K',9)));
+            match.doAction(p, new EndPhaseAction());
+            match.doAction(p, new EndTurnAction());
+            assertTrue(match.isEnd());
+        }
+    }
+
+    @Test
+    public void testDrawSectorCard() {
+        Player player = match.getCurrentPlayer();
+        SectorDeck deck = (SectorDeck) match.getSectorDeck();
+        int originalSize = deck.size();
+        if(match.playerIsHuman(player)) {
+            match.doAction(player,new MovementAction(new Coordinate('K',8)));
+        } else if (match.playerIsAlien(player)) {
+            match.doAction(player,new MovementAction(new Coordinate('K',6)));
+        }
+        match.doAction(player,new DrawSectorAction());
+        assertEquals(originalSize-1,match.getSectorDeck().size());
     }
 }
