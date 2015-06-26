@@ -28,9 +28,11 @@ public class CharacterDeckTest extends Deck {
     
     private int generateId() { return lastId++; }
 
+    int idCaptainCard;
     @Before
     public void setUp() throws Exception {
         captainCard = new CharacterCard(Characters.CAPTAIN);
+        idCaptainCard = captainCard.getId();
         pilotCard = new CharacterCard(Characters.PILOT);
         alienOneCard = new CharacterCard(Characters.ALIENONE);
         alienTwoCard = new CharacterCard(Characters.ALIENTWO);
@@ -52,7 +54,7 @@ public class CharacterDeckTest extends Deck {
         super.shuffle();
         assertEquals(super.isEmpty(),true);
         
-        super.addCard(captainCard,1);
+        super.addCard(captainCard,idCaptainCard);
         super.shuffle();
         assertEquals(super.isEmpty(),false);
         assertEquals(super.drawCard(), new CharacterCard(Characters.CAPTAIN));
