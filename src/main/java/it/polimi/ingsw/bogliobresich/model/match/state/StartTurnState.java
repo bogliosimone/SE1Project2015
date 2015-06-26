@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.Vector;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
+import it.polimi.ingsw.bogliobresich.model.commands.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
@@ -15,8 +17,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PortholeAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.SafeSectorAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.UnsafeSectorAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 

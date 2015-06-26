@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.match;
+package it.polimi.ingsw.bogliobresich.CLI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SpotlightItemCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
+import it.polimi.ingsw.bogliobresich.model.match.Match;
+import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.DiscardAction;

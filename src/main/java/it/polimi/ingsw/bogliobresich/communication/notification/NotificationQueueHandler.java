@@ -1,7 +1,9 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.notifications;
+package it.polimi.ingsw.bogliobresich.communication.notification;
+
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author simone boglio
  *  
  * @version 1.0
- * @see it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue
+ * @see it.polimi.ingsw.bogliobresich.communication.notification.NotificationQueue
  * 
  */
 public class NotificationQueueHandler extends Observable implements NotificationQueue, Cloneable {

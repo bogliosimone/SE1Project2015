@@ -2,14 +2,14 @@ package it.polimi.ingsw.bogliobresich.model.match.state;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
+import it.polimi.ingsw.bogliobresich.model.commands.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.DrawItemCardAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 

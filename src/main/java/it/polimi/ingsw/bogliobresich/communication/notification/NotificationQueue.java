@@ -1,7 +1,9 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.notifications;
+package it.polimi.ingsw.bogliobresich.communication.notification;
+
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 
 
 

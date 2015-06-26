@@ -7,11 +7,11 @@ import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.AddToMatchException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
+import it.polimi.ingsw.bogliobresich.communication.notification.Notification;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationQueue;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerUtils;
-import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 
 import java.rmi.RemoteException;
 import java.util.Observable;

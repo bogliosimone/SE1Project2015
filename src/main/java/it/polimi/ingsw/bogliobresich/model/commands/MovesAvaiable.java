@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.notifications;
+package it.polimi.ingsw.bogliobresich.model.commands;
 
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 

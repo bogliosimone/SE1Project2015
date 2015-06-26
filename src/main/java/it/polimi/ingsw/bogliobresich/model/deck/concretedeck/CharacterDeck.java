@@ -81,24 +81,4 @@ public class CharacterDeck extends Deck {
     private int generateId() {
         return lastId++;
         }
-    
-    
-    
-    
-    
-    
-    
-    public static void main (String args[]) {
-        CharacterDeck deck = new CharacterDeck(4);
-        try
-        {
-            deck.drawCard();
-            deck.drawCard();
-            deck.drawCard();
-        }
-        catch (CardFinishedException e) {
-            System.out.println("carte finite!");
-        }
-        deck.showCards();
-    }
 }

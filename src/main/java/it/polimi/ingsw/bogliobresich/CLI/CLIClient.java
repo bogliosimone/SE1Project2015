@@ -6,15 +6,15 @@ package it.polimi.ingsw.bogliobresich.CLI;
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.CommandType;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SpotlightItemCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
+import it.polimi.ingsw.bogliobresich.model.commands.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.List;

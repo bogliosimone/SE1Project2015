@@ -3,9 +3,9 @@
  */
 package it.polimi.ingsw.bogliobresich.model.cards;
 
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**

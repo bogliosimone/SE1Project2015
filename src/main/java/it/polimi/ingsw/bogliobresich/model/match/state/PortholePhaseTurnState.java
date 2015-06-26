@@ -5,6 +5,7 @@ package it.polimi.ingsw.bogliobresich.model.match.state;
 
 import it.polimi.ingsw.bogliobresich.model.cards.Card;
 import it.polimi.ingsw.bogliobresich.model.cards.PortholeCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.exception.CardFinishedException;
 import it.polimi.ingsw.bogliobresich.model.map.HexMap;
@@ -13,7 +14,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndTurnAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PortholeAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**

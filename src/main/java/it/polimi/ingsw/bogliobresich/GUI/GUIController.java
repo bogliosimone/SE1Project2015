@@ -7,11 +7,11 @@ import it.polimi.ingsw.bogliobresich.GUI.gameBoardView.UserListProprieties;
 import it.polimi.ingsw.bogliobresich.GUI.messageView.MessageView;
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.ClientController;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.player.ItemHand;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 

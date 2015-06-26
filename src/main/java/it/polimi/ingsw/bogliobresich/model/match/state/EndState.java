@@ -5,10 +5,10 @@ package it.polimi.ingsw.bogliobresich.model.match.state;
 
 import java.util.List;
 
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndGameAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 

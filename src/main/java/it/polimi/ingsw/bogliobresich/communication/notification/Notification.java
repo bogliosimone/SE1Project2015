@@ -1,10 +1,12 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.notifications;
+package it.polimi.ingsw.bogliobresich.communication.notification;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
 import it.polimi.ingsw.bogliobresich.model.cards.SectorCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
+import it.polimi.ingsw.bogliobresich.model.commands.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.player.Player;

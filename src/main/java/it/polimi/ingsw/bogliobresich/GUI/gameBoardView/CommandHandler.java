@@ -5,7 +5,7 @@ package it.polimi.ingsw.bogliobresich.GUI.gameBoardView;
 
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 
 import java.awt.Color;
 

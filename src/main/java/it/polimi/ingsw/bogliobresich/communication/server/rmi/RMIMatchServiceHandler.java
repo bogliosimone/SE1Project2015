@@ -5,13 +5,13 @@ package it.polimi.ingsw.bogliobresich.communication.server.rmi;
 
 import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.RemoteObserver;
+import it.polimi.ingsw.bogliobresich.communication.notification.Notification;
 import it.polimi.ingsw.bogliobresich.communication.server.CommandHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.MatchHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.Server;
 import it.polimi.ingsw.bogliobresich.communication.server.ServerCommunicationStrategy;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.io.Serializable;

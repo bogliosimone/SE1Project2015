@@ -3,9 +3,9 @@ import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.map.ConstantMap;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 
 import java.awt.Color;
 import java.awt.Component;

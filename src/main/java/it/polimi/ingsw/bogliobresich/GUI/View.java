@@ -1,6 +1,6 @@
 package it.polimi.ingsw.bogliobresich.GUI;
 
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 
 public interface View {
 

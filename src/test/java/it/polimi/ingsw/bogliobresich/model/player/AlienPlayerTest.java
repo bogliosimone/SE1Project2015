@@ -14,6 +14,7 @@ public class AlienPlayerTest {
         assertFalse(p.isFeed);
         p.feed();
         assertTrue(p.isFeed);
+        assertEquals(p.getMovementStep(),3);
     }
 
 }

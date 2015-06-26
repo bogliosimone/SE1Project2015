@@ -2,7 +2,7 @@ package it.polimi.ingsw.bogliobresich.GUI.messageView;
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

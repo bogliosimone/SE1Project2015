@@ -4,11 +4,11 @@ import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.GUIController;
 import it.polimi.ingsw.bogliobresich.GUI.ImagesHolder;
 import it.polimi.ingsw.bogliobresich.GUI.View;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.Characters;
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.map.Coordinate;
 import it.polimi.ingsw.bogliobresich.model.match.User;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.awt.Color;

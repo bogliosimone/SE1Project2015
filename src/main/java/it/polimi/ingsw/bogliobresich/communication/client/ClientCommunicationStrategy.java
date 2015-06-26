@@ -7,7 +7,7 @@ import it.polimi.ingsw.bogliobresich.communication.ClientCommand;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.AddToMatchException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.LoginException;
 import it.polimi.ingsw.bogliobresich.communication.client.exception.SendCommandException;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
 
 import java.util.Observer;
 

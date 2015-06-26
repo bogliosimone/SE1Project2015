@@ -9,6 +9,7 @@ import java.util.List;
 
 import it.polimi.ingsw.bogliobresich.model.cards.CharacterCard;
 import it.polimi.ingsw.bogliobresich.model.cards.ConstantsCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.deck.Deck;
 import it.polimi.ingsw.bogliobresich.model.deck.DeckFactory;
 import it.polimi.ingsw.bogliobresich.model.deck.MyDeckFactory;
@@ -19,7 +20,6 @@ import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionListUser;
 import it.polimi.ingsw.bogliobresich.model.match.action.ActionStartTurn;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
 import it.polimi.ingsw.bogliobresich.model.player.AlienPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.HumanPlayer;
 import it.polimi.ingsw.bogliobresich.model.player.Player;

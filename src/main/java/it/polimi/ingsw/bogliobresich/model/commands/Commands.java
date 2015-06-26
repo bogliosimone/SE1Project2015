@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.polimi.ingsw.bogliobresich.model.notifications;
+package it.polimi.ingsw.bogliobresich.model.commands;
 
 /**
  * Enum list of all commands used in the game

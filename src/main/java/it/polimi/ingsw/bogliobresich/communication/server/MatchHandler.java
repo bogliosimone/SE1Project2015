@@ -3,17 +3,17 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
+import it.polimi.ingsw.bogliobresich.communication.notification.Notification;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationQueue;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchService;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIMatchServiceHandler;
 import it.polimi.ingsw.bogliobresich.model.ConstantMatch;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.User;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AddPlayerAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueue;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationQueueHandler;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 import java.util.List;

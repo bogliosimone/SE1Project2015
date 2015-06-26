@@ -2,8 +2,8 @@ package it.polimi.ingsw.bogliobresich.GUI.waitingRoomView;
 
 import it.polimi.ingsw.bogliobresich.GUI.GUIConstants;
 import it.polimi.ingsw.bogliobresich.GUI.View;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.communication.notification.NotificationMessage;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

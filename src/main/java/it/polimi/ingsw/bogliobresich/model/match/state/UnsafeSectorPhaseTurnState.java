@@ -4,6 +4,8 @@
 package it.polimi.ingsw.bogliobresich.model.match.state;
 
 import it.polimi.ingsw.bogliobresich.model.cards.ItemCard;
+import it.polimi.ingsw.bogliobresich.model.commands.Commands;
+import it.polimi.ingsw.bogliobresich.model.commands.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.match.Match;
 import it.polimi.ingsw.bogliobresich.model.match.action.Action;
 import it.polimi.ingsw.bogliobresich.model.match.action.AttackAction;
@@ -11,8 +13,6 @@ import it.polimi.ingsw.bogliobresich.model.match.action.DrawSectorAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.EndPhaseAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.PlayItemAction;
 import it.polimi.ingsw.bogliobresich.model.match.action.UnsafeSectorAction;
-import it.polimi.ingsw.bogliobresich.model.notifications.Commands;
-import it.polimi.ingsw.bogliobresich.model.notifications.MovesAvaiable;
 import it.polimi.ingsw.bogliobresich.model.player.Player;
 
 /**

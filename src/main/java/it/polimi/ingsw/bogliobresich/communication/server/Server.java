@@ -3,9 +3,9 @@
  */
 package it.polimi.ingsw.bogliobresich.communication.server;
 
+import it.polimi.ingsw.bogliobresich.communication.notification.Notification;
 import it.polimi.ingsw.bogliobresich.communication.server.rmi.RMIConnectionServer;
 import it.polimi.ingsw.bogliobresich.communication.server.socket.SocketConnectionServer;
-import it.polimi.ingsw.bogliobresich.model.notifications.Notification;
 
 /**
  * @author matteobresich
